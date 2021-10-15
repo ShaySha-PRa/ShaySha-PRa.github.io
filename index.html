@@ -87,8 +87,6 @@
 		        
 					<a class="google" target="_blank" href="mailto: shaycormac0419@gmail.com" title="google"><i class="icon-google"></i></a>
 		        
-					<a class="ins" target="_blank" href="https://www.instagram.com/pr_toshiki/" title="ins"><i class="icon-ins"></i></a>
-		        
 			</div>
 		</nav>
 	</header>		
@@ -132,8 +130,6 @@
 			        
 						<a class="google" target="_blank" href="mailto: shaycormac0419@gmail.com" title="google"><i class="icon-google"></i></a>
 			        
-						<a class="ins" target="_blank" href="https://www.instagram.com/pr_toshiki/" title="ins"><i class="icon-ins"></i></a>
-			        
 				</div>
 			</nav>
 
@@ -163,6 +159,299 @@
           </div>
           <div id="js-content" class="content-ll">
             
+  
+    <article id="post-COMP211-W2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/14/COMP211-W2/">COMP211-W2</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/14/COMP211-W2/" class="archive-article-date">
+  	<time datetime="2021-10-14T19:53:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Lec2-Application-Layer"><a href="#Lec2-Application-Layer" class="headerlink" title="Lec2  Application Layer"></a>Lec2  Application Layer</h2><h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p><strong>goals</strong>:</p>
+<ul>
+<li>conceptual and implementation aspects of application-layer protocols<ul>
+<li>transport-layer service models</li>
+<li>client-server</li>
+<li>peer-to-peer paradigm</li>
+</ul>
+</li>
+<li>Learn about protocols by examining popular application-layer protocols<ul>
+<li>HTTP</li>
+<li>SMTP, IMAP</li>
+<li>DNS</li>
+</ul>
+</li>
+<li>programming network application<ul>
+<li>socket API</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h3><ul>
+<li>服务器</li>
+<li>客户端</li>
+<li>寻址过程</li>
+<li>点对点结构</li>
+<li>标志符 （identifier）</li>
+<li>进程间通信</li>
+<li>网络协议接口<h3 id="Some-network-apps"><a href="#Some-network-apps" class="headerlink" title="Some network apps"></a>Some network apps</h3><img src="https://pic.imgdb.cn/item/6168964a2ab3f51d913f7653.png" alt="APPSS"></li>
+</ul>
+<p><strong>Creating a network app&amp;</strong></p>
+<p><strong>write programs that:</strong></p>
+<ul>
+<li>run on (different) end systems </li>
+<li>communicate over network</li>
+<li>e.g., web server software communication with browser software</li>
+</ul>
+<p><strong>no need to write software for network-core devices</strong></p>
+<ul>
+<li>network-core devices do not run user applications</li>
+<li>applications on end systems allows for rapid app development, propagation</li>
+</ul>
+<p><strong>Client-server architecture</strong><br><img src="https://pic.imgdb.cn/item/616896df2ab3f51d913fcafa.png" alt="p1"><br><em>serve</em>:<br>服务器</p>
+<ul>
+<li>always-on host</li>
+<li>permanet IP address</li>
+<li>data centers for scaling</li>
+</ul>
+<p><em>clients</em>:<br>客户端</p>
+<ul>
+<li>communicate with server</li>
+<li>may be intermittently connected 可能断断续续连接</li>
+<li>may be have dynamic IP addresses</li>
+<li>do not communicate directly with each other</li>
+</ul>
+<hr>
+<p><strong>Peer-To-Peer architecture</strong>   点对点<br><img src="https://pic.imgdb.cn/item/6168910e2ab3f51d913ca256.png" alt="p1"></p>
+<ul>
+<li>no always-on serve 不一定走服务器</li>
+<li>arbitrary end systems directly communicate 任意端系统之间交流</li>
+<li>peers request service from other peers, provide service in return to other peers      从一个点到另一个点传递性服务<ul>
+<li><em>self scalability–new peers bring new service capacity, as well as new service demands</em><br>自我可伸缩性——新的对等体带来新的服务能力，以及新的服务需求</li>
+</ul>
+</li>
+<li>connected and change IP addresses<ul>
+<li>complex management</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Processes communcating</strong> 实现进程间通信<br><em>process</em>: program running within a host</p>
+<ul>
+<li><p>within same host, two processes communicate using <em>inter-process communication</em>(defined by OS)</p>
+</li>
+<li><p>processes in different hosts communicate by exchanging <em>messages</em></p>
+<blockquote>
+<p>client, servers</p>
+<ul>
+<li>client process: process that initiates communication </li>
+<li>server process: process that waits to be contacted</li>
+</ul>
+</blockquote>
+</li>
+<li><p>note: applications with P2P architecutres have client processes &amp; server processes</p>
+</li>
+</ul>
+<p><strong>Sockets</strong> 网络协议接口</p>
+<ul>
+<li>process sends/receives messages to/from its <em>socket</em></li>
+<li>socket analogous to door<ul>
+<li>sending process shoves message out door</li>
+<li>sending process relies on transport infrastructure on other side of door to deliver message to socket at receiving process</li>
+<li>two sockets involved: one on each side<br><img src="https://pic.imgdb.cn/item/616895052ab3f51d913ec129.png" alt="p1"></li>
+</ul>
+</li>
+</ul>
+<p><strong>Addressing processes</strong></p>
+<!-- 寻址过程 -->
+<ul>
+<li>to receive messages, process must have <em>identifier</em> （标志符）</li>
+<li>host device has unique 32-bit IP address<blockquote>
+<ul>
+<li><em>Q:</em> does IP address of host on which process runs suffice for identifying the process?<ul>
+<li>A: no,many processes can be running on same host</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+</li>
+<li><em>identifier</em> includes both <em>IP address</em> and <em>port numbers</em> associated with process on host.</li>
+<li>example port numbers:<ul>
+<li>HTTP server: 80</li>
+<li>mail server: 25</li>
+</ul>
+</li>
+<li>to send HTTP message to gaia.cs.umass.edu web server:<ul>
+<li><em>IP address:</em> 128.119.245.12</li>
+<li><em>port number:</em> 80</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>An application-layer protocol defines</strong><br>应用层协议</p>
+<ul>
+<li><em>types of messages exchanged,</em><ul>
+<li>e.g., request, reponse</li>
+</ul>
+</li>
+<li><em>message syntax:</em><ul>
+<li>what fields in messages &amp; how fields are delineated</li>
+</ul>
+</li>
+<li><em>message semantics:</em> 信息语义<ul>
+<li>meaning of information in fields</li>
+</ul>
+</li>
+<li><em>rules</em> for when and how processes send &amp; respond to messages</li>
+</ul>
+<p><em>open protocols:</em>  开源协议</p>
+<ul>
+<li>defined in RCFs, everyone has access to protocol defintion</li>
+<li>allows for interoperability</li>
+<li>e.g., HTTP, SMTP</li>
+</ul>
+<p><em>proprietary protocols</em>专用协议</p>
+<ul>
+<li>e.g., Skype</li>
+</ul>
+<p><strong>transport service for app</strong><br><em>data integrity</em></p>
+<ul>
+<li>some apps(e.g, file transfer, web transcations) require 100% reliable data transfer</li>
+<li>other apps(e.g., audio) can tolerate some loss</li>
+</ul>
+<p><em>timing</em></p>
+<ul>
+<li>some apps(e.g., Internet telephony, interactive games) require low delay to be “effective”</li>
+</ul>
+<p><em>throughput</em></p>
+<ul>
+<li>some apps(e.g, multimedia) require minimum amount of throughput to be “effective”</li>
+<li>other apps(“elastic apps”) make use of whatever throughput they get</li>
+</ul>
+<p><em>security</em></p>
+<ul>
+<li>encryption, data integrity, ….</li>
+</ul>
+<p><strong>transport service requirements: common apps</strong><br><img src="https://pic.imgdb.cn/item/6168c7f42ab3f51d916b24bb.png" alt="p1"></p>
+<p><strong>Internet transport protocols service</strong><br><img src="https://pic.imgdb.cn/item/6168c8c52ab3f51d916bce12.png" alt="p1"></p>
+<p><strong>Securing TCP</strong><br>安全协议<br><img src="https://pic.imgdb.cn/item/6168c8c52ab3f51d916bce12.png" alt="p1"></p>
+<hr>
+<h3 id="Web-and-HTTP"><a href="#Web-and-HTTP" class="headerlink" title="Web and HTTP"></a><strong>Web and HTTP</strong></h3><p>First, a quick review…</p>
+<ul>
+<li>web page consists of objects, each of which can be stored on different Web servers</li>
+<li>object can be HTML file, JPEG image, Java applet, audio file,…..</li>
+<li>web page consists of <em>base HTML-file</em> which includes <em>serveral referenced objcets,</em> <em>ecah</em> addressable by a <em>URL,</em> e.g.,</li>
+</ul>
+<p><strong>HTTP overview</strong><br><em>HTTP: hypertext transfer protocol</em></p>
+<ul>
+<li><p>Web’s application layer protocol</p>
+</li>
+<li><p>client/server model: </p>
+<ul>
+<li><em>client:</em> browser that requests, receives, (using HTTP protocol) and “displays” Web objects</li>
+<li><em>server:</em> Web server sends (using HTTP protocol) objects in response to requests<br><img src="https://pic.imgdb.cn/item/6168ce0c2ab3f51d9171e67d.png" alt="p1"></li>
+</ul>
+</li>
+<li><p>continued</p>
+<ol>
+<li>HTTP uses TCP:</li>
+</ol>
+<ul>
+<li>客户端发起TCP连接(创建套接字)到服务器，端口80</li>
+<li>服务器接受从服务器TCP连接</li>
+<li>浏览器(HTTP客户端)和Web服务器(HTTP服务器)之间交换的HTTP消息(应用层协议消息)</li>
+<li>TCP连接关闭了</li>
+</ul>
+<ol start="2">
+<li>HTTp is “stateless”</li>
+</ol>
+<ul>
+<li>服务器没有维护关于过去的客户端请求的信息</li>
+<li>维护“状态”的协议是复杂的!</li>
+<li>过去的历史(状态)必须保持</li>
+<li>如果服务器/客户端崩溃，它们的“状态”视图可能不一致，必须协调<br><img src="https://pic.imgdb.cn/item/6168ce3f2ab3f51d91722632.png" alt="p2"> </li>
+</ul>
+</li>
+<li><p><strong>HTTP connections: two types</strong></p>
+<ul>
+<li><p><em>Non-presistent HTTP</em> </p>
+<ol>
+<li>TCP connection opened 全开放</li>
+<li>at most one object sent over TCP connection 至少一个项目发送TCP连接</li>
+<li>TCP connection closed<br>downloading multiple objects required multiple connections</li>
+</ol>
+<ul>
+<li>Example<br><img src="https://pic.imgdb.cn/item/6168d9722ab3f51d917eaca5.png" alt="example"></li>
+</ul>
+<p>  <img src="https://pic.imgdb.cn/item/6168dbc32ab3f51d91816afb.png" alt="example(cont.)"></p>
+<ul>
+<li>reponse time<br><img src="https://pic.imgdb.cn/item/6168fa762ab3f51d91a8f452.png" alt="response time"></li>
+</ul>
+</li>
+<li><p><em>Persistent  HTTP</em></p>
+<ol>
+<li>TCP connection opened to a server</li>
+<li>multiple objects can be sent over <em>single</em> TCP connection between client, and that serve</li>
+<li>TCP connection closed<br><img src="https://pic.imgdb.cn/item/6168fab52ab3f51d91a9490c.png" alt="HTTP 1.1"></li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/14/COMP211-W2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
   
     <article id="post-COMP207LAB-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -355,7 +644,411 @@
 </ul>
 </li>
 </ul>
-<h3 id="Lec5"><a href="#Lec5" class="headerlink" title="Lec5"></a>Lec5</h3>
+<hr>
+<h3 id="Lec5"><a href="#Lec5" class="headerlink" title="Lec5"></a>Lec5</h3><p><em><strong>Introduction to coursework 1.1 and Use case analysis</strong></em></p>
+<p><strong>Requirements</strong></p>
+<ul>
+<li>Can be functional</li>
+<li>Can be non-functional</li>
+</ul>
+<p><strong>Use cases</strong>:</p>
+<ol>
+<li>Use-Cases are a scenario based technique in the Unified Modeling Language (UML) which identify the actors in an interaction and which describe the interaction itself.</li>
+<li>A set of use-cases should describe all possible interactions with the system.</li>
+<li>Sequence diagrams may be used to add detail to use-cases by showing the sequence of event processing in the system (we shall study sequence diagrams later).</li>
+</ol>
+<ul>
+<li><p>In a use-case diagram, an actor is a user of the system (i.e. Something external to the system; can be human or non-human) acting in a particular role.</p>
+</li>
+<li><p>A use-case is a task which the actor needs to perform with the help of the system, e.g., find details of a book or print a copy of a receipt in a bookshop.</p>
+</li>
+<li><p>Use -&gt; How you use the system</p>
+</li>
+<li><p>Case -&gt; an example</p>
+</li>
+<li><p>Functional modelling of requirements</p>
+</li>
+<li><p>Show the external view of the system</p>
+<ul>
+<li>(Do not model internal processes)</li>
+</ul>
+</li>
+<li><p>Show the system relative to different users of the system</p>
+</li>
+<li><p><strong>Advanced Use Case Diagrams</strong></p>
+<ul>
+<li>We can draw a box(with a label) around a set of use cases to denote the system boundary</li>
+<li>Inheritance can be used between actors to show that all use cases of one actor are available to the other<br>Service -&gt; Bank Staff</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Include Relations</strong></p>
+<ul>
+<li>If several use cases include, as part of their functionality, another use case, we have a special way show this in a use-case diagram</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Extend Relation</strong></p>
+<ul>
+<li>If a use-case has two or more significantly different outcomes, we can show this by <strong>extending</strong> the use case to a <strong>main use case</strong><br>一个用例有两个结果就需要扩展用例</li>
+</ul>
+</blockquote>
+<p><em><strong>In Summary</strong></em></p>
+<ul>
+<li>Include<ul>
+<li>When the other use case is always part of the main use csae<br>其他的用例是主用例的一部分</li>
+</ul>
+</li>
+<li>Extend<ul>
+<li>When the other use case, sometime is needed<br>其他的用例有时需要</li>
+</ul>
+</li>
+</ul>
+<p><strong>Actors(Players)</strong><br>Anything external to the system which the system interacts with</p>
+<ul>
+<li>Can be human <ul>
+<li>Customer</li>
+<li>player</li>
+<li>Driver</li>
+</ul>
+</li>
+<li>Can be non human<ul>
+<li>Sensor</li>
+<li>Payment service</li>
+<li>Geo location</li>
+<li>Robotic arm</li>
+</ul>
+</li>
+<li>Example: ATM machine<ul>
+<li>Actors :<ul>
+<li>Customers</li>
+<li>Bank staff</li>
+<li>ATM service engineer</li>
+</ul>
+</li>
+<li>Use cases<ul>
+<li>Withdraw cash</li>
+<li>check balance</li>
+<li>Add cash to machine</li>
+<li>Check security video recoding</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Full use case template</strong></p>
+<ul>
+<li>ID</li>
+<li>Name</li>
+<li>Description</li>
+<li>Pre-condition</li>
+<li>Event flow</li>
+<li>Post-condition</li>
+<li>Includes</li>
+<li>Extensions</li>
+<li>Triggers</li>
+</ul>
+<p><strong>Notes about use cases</strong></p>
+<ul>
+<li>They do NOT describe internal behaviour</li>
+<li>Must describe behaviour with external Actors</li>
+<li>But external Actor can be<ul>
+<li>External system</li>
+<li>External hardware</li>
+<li>External agency</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Lec-6"><a href="#Lec-6" class="headerlink" title="Lec-6"></a>Lec-6</h2><p>本节重点</p>
+<ul>
+<li>Requirements engineering process</li>
+<li>Requirements elicitation and analysis</li>
+<li>Stakeholder</li>
+<li>Securitys</li>
+</ul>
+<p><strong>Objectives</strong></p>
+<ul>
+<li>To describe the principal requirements enggineering activities and their relationships</li>
+<li>To introduce techniques for <em>requirements elicitation and analysis</em></li>
+<li>To describe <em>requirements validation</em> and the role of requirements reviews</li>
+<li>To discuss the role of <em>requirements management</em> in support of other requirements engineering processes</li>
+</ul>
+<h3 id="Requirements-Engineering-Processes"><a href="#Requirements-Engineering-Processes" class="headerlink" title="Requirements Engineering Processes"></a><strong>Requirements Engineering Processes</strong></h3><ul>
+<li><p>The processes used for requirements engineering vary widely depending on the application domain, the people involved and the organisation developing the requirements.</p>
+</li>
+<li><p>there are a number of generic activities common to all processes which we look at today.</p>
+</li>
+<li><p>The goal of this stage of the software engineering process is to help create and maintain a system <em>requirements doucment</em></p>
+</li>
+<li><ol>
+<li>Requirements elicitation 引出</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Requirements analysis    分析</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Requirements validation  验证</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>Requirements Management  管理</li>
+</ol>
+</li>
+</ul>
+<p><strong>Feasibility Studies</strong></p>
+<ul>
+<li>A <em>feasibility study</em> decides whether or not the proposed system is worthwhile.</li>
+<li>A short focused study that checks<ul>
+<li>if the system contributes to organisational objectives;</li>
+<li>if the system can be engineered using current technology and within budget</li>
+<li>if the system can be integrated with other systems that are used</li>
+<li>is there a simpler way of doing this </li>
+</ul>
+</li>
+</ul>
+<h4 id="Elicitation-and-Analysis"><a href="#Elicitation-and-Analysis" class="headerlink" title="Elicitation and Analysis"></a><strong>Elicitation and Analysis</strong></h4><ul>
+<li><p>Sometimes called <em>requirements elicitation</em> or requirements discovery</p>
+</li>
+<li><p>Involves technical staff working with customers to find out about the <em>applicatin domain, the services that the system should provide</em> and the <em>system’s operational constraints</em></p>
+</li>
+<li><p>May involve end-users, managers, engineers involved in maintenance, domain experts, trade unions,etc. These are called <em>stakeholders</em></p>
+</li>
+<li><p><strong>Problems</strong></p>
+</li>
+<li><p>Stakeholders don’t know what they really want.</p>
+</li>
+<li><p>Stakeholders express requirements in their own terms.</p>
+</li>
+<li><p>Different stakeholders may have conflicting requirements </p>
+<ul>
+<li>Staff -&gt; easy of use</li>
+<li>Management -&gt; highest security</li>
+<li>Patients -&gt; change appointments easily</li>
+<li>management -&gt; plan staff resoucing, reduce costs</li>
+</ul>
+</li>
+<li><p>Organisational and political factors may influence the system requirements (Data proteciton)</p>
+</li>
+<li><p>The requirements change during the analysis process. New stakeholders may emerge and the business environment change.</p>
+</li>
+</ul>
+<h4 id="Requirements-Discovery"><a href="#Requirements-Discovery" class="headerlink" title="Requirements Discovery"></a><strong>Requirements Discovery</strong></h4><ul>
+<li><p>Is hte process of <em>gathering information</em> about the proposed and existing systems and distilling the user and system requirements from this information 收集并提取信息和需求</p>
+</li>
+<li><p>Sources of information include documentation, syste stakerholders and the specifications of similar systems</p>
+</li>
+</ul>
+<p><strong>view point</strong></p>
+<ul>
+<li>以不同角度分析问题</li>
+<li>相对于单一角度分析更为精准</li>
+<li>Identification<ul>
+<li>Providers and receicers of system services;</li>
+<li>Systems that interact directly with the system being specified</li>
+<li>Regulations and standards</li>
+<li>Sources of business and non-functional requirements</li>
+<li>Engineers who have to develop and maintain the system;</li>
+<li>Marketing and other business viewpoints</li>
+</ul>
+</li>
+</ul>
+<p><strong>Interviewing</strong></p>
+<ul>
+<li>In formal or informal interviewing, the RE team puts questions to stakeholders about the system that they use and the system to be developed.</li>
+<li>There are two types of interview<ul>
+<li><em>closed interviews</em> where a pre-defined set of questions are answered</li>
+<li><em>open interviews</em> where there is no pre-defined agenda and a range of issues are explored with stakeholders</li>
+</ul>
+</li>
+<li>Ideally, interviewers should be open-minded, willing to listen to stakenholders and should not have pre-conceived ideas.</li>
+</ul>
+<hr>
+<p><strong>Ethnography</strong></p>
+<ul>
+<li>In <em>ethnography</em>, a social scientist spends a considerable amount of time observing and analysing how people <em>actually work</em></li>
+<li>People do not have to explain or articulate their work</li>
+<li>Social and organisational factors of importance may be observed</li>
+<li>Ethnographic studies have shown that work is usually richer and more complex than suggested by simple system models</li>
+</ul>
+<p><strong>Focused Ethnography</strong></p>
+<ul>
+<li>Developed in a project studying the air traffic control</li>
+<li>Combines <em>ethnography</em> with <em>prototyping</em> </li>
+<li>Prototype development results in unanswered questions which focus the ethnographic analysis</li>
+<li>The problem with ethnography is that it studies existing practices which may have some historical vasis which is no longer relevant</li>
+</ul>
+<hr>
+<p><strong>Security</strong></p>
+<ul>
+<li>Most modern systems have some security requirements<ul>
+<li>Internet</li>
+<li>Systems often control money</li>
+<li>Systems nearly always contain data</li>
+<li>You are Legally required often to keep your system secure</li>
+<li>You could get sued</li>
+</ul>
+</li>
+<li>Security requirements of systems<ul>
+<li>Broken down into 4 main issues</li>
+<li>Confidentiality 机密性<ul>
+<li>Usually two main options<ul>
+<li>Encryption</li>
+<li>Permissions</li>
+</ul>
+</li>
+<li>Data must be kept secure<ul>
+<li>in storage</li>
+<li>on the wire or wireless link</li>
+<li>For as long as reasonably possible</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Integrity 完整性<ul>
+<li>Messages of data must not be modifiable without <ul>
+<li>Knowledge of the change</li>
+</ul>
+</li>
+<li>Integrity approaches<ul>
+<li>CRC Checking(no good, easy to forge check value)</li>
+<li>Hash value over dara + secret value<ul>
+<li>Key distribution problem</li>
+</ul>
+</li>
+<li>Hash value over data, similar problem to CRC</li>
+<li>Hash value encrypted using asymmetric cipher<ul>
+<li>Best approach to data</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Authentication an Authorization   认可和授权<ul>
+<li>Authentication (Who are you)</li>
+<li>Authorization (What are you allowed to do)</li>
+<li>Techniques<ul>
+<li>Usernames, passwords, hardware(cards, dongles),</li>
+</ul>
+</li>
+<li>Often first point of attack</li>
+</ul>
+</li>
+<li>Non-repudiation   不可否认<ul>
+<li>May requires<ul>
+<li>Trusted broker, third party</li>
+<li>Funding in Escrow</li>
+</ul>
+</li>
+<li>Non repudiation is built on <ul>
+<li>Authentication</li>
+<li>Integity</li>
+<li>Recording and time stamping</li>
+<li>Broker style servieces</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>One auxiliary issue<ul>
+<li>Availability  可用性<ul>
+<li>requirements<ul>
+<li>High availability of system</li>
+<li>Specifying in 9s terminology<br>从 onenine 到 six nine 的停机时间越来越短</li>
+</ul>
+</li>
+<li>practise<ul>
+<li>9s  terminology not always useful</li>
+<li>Imagine a computer system</li>
+<li>Three 9s available but unavailability spread as 78 seconds per day</li>
+<li>Or Five 9s available, failing once every 10 years for 50 minutes</li>
+<li>So ideally to need specify<ul>
+<li>Worst case scenarios</li>
+<li>Worst cse delay as well as down time</li>
+<li>How the system can degrade gracefully</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Specifying Security<ul>
+<li>Ideally kept as open as possible to allow for<ul>
+<li>Upgrading of encryption algorithms and protocols</li>
+</ul>
+</li>
+<li>Security policy<ul>
+<li>Shredding documents</li>
+<li>Secure disposal</li>
+<li>Password reset protocols</li>
+<li>Security training</li>
+<li>Security audits</li>
+</ul>
+</li>
+<li>Standards compliance<ul>
+<li>Payment Card Industry Data Security Standard</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Security-logs-and-alerts"><a href="#Security-logs-and-alerts" class="headerlink" title="Security, logs and alerts"></a><em><strong>Security, logs and alerts</strong></em></h4><ul>
+<li>Security is very dependent on knowledge of activity (audits and logs)</li>
+<li>Standard log(recors all logins/logouts, database access reqursts) 标志日志</li>
+<li>Failed login log(records all failed logins)   登录失败日志</li>
+<li>Unusual activity log(high volume transactions on account)     活动异常日志</li>
+<li>Alet log 警报日志</li>
+<li>Alerts<ul>
+<li>unusual activity can be used to alert operators, suspend accounts etc</li>
+</ul>
+</li>
+</ul>
+<h4 id="Bell-LaPadula-model"><a href="#Bell-LaPadula-model" class="headerlink" title="Bell-LaPadula model"></a><em><strong>Bell-LaPadula model</strong></em></h4><ul>
+<li>secutity clearance:<ul>
+<li>Top-Secret(4)</li>
+<li>secret(3)</li>
+<li>Sensitive(2)</li>
+<li>Unclassified</li>
+</ul>
+</li>
+<li>no read-up<ul>
+<li>不能阅读比你高等级的文件</li>
+</ul>
+</li>
+<li>no write-down<ul>
+<li>一个文本不能与另一个安全级别的短文本复制</li>
+<li>在敏感文件中加入秘密信息它将变成秘密信息</li>
+<li>高机密等级不能生成低机密文件</li>
+</ul>
+</li>
+<li>Trusted subjects<ul>
+<li>Can write documents down</li>
+<li>Must be shown trustworthy with regard to the security policy</li>
+</ul>
+</li>
+</ul>
+<h4 id="Requirements-Checking"><a href="#Requirements-Checking" class="headerlink" title="Requirements Checking"></a><strong>Requirements Checking</strong></h4><ul>
+<li>Validity 有效性 是否满足客户需求</li>
+<li>Consistency 一致性 确认是否有需求矛盾</li>
+<li>Completeness 完整性 是否包含客户的所有需求</li>
+<li>Realism 现实性 现有的技术是否能实现</li>
+<li>Verifiability 是否可以检查要求</li>
+</ul>
+<p><strong>Cucumber</strong></p>
+<ul>
+<li>Gives simple and clear notation to write specification</li>
+<li>Analysts/test team and even customers can learn Gherkin and develop feature files</li>
+<li>Step files are produced by development team</li>
+<li>Test data can be changed later Without changing test code</li>
+</ul>
+
       
 
       
@@ -428,7 +1121,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="Lab2-—-Basic-Python-and-Visualisation"><a href="#Lab2-—-Basic-Python-and-Visualisation" class="headerlink" title="Lab2 — Basic Python and Visualisation"></a>Lab2 — Basic Python and Visualisation</h3><p><strong>1.4.1</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">xdata = <span class="number">7</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line">ydata = np.sin(xdata) + <span class="number">0.25</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line">zdata = np.exp(xdata) + <span class="number">0.25</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">9</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># Create 3D container</span></span><br><span class="line">ax = plt.axes(projection = <span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"><span class="comment"># Visualize 3D scatter plot</span></span><br><span class="line">ax.scatter3D(xdata, ydata, zdata)</span><br><span class="line"><span class="comment"># Give labels</span></span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&#x27;z&#x27;</span>)</span><br><span class="line"><span class="comment"># Save figure</span></span><br><span class="line">plt.savefig(<span class="string">&#x27;3d_scatter.png&#x27;</span>, dpi = <span class="number">300</span>, bbox_inches = <span class="string">&#x27;tight&#x27;</span>,</span><br><span class="line">    pad_inches = <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.imgdb.cn/item/61683c7e2ab3f51d91ab78e3.png" alt="alt p1"></p>
+<hr>
+<p><strong>1.4.2</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">100</span>)</span><br><span class="line">y = np.array(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">z=x+y</span><br><span class="line">xLastTen = x[<span class="number">90</span>:]   <span class="comment"># Using array indexing to give the last ten values of z</span></span><br><span class="line"></span><br><span class="line">xUpdate = np.arange(<span class="number">0</span>, <span class="number">1000</span>, <span class="number">10</span>) <span class="comment"># update the code 从 0-1000 分成十步</span></span><br><span class="line"></span><br><span class="line">xDotProduct = x.dot(x) <span class="comment">#Take dot product between x and x</span></span><br><span class="line"></span><br><span class="line">xAsteriskProduct = x * x <span class="comment">#Take (*) product between x and x</span></span><br><span class="line"></span><br><span class="line">xReshape = xUpdate.reshape((<span class="number">10</span>, <span class="number">10</span>)) <span class="comment"># Reshape x so that it is no langer a 100 value array but a 10x10 matrix</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Multiply the first row by 1, the  sceond by 2, the third by3 and so on</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">yNew = np.arange(<span class="number">1</span>,<span class="number">11</span>)</span><br><span class="line">zNew = xReshape * yNew[:, np.newaxis]</span><br><span class="line"><span class="built_in">print</span>(zNew)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Using the matolitlib library to plot each row of this matrix as a single series on the same graph</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">   plt.plot(zNew[i])</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Using the matplotlib library to plot each row of this matrix as a single series on separate sub-plots of the same figure and save this figure as figure1.png</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    ax = plt.subplot(<span class="number">5</span>, <span class="number">2</span>, i + <span class="number">1</span>)</span><br><span class="line">    plt.plot(zNew[i])</span><br><span class="line">plt.show()</span><br><span class="line">plt.savefig(<span class="string">&#x27;figure1.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>Output:<br><img src="https://pic.imgdb.cn/item/616840022ab3f51d91b33d5d.png" alt="alt output"></p>
+<hr>
+<p><img src="https://pic.imgdb.cn/item/61683f992ab3f51d91b2688e.png" alt="alt p1"><br><img src="https://pic.imgdb.cn/item/61683fae2ab3f51d91b290cd.png" alt="alt p2"></p>
+
       
 
       
@@ -721,7 +1423,486 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="Lec-0-Preliminaries"><a href="#Lec-0-Preliminaries" class="headerlink" title="Lec 0 - Preliminaries"></a>Lec 0 - <strong>Preliminaries</strong></h2><p><em><strong>Computer Network</strong></em></p>
+<h3 id="Course-Aims"><a href="#Course-Aims" class="headerlink" title="Course Aims:"></a>Course Aims:</h3><ul>
+<li>To introduce networked computer systems in general and Internet in particular:<ul>
+<li>The basic operating principles</li>
+<li>The design and organization priciples of successful computer networks </li>
+<li>The key protocols and technologies used in the Internet</li>
+</ul>
+</li>
+</ul>
+<h3 id="Learning-Outcomes"><a href="#Learning-Outcomes" class="headerlink" title="Learning Outcomes:"></a>Learning Outcomes:</h3><ul>
+<li>be able to describe and justify the OSI Reference Model and the key protocols that govern the Internet</li>
+<li>be able to program application and protocols for computer networks</li>
+<li>be able to illustrate and debate the use and need of cryptographic techniques in network security</li>
+</ul>
+<h3 id="Assessment"><a href="#Assessment" class="headerlink" title="Assessment"></a><em><strong>Assessment</strong></em></h3><ul>
+<li><strong>Coursework: 30%</strong><ul>
+<li>2 JAVA programming assignments, 10% each<ul>
+<li>A1 Deadline: 21 OCtober 2021</li>
+<li>A2 Deadline: 4 Novermber 2021</li>
+</ul>
+</li>
+<li>1 class test, 10%<ul>
+<li>22 Novermber 2021</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Exam: 70%</strong></li>
+</ul>
+<h2 id="Lec-1"><a href="#Lec-1" class="headerlink" title="Lec 1"></a>Lec 1</h2><ul>
+<li>Chapter goal:<ul>
+<li>Get “feel”, “big picture,” Intruduction to terminology<ul>
+<li>more depth, detail <em>later</em> in course</li>
+</ul>
+</li>
+<li>Approach:<ul>
+<li>use Internet as example</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Overview/roadmap:<ul>
+<li>What is the Internet?</li>
+<li>What is a protocol?</li>
+<li><strong>Network edge</strong>: hosts, access network, physical media</li>
+<li><strong>Network core</strong>: packet/circuit switching, internet structure</li>
+<li><strong>Performace</strong>: loss, delay, throughput</li>
+<li>Security</li>
+<li>Protocol layers, service models</li>
+<li>History</li>
+</ul>
+</li>
+</ul>
+<p><strong>The Internet: a “nuts and bolts” view</strong></p>
+<ul>
+<li>connected computing devices:</li>
+<li>Packet switches</li>
+<li>Communication links</li>
+<li>Networks</li>
+<li>Internet: “network of networks”</li>
+<li>protocols are everywhere</li>
+<li>Internet standards<ul>
+<li>RFC: Request for Comments</li>
+<li>IETF: Internet Engineering Task Force</li>
+</ul>
+</li>
+</ul>
+<p><strong>The Internet: a “service” view</strong></p>
+<ul>
+<li>为应用程序提供服务的基础设施</li>
+<li>Provides <em>programming interface</em> to distributed applications:<ul>
+<li>“hooks” allowing sending/receiving  apps to “connect”to, use  Internet transport service</li>
+<li>provides service options, analogous to postal service</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><em><strong>PROTOCOL</strong></em>协议</p>
+<ul>
+<li><em>Human protocols</em><ul>
+<li>“what’s the time?”</li>
+<li>“I have a questin”</li>
+<li>introductions</li>
+</ul>
+</li>
+<li><em>Network protocols:</em><ul>
+<li>computers(devices) rather than humans</li>
+<li>all communication activity in Internet governed by protocols<br>Protocols define the <em>format</em>, orderof <em>messages sent and received</em> among network entities, and <em>actions taken</em><br>on msg transmission, receipt<br><img src="https://pic.imgdb.cn/item/6168863e2ab3f51d9133c309.png" alt="p1"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>A closer look at Internet structure</strong></p>
+<ul>
+<li><em>Network edge:</em><ul>
+<li>hosts: clients and servers</li>
+<li>servers often in data centers<br><img src="https://pic.imgdb.cn/item/616886bd2ab3f51d913412b2.png" alt="p1"></li>
+</ul>
+</li>
+<li>*Access networks, physical media:<ul>
+<li>wired, wireless communication links<br><img src="https://pic.imgdb.cn/item/616886f52ab3f51d913435b5.png" alt="p2"></li>
+</ul>
+</li>
+<li><em>Network core:</em><ul>
+<li>interconnected routers</li>
+<li>network of networks<br><img src="https://pic.imgdb.cn/item/616887222ab3f51d91345405.png" alt="p3"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Access networks and physical media</strong></p>
+<ul>
+<li>connect end systems to edge router<ul>
+<li>residential access nets</li>
+<li>institutional access networks(school, company)</li>
+<li>mobile sccess networks(WiFi, 4G/5G)</li>
+</ul>
+</li>
+<li>寻找需求：<ul>
+<li>transmission rate(bits per second) of acces network?</li>
+<li>shared or dedicated access among users?<br><img src="https://pic.imgdb.cn/item/616887562ab3f51d913478d9.png" alt="p1"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<ul>
+<li><em>cable-based access</em>:<br>  通过线缆连接从供应商到各户<br>  <img src="https://pic.imgdb.cn/item/616887872ab3f51d91349d77.png" alt="p1"><br>  frequency division multiplexing(FDM): different channels transmitted in different frequency bands<br>  <img src="https://pic.imgdb.cn/item/616887e22ab3f51d9134e844.png" alt="p2"><ul>
+<li>HFC: hybrid fiber coax<ul>
+<li>asymmetric: up to 40 Mbps- 1.2Gbs Gbsdownstream transmission rate, 30-100 Mbps upstream transmission rate</li>
+</ul>
+</li>
+<li>network of cable, fiber attaches homes to ISP router<ul>
+<li>homes <em>share access network</em> to cable headend </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><em>digital subscriber line(DSL)：</em><br>  电话上网<br>  <img src="https://pic.imgdb.cn/item/616888562ab3f51d91353dc3.png" alt="p1"><ul>
+<li>use <em>existing</em> telephone line to central office DSLAM<ul>
+<li>data over DSL phone line goes to Internet</li>
+<li>voice over DSL phone line goes to telephone net</li>
+</ul>
+</li>
+<li>24-52 Mbps dedicated downstream transmission rate </li>
+<li>3.5-16 Mbps dedicated upstream transmission rate</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><em>home networks</em><br><img src="https://pic.imgdb.cn/item/616888942ab3f51d91356ca1.png" alt="p1"><ul>
+<li>Wireless access networks Shared wirelessaccess network connects end system to router<ul>
+<li>via base station aka”access point”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Wireless local area networks</strong><ul>
+<li>typically within or around building(~30 m)</li>
+<li>802.11b/g/n(WiFi): 11, 54, 450 Mbps transmission rate</li>
+</ul>
+</li>
+<li><strong>Wide-area cellular access networks</strong><ul>
+<li>provided by mobile, cellular network operator(10’s)km</li>
+<li>10’s Mbps</li>
+<li>4G cellular networks(5G)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<ul>
+<li><em>enterprise networks</em><br><img src="https://pic.imgdb.cn/item/616888d82ab3f51d9135a99e.png" alt="p1"><ul>
+<li>companies, universities, etc.</li>
+<li>mix of wired, wireless link technologies, connecting a mix of switches and routers (we’ll cover differences shortly)<ul>
+<li>Ethernet” wired access at 100Mbps, 1Gbps, 10Gbps </li>
+<li>WiFi: wireless access points at 11, 54, 450 Mbps </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>Host:</strong> sends <em>packets</em> of data<br>host sending function:</p>
+<ul>
+<li>takes application message</li>
+<li>breaks into smaller chunks, known as packets, of length L bits</li>
+<li>transmits packet into access network at <em>transmission rate R</em><ul>
+<li>link transmission rate, aka link <em>capacity, aka link bandwidth</em></li>
+</ul>
+</li>
+</ul>
+<p><em><strong>delay = L/R</strong></em></p>
+<hr>
+<p><strong>Links: physical media</strong></p>
+<ul>
+<li><em>bit</em>: propagates between transmitter/receiver pairs</li>
+<li><em>physical link:</em></li>
+<li><em>guided media:</em></li>
+<li><em>unguided media:</em></li>
+<li>Twisted pair(TP)网线接口<ul>
+<li>physical media<ul>
+<li><em>Coaxial cable:</em><ul>
+<li>two concentric copper conductors</li>
+<li>bidirectional</li>
+<li>broadband:<ul>
+<li>multiple frequency channels on cable</li>
+<li>100’s Mbps per channel</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Fiber optic cable:</em><ul>
+<li>glass fiber carrying light pulses, each pulse a bit</li>
+<li>high-speed operation:<ul>
+<li>high-speed point-to-point transmission(10’s-100’s Gbps)</li>
+</ul>
+</li>
+<li>low error rate: <ul>
+<li>repeaters spaced far apart </li>
+<li>immune to electromagnetic noise</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Wireless radio:<ul>
+<li>signal carried in electromagnetic spectrum</li>
+<li>no physical “wire”</li>
+<li>propagation environment effects: <ul>
+<li>reflection</li>
+<li>obstruction by objects</li>
+<li>interference</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Radio link types:<ul>
+<li>terrstrial microwave</li>
+<li>Wireless LAN</li>
+<li>wide-area<ul>
+<li>4G cellular: ~ 10’s Mbps</li>
+</ul>
+</li>
+<li>satellite<ul>
+<li>up to 45 Mbps per channel</li>
+<li>270 msec end-end delay</li>
+<li>geosynchronous versus low-earth-orbit</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>The network core</strong></p>
+<ul>
+<li>mesh of interconnected routers</li>
+<li>packet-switching: hosts break application-layer messages into packets<ul>
+<li>forward packetsfrom one router to the next, across links on path from source to destination</li>
+<li>each packet transmitted at full link capacityIntroduction: 1-25mobile networkhome network</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Packet-switching:</strong></p>
+<ol>
+<li>store-and-forward<br><img src="https://pic.imgdb.cn/item/6168892c2ab3f51d9135e337.png" alt="p1"></li>
+</ol>
+<ul>
+<li><em>Transmission delay</em>:takes L/Rseconds to transmit (push out) L-bit packet into link at Rbps 传输延迟等于 L/R</li>
+<li><em>store and forward</em>: entirepacket must  arrive at router before it can be transmitted on next link 一存一进</li>
+<li>End-end delay: 2L/R (above), assuming zero propagation delay (more on delay shortly)  端端延迟</li>
+</ul>
+<ol start="2">
+<li>queueing delay, loss<br><img src="https://pic.imgdb.cn/item/616889732ab3f51d91361996.png" alt="p2"></li>
+</ol>
+<p>*packet queuing and loss: if arrival rate (in bps) to link exceeds transmission rate (bps) of link for a period of time:</p>
+<ul>
+<li>packets will queue, waiting to be transmitted on output link 排队</li>
+<li>packets can be dropped (lost) if memory (buffer) in router fills up 丢包</li>
+</ul>
+<hr>
+<p><strong>Two key network-core functions</strong><br><img src="https://pic.imgdb.cn/item/6168899f2ab3f51d91363c0a.png" alt="p1"></p>
+<ul>
+<li>Forwarding:<ul>
+<li>local: move arriving packets from router’s input link to appropriate router output link</li>
+</ul>
+</li>
+<li>Routing:<ul>
+<li>global <em>action</em>: determine source-destination paths taken by packets</li>
+<li>routing algorithms</li>
+</ul>
+</li>
+</ul>
+<p><strong>Alternative to packet switching: circuit switching</strong><br>end-end resources allocated to, reserved for “call” between source and destination</p>
+<ul>
+<li>in diagram, each link has four circuits.<ul>
+<li>call gets 2nd circuit in top link and 1stcircuit in right link.</li>
+</ul>
+</li>
+<li>dedicated resources: no sharing<ul>
+<li>circuit-like(guaranteed)<br>performance</li>
+</ul>
+</li>
+<li>circuit segment idle if not used by call</li>
+<li>commonly used in trafitional telephone networks<br><img src="https://pic.imgdb.cn/item/616889e02ab3f51d91366e0a.png" alt="FDM and TDM"></li>
+</ul>
+<p><strong>Packet switching versus circuit switching</strong></p>
+<ol>
+<li><em><strong>packet switching allows more users to use network!</strong></em></li>
+<li>circuit switching good at: <ul>
+<li>resource sharing </li>
+<li>simpler, no call setup</li>
+</ul>
+</li>
+<li>excessive congestion possible: packet delay and loss due to buffer overflow<ul>
+<li>protocols needed for reliable data transfer, congestion control</li>
+<li>How to provide circuit-like behavior?<ul>
+<li>bandwidth guarantess traditionally needed for audio/video applications</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>Internet strucutre: a “network of networks”</strong> 由小到大逐渐组成互联网<br><img src="https://pic.imgdb.cn/item/61688a1b2ab3f51d91369cb7.png" alt="p1"></p>
+<ul>
+<li>Hosts connect to Internet via access Internet Service Providers (ISPs)<ul>
+<li>residential, enterprise (company, university, commercial) ISPs</li>
+</ul>
+</li>
+<li>Access ISPs in turn must be interconnected•so that any two hosts can send packets to each other</li>
+<li>Resulting network of networks is very complex•evolution was driven by economicsand national policies</li>
+<li>Let’s take a stepwise approach to describe current Internet structure<br><img src="https://pic.imgdb.cn/item/61688a4d2ab3f51d9136bbe7.png" alt="p2"><br>组成形式</li>
+<li>global ISP</li>
+<li>company ISP</li>
+<li>IXP ( Internet exchange point): to connet each ISP</li>
+<li>peering link</li>
+<li>regional ISP</li>
+<li>access ISP</li>
+</ul>
+<hr>
+<p><em><strong>Packet loss and delay</strong></em><br>packets queue in router buffers</p>
+<ul>
+<li>packets queue, wait for turn</li>
+<li><em>arrival rate to link exceeds output link capacity: packet loss</em><blockquote>
+<p><strong>Packet delay: four sources</strong></p>
+<ul>
+<li><strong>“transmission”, “propagation”, “nodal processing”, “queueing”</strong></li>
+<li>d(nodal) = d(proc) + d(queue) + d(trans) + d(prop)</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><strong>d(proc)</strong>: nodal processing</p>
+<ul>
+<li>check bit errors</li>
+<li>determine output link </li>
+<li>typically &lt; msec</li>
+</ul>
+<p><strong>d(queue)</strong>: queueing delay</p>
+<ul>
+<li>time waiting at output link for transmission</li>
+<li>depends on congestion level of router</li>
+</ul>
+<p><strong>d(tran)</strong>: transmission delay:</p>
+<ul>
+<li>L: packet length(bits)</li>
+<li>R: link transmission rate(bps)</li>
+<li>d(trans) = L/R</li>
+</ul>
+<p><strong>d(prop)</strong>: propagatin delay:</p>
+<ul>
+<li>d: length of physical link</li>
+<li>s: propagation speed </li>
+<li>d(prop) = d/s</li>
+</ul>
+<p><strong>packet loss</strong> 缓冲区无法容纳的就会丢失</p>
+<ul>
+<li>queue(aka buffer) preceding link in buffer has finite capacity</li>
+<li>packet arriving to full queue dropped(aka lost)</li>
+<li>lost packet may be retransmitted by previous node, by source end system, or not at all</li>
+</ul>
+<p><strong>Throughput</strong> 吞吐量</p>
+<ul>
+<li>throughput: rate(bits/time unit) at which bits are being sent from sender to receiver<ul>
+<li>instantaneous: rate at given point in time </li>
+<li>average: rate over longer period of time</li>
+<li>Rs &lt; Rc &amp; Rs &gt; Rc<br>bottleneck link: link on end-end path that constrains end-end throughput</li>
+</ul>
+</li>
+<li>network scenario<ul>
+<li>per-connection end-end throughput: min(Rc,Rs,R/10)</li>
+<li>in practice: Rc or Rs is often bottleneck</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Network-security"><a href="#Network-security" class="headerlink" title="Network security"></a><em><strong>Network security</strong></em></h3><ul>
+<li>field of network security:<ul>
+<li>under attacks</li>
+<li>defend attacks</li>
+<li>immune to attacks</li>
+</ul>
+</li>
+<li>Internet not originally designed with(much) security in mind<ul>
+<li>起初的互联网比较封闭安全</li>
+<li>protocol designers playing “cathc-up”</li>
+<li>security considerations in all layers<h3 id="Bad-guys"><a href="#Bad-guys" class="headerlink" title="Bad guys"></a>Bad guys</h3></li>
+</ul>
+</li>
+</ul>
+<p><strong>malware</strong></p>
+<ul>
+<li><p>virus:self-replicating infection by receiving/executing  object (e.g., e-mail attachment)</p>
+</li>
+<li><p>worm: self-replicating infection by passively receiving object that gets itself executed</p>
+</li>
+<li><p>spyware malware can record keystrokes, web sites visited, upload info to collection site</p>
+</li>
+<li><p>infected host can be enrolled in  botnet,used for spam or distributed denial of service  (DDoS) attacks</p>
+</li>
+</ul>
+<p><strong>denial of service</strong><br>Denial of Service(Dos): attackers make resources (server, bandwidth) unavailable to legitimate traffic by overwhelming resource with bogus traffic</p>
+<ol>
+<li>select target</li>
+<li>break into hosts</li>
+<li>send packets to target from compromised hosts</li>
+</ol>
+<p><strong>packet interception</strong><br>packet “sniffing”</p>
+<ul>
+<li>broadcast media(shared Ethernet, wireless)</li>
+<li>promiscuous network interface reads/records all packets(e.g.,including passwords!) passing by</li>
+</ul>
+<p><strong>fake identity</strong><br>IP spoofing: send packet with false source address</p>
+<hr>
+<h3 id="Protocol-“layers”-and-reference-models"><a href="#Protocol-“layers”-and-reference-models" class="headerlink" title="Protocol “layers” and reference models"></a><em><strong>Protocol “layers” and reference models</strong></em></h3><ul>
+<li>Networks are complex, with many “pieces”:<ul>
+<li>hosts</li>
+<li>routers</li>
+<li>links of various media</li>
+<li>applications</li>
+<li>protocols</li>
+<li>hardware, software</li>
+</ul>
+</li>
+</ul>
+<h3 id="Internet-protocol-stack"><a href="#Internet-protocol-stack" class="headerlink" title="Internet protocol stack"></a>Internet protocol stack</h3><ul>
+<li>application</li>
+<li>treansport</li>
+<li>network</li>
+<li>link</li>
+<li>physical</li>
+</ul>
+<p><strong>ISO/OSI reference model</strong></p>
+<ul>
+<li>presentation: allow applications to interpret meaning of data, e.g., encryption, compression, machine-specific conventions</li>
+<li>session: synchronization, checkpointing, recovery of data exchange</li>
+<li>Internet statck “missing” these layers!<br><img src="https://pic.imgdb.cn/item/616884b62ab3f51d9132b895.png" alt="p1"></li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/616884f02ab3f51d9132dec9.png" alt="p2"></p>
+<ul>
+<li><strong>Internet history</strong><br><img src="https://pic.imgdb.cn/item/616885322ab3f51d91330c9d.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/616885662ab3f51d91333416.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/616885992ab3f51d91335861.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/616885c02ab3f51d913375dc.png" alt="p4"><br><img src="https://pic.imgdb.cn/item/616885e72ab3f51d913393e1.png" alt="p5"></li>
+</ul>
+
       
 
       
@@ -1063,7 +2244,348 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="Lec-5"><a href="#Lec-5" class="headerlink" title="Lec-5"></a>Lec-5</h3><p><strong>introduction for numpy</strong></p>
+<ul>
+<li>正态分布<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = random.normal(size=(<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>三个参数</p>
+<blockquote>
+<ol>
+<li>loc - 平均值</li>
+<li>scale - 标准偏差</li>
+<li>size - 返回数组形状</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>Vector operations</p>
+<ul>
+<li>inner</li>
+<li>outer</li>
+<li>dot<?python
+import numpy as np
+a  = np.random.random((2,3)) 
+print(a)
+print(a.sum())
+print(a.cumsum())
+print(a.cumsum(axis = 1))</li>
+</ul>
+</li>
+<li><p>sum 让所有的数加起来</p>
+</li>
+<li><p>cumsum 逐行逐个相加返回一维矩阵</p>
+</li>
+<li><p>～～～～～～ 设定参数返回n+1维矩阵</p>
+</li>
+<li><p><strong>Slicing array</strong> 切片矩阵</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = np.random.random((<span class="number">4</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">a[<span class="number">2</span>, :] <span class="comment">#third row, all columns</span></span><br><span class="line">a[<span class="number">1</span>:<span class="number">3</span>] <span class="comment"># 2nd, 3rd row, all columns</span></span><br><span class="line">a[:, <span class="number">2</span>:<span class="number">4</span>] <span class="comment"># all rows, columns 3 and 4</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>Iterating over arrays</strong></p>
+<ul>
+<li>Iterating over multidimensional arrays is done with respect to first axis: for row in A</li>
+<li>Looping over all elements: for element in A.flat</li>
+</ul>
+</li>
+<li><p><strong>Reshapping</strong></p>
+<ul>
+<li>Reshape<ul>
+<li>using reshape. Total size must remain the same</li>
+</ul>
+</li>
+<li>Resize<ul>
+<li>using resize, always works: chopping or appending zeros</li>
+<li>First dimension has ‘priority’, so beware of unexpected results</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Linear algebra</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.linalg</span><br><span class="line"></span><br><span class="line">qr  <span class="comment"># computes the QR decomposition</span></span><br><span class="line">cholesky    <span class="comment"># computes the cholesky decomposition</span></span><br><span class="line">inv(A)  <span class="comment"># Inverse</span></span><br><span class="line">solve(A,b)  <span class="comment"># Solves Ax = b for Ax = b for A full rank</span></span><br><span class="line">lstsq(A,b)  <span class="comment"># Solves argminx||Ax-b||2</span></span><br><span class="line">eig(A)  <span class="comment"># Eigenvalue decomposition 特征值分解</span></span><br><span class="line">eig(A)  <span class="comment"># Eigenvalue decomposition for symmetric or hermitian 对称或厄密矩阵的特征值分解</span></span><br><span class="line">eigvals(A)  <span class="comment">#Computer eigenvalues 计算特征值</span></span><br><span class="line">svd(A, full)    <span class="comment">#singular value decomposition</span></span><br><span class="line">pinv(A)     <span class="comment">#computes pseudo-inverse of A 计算A的伪逆</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p><strong>Fourier transform</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.fft</span><br><span class="line">fft <span class="comment"># 1-dimensional DFT</span></span><br><span class="line">fft2 <span class="comment"># 2-dimensional DFT</span></span><br><span class="line">fftn <span class="comment"># n-dimensional DFT</span></span><br><span class="line">ifft <span class="comment"># 1-dimensional inverse DFT</span></span><br><span class="line">rfft <span class="comment"># Real DFT(1-dim)</span></span><br><span class="line">ifft <span class="comment"># Imaginary DFT(1-dim)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Random sampling</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.random</span><br><span class="line">    rand(d0,d1,.....,dn) <span class="comment"># Random values in a given shape</span></span><br><span class="line">    randn(d0,d1,.....,dn) <span class="comment"># Random standard normal</span></span><br><span class="line">    randint(lo,hi,size) <span class="comment"># Random integers [lo,ji)</span></span><br><span class="line">    choice(a,size,repl,p) <span class="comment"># Sample from a</span></span><br><span class="line">    shuffle(a) <span class="comment"># Permutation(in-place)</span></span><br><span class="line">    permutation(a)  <span class="comment"># Permutation(new array)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><em>distributions in random</em></p>
+<ul>
+<li>beta</li>
+<li>binomial</li>
+<li>chisquare</li>
+<li>exponential</li>
+<li>dirichlet</li>
+<li>gamma</li>
+<li>laplace</li>
+<li>lognormal</li>
+<li>pareto</li>
+<li>power</li>
+</ul>
+</li>
+<li><p><strong>SciPy</strong><br>A library of algorithms and mathe matical tools bulit to work with NumPy arrays.</p>
+</li>
+<li><p>linear algebra - scipy.linalg</p>
+<ul>
+<li>cloud faster than numpy.linalg</li>
+<li>some more function</li>
+<li>slightly different</li>
+</ul>
+</li>
+<li><p>statistics - scipy.stats</p>
+<ul>
+<li>Mean, median, mode, variance, kurtosis</li>
+<li>Pearson correlation coefficient</li>
+<li>Hypothesis test</li>
+<li>Gaussian kernel density estimation</li>
+</ul>
+</li>
+<li><p>optimization - scipy.optimize</p>
+<ul>
+<li>General purpose minimization: CG, BFGS, least-squares</li>
+<li>Constrained minimization; non-negative least-squares</li>
+<li>Minimize using simulated annealing</li>
+<li>Scalar function minimization</li>
+<li>Root finding</li>
+<li>Check gradient function Line search</li>
+</ul>
+</li>
+<li><p>sparse matrices - scipy.sparse</p>
+<ul>
+<li>Sparse matrix classes: CSC,CSR, etc</li>
+<li>Functions to build sparse matrices</li>
+<li>sparse.linalg module for sparse linear algebra</li>
+<li>sparse.csgraph for sparse graph routines</li>
+</ul>
+</li>
+<li><p>signal processing - scipy.signal</p>
+<ul>
+<li>Convolutions</li>
+<li>B-splines</li>
+<li>Filtering</li>
+<li>Continuous-time linear system</li>
+<li>Wavelets</li>
+<li>Peak finding</li>
+</ul>
+</li>
+<li><p>etc</p>
+</li>
+<li><p><strong>Matplotlib</strong></p>
+<ul>
+<li>Plotting library for Python</li>
+<li>Works well with Numpy</li>
+<li>Syntax similar to Matlab</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Scatter Plot</strong><br>adding titles and labels -&gt; adding multiple lines and legend</li>
+</ul>
+<p>adding multiple lines and legend</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line">y = np.power(x, <span class="number">2</span>)</span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><strong>Seaborn makes plot pretty</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pylot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line">y = np.power(x, <span class="number">2</span>)</span><br><span class="line">plt.plot（x, y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>Histogram</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data = np.random.randn(<span class="number">1000</span>)</span><br><span class="line">f, (ax1,ax2) = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">6.3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># histogram(pdf)</span></span><br><span class="line">ax1.hist(data, bins=<span class="number">30</span>, normed=<span class="literal">True</span>, color = <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># empirical cdf</span></span><br><span class="line">ax2.hist(data, bins=<span class="number">30</span>, normed=<span class="literal">True</span>, color=<span class="string">&#x27;r&#x27;</span>, cumulative=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">plt.savefig(<span class="string">&#x27;histogram.pdf&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Box Plot</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">samp1 = np.random.normal(loc=<span class="number">0.</span>, scale=<span class="number">1.</span>, size=<span class="number">100</span>)</span><br><span class="line">samp2 = np.random.normal(loc=<span class="number">1.</span>, scale=<span class="number">2.</span>, size=<span class="number">100</span>)</span><br><span class="line">samp3 = np.random.normal(loc=<span class="number">0.3</span>, scale=<span class="number">1.2</span>, size=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">f, ax = plt.subplots(<span class="number">1</span>, <span class="number">1</span>, figsize=(<span class="number">5</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">ax.boxplot((samp1, samp2, samp3))</span><br><span class="line">ax.set_xticklabels([<span class="string">&#x27;sample1&#x27;</span>, <span class="string">&#x27;sample2&#x27;</span>, <span class="string">&#x27;sample3&#x27;</span>])</span><br><span class="line">plt.savefig(<span class="string">&#x27;boxplot.pdf&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Image Plot</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A = np.random.random((<span class="number">100</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">plt.imshow(A)</span><br><span class="line">plt.hot()</span><br><span class="line">plt.colorbar()</span><br><span class="line"></span><br><span class="line">plt.savefig(<span class="string">&#x27;imageplot.pdf&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Wire Plot</strong><br>matplotlib toolkits extend funtionality for other kinds of visualization</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> axes3d</span><br><span class="line"></span><br><span class="line">ax = plt.subplot(<span class="number">111</span>, projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line">X, Y, Z = axes3d.get_test_data(<span class="number">0.1</span>)</span><br><span class="line">ax.plot_wireframe(X, Y, Z, linewidth=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">plt.saveifg(<span class="string">&#x27;wire.pdf&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><em><strong>scikit-learn algorithm cheat-sheet</strong></em><br><img src="https://pic.imgdb.cn/item/616833932ab3f51d9198042e.png" alt="alt p1"></p>
+<p><img src="https://pic.imgdb.cn/item/616833e12ab3f51d9198af64.png" alt="alt p2"></p>
+<h3 id="Lec-6"><a href="#Lec-6" class="headerlink" title="Lec-6"></a>Lec-6</h3><h4 id="Decision-Tree"><a href="#Decision-Tree" class="headerlink" title="Decision Tree"></a><em><strong>Decision Tree</strong></em></h4><ul>
+<li>the decision tree representation</li>
+<li>the standard top-down approach to learning a tree</li>
+<li>Occam’s razor</li>
+<li>entropy and information gain</li>
+<li>types of decision-tree splits</li>
+</ul>
+<p><strong>A decision tree to predict heart disease</strong><br><img src="https://pic.imgdb.cn/item/616834ea2ab3f51d919b1da6.png" alt="alt p1"></p>
+<p><strong>Decision tree exercise</strong></p>
+<ul>
+<li>Suppose X1…X5 are Boolean features, and Y is also Boolean </li>
+<li>How would you represent the following with decision trees?</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/6168359e2ab3f51d919ca965.png" alt="alt p1"></p>
+<blockquote>
+<ul>
+<li>Y = X<sub>2</sub>X<sub>5</sub> any of them is false then it is false<br><img src="https://pic.imgdb.cn/item/616835f82ab3f51d919d5d04.png" alt="alt p2"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Y = X<sub>2</sub>vX<sub>5</sub> any of them is true then it is true<br><img src="https://pic.imgdb.cn/item/616836cf2ab3f51d919f3157.png" alt="alt p3"></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Exercise:</p>
+<ul>
+<li>Y = X<sub>2</sub>X<sub>5</sub>vX<sub>3</sub>-|X<sub>1</sub><br><img src="https://pic.imgdb.cn/item/6168390f2ab3f51d91a45a71.jpg" alt="alt p1"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Lec-7-Decision-Tree"><a href="#Lec-7-Decision-Tree" class="headerlink" title="Lec-7 Decision Tree"></a>Lec-7 Decision Tree</h3><h4 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h4><ul>
+<li>A general top-down algorithm</li>
+<li>How to do splitting on numeric features</li>
+<li>Occam’s razor</li>
+</ul>
+<blockquote>
+<p>History of decision tree learning<br><img src="https://pic.imgdb.cn/item/6168410e2ab3f51d91b5a2a0.png" alt="alt p1"></p>
+<ul>
+<li>Decision tree learning algorithms</li>
+</ul>
+</blockquote>
+<ul>
+<li><em>ID3</em>, or Iterative Dichotomizer<ul>
+<li>one property is tested on each node of the tree </li>
+<li>maximzing information gain</li>
+</ul>
+</li>
+<li>CART, or Classification and Regression Trees (回归树)<ul>
+<li>binary trees</li>
+<li>splits are selected using the twoing criteria</li>
+</ul>
+</li>
+<li>C4.5, improved version on ID3</li>
+</ul>
+<p><strong>Decision tree learning algorithms</strong><br><img src="https://pic.imgdb.cn/item/616841f92ab3f51d91b7c2fc.png" alt="alt p1"></p>
+<h4 id="Top-down-decision-tree-learning"><a href="#Top-down-decision-tree-learning" class="headerlink" title="Top-down decision tree learning"></a><strong>Top-down decision tree learning</strong></h4><p><img src="https://pic.imgdb.cn/item/616842892ab3f51d91b9064e.png" alt="alt p1"></p>
+<p><em><strong>Step(1): FindBestSplit</strong></em><br><strong>Candidate splits on numeric features</strong></p>
+<ul>
+<li>given a set of training instances D and a specific feature X<sub>i</sub><ul>
+<li>sort the values of X<sub>i</sub> in D</li>
+<li>evaluate split thresholds in intervals between instances of different classes<br><img src="https://pic.imgdb.cn/item/616843732ab3f51d91bb0b2f.png" alt="alt p1"></li>
+</ul>
+</li>
+<li>could use midpoint of each considered interval as the threshold </li>
+<li>C4.5 instead picks the largest value of X<sub>i</sub> in the entire training set that does not exceed the midpoint</li>
+<li><em>In more detail</em><br><img src="https://pic.imgdb.cn/item/6168440d2ab3f51d91bc7258.png" alt="alt p2"></li>
+<li><em>Example</em><br><img src="https://pic.imgdb.cn/item/616844962ab3f51d91bdc655.png" alt="alt p3"></li>
+<li>Candidate splits<ul>
+<li>instead of using k-way splits for k-valued features, could require binary splits on all discrete features(CART does this)<br><img src="https://pic.imgdb.cn/item/616845612ab3f51d91bfdeac.png" alt="alt p4"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><em><strong>Step(2): DetermineCandidateSplit</strong></em></p>
+<ul>
+<li><p>Finding the best split</p>
+<ul>
+<li><p>How should we select the best feature to split on at each step</p>
+</li>
+<li><p>Key hypothesis: the simplest tree that classifies the training instances accurately will well on perviously unseen instances</p>
+</li>
+<li><p>Can we find and return the smallest possible decision tree that accurately classifies the training set?<br>  <strong>This is an NP-hard problem</strong></p>
+</li>
+<li><p>Instead, we’ll use an information-theoretic heuristics to greedily choose splits</p>
+</li>
+</ul>
+</li>
+<li><p>Occam’s razor</p>
+<ul>
+<li>attributed to 14th century William of Ockham<br><img src="https://pic.imgdb.cn/item/616846992ab3f51d91c2dddf.png" alt="alt p1"></li>
+<li>“when you have two competing theories that make exactly the same predictions, the simpler one is the better”<br><img src="https://pic.imgdb.cn/item/616847092ab3f51d91c4177a.png" alt="alt p1"></li>
+</ul>
+</li>
+<li><p>Occam’s razor and decision trees</p>
+<ul>
+<li>Why is Occam’s razor a reasonable heuristic for decison tree leaning?<ul>
+<li>there are fewer short models(i.e. small trees) than long ones</li>
+<li>a short model is unlikely to fit the training data well by chance</li>
+<li>a long model is more likeky to fit the training data well coincidentally</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Recap: Expected Value(Finite Case)</p>
+<ul>
+<li>Let X be a random variable with a finite number of finite outcomes X<sub>1</sub>,X<sub>2</sub>,….,X<sub>k</sub> occurring with probability P<sub>1</sub>,P<sub>2</sub>,…..,P<sub>k</sub>, respectively. The expectation of X is defined as<br><img src="https://pic.imgdb.cn/item/616849182ab3f51d91c9e16a.png" alt="alt p1"></li>
+<li>Expectation is a weighted average</li>
+<li>Example<br><img src="https://pic.imgdb.cn/item/616849592ab3f51d91ca9131.png" alt="alt p2"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Lec-8-Decision-Tree"><a href="#Lec-8-Decision-Tree" class="headerlink" title="Lec-8 Decision Tree"></a>Lec-8 Decision Tree</h3><h4 id="Topics"><a href="#Topics" class="headerlink" title="Topics"></a>Topics</h4><ul>
+<li>Entropy and information gain</li>
+<li>Types of decision-tree splits</li>
+</ul>
+<p><strong>Recap: Expected Value Example</strong><br><img src="https://pic.imgdb.cn/item/616849592ab3f51d91ca9131.png" alt="alt p1"></p>
+<p><strong>Information theory background</strong></p>
+<ul>
+<li>consider a problem in which you are using a code to communicate information to receiver</li>
+<li>Example: as bikes go past, you are communicating the manufacturer of each bike<br><img src="https://pic.imgdb.cn/item/61684bfa2ab3f51d91d0ef17.png" alt="alt p1"></li>
+<li>suppose there are only four types of bikes</li>
+<li>we colud use the following code<br><img src="https://pic.imgdb.cn/item/61684c6c2ab3f51d91d1e2fb.png" alt="alt p2"></li>
+<li>expected number of bits we have to communicate<ul>
+<li>2 bits/bike</li>
+</ul>
+</li>
+<li>we can do better if the bike types aren’t equiprobable<br><img src="https://pic.imgdb.cn/item/61684d052ab3f51d91d3214e.png" alt="alt p3"></li>
+<li>expected number of bits we have to communicate<br><img src="https://pic.imgdb.cn/item/61684d6a2ab3f51d91d3e996.png" alt="alt p4"></li>
+<li>optimal code uses -log<sub>2</sub>P(y) bits for event with probability P(y)</li>
+</ul>
+<p><em><strong>Entropy</strong></em></p>
+<ul>
+<li><p>entropy is measure of uncertainty assocaited with a random variable</p>
+<!-- 熵是与随机变量相关的不确定性的度量 --></li>
+<li><p>defined as the expected numebr of bits required to communicate the value of the variable</p>
+<!-- 定义为传递变量值所需的预期比特数 -->
+<ul>
+<li>entropy function for binary variable<br><img src="https://pic.imgdb.cn/item/61684e342ab3f51d91d575dc.png" alt="alt p1"></li>
+</ul>
+</li>
+<li><p><strong>Conditional entropy</strong> </p>
+<!-- 条件熵 --></li>
+<li><p>quantifies the amount of information needed to describe the outcome of a random variable given that the value of another random variable is known.</p>
+<!-- 在已知另一个随机变量的值的情况下，量化描述一个随机变量的结果所需要的信息量。 --></li>
+<li><p>Whats the entropy of Y if we condition on some other variable X?<br><img src="https://pic.imgdb.cn/item/61684fdd2ab3f51d91d8b569.png" alt="alt p2"></p>
+</li>
+<li><p>Example<br><img src="https://pic.imgdb.cn/item/616850412ab3f51d91d981c3.png" alt="alt p3"><br><img src="https://pic.imgdb.cn/item/616850672ab3f51d91d9d0d1.png" alt="alt p4"><br><img src="https://pic.imgdb.cn/item/616850932ab3f51d91da2dfd.png" alt="alt p5"><br><img src="https://pic.imgdb.cn/item/616850b52ab3f51d91da783d.png" alt="alt p6"></p>
+</li>
+<li><p>Information gain</p>
+<ul>
+<li><p>choosing splits in ID3: select the split that <em>most reduces</em> the conditional entropy of Y for training set D<br><img src="https://pic.imgdb.cn/item/616851132ab3f51d91db4328.png" alt="alt p1"></p>
+</li>
+<li><p>example</p>
+<ul>
+<li>What’s the information gain of splitting on Humidity?<br><img src="https://pic.imgdb.cn/item/616852002ab3f51d91dd7435.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/616852722ab3f51d91df03c5.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/616852a52ab3f51d91dfc561.png" alt="p4"><br><img src="https://pic.imgdb.cn/item/616852db2ab3f51d91e06e36.png" alt="p5"><br><img src="https://pic.imgdb.cn/item/616853162ab3f51d91e0eff9.png"></li>
+</ul>
+</li>
+<li><p><strong>One limitation of information gain</strong></p>
+<ul>
+<li>information gain is biased towards tests with many outcomes</li>
+<li>e.g. consider a feature that uniquely identifies each training instace<ul>
+<li>splitting on this feature would result in many branches, each of which is “pure” (has instances of only one class) </li>
+<li>maximal information gain! </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Relations between the concepts</strong><br><img src="https://pic.imgdb.cn/item/6168514d2ab3f51d91dbba11.png" alt="alt p1"><br><img src="https://pic.imgdb.cn/item/616850412ab3f51d91d981c3.png" alt="alt p2"></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="Gain-Ratio"><a href="#Gain-Ratio" class="headerlink" title="Gain Ratio"></a>Gain Ratio</h4><ul>
+<li><p>to address this limitation, C4.5 uses a splitting criterion called gain ratio</p>
+</li>
+<li><p>gain ratio normalizes the information gain by the entropy of the split being considered<br><img src="https://pic.imgdb.cn/item/6168549f2ab3f51d91e51146.png"></p>
+</li>
+<li><p>Exercise</p>
+<ul>
+<li>Compute the following:<br>  GainRatio(D, Humidity)=<br>  GainRatio(D, W ind)=<br>  GainRatio(D, Outlook)=</li>
+</ul>
+</li>
+</ul>
+
       
 
       
@@ -1087,301 +2609,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/09/27/COMP219/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-COMP201" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/27/COMP201/">COMP201</a>
-    </h1>
-  
-
-        
-        <a href="/2021/09/27/COMP201/" class="archive-article-date">
-  	<time datetime="2021-09-27T13:38:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p><strong>General Introducton</strong></p>
-<hr>
-<h2 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h2><ul>
-<li><p>   本节主要介绍 程序设计的步骤和软件周期 </p>
-</li>
-<li><p>   同时引进了四种软件设计模型    <em><strong>落水式开发， 演化式开发， 敏捷开发， 增量开发</strong></em>       </p>
-</li>
-</ul>
-<blockquote>
-<p>Process</p>
-<blockquote>
-<ul>
-<li>Major activities</li>
-<li>Intermediate and final products</li>
-<li>Sub-processes and has entry and exit criteria</li>
-<li>Organized in a sequence</li>
-</ul>
-</blockquote>
-</blockquote>
-<h3 id="Process-Building-development"><a href="#Process-Building-development" class="headerlink" title="Process Building development"></a><em><strong>Process Building development</strong></em></h3><p><img src="" alt="alt p1"></p>
-<ul>
-<li>lec2 p8</li>
-</ul>
-<h3 id="Software-life-cycle"><a href="#Software-life-cycle" class="headerlink" title="Software life cycle"></a><em><strong>Software life cycle</strong></em></h3><blockquote>
-<ul>
-<li><strong>Sepcifying</strong></li>
-<li><strong>Designing</strong></li>
-<li><strong>Implementing</strong></li>
-<li><strong>Testing Software System</strong></li>
-</ul>
-</blockquote>
-<h3 id="Software-Process-Models"><a href="#Software-Process-Models" class="headerlink" title="Software Process Models"></a><em><strong>Software Process Models</strong></em></h3><blockquote>
-<ul>
-<li><strong>The Water fall model</strong></li>
-<li><strong>Evolutionary Development</strong></li>
-<li><strong>Agile and Scrum</strong></li>
-</ul>
-</blockquote>
-<h3 id="The-Water-fall-model"><a href="#The-Water-fall-model" class="headerlink" title="+ The Water fall model*"></a>+ <strong>The Water fall model</strong>*</h3><p><img src="" alt="alt p2"><br>lec2-p12</p>
-<ul>
-<li><em>Waterfall Model Problems</em><ul>
-<li><em>Inflexible partitioning</em> of the project into distinct stages </li>
-<li>difficult to respond to changing customer requirements</li>
-<li>onky apply for requirements which are <em>well-understood</em></li>
-<li><em>describes a process of stepwise refinement</em><ul>
-<li>Based on hardware engineering models</li>
-<li>Widely used in military and aerospace industries</li>
-</ul>
-</li>
-<li><em>Reality check</em></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><em>Evolutionary Development</em></p>
-<ul>
-<li>On idea of developing an <strong>initial implementation</strong></li>
-<li><em><strong>Exploratory development</strong></em><ul>
-<li>Objective is to worl with CUSTOMEERS &lt;=&gt; evolve a final system from an initial outline specification</li>
-<li>Start with <strong>well-understood requirements</strong></li>
-<li>System evolves by adding newe features as they are proposed by customer.</li>
-</ul>
-</li>
-<li><em>Problem</em><ul>
-<li>Lack of <strong>process visibility</strong></li>
-<li>System are sometimes <em><strong>poorly structured</strong></em></li>
-</ul>
-</li>
-<li>Applicability<ul>
-<li>All types of system but rare in safety critical</li>
-</ul>
-</li>
-<li>Reality check<ul>
-<li>所有现代开发都采用这种方式但是是混合的形式</li>
-<li>大多数情况下规范在最开始进行， 后续进行补全</li>
-<li>周期先确定100个功能 后续分部分完成<br><img src="" alt="alt p3"><br>lec2-p16</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><em>Agile development</em> 轻量化 便捷 可以自己维护</p>
-<ul>
-<li>Lightweight approach to software development 轻量级软件开发</li>
-<li>Focused on<ul>
-<li>Code development as code activity</li>
-<li>Test driven development </li>
-<li>Often use pair proframming</li>
-<li>Iterative decelopment</li>
-<li>Self organised teams</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><em>Increment Development</em></p>
-<ul>
-<li>broken down into increments =&gt; 每一片实现一个需求功能</li>
-<li><strong>User requirements are prioritised</strong></li>
-<li><strong>Once the development of an increment is started, the requirements are frozen</strong></li>
-<li><em>advantages</em><ul>
-<li><strong>Customer value</strong> =&gt; increment =&gt; system functionality is available earlier</li>
-<li><strong>Early increments</strong> =&gt; prototype =&gt; elicit requirements for later increments</li>
-<li><strong>Lower risk of overall project failure</strong></li>
-<li><strong>The highest priotity system services</strong> tend to receive the most testing</li>
-</ul>
-</li>
-<li>In reality<ul>
-<li>Most software processes involve<ul>
-<li>Prototyping</li>
-<li>Iterative building</li>
-</ul>
-</li>
-<li>why<ul>
-<li>降低程序开发风险</li>
-<li>允许软件经受更多测试</li>
-<li>随着程序开发建设库存损失机会</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="Lecture-3"><a href="#Lecture-3" class="headerlink" title="Lecture 3"></a>Lecture 3</h2><p><strong>This lecture</strong></p>
-<ul>
-<li>Requirements engineering and specification</li>
-<li>Software design</li>
-<li>Programming, testing and debugging</li>
-<li>Software Evolution</li>
-</ul>
-<h3 id="software-Specification"><a href="#software-Specification" class="headerlink" title="software Specification"></a><strong>software Specification</strong></h3><ul>
-<li><em>The process of establishing</em> =&gt; 确定需要哪些服务以及系统运行和开发的约束条件</li>
-<li>Requirements Engineering Process<ul>
-<li>Feasibility study</li>
-<li>Requirements elicitation and analysis</li>
-<li>Requirements specification </li>
-<li>Requirements validation</li>
-</ul>
-</li>
-</ul>
-<p><em><strong>The Requirements Engineering Process</strong></em><br><img src="" alt="alt p2"><br>lec3-p4<br><strong>由此我们总结出程序设计的设计分类和设计思想</strong></p>
-<blockquote>
-<p>Design</p>
-<blockquote>
-<ul>
-<li>Architechtural design</li>
-<li>Abstract Specification</li>
-<li>Interface design</li>
-<li>Component design</li>
-<li>Data Structure Design</li>
-<li>Algorithm</li>
-</ul>
-</blockquote>
-</blockquote>
-<ul>
-<li><em>Example System</em><ul>
-<li>Coffee machine</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>Method<br>Systematic approaches to developing a software design</p>
-<blockquote>
-<ul>
-<li>Data-flow model</li>
-<li>Entity-realtion-attribute model</li>
-<li>Structural model</li>
-<li>Object models</li>
-<li>A state transition model showing system states and triggers</li>
-</ul>
-</blockquote>
-</blockquote>
-<p><em><strong>Programming and Debugging</strong></em></p>
-<blockquote>
-<ul>
-<li>design =&gt; program &amp; removing errors</li>
-<li>Programming is usually personal activity</li>
-<li>Programmers carry out some program testing</li>
-</ul>
-</blockquote>
-<p><em><strong>The testing Process</strong></em><br><img src="" alt="alt p5"><br>Lec3-p13</p>
-<p><em><strong>Testing Stages</strong></em></p>
-<ul>
-<li><strong>Unit testing</strong></li>
-<li><strong>Module testing</strong><ul>
-<li>Related collections of dependent components are tested</li>
-</ul>
-</li>
-<li><strong>Sub-system testing(merges with system testing)</strong><ul>
-<li>Modules are integrated into sub-systems and tested. The focus here should be on interface testing</li>
-</ul>
-</li>
-<li><strong>System testing</strong><ul>
-<li>Testing of the system as whole. Testin of emergent properties</li>
-</ul>
-</li>
-<li><strong>Acceptance testing</strong><ul>
-<li>Testing with customer data to check that it is acceptable</li>
-</ul>
-</li>
-</ul>
-<p><em><strong>Testing mapped to OO progtamming</strong></em></p>
-<ul>
-<li><strong>Unit testing</strong><ul>
-<li>Testing an individual classes methods</li>
-</ul>
-</li>
-<li><strong>Module testing</strong><ul>
-<li>Testing classes which integrate with other classes</li>
-</ul>
-</li>
-<li><strong>Sub-system testing</strong><ul>
-<li>A number of classes tested which produce a given service</li>
-<li>Organised as package or JAR library</li>
-</ul>
-</li>
-<li><strong>System Test</strong><ul>
-<li>Test whole system</li>
-</ul>
-</li>
-</ul>
-<hr>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/27/COMP201/">展开全文 >></a>
         </p>
       
 

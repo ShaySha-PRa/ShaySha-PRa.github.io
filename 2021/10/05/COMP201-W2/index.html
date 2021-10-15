@@ -16,7 +16,7 @@
 <meta property="og:description" content="Lec4This lec will focus on The concepts of user and system requirements To describe functional&#x2F;non-functional requirements To explain two techniques for describing system requirements  总结 需求列出了系统应该做什么">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-10-05T21:24:57.000Z">
-<meta property="article:modified_time" content="2021-10-11T22:52:22.341Z">
+<meta property="article:modified_time" content="2021-10-13T15:09:37.973Z">
 <meta property="article:author" content="Sha Toshiki">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -92,8 +92,6 @@
 		        
 					<a class="google" target="_blank" href="mailto: shaycormac0419@gmail.com" title="google"><i class="icon-google"></i></a>
 		        
-					<a class="ins" target="_blank" href="https://www.instagram.com/pr_toshiki/" title="ins"><i class="icon-ins"></i></a>
-		        
 			</div>
 		</nav>
 	</header>		
@@ -136,8 +134,6 @@
 						<a class="mail" target="_blank" href="mailto: shaycormac@foxmail.com" title="mail"><i class="icon-mail"></i></a>
 			        
 						<a class="google" target="_blank" href="mailto: shaycormac0419@gmail.com" title="google"><i class="icon-google"></i></a>
-			        
-						<a class="ins" target="_blank" href="https://www.instagram.com/pr_toshiki/" title="ins"><i class="icon-ins"></i></a>
 			        
 				</div>
 			</nav>
@@ -296,7 +292,411 @@
 </ul>
 </li>
 </ul>
-<h3 id="Lec5"><a href="#Lec5" class="headerlink" title="Lec5"></a>Lec5</h3>
+<hr>
+<h3 id="Lec5"><a href="#Lec5" class="headerlink" title="Lec5"></a>Lec5</h3><p><em><strong>Introduction to coursework 1.1 and Use case analysis</strong></em></p>
+<p><strong>Requirements</strong></p>
+<ul>
+<li>Can be functional</li>
+<li>Can be non-functional</li>
+</ul>
+<p><strong>Use cases</strong>:</p>
+<ol>
+<li>Use-Cases are a scenario based technique in the Unified Modeling Language (UML) which identify the actors in an interaction and which describe the interaction itself.</li>
+<li>A set of use-cases should describe all possible interactions with the system.</li>
+<li>Sequence diagrams may be used to add detail to use-cases by showing the sequence of event processing in the system (we shall study sequence diagrams later).</li>
+</ol>
+<ul>
+<li><p>In a use-case diagram, an actor is a user of the system (i.e. Something external to the system; can be human or non-human) acting in a particular role.</p>
+</li>
+<li><p>A use-case is a task which the actor needs to perform with the help of the system, e.g., find details of a book or print a copy of a receipt in a bookshop.</p>
+</li>
+<li><p>Use -&gt; How you use the system</p>
+</li>
+<li><p>Case -&gt; an example</p>
+</li>
+<li><p>Functional modelling of requirements</p>
+</li>
+<li><p>Show the external view of the system</p>
+<ul>
+<li>(Do not model internal processes)</li>
+</ul>
+</li>
+<li><p>Show the system relative to different users of the system</p>
+</li>
+<li><p><strong>Advanced Use Case Diagrams</strong></p>
+<ul>
+<li>We can draw a box(with a label) around a set of use cases to denote the system boundary</li>
+<li>Inheritance can be used between actors to show that all use cases of one actor are available to the other<br>Service -&gt; Bank Staff</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p><strong>Include Relations</strong></p>
+<ul>
+<li>If several use cases include, as part of their functionality, another use case, we have a special way show this in a use-case diagram</li>
+</ul>
+</blockquote>
+<blockquote>
+<p><strong>Extend Relation</strong></p>
+<ul>
+<li>If a use-case has two or more significantly different outcomes, we can show this by <strong>extending</strong> the use case to a <strong>main use case</strong><br>一个用例有两个结果就需要扩展用例</li>
+</ul>
+</blockquote>
+<p><em><strong>In Summary</strong></em></p>
+<ul>
+<li>Include<ul>
+<li>When the other use case is always part of the main use csae<br>其他的用例是主用例的一部分</li>
+</ul>
+</li>
+<li>Extend<ul>
+<li>When the other use case, sometime is needed<br>其他的用例有时需要</li>
+</ul>
+</li>
+</ul>
+<p><strong>Actors(Players)</strong><br>Anything external to the system which the system interacts with</p>
+<ul>
+<li>Can be human <ul>
+<li>Customer</li>
+<li>player</li>
+<li>Driver</li>
+</ul>
+</li>
+<li>Can be non human<ul>
+<li>Sensor</li>
+<li>Payment service</li>
+<li>Geo location</li>
+<li>Robotic arm</li>
+</ul>
+</li>
+<li>Example: ATM machine<ul>
+<li>Actors :<ul>
+<li>Customers</li>
+<li>Bank staff</li>
+<li>ATM service engineer</li>
+</ul>
+</li>
+<li>Use cases<ul>
+<li>Withdraw cash</li>
+<li>check balance</li>
+<li>Add cash to machine</li>
+<li>Check security video recoding</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Full use case template</strong></p>
+<ul>
+<li>ID</li>
+<li>Name</li>
+<li>Description</li>
+<li>Pre-condition</li>
+<li>Event flow</li>
+<li>Post-condition</li>
+<li>Includes</li>
+<li>Extensions</li>
+<li>Triggers</li>
+</ul>
+<p><strong>Notes about use cases</strong></p>
+<ul>
+<li>They do NOT describe internal behaviour</li>
+<li>Must describe behaviour with external Actors</li>
+<li>But external Actor can be<ul>
+<li>External system</li>
+<li>External hardware</li>
+<li>External agency</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Lec-6"><a href="#Lec-6" class="headerlink" title="Lec-6"></a>Lec-6</h2><p>本节重点</p>
+<ul>
+<li>Requirements engineering process</li>
+<li>Requirements elicitation and analysis</li>
+<li>Stakeholder</li>
+<li>Securitys</li>
+</ul>
+<p><strong>Objectives</strong></p>
+<ul>
+<li>To describe the principal requirements enggineering activities and their relationships</li>
+<li>To introduce techniques for <em>requirements elicitation and analysis</em></li>
+<li>To describe <em>requirements validation</em> and the role of requirements reviews</li>
+<li>To discuss the role of <em>requirements management</em> in support of other requirements engineering processes</li>
+</ul>
+<h3 id="Requirements-Engineering-Processes"><a href="#Requirements-Engineering-Processes" class="headerlink" title="Requirements Engineering Processes"></a><strong>Requirements Engineering Processes</strong></h3><ul>
+<li><p>The processes used for requirements engineering vary widely depending on the application domain, the people involved and the organisation developing the requirements.</p>
+</li>
+<li><p>there are a number of generic activities common to all processes which we look at today.</p>
+</li>
+<li><p>The goal of this stage of the software engineering process is to help create and maintain a system <em>requirements doucment</em></p>
+</li>
+<li><ol>
+<li>Requirements elicitation 引出</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>Requirements analysis    分析</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>Requirements validation  验证</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>Requirements Management  管理</li>
+</ol>
+</li>
+</ul>
+<p><strong>Feasibility Studies</strong></p>
+<ul>
+<li>A <em>feasibility study</em> decides whether or not the proposed system is worthwhile.</li>
+<li>A short focused study that checks<ul>
+<li>if the system contributes to organisational objectives;</li>
+<li>if the system can be engineered using current technology and within budget</li>
+<li>if the system can be integrated with other systems that are used</li>
+<li>is there a simpler way of doing this </li>
+</ul>
+</li>
+</ul>
+<h4 id="Elicitation-and-Analysis"><a href="#Elicitation-and-Analysis" class="headerlink" title="Elicitation and Analysis"></a><strong>Elicitation and Analysis</strong></h4><ul>
+<li><p>Sometimes called <em>requirements elicitation</em> or requirements discovery</p>
+</li>
+<li><p>Involves technical staff working with customers to find out about the <em>applicatin domain, the services that the system should provide</em> and the <em>system’s operational constraints</em></p>
+</li>
+<li><p>May involve end-users, managers, engineers involved in maintenance, domain experts, trade unions,etc. These are called <em>stakeholders</em></p>
+</li>
+<li><p><strong>Problems</strong></p>
+</li>
+<li><p>Stakeholders don’t know what they really want.</p>
+</li>
+<li><p>Stakeholders express requirements in their own terms.</p>
+</li>
+<li><p>Different stakeholders may have conflicting requirements </p>
+<ul>
+<li>Staff -&gt; easy of use</li>
+<li>Management -&gt; highest security</li>
+<li>Patients -&gt; change appointments easily</li>
+<li>management -&gt; plan staff resoucing, reduce costs</li>
+</ul>
+</li>
+<li><p>Organisational and political factors may influence the system requirements (Data proteciton)</p>
+</li>
+<li><p>The requirements change during the analysis process. New stakeholders may emerge and the business environment change.</p>
+</li>
+</ul>
+<h4 id="Requirements-Discovery"><a href="#Requirements-Discovery" class="headerlink" title="Requirements Discovery"></a><strong>Requirements Discovery</strong></h4><ul>
+<li><p>Is hte process of <em>gathering information</em> about the proposed and existing systems and distilling the user and system requirements from this information 收集并提取信息和需求</p>
+</li>
+<li><p>Sources of information include documentation, syste stakerholders and the specifications of similar systems</p>
+</li>
+</ul>
+<p><strong>view point</strong></p>
+<ul>
+<li>以不同角度分析问题</li>
+<li>相对于单一角度分析更为精准</li>
+<li>Identification<ul>
+<li>Providers and receicers of system services;</li>
+<li>Systems that interact directly with the system being specified</li>
+<li>Regulations and standards</li>
+<li>Sources of business and non-functional requirements</li>
+<li>Engineers who have to develop and maintain the system;</li>
+<li>Marketing and other business viewpoints</li>
+</ul>
+</li>
+</ul>
+<p><strong>Interviewing</strong></p>
+<ul>
+<li>In formal or informal interviewing, the RE team puts questions to stakeholders about the system that they use and the system to be developed.</li>
+<li>There are two types of interview<ul>
+<li><em>closed interviews</em> where a pre-defined set of questions are answered</li>
+<li><em>open interviews</em> where there is no pre-defined agenda and a range of issues are explored with stakeholders</li>
+</ul>
+</li>
+<li>Ideally, interviewers should be open-minded, willing to listen to stakenholders and should not have pre-conceived ideas.</li>
+</ul>
+<hr>
+<p><strong>Ethnography</strong></p>
+<ul>
+<li>In <em>ethnography</em>, a social scientist spends a considerable amount of time observing and analysing how people <em>actually work</em></li>
+<li>People do not have to explain or articulate their work</li>
+<li>Social and organisational factors of importance may be observed</li>
+<li>Ethnographic studies have shown that work is usually richer and more complex than suggested by simple system models</li>
+</ul>
+<p><strong>Focused Ethnography</strong></p>
+<ul>
+<li>Developed in a project studying the air traffic control</li>
+<li>Combines <em>ethnography</em> with <em>prototyping</em> </li>
+<li>Prototype development results in unanswered questions which focus the ethnographic analysis</li>
+<li>The problem with ethnography is that it studies existing practices which may have some historical vasis which is no longer relevant</li>
+</ul>
+<hr>
+<p><strong>Security</strong></p>
+<ul>
+<li>Most modern systems have some security requirements<ul>
+<li>Internet</li>
+<li>Systems often control money</li>
+<li>Systems nearly always contain data</li>
+<li>You are Legally required often to keep your system secure</li>
+<li>You could get sued</li>
+</ul>
+</li>
+<li>Security requirements of systems<ul>
+<li>Broken down into 4 main issues</li>
+<li>Confidentiality 机密性<ul>
+<li>Usually two main options<ul>
+<li>Encryption</li>
+<li>Permissions</li>
+</ul>
+</li>
+<li>Data must be kept secure<ul>
+<li>in storage</li>
+<li>on the wire or wireless link</li>
+<li>For as long as reasonably possible</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Integrity 完整性<ul>
+<li>Messages of data must not be modifiable without <ul>
+<li>Knowledge of the change</li>
+</ul>
+</li>
+<li>Integrity approaches<ul>
+<li>CRC Checking(no good, easy to forge check value)</li>
+<li>Hash value over dara + secret value<ul>
+<li>Key distribution problem</li>
+</ul>
+</li>
+<li>Hash value over data, similar problem to CRC</li>
+<li>Hash value encrypted using asymmetric cipher<ul>
+<li>Best approach to data</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Authentication an Authorization   认可和授权<ul>
+<li>Authentication (Who are you)</li>
+<li>Authorization (What are you allowed to do)</li>
+<li>Techniques<ul>
+<li>Usernames, passwords, hardware(cards, dongles),</li>
+</ul>
+</li>
+<li>Often first point of attack</li>
+</ul>
+</li>
+<li>Non-repudiation   不可否认<ul>
+<li>May requires<ul>
+<li>Trusted broker, third party</li>
+<li>Funding in Escrow</li>
+</ul>
+</li>
+<li>Non repudiation is built on <ul>
+<li>Authentication</li>
+<li>Integity</li>
+<li>Recording and time stamping</li>
+<li>Broker style servieces</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>One auxiliary issue<ul>
+<li>Availability  可用性<ul>
+<li>requirements<ul>
+<li>High availability of system</li>
+<li>Specifying in 9s terminology<br>从 onenine 到 six nine 的停机时间越来越短</li>
+</ul>
+</li>
+<li>practise<ul>
+<li>9s  terminology not always useful</li>
+<li>Imagine a computer system</li>
+<li>Three 9s available but unavailability spread as 78 seconds per day</li>
+<li>Or Five 9s available, failing once every 10 years for 50 minutes</li>
+<li>So ideally to need specify<ul>
+<li>Worst case scenarios</li>
+<li>Worst cse delay as well as down time</li>
+<li>How the system can degrade gracefully</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Specifying Security<ul>
+<li>Ideally kept as open as possible to allow for<ul>
+<li>Upgrading of encryption algorithms and protocols</li>
+</ul>
+</li>
+<li>Security policy<ul>
+<li>Shredding documents</li>
+<li>Secure disposal</li>
+<li>Password reset protocols</li>
+<li>Security training</li>
+<li>Security audits</li>
+</ul>
+</li>
+<li>Standards compliance<ul>
+<li>Payment Card Industry Data Security Standard</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Security-logs-and-alerts"><a href="#Security-logs-and-alerts" class="headerlink" title="Security, logs and alerts"></a><em><strong>Security, logs and alerts</strong></em></h4><ul>
+<li>Security is very dependent on knowledge of activity (audits and logs)</li>
+<li>Standard log(recors all logins/logouts, database access reqursts) 标志日志</li>
+<li>Failed login log(records all failed logins)   登录失败日志</li>
+<li>Unusual activity log(high volume transactions on account)     活动异常日志</li>
+<li>Alet log 警报日志</li>
+<li>Alerts<ul>
+<li>unusual activity can be used to alert operators, suspend accounts etc</li>
+</ul>
+</li>
+</ul>
+<h4 id="Bell-LaPadula-model"><a href="#Bell-LaPadula-model" class="headerlink" title="Bell-LaPadula model"></a><em><strong>Bell-LaPadula model</strong></em></h4><ul>
+<li>secutity clearance:<ul>
+<li>Top-Secret(4)</li>
+<li>secret(3)</li>
+<li>Sensitive(2)</li>
+<li>Unclassified</li>
+</ul>
+</li>
+<li>no read-up<ul>
+<li>不能阅读比你高等级的文件</li>
+</ul>
+</li>
+<li>no write-down<ul>
+<li>一个文本不能与另一个安全级别的短文本复制</li>
+<li>在敏感文件中加入秘密信息它将变成秘密信息</li>
+<li>高机密等级不能生成低机密文件</li>
+</ul>
+</li>
+<li>Trusted subjects<ul>
+<li>Can write documents down</li>
+<li>Must be shown trustworthy with regard to the security policy</li>
+</ul>
+</li>
+</ul>
+<h4 id="Requirements-Checking"><a href="#Requirements-Checking" class="headerlink" title="Requirements Checking"></a><strong>Requirements Checking</strong></h4><ul>
+<li>Validity 有效性 是否满足客户需求</li>
+<li>Consistency 一致性 确认是否有需求矛盾</li>
+<li>Completeness 完整性 是否包含客户的所有需求</li>
+<li>Realism 现实性 现有的技术是否能实现</li>
+<li>Verifiability 是否可以检查要求</li>
+</ul>
+<p><strong>Cucumber</strong></p>
+<ul>
+<li>Gives simple and clear notation to write specification</li>
+<li>Analysts/test team and even customers can learn Gherkin and develop feature files</li>
+<li>Step files are produced by development team</li>
+<li>Test data can be changed later Without changing test code</li>
+</ul>
+
       
 
       
@@ -314,7 +714,7 @@
                     
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="https://mail.google.com/mail/u/0/?ogbl#inbox">
+                      <img class="reward-img" src="（https://mail.google.com/mail/u/0/?ogbl#inbox）">
                       <span class="reward-type">微信</span>
                     </div>
                     

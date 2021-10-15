@@ -8,16 +8,23 @@
   <link rel="dns-prefetch" href="http://example.com">
   <title>COMP219LAB | 俊樹の勉強ブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
+  <meta name="description" content="Lab2 — Basic Python and Visualisation1.4.1 12345678910111213141516171819import numpy as npimport matplotlib.pyplot as pltxdata &#x3D; 7 * np.random.random(100)ydata &#x3D; np.sin(xdata) + 0.25 * np.random.rando">
+<meta property="og:type" content="article">
 <meta property="og:title" content="COMP219LAB">
 <meta property="og:url" content="http://example.com/2021/10/05/COMP219LAB/index.html">
 <meta property="og:site_name" content="俊樹の勉強ブログ">
+<meta property="og:description" content="Lab2 — Basic Python and Visualisation1.4.1 12345678910111213141516171819import numpy as npimport matplotlib.pyplot as pltxdata &#x3D; 7 * np.random.random(100)ydata &#x3D; np.sin(xdata) + 0.25 * np.random.rando">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://pic.imgdb.cn/item/61683c7e2ab3f51d91ab78e3.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/616840022ab3f51d91b33d5d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/61683f992ab3f51d91b2688e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/61683fae2ab3f51d91b290cd.png">
 <meta property="article:published_time" content="2021-10-05T20:36:22.000Z">
-<meta property="article:modified_time" content="2021-10-05T21:39:12.725Z">
+<meta property="article:modified_time" content="2021-10-14T14:36:06.988Z">
 <meta property="article:author" content="Sha Toshiki">
 <meta property="article:tag" content="exercise">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/61683c7e2ab3f51d91ab78e3.png">
   
     <link rel="alternative" href="/atom.xml" title="俊樹の勉強ブログ" type="application/atom+xml">
   
@@ -90,8 +97,6 @@
 		        
 					<a class="google" target="_blank" href="mailto: shaycormac0419@gmail.com" title="google"><i class="icon-google"></i></a>
 		        
-					<a class="ins" target="_blank" href="https://www.instagram.com/pr_toshiki/" title="ins"><i class="icon-ins"></i></a>
-		        
 			</div>
 		</nav>
 	</header>		
@@ -134,8 +139,6 @@
 						<a class="mail" target="_blank" href="mailto: shaycormac@foxmail.com" title="mail"><i class="icon-mail"></i></a>
 			        
 						<a class="google" target="_blank" href="mailto: shaycormac0419@gmail.com" title="google"><i class="icon-google"></i></a>
-			        
-						<a class="ins" target="_blank" href="https://www.instagram.com/pr_toshiki/" title="ins"><i class="icon-ins"></i></a>
 			        
 				</div>
 			</nav>
@@ -185,7 +188,16 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="Lab2-—-Basic-Python-and-Visualisation"><a href="#Lab2-—-Basic-Python-and-Visualisation" class="headerlink" title="Lab2 — Basic Python and Visualisation"></a>Lab2 — Basic Python and Visualisation</h3><p><strong>1.4.1</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">xdata = <span class="number">7</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line">ydata = np.sin(xdata) + <span class="number">0.25</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line">zdata = np.exp(xdata) + <span class="number">0.25</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">9</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># Create 3D container</span></span><br><span class="line">ax = plt.axes(projection = <span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"><span class="comment"># Visualize 3D scatter plot</span></span><br><span class="line">ax.scatter3D(xdata, ydata, zdata)</span><br><span class="line"><span class="comment"># Give labels</span></span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&#x27;z&#x27;</span>)</span><br><span class="line"><span class="comment"># Save figure</span></span><br><span class="line">plt.savefig(<span class="string">&#x27;3d_scatter.png&#x27;</span>, dpi = <span class="number">300</span>, bbox_inches = <span class="string">&#x27;tight&#x27;</span>,</span><br><span class="line">    pad_inches = <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.imgdb.cn/item/61683c7e2ab3f51d91ab78e3.png" alt="alt p1"></p>
+<hr>
+<p><strong>1.4.2</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">100</span>)</span><br><span class="line">y = np.array(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">z=x+y</span><br><span class="line">xLastTen = x[<span class="number">90</span>:]   <span class="comment"># Using array indexing to give the last ten values of z</span></span><br><span class="line"></span><br><span class="line">xUpdate = np.arange(<span class="number">0</span>, <span class="number">1000</span>, <span class="number">10</span>) <span class="comment"># update the code 从 0-1000 分成十步</span></span><br><span class="line"></span><br><span class="line">xDotProduct = x.dot(x) <span class="comment">#Take dot product between x and x</span></span><br><span class="line"></span><br><span class="line">xAsteriskProduct = x * x <span class="comment">#Take (*) product between x and x</span></span><br><span class="line"></span><br><span class="line">xReshape = xUpdate.reshape((<span class="number">10</span>, <span class="number">10</span>)) <span class="comment"># Reshape x so that it is no langer a 100 value array but a 10x10 matrix</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Multiply the first row by 1, the  sceond by 2, the third by3 and so on</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">yNew = np.arange(<span class="number">1</span>,<span class="number">11</span>)</span><br><span class="line">zNew = xReshape * yNew[:, np.newaxis]</span><br><span class="line"><span class="built_in">print</span>(zNew)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Using the matolitlib library to plot each row of this matrix as a single series on the same graph</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">   plt.plot(zNew[i])</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Using the matplotlib library to plot each row of this matrix as a single series on separate sub-plots of the same figure and save this figure as figure1.png</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    ax = plt.subplot(<span class="number">5</span>, <span class="number">2</span>, i + <span class="number">1</span>)</span><br><span class="line">    plt.plot(zNew[i])</span><br><span class="line">plt.show()</span><br><span class="line">plt.savefig(<span class="string">&#x27;figure1.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>Output:<br><img src="https://pic.imgdb.cn/item/616840022ab3f51d91b33d5d.png" alt="alt output"></p>
+<hr>
+<p><img src="https://pic.imgdb.cn/item/61683f992ab3f51d91b2688e.png" alt="alt p1"><br><img src="https://pic.imgdb.cn/item/61683fae2ab3f51d91b290cd.png" alt="alt p2"></p>
+
       
 
       
@@ -203,7 +215,7 @@
                     
                     
                     <div class="reward-box-item">
-                      <img class="reward-img" src="https://mail.google.com/mail/u/0/?ogbl#inbox">
+                      <img class="reward-img" src="（https://mail.google.com/mail/u/0/?ogbl#inbox）">
                       <span class="reward-type">微信</span>
                     </div>
                     
