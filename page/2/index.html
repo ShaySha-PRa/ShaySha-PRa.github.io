@@ -160,6 +160,420 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-COMP219" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/27/COMP219/">COMP219</a>
+    </h1>
+  
+
+        
+        <a href="/2021/09/27/COMP219/" class="archive-article-date">
+  	<time datetime="2021-09-27T13:39:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Lec-5"><a href="#Lec-5" class="headerlink" title="Lec-5"></a>Lec-5</h3><p><strong>introduction for numpy</strong></p>
+<ul>
+<li>正态分布<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> numpy <span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">x = random.normal(size=(<span class="number">2</span>,<span class="number">3</span>))</span><br><span class="line"><span class="built_in">print</span>(x)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>三个参数</p>
+<blockquote>
+<ol>
+<li>loc - 平均值</li>
+<li>scale - 标准偏差</li>
+<li>size - 返回数组形状</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>Vector operations</p>
+<ul>
+<li>inner</li>
+<li>outer</li>
+<li>dot<?python
+import numpy as np
+a  = np.random.random((2,3)) 
+print(a)
+print(a.sum())
+print(a.cumsum())
+print(a.cumsum(axis = 1))</li>
+</ul>
+</li>
+<li><p>sum 让所有的数加起来</p>
+</li>
+<li><p>cumsum 逐行逐个相加返回一维矩阵</p>
+</li>
+<li><p>～～～～～～ 设定参数返回n+1维矩阵</p>
+</li>
+<li><p><strong>Slicing array</strong> 切片矩阵</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a = np.random.random((<span class="number">4</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line">a[<span class="number">2</span>, :] <span class="comment">#third row, all columns</span></span><br><span class="line">a[<span class="number">1</span>:<span class="number">3</span>] <span class="comment"># 2nd, 3rd row, all columns</span></span><br><span class="line">a[:, <span class="number">2</span>:<span class="number">4</span>] <span class="comment"># all rows, columns 3 and 4</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>Iterating over arrays</strong></p>
+<ul>
+<li>Iterating over multidimensional arrays is done with respect to first axis: for row in A</li>
+<li>Looping over all elements: for element in A.flat</li>
+</ul>
+</li>
+<li><p><strong>Reshapping</strong></p>
+<ul>
+<li>Reshape<ul>
+<li>using reshape. Total size must remain the same</li>
+</ul>
+</li>
+<li>Resize<ul>
+<li>using resize, always works: chopping or appending zeros</li>
+<li>First dimension has ‘priority’, so beware of unexpected results</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Linear algebra</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.linalg</span><br><span class="line"></span><br><span class="line">qr  <span class="comment"># computes the QR decomposition</span></span><br><span class="line">cholesky    <span class="comment"># computes the cholesky decomposition</span></span><br><span class="line">inv(A)  <span class="comment"># Inverse</span></span><br><span class="line">solve(A,b)  <span class="comment"># Solves Ax = b for Ax = b for A full rank</span></span><br><span class="line">lstsq(A,b)  <span class="comment"># Solves argminx||Ax-b||2</span></span><br><span class="line">eig(A)  <span class="comment"># Eigenvalue decomposition 特征值分解</span></span><br><span class="line">eig(A)  <span class="comment"># Eigenvalue decomposition for symmetric or hermitian 对称或厄密矩阵的特征值分解</span></span><br><span class="line">eigvals(A)  <span class="comment">#Computer eigenvalues 计算特征值</span></span><br><span class="line">svd(A, full)    <span class="comment">#singular value decomposition</span></span><br><span class="line">pinv(A)     <span class="comment">#computes pseudo-inverse of A 计算A的伪逆</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ul>
+<li><p><strong>Fourier transform</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.fft</span><br><span class="line">fft <span class="comment"># 1-dimensional DFT</span></span><br><span class="line">fft2 <span class="comment"># 2-dimensional DFT</span></span><br><span class="line">fftn <span class="comment"># n-dimensional DFT</span></span><br><span class="line">ifft <span class="comment"># 1-dimensional inverse DFT</span></span><br><span class="line">rfft <span class="comment"># Real DFT(1-dim)</span></span><br><span class="line">ifft <span class="comment"># Imaginary DFT(1-dim)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Random sampling</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy.random</span><br><span class="line">    rand(d0,d1,.....,dn) <span class="comment"># Random values in a given shape</span></span><br><span class="line">    randn(d0,d1,.....,dn) <span class="comment"># Random standard normal</span></span><br><span class="line">    randint(lo,hi,size) <span class="comment"># Random integers [lo,ji)</span></span><br><span class="line">    choice(a,size,repl,p) <span class="comment"># Sample from a</span></span><br><span class="line">    shuffle(a) <span class="comment"># Permutation(in-place)</span></span><br><span class="line">    permutation(a)  <span class="comment"># Permutation(new array)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><em>distributions in random</em></p>
+<ul>
+<li>beta</li>
+<li>binomial</li>
+<li>chisquare</li>
+<li>exponential</li>
+<li>dirichlet</li>
+<li>gamma</li>
+<li>laplace</li>
+<li>lognormal</li>
+<li>pareto</li>
+<li>power</li>
+</ul>
+</li>
+<li><p><strong>SciPy</strong><br>A library of algorithms and mathe matical tools bulit to work with NumPy arrays.</p>
+</li>
+<li><p>linear algebra - scipy.linalg</p>
+<ul>
+<li>cloud faster than numpy.linalg</li>
+<li>some more function</li>
+<li>slightly different</li>
+</ul>
+</li>
+<li><p>statistics - scipy.stats</p>
+<ul>
+<li>Mean, median, mode, variance, kurtosis</li>
+<li>Pearson correlation coefficient</li>
+<li>Hypothesis test</li>
+<li>Gaussian kernel density estimation</li>
+</ul>
+</li>
+<li><p>optimization - scipy.optimize</p>
+<ul>
+<li>General purpose minimization: CG, BFGS, least-squares</li>
+<li>Constrained minimization; non-negative least-squares</li>
+<li>Minimize using simulated annealing</li>
+<li>Scalar function minimization</li>
+<li>Root finding</li>
+<li>Check gradient function Line search</li>
+</ul>
+</li>
+<li><p>sparse matrices - scipy.sparse</p>
+<ul>
+<li>Sparse matrix classes: CSC,CSR, etc</li>
+<li>Functions to build sparse matrices</li>
+<li>sparse.linalg module for sparse linear algebra</li>
+<li>sparse.csgraph for sparse graph routines</li>
+</ul>
+</li>
+<li><p>signal processing - scipy.signal</p>
+<ul>
+<li>Convolutions</li>
+<li>B-splines</li>
+<li>Filtering</li>
+<li>Continuous-time linear system</li>
+<li>Wavelets</li>
+<li>Peak finding</li>
+</ul>
+</li>
+<li><p>etc</p>
+</li>
+<li><p><strong>Matplotlib</strong></p>
+<ul>
+<li>Plotting library for Python</li>
+<li>Works well with Numpy</li>
+<li>Syntax similar to Matlab</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Scatter Plot</strong><br>adding titles and labels -&gt; adding multiple lines and legend</li>
+</ul>
+<p>adding multiple lines and legend</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line">y = np.power(x, <span class="number">2</span>)</span><br><span class="line">plt.plot(x, y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p><strong>Seaborn makes plot pretty</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pylot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> seaborn <span class="keyword">as</span> sns</span><br><span class="line">x = np.linspace(<span class="number">0</span>, <span class="number">10</span>, <span class="number">1000</span>)</span><br><span class="line">y = np.power(x, <span class="number">2</span>)</span><br><span class="line">plt.plot（x, y)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>Histogram</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data = np.random.randn(<span class="number">1000</span>)</span><br><span class="line">f, (ax1,ax2) = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">6.3</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># histogram(pdf)</span></span><br><span class="line">ax1.hist(data, bins=<span class="number">30</span>, normed=<span class="literal">True</span>, color = <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># empirical cdf</span></span><br><span class="line">ax2.hist(data, bins=<span class="number">30</span>, normed=<span class="literal">True</span>, color=<span class="string">&#x27;r&#x27;</span>, cumulative=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line">plt.savefig(<span class="string">&#x27;histogram.pdf&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Box Plot</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">samp1 = np.random.normal(loc=<span class="number">0.</span>, scale=<span class="number">1.</span>, size=<span class="number">100</span>)</span><br><span class="line">samp2 = np.random.normal(loc=<span class="number">1.</span>, scale=<span class="number">2.</span>, size=<span class="number">100</span>)</span><br><span class="line">samp3 = np.random.normal(loc=<span class="number">0.3</span>, scale=<span class="number">1.2</span>, size=<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">f, ax = plt.subplots(<span class="number">1</span>, <span class="number">1</span>, figsize=(<span class="number">5</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">ax.boxplot((samp1, samp2, samp3))</span><br><span class="line">ax.set_xticklabels([<span class="string">&#x27;sample1&#x27;</span>, <span class="string">&#x27;sample2&#x27;</span>, <span class="string">&#x27;sample3&#x27;</span>])</span><br><span class="line">plt.savefig(<span class="string">&#x27;boxplot.pdf&#x27;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Image Plot</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">A = np.random.random((<span class="number">100</span>,<span class="number">100</span>))</span><br><span class="line"></span><br><span class="line">plt.imshow(A)</span><br><span class="line">plt.hot()</span><br><span class="line">plt.colorbar()</span><br><span class="line"></span><br><span class="line">plt.savefig(<span class="string">&#x27;imageplot.pdf&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>Wire Plot</strong><br>matplotlib toolkits extend funtionality for other kinds of visualization</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> axes3d</span><br><span class="line"></span><br><span class="line">ax = plt.subplot(<span class="number">111</span>, projection=<span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line">X, Y, Z = axes3d.get_test_data(<span class="number">0.1</span>)</span><br><span class="line">ax.plot_wireframe(X, Y, Z, linewidth=<span class="number">0.1</span>)</span><br><span class="line"></span><br><span class="line">plt.saveifg(<span class="string">&#x27;wire.pdf&#x27;</span>)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><em><strong>scikit-learn algorithm cheat-sheet</strong></em><br><img src="https://pic.imgdb.cn/item/616833932ab3f51d9198042e.png" alt="alt p1"></p>
+<p><img src="https://pic.imgdb.cn/item/616833e12ab3f51d9198af64.png" alt="alt p2"></p>
+<h3 id="Lec-6"><a href="#Lec-6" class="headerlink" title="Lec-6"></a>Lec-6</h3><h4 id="Decision-Tree"><a href="#Decision-Tree" class="headerlink" title="Decision Tree"></a><em><strong>Decision Tree</strong></em></h4><ul>
+<li>the decision tree representation</li>
+<li>the standard top-down approach to learning a tree</li>
+<li>Occam’s razor</li>
+<li>entropy and information gain</li>
+<li>types of decision-tree splits</li>
+</ul>
+<p><strong>A decision tree to predict heart disease</strong><br><img src="https://pic.imgdb.cn/item/616834ea2ab3f51d919b1da6.png" alt="alt p1"></p>
+<p><strong>Decision tree exercise</strong></p>
+<ul>
+<li>Suppose X1…X5 are Boolean features, and Y is also Boolean </li>
+<li>How would you represent the following with decision trees?</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/6168359e2ab3f51d919ca965.png" alt="alt p1"></p>
+<blockquote>
+<ul>
+<li>Y = X<sub>2</sub>X<sub>5</sub> any of them is false then it is false<br><img src="https://pic.imgdb.cn/item/616835f82ab3f51d919d5d04.png" alt="alt p2"></li>
+</ul>
+</blockquote>
+<blockquote>
+<ul>
+<li>Y = X<sub>2</sub>vX<sub>5</sub> any of them is true then it is true<br><img src="https://pic.imgdb.cn/item/616836cf2ab3f51d919f3157.png" alt="alt p3"></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Exercise:</p>
+<ul>
+<li>Y = X<sub>2</sub>X<sub>5</sub>vX<sub>3</sub>-|X<sub>1</sub><br><img src="https://pic.imgdb.cn/item/6168390f2ab3f51d91a45a71.jpg" alt="alt p1"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Lec-7-Decision-Tree"><a href="#Lec-7-Decision-Tree" class="headerlink" title="Lec-7 Decision Tree"></a>Lec-7 Decision Tree</h3><h4 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h4><ul>
+<li>A general top-down algorithm</li>
+<li>How to do splitting on numeric features</li>
+<li>Occam’s razor</li>
+</ul>
+<blockquote>
+<p>History of decision tree learning<br><img src="https://pic.imgdb.cn/item/6168410e2ab3f51d91b5a2a0.png" alt="alt p1"></p>
+<ul>
+<li>Decision tree learning algorithms</li>
+</ul>
+</blockquote>
+<ul>
+<li><em>ID3</em>, or Iterative Dichotomizer<ul>
+<li>one property is tested on each node of the tree </li>
+<li>maximzing information gain</li>
+</ul>
+</li>
+<li>CART, or Classification and Regression Trees (回归树)<ul>
+<li>binary trees</li>
+<li>splits are selected using the twoing criteria</li>
+</ul>
+</li>
+<li>C4.5, improved version on ID3</li>
+</ul>
+<p><strong>Decision tree learning algorithms</strong><br><img src="https://pic.imgdb.cn/item/616841f92ab3f51d91b7c2fc.png" alt="alt p1"></p>
+<h4 id="Top-down-decision-tree-learning"><a href="#Top-down-decision-tree-learning" class="headerlink" title="Top-down decision tree learning"></a><strong>Top-down decision tree learning</strong></h4><p><img src="https://pic.imgdb.cn/item/616842892ab3f51d91b9064e.png" alt="alt p1"></p>
+<p><em><strong>Step(1): FindBestSplit</strong></em><br><strong>Candidate splits on numeric features</strong></p>
+<ul>
+<li>given a set of training instances D and a specific feature X<sub>i</sub><ul>
+<li>sort the values of X<sub>i</sub> in D</li>
+<li>evaluate split thresholds in intervals between instances of different classes<br><img src="https://pic.imgdb.cn/item/616843732ab3f51d91bb0b2f.png" alt="alt p1"></li>
+</ul>
+</li>
+<li>could use midpoint of each considered interval as the threshold </li>
+<li>C4.5 instead picks the largest value of X<sub>i</sub> in the entire training set that does not exceed the midpoint</li>
+<li><em>In more detail</em><br><img src="https://pic.imgdb.cn/item/6168440d2ab3f51d91bc7258.png" alt="alt p2"></li>
+<li><em>Example</em><br><img src="https://pic.imgdb.cn/item/616844962ab3f51d91bdc655.png" alt="alt p3"></li>
+<li>Candidate splits<ul>
+<li>instead of using k-way splits for k-valued features, could require binary splits on all discrete features(CART does this)<br><img src="https://pic.imgdb.cn/item/616845612ab3f51d91bfdeac.png" alt="alt p4"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><em><strong>Step(2): DetermineCandidateSplit</strong></em></p>
+<ul>
+<li><p>Finding the best split</p>
+<ul>
+<li><p>How should we select the best feature to split on at each step</p>
+</li>
+<li><p>Key hypothesis: the simplest tree that classifies the training instances accurately will well on perviously unseen instances</p>
+</li>
+<li><p>Can we find and return the smallest possible decision tree that accurately classifies the training set?<br>  <strong>This is an NP-hard problem</strong></p>
+</li>
+<li><p>Instead, we’ll use an information-theoretic heuristics to greedily choose splits</p>
+</li>
+</ul>
+</li>
+<li><p>Occam’s razor</p>
+<ul>
+<li>attributed to 14th century William of Ockham<br><img src="https://pic.imgdb.cn/item/616846992ab3f51d91c2dddf.png" alt="alt p1"></li>
+<li>“when you have two competing theories that make exactly the same predictions, the simpler one is the better”<br><img src="https://pic.imgdb.cn/item/616847092ab3f51d91c4177a.png" alt="alt p1"></li>
+</ul>
+</li>
+<li><p>Occam’s razor and decision trees</p>
+<ul>
+<li>Why is Occam’s razor a reasonable heuristic for decison tree leaning?<ul>
+<li>there are fewer short models(i.e. small trees) than long ones</li>
+<li>a short model is unlikely to fit the training data well by chance</li>
+<li>a long model is more likeky to fit the training data well coincidentally</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Recap: Expected Value(Finite Case)</p>
+<ul>
+<li>Let X be a random variable with a finite number of finite outcomes X<sub>1</sub>,X<sub>2</sub>,….,X<sub>k</sub> occurring with probability P<sub>1</sub>,P<sub>2</sub>,…..,P<sub>k</sub>, respectively. The expectation of X is defined as<br><img src="https://pic.imgdb.cn/item/616849182ab3f51d91c9e16a.png" alt="alt p1"></li>
+<li>Expectation is a weighted average</li>
+<li>Example<br><img src="https://pic.imgdb.cn/item/616849592ab3f51d91ca9131.png" alt="alt p2"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Lec-8-Decision-Tree"><a href="#Lec-8-Decision-Tree" class="headerlink" title="Lec-8 Decision Tree"></a>Lec-8 Decision Tree</h3><h4 id="Topics"><a href="#Topics" class="headerlink" title="Topics"></a>Topics</h4><ul>
+<li>Entropy and information gain</li>
+<li>Types of decision-tree splits</li>
+</ul>
+<p><strong>Recap: Expected Value Example</strong><br><img src="https://pic.imgdb.cn/item/616849592ab3f51d91ca9131.png" alt="alt p1"></p>
+<p><strong>Information theory background</strong></p>
+<ul>
+<li>consider a problem in which you are using a code to communicate information to receiver</li>
+<li>Example: as bikes go past, you are communicating the manufacturer of each bike<br><img src="https://pic.imgdb.cn/item/61684bfa2ab3f51d91d0ef17.png" alt="alt p1"></li>
+<li>suppose there are only four types of bikes</li>
+<li>we colud use the following code<br><img src="https://pic.imgdb.cn/item/61684c6c2ab3f51d91d1e2fb.png" alt="alt p2"></li>
+<li>expected number of bits we have to communicate<ul>
+<li>2 bits/bike</li>
+</ul>
+</li>
+<li>we can do better if the bike types aren’t equiprobable<br><img src="https://pic.imgdb.cn/item/61684d052ab3f51d91d3214e.png" alt="alt p3"></li>
+<li>expected number of bits we have to communicate<br><img src="https://pic.imgdb.cn/item/61684d6a2ab3f51d91d3e996.png" alt="alt p4"></li>
+<li>optimal code uses -log<sub>2</sub>P(y) bits for event with probability P(y)</li>
+</ul>
+<p><em><strong>Entropy</strong></em></p>
+<ul>
+<li><p>entropy is measure of uncertainty assocaited with a random variable</p>
+<!-- 熵是与随机变量相关的不确定性的度量 --></li>
+<li><p>defined as the expected numebr of bits required to communicate the value of the variable</p>
+<!-- 定义为传递变量值所需的预期比特数 -->
+<ul>
+<li>entropy function for binary variable<br><img src="https://pic.imgdb.cn/item/61684e342ab3f51d91d575dc.png" alt="alt p1"></li>
+</ul>
+</li>
+<li><p><strong>Conditional entropy</strong> </p>
+<!-- 条件熵 --></li>
+<li><p>quantifies the amount of information needed to describe the outcome of a random variable given that the value of another random variable is known.</p>
+<!-- 在已知另一个随机变量的值的情况下，量化描述一个随机变量的结果所需要的信息量。 --></li>
+<li><p>Whats the entropy of Y if we condition on some other variable X?<br><img src="https://pic.imgdb.cn/item/61684fdd2ab3f51d91d8b569.png" alt="alt p2"></p>
+</li>
+<li><p>Example<br><img src="https://pic.imgdb.cn/item/616850412ab3f51d91d981c3.png" alt="alt p3"><br><img src="https://pic.imgdb.cn/item/616850672ab3f51d91d9d0d1.png" alt="alt p4"><br><img src="https://pic.imgdb.cn/item/616850932ab3f51d91da2dfd.png" alt="alt p5"><br><img src="https://pic.imgdb.cn/item/616850b52ab3f51d91da783d.png" alt="alt p6"></p>
+</li>
+<li><p>Information gain</p>
+<ul>
+<li><p>choosing splits in ID3: select the split that <em>most reduces</em> the conditional entropy of Y for training set D<br><img src="https://pic.imgdb.cn/item/616851132ab3f51d91db4328.png" alt="alt p1"></p>
+</li>
+<li><p>example</p>
+<ul>
+<li>What’s the information gain of splitting on Humidity?<br><img src="https://pic.imgdb.cn/item/616852002ab3f51d91dd7435.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/616852722ab3f51d91df03c5.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/616852a52ab3f51d91dfc561.png" alt="p4"><br><img src="https://pic.imgdb.cn/item/616852db2ab3f51d91e06e36.png" alt="p5"><br><img src="https://pic.imgdb.cn/item/616853162ab3f51d91e0eff9.png"></li>
+</ul>
+</li>
+<li><p><strong>One limitation of information gain</strong></p>
+<ul>
+<li>information gain is biased towards tests with many outcomes</li>
+<li>e.g. consider a feature that uniquely identifies each training instace<ul>
+<li>splitting on this feature would result in many branches, each of which is “pure” (has instances of only one class) </li>
+<li>maximal information gain! </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Relations between the concepts</strong><br><img src="https://pic.imgdb.cn/item/6168514d2ab3f51d91dbba11.png" alt="alt p1"><br><img src="https://pic.imgdb.cn/item/616850412ab3f51d91d981c3.png" alt="alt p2"></p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="Gain-Ratio"><a href="#Gain-Ratio" class="headerlink" title="Gain Ratio"></a>Gain Ratio</h4><ul>
+<li><p>to address this limitation, C4.5 uses a splitting criterion called gain ratio</p>
+</li>
+<li><p>gain ratio normalizes the information gain by the entropy of the split being considered<br><img src="https://pic.imgdb.cn/item/6168549f2ab3f51d91e51146.png"></p>
+</li>
+<li><p>Exercise</p>
+<ul>
+<li>Compute the following:<br>  GainRatio(D, Humidity)=<br>  GainRatio(D, W ind)=<br>  GainRatio(D, Outlook)=</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/27/COMP219/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-COMP201" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
