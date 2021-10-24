@@ -42,8 +42,10 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/6172c4952ab3f51d910e67b4.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6172c62b2ab3f51d91104c70.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6172c65b2ab3f51d91108c35.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175a1c92ab3f51d917bc2fe.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175a2012ab3f51d917bde0a.png">
 <meta property="article:published_time" content="2021-09-27T13:39:29.000Z">
-<meta property="article:modified_time" content="2021-10-22T14:12:35.199Z">
+<meta property="article:modified_time" content="2021-10-24T18:12:51.268Z">
 <meta property="article:author" content="Sha Toshiki">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -464,7 +466,7 @@
 <p><img src="https://pic.imgdb.cn/item/6171d3332ab3f51d91534047.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6171d34c2ab3f51d91534808.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/6171d3b42ab3f51d915365d1.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/6171d3e42ab3f51d91537416.png" alt="p4"></p>
 </blockquote>
 <hr>
-<h1 id="Lec-6-SQL-queries"><a href="#Lec-6-SQL-queries" class="headerlink" title="Lec 6 SQL queries"></a>Lec 6 SQL queries</h1><h2 id="Conetent"><a href="#Conetent" class="headerlink" title="Conetent:"></a>Conetent:</h2><ul>
+<h1 id="Lec-6-SQL-queries-optional-part"><a href="#Lec-6-SQL-queries-optional-part" class="headerlink" title="Lec 6 SQL queries (optional part)"></a>Lec 6 SQL queries (optional part)</h1><h2 id="Conetent"><a href="#Conetent" class="headerlink" title="Conetent:"></a>Conetent:</h2><ul>
 <li><strong>WHERE</strong></li>
 <li><strong>GROUP BY</strong></li>
 <li><strong>HAVING</strong></li>
@@ -524,6 +526,15 @@
 <li><p><strong>HAVING</strong><br><img src="https://pic.imgdb.cn/item/6172c62b2ab3f51d91104c70.png" alt="p1"></p>
 </li>
 <li><p><strong>ORDER BY</strong><br><img src="https://pic.imgdb.cn/item/6172c65b2ab3f51d91108c35.png" alt="p1"></p>
+</li>
+</ul>
+<h1 id="Lec7-SQL-Queries"><a href="#Lec7-SQL-Queries" class="headerlink" title="Lec7- SQL Queries"></a>Lec7- SQL Queries</h1><h2 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h2><p>Basically, the same as in math with sets (不允许有重复元素出现)</p>
+<p>You can also view is as putting one list after another</p>
+<p>Say we have an Employees table<br>We want a list of names i.e. both first and family name</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name as name</span><br><span class="line">FROM Employees</span><br><span class="line">UNION</span><br><span class="line">SELECT family_name</span><br><span class="line">FROM Employees;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>Things</strong> <strong>work</strong></p>
+<p>  <img src="https://pic.imgdb.cn/item/6175a1c92ab3f51d917bc2fe.png" alt="p1"><br>  <img src="https://pic.imgdb.cn/item/6175a2012ab3f51d917bde0a.png" alt="p2"></p>
 </li>
 </ul>
 
