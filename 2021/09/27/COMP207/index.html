@@ -44,8 +44,16 @@
 <meta property="og:image" content="https://pic.imgdb.cn/item/6172c65b2ab3f51d91108c35.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6175a1c92ab3f51d917bc2fe.png">
 <meta property="og:image" content="https://pic.imgdb.cn/item/6175a2012ab3f51d917bde0a.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175a3692ab3f51d917c8b8d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175aa812ab3f51d9180246f.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175aad02ab3f51d91804d98.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175ab9c2ab3f51d9180bcc9.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175ac912ab3f51d918126aa.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175ad4d2ab3f51d918181c7.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175ad582ab3f51d9181864c.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/6175ade72ab3f51d9181bd7e.png">
 <meta property="article:published_time" content="2021-09-27T13:39:29.000Z">
-<meta property="article:modified_time" content="2021-10-24T18:12:51.268Z">
+<meta property="article:modified_time" content="2021-10-27T23:24:37.554Z">
 <meta property="article:author" content="Sha Toshiki">
 <meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
@@ -536,7 +544,45 @@
 <li><p><strong>Things</strong> <strong>work</strong></p>
 <p>  <img src="https://pic.imgdb.cn/item/6175a1c92ab3f51d917bc2fe.png" alt="p1"><br>  <img src="https://pic.imgdb.cn/item/6175a2012ab3f51d917bde0a.png" alt="p2"></p>
 </li>
+<li><p><strong>Things work in interesting ways</strong><br>  <img src="https://pic.imgdb.cn/item/6175a3692ab3f51d917c8b8d.png" alt="p1"></p>
+</li>
 </ul>
+<h1 id="Lec8-SQL-QUeries-misc-and-relational-algebra"><a href="#Lec8-SQL-QUeries-misc-and-relational-algebra" class="headerlink" title="Lec8- SQL QUeries - misc. and relational algebra"></a>Lec8- SQL QUeries - misc. and relational algebra</h1><h2 id="Views-as-saved-queries"><a href="#Views-as-saved-queries" class="headerlink" title="Views: as saved queries"></a>Views: as saved queries</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name, e_id,COUNT(t_id)</span><br><span class="line">FROM Employees NATURAL JOIN Transcations</span><br><span class="line">GROUP BY first_name, e_id;</span><br></pre></td></tr></table></figure>
+<pre><code>![p1](https://pic.imgdb.cn/item/6175a4ce2ab3f51d917d6007.png)
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW Employee_transaction_count AS</span><br><span class="line">SELECT first_name,e_id,COUNT(t_id)</span><br><span class="line">FROM Employees NATURAL JOIN Transactions </span><br><span class="line">GROUP BY first_name,e_id;</span><br></pre></td></tr></table></figure>
+<pre><code>![p1](https://pic.imgdb.cn/item/6175a5952ab3f51d917dd9a9.png)
+</code></pre>
+<h2 id="Views-as-virtual-tables"><a href="#Views-as-virtual-tables" class="headerlink" title="Views: as virtual tables"></a>Views: as virtual tables</h2><pre><code>![p1](https://pic.imgdb.cn/item/6175a5952ab3f51d917dd9a9.png)
+</code></pre>
+<h3 id="More-on-views"><a href="#More-on-views" class="headerlink" title="More on views"></a>More on views</h3><pre><code>视图可以覆盖或者删除
+![p1](https://pic.imgdb.cn/item/6175a6bc2ab3f51d917e7959.png)
+</code></pre>
+<h2 id="Relation-Algebra"><a href="#Relation-Algebra" class="headerlink" title="Relation Algebra"></a>Relation Algebra</h2><ul>
+<li><p><strong>Algebra</strong><br>  Algebra = branch of math</p>
+<p>  Example: Algebra with numbers</p>
+<ul>
+<li>Addition(+) = function that takes two numbers and returns a number</li>
+<li>Logarithm (written: log) = function that takes one number and returns another</li>
+<li>Has a subscript-the base</li>
+</ul>
+<p>  Can be composed, e.g.: log<sub>2</sub>(3 + 8) + 4</p>
+</li>
+<li><p><strong>Relational algebra</strong></p>
+<p>  Algebra with tables $\approx$ SQL SELECT queries</p>
+<ul>
+<li>Exception: uses set semantics</li>
+</ul>
+<p>  Relational algebra is crucial for optimization</p>
+</li>
+</ul>
+<h2 id="Projectin-pi"><a href="#Projectin-pi" class="headerlink" title="Projectin($\pi$)"></a>Projectin($\pi$)</h2><p>将R限制为属性列表中的属性(sets)<br><img src="https://pic.imgdb.cn/item/6175aa812ab3f51d9180246f.png" alt="p1"></p>
+<h2 id="Renaming-rh0"><a href="#Renaming-rh0" class="headerlink" title="Renaming($\rh0$)"></a>Renaming($\rh0$)</h2><p><img src="https://pic.imgdb.cn/item/6175aad02ab3f51d91804d98.png" alt="p1"></p>
+<h2 id="Selection-sigma"><a href="#Selection-sigma" class="headerlink" title="Selection($\sigma$)"></a>Selection($\sigma$)</h2><p>所有符合条件的束<br><img src="https://pic.imgdb.cn/item/6175ab9c2ab3f51d9180bcc9.png" alt="p1"></p>
+<h2 id="Cartesian-Product-chi"><a href="#Cartesian-Product-chi" class="headerlink" title="Cartesian Product($\chi$)"></a>Cartesian Product($\chi$)</h2><p><img src="https://pic.imgdb.cn/item/6175ac912ab3f51d918126aa.png" alt="p1"></p>
+<h2 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h2><p><img src="https://pic.imgdb.cn/item/6175ad4d2ab3f51d918181c7.png" alt="p1"></p>
+<h2 id="Many-others…"><a href="#Many-others…" class="headerlink" title="Many others…"></a>Many others…</h2><p><img src="https://pic.imgdb.cn/item/6175ad582ab3f51d9181864c.png" alt="p1"></p>
+<h2 id="Key-understanding"><a href="#Key-understanding" class="headerlink" title="Key understanding"></a>Key understanding</h2><p><img src="https://pic.imgdb.cn/item/6175ade72ab3f51d9181bd7e.png" alt="p1"></p>
 
       
 
