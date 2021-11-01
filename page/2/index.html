@@ -160,6 +160,441 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-COMP207" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/09/27/COMP207/">COMP207</a>
+    </h1>
+  
+
+        
+        <a href="/2021/09/27/COMP207/" class="archive-article-date">
+  	<time datetime="2021-09-27T13:39:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><h2 id="Course’s-aim"><a href="#Course’s-aim" class="headerlink" title="Course’s aim:"></a>Course’s aim:</h2><ul>
+<li><strong>Introdution for coursees</strong><br>  A CS Store from Liverpool to national</li>
+</ul>
+<hr>
+<h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Introduction-to-databases"><a href="#Introduction-to-databases" class="headerlink" title="Introduction to databases:"></a>Introduction to databases:</h2><ul>
+<li>Databases can be used for most purposes in computer science (Python, Java, C or C++) </li>
+<li>Databases are not general-purpose, they are domain-specific<br>  (<em><strong>It’s everywhere !</strong></em>)</li>
+</ul>
+<h3 id="Databases-Drives-the-Web"><a href="#Databases-Drives-the-Web" class="headerlink" title="Databases Drives the Web"></a>Databases Drives the Web</h3><pre><code>User -&gt; Web service -&gt; Database
+</code></pre>
+<ul>
+<li>Requires extremely efficient systems for querying dada,<br>  and for storing and mainpulating data in a safe way.</li>
+</ul>
+<p><strong>Application</strong></p>
+<ul>
+<li>Online store</li>
+<li>Social media site</li>
+<li>Airline/train/hotel/reservation</li>
+<li>many more</li>
+</ul>
+<h3 id="Databases-Drives-Businesses"><a href="#Databases-Drives-Businesses" class="headerlink" title="Databases Drives Businesses"></a>Databases Drives Businesses</h3><ul>
+<li>Banking:<ul>
+<li>debit/ credit card transactons</li>
+</ul>
+</li>
+<li>Stock market</li>
+<li>Big companies &amp; organisations:<ul>
+<li>Employees, customers, products, sales, schedules, logistics, clients, etc</li>
+<li>Purposes:<ul>
+<li>Some are worthwhile directly</li>
+<li>Management, data analytics and decision making</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Databases-in-Science-amp-Public-Service"><a href="#Databases-in-Science-amp-Public-Service" class="headerlink" title="Databases in Science &amp; Public Service"></a>Databases in Science &amp; Public Service</h3><ul>
+<li>Science:<ul>
+<li>Astronomy</li>
+<li>Human Genome</li>
+<li>Biochemists exploring properties of proteins</li>
+<li>Biology and life sciences</li>
+<li>Geology</li>
+</ul>
+</li>
+<li>Medicine/NHS:<ul>
+<li>Patinet records</li>
+<li>Diseases and their relationaships, treaments, etc.</li>
+<li>Decision making</li>
+</ul>
+</li>
+<li>Many otheres</li>
+</ul>
+<hr>
+<h1 id="Lecture-3"><a href="#Lecture-3" class="headerlink" title="Lecture 3"></a>Lecture 3</h1><h2 id="Basics-of-SQL-and-the-relational-model"><a href="#Basics-of-SQL-and-the-relational-model" class="headerlink" title="Basics of SQL and the relational model"></a>Basics of SQL and the relational model</h2><ul>
+<li>insert</li>
+<li>delete</li>
+<li>query</li>
+</ul>
+<h2 id="Relational-DBMS-Components"><a href="#Relational-DBMS-Components" class="headerlink" title="Relational DBMS Components"></a>Relational DBMS Components</h2><ul>
+<li><p>User/application</p>
+<ul>
+<li>QUery Compiler</li>
+<li>Exection Engine</li>
+<li>index/file/record manager</li>
+</ul>
+</li>
+<li><p>Transaction Management</p>
+<ul>
+<li>Transaction manager</li>
+<li>Logging and recovery</li>
+<li>Concurrency Control</li>
+</ul>
+</li>
+</ul>
+<h2 id="Beyond-Plain-Relational-DBMS"><a href="#Beyond-Plain-Relational-DBMS" class="headerlink" title="Beyond Plain Relational DBMS"></a>Beyond Plain Relational DBMS</h2><pre><code>+ Distributed DBMSs
++ Beyond Relational data
++ data warehouses/analysis/mining
+</code></pre>
+<hr>
+<h1 id="Lecture-4"><a href="#Lecture-4" class="headerlink" title="Lecture 4"></a>Lecture 4</h1><h2 id="Introduction-to-relational-databases-and-SQL"><a href="#Introduction-to-relational-databases-and-SQL" class="headerlink" title="Introduction to relational databases and SQL"></a>Introduction to relational databases and SQL</h2><h3 id="Relational-database"><a href="#Relational-database" class="headerlink" title="Relational database"></a>Relational database</h3><ul>
+<li>Data is organised in tables</li>
+<li>Each table has a schema</li>
+</ul>
+<h3 id="In-typical-use-Tables"><a href="#In-typical-use-Tables" class="headerlink" title="In typical use(Tables)"></a>In typical use(Tables)</h3><p><strong>Each table typically has:</strong></p>
+<ul>
+<li>Few columns/attributes that are fixed(i.e. in name and type of content)</li>
+<li>The number of rows depends on the table and can change</li>
+</ul>
+<p><strong>(Rows)</strong><br>Each row corresponds to an entity or similar, or to relationship between such</p>
+<ul>
+<li>Rows in the same table corresponds to the same kind of entity or relation</li>
+<li>A row in a table could correspond to a transaction </li>
+<li>A sidenote</li>
+</ul>
+<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
+<li>Relational databases are accessed using SQL(Standard Query Language)</li>
+<li>The standard for SQL is updated every few years</li>
+<li>The implementations does not follow the standard that well though</li>
+</ul>
+<p><strong>SQL Parts</strong></p>
+<blockquote>
+<ul>
+<li>Data Definition Language(DDL)</li>
+<li>Data Manipulation Language(DML)</li>
+<li>Transact-SQL</li>
+<li>Transact-SQL</li>
+</ul>
+</blockquote>
+<ul>
+<li><p>SQL DDL</p>
+<ul>
+<li>Create a database: <em>CREATE DATABASE nnnnnn;</em> (不区分大小写)<br>(换行操作和线性同样)</li>
+<li>Unique specify that you want some attribute to be unique</li>
+<li>Primary Key: <em>CONSTRAINT PK_tablenames PRIMARY KEY (attributes)</em><pre><code>  data should be sorted physically in storage by defining a primary key 
+</code></pre>
+<ul>
+<li>Primary keys must be <em>unique</em> and can ony be <em>1</em></li>
+<li>Primary key per table(there can be many unique attributes/set of attributes)<ul>
+<li>Primary key are often id number, e.g. student id/employee id or similar</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Foreign key: <em>CONSTRAINT FK_kidtablename FOREIGN KEY(attributes) REFERENCES Fathertablename(attributes)</em><ul>
+<li>A foreign key is used to link two tables together explicitly<ul>
+<li>从<em>一个table</em>的一些<em>attributes</em>指向<em>另外的table</em>的<em>primary key</em> (子表的某些属性指向主键)</li>
+<li>It ensured that the values in the attributes with the foreign key in the child table must also be in the parent table</li>
+<li>Can be used to create custom datatypes, by having a table with all the values you want to allow</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>DROP : <em>DROP DATABASE database_name;</em> to removes the current database<pre><code>   *DROP TABLE tablename* to removes the current table
+</code></pre>
+</li>
+<li>Modifying tables:<ul>
+<li><em>ALTER TABLE tablenames ADD attribute datatype</em> : Adds an attribute</li>
+<li><em>ALTER TABLE tablenames MODIFY attribute datatype</em> : Changes the current attribute</li>
+<li><em>ALTER TABLE tablenames DROP COLUMN attribute</em>   : Removes the email attribute again</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>SQL DML</p>
+<ul>
+<li>Insert: <em>INSERT INTO students VALUES(‘Oliver’, 20171112, ‘G402’);</em></li>
+<li>Delete: <em>DELETE FROM Students WHERE name = ‘john’;</em></li>
+<li>Conditions in <em>WHERE</em> clauses<ul>
+<li>Comparisons: =, &lt;, &lt;=, &gt;=, &lt;&gt;(or != for the last)</li>
+</ul>
+</li>
+<li>Conditions can contain:<ul>
+<li>AND </li>
+<li>OR</li>
+<li>NOT</li>
+<li>BETWEEN</li>
+<li>LIKE: for string matching<ul>
+<li>“_” for any 1 letter</li>
+<li>“%” for any number of letters</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>UPDATE: <em>UPDATE studnets SET programme = ‘G402’ WHERE name = ‘Oliver’;</em></li>
+</ul>
+</li>
+<li><p>operation details:</p>
+<ul>
+<li>插入新数据要有主键</li>
+<li>外键要和主键对应</li>
+<li>不能超过规定长度</li>
+<li>变量名字不能错误</li>
+</ul>
+</li>
+<li><p>Datatypes:</p>
+<ul>
+<li>INT - integers</li>
+<li>FLOAT - decimal numbers</li>
+<li>CHAR(x) - x is an integer, fixed length string 必须填满5个字符</li>
+<li>VARCHAR(x) - x is an integer, variable length storing 最多五个字符</li>
+<li>DATE - dates<ul>
+<li>Format YYYY-MM-DD</li>
+</ul>
+</li>
+<li>DATETIME - for time and dates<ul>
+<li>Format YYYY-MM-DD HH:MI:SS</li>
+</ul>
+</li>
+<li>XML - for XML files</li>
+<li>BLOB - binary files(e.g. programs)</li>
+<li>“–” is used to denote comments</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Lce-5-SQL-qureries-required-part"><a href="#Lce-5-SQL-qureries-required-part" class="headerlink" title="Lce-5 SQL qureries - required part"></a>Lce-5 SQL qureries - required part</h1><h2 id="SQL-Queries"><a href="#SQL-Queries" class="headerlink" title="SQL Queries:"></a>SQL Queries:</h2><p><strong>Queries in SQL have the following form:</strong></p>
+<p><img src="https://pic.imgdb.cn/item/6170b6aa2ab3f51d9150f750.png" alt="p1"></p>
+<h2 id="Most-basic-query"><a href="#Most-basic-query" class="headerlink" title="Most basic query"></a>Most basic query</h2><p><img src="https://pic.imgdb.cn/item/6170b6ec2ab3f51d91511e82.png" alt="p1"></p>
+<ul>
+<li><strong>SELECT</strong></li>
+</ul>
+<p><strong>SELECT</strong> defines what is outputted, making you able to do four kinds of modifications of it:</p>
+<p>这里星号表示查询出表里面的全部字段</p>
+<ol>
+<li>Projection($\pi$)</li>
+<li>DISTINCT</li>
+<li>Renaming($\rho$)</li>
+<li>Creating new columns</li>
+</ol>
+<p><strong>Projection</strong>($\pi$)</p>
+<blockquote>
+<p>Projection allows you to select attributes you want to keep(the rest qre discarded)<br>You use it by writing a list of attributes<br>变量的顺序很重要<br><img src="https://pic.imgdb.cn/item/6170b87b2ab3f51d91520179.png" alt="p1"></p>
+</blockquote>
+<hr>
+<p><strong>DISTINCT</strong></p>
+<blockquote>
+<p>DISTINCT is for remobing duplicated rows<br><img src="https://pic.imgdb.cn/item/6170b8cf2ab3f51d91522ad1.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6170b92c2ab3f51d91525825.png" alt="p2"></p>
+</blockquote>
+<hr>
+<p><strong>Renaming</strong>($\rho$)</p>
+<blockquote>
+<p>Renaming allows you to rename attributes<br>You use it by writing AS and then the new name after the attribute<br><img src="https://pic.imgdb.cn/item/6170b99c2ab3f51d915295c8.png" alt="p1"></p>
+</blockquote>
+<hr>
+<p><strong>Creating new columns</strong></p>
+<blockquote>
+<p><img src="https://pic.imgdb.cn/item/6170ba522ab3f51d91530670.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6170ba7b2ab3f51d91531d0a.png" alt="p2"></p>
+</blockquote>
+<hr>
+<p><strong>Mix and match</strong></p>
+<blockquote>
+<p>The four modification types can also be mixed and matched as wanted<br><img src="https://pic.imgdb.cn/item/6171ce982ab3f51d9151cfa5.png"></p>
+</blockquote>
+<hr>
+<p><strong>FROM</strong></p>
+<blockquote>
+<p>FORM defines the input and would be easy if we only allowed one input<br>In general, FROM can cotain many input tables and we combine them together in various ways</p>
+<ul>
+<li>How we combine the tables is defined by FROM<br>Only some ways of combining will be discussed in this course, but there exists others<br>The primarily used ones will be:<br><img src="https://pic.imgdb.cn/item/6171d09e2ab3f51d91526b78.png" alt="p1"></li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>Cross product</strong>(X)</p>
+<blockquote>
+<p><img src="https://pic.imgdb.cn/item/6171d1f12ab3f51d9152d54a.png" alt="p2"></p>
+</blockquote>
+<hr>
+<p><strong>Natural join</strong></p>
+<blockquote>
+<p><img src="https://pic.imgdb.cn/item/6171d3332ab3f51d91534047.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6171d34c2ab3f51d91534808.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/6171d3b42ab3f51d915365d1.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/6171d3e42ab3f51d91537416.png" alt="p4"></p>
+</blockquote>
+<hr>
+<h1 id="Lec-6-SQL-queries-optional-part"><a href="#Lec-6-SQL-queries-optional-part" class="headerlink" title="Lec 6 SQL queries (optional part)"></a>Lec 6 SQL queries (optional part)</h1><h2 id="Conetent"><a href="#Conetent" class="headerlink" title="Conetent:"></a>Conetent:</h2><ul>
+<li><strong>WHERE</strong></li>
+<li><strong>GROUP BY</strong></li>
+<li><strong>HAVING</strong></li>
+<li><strong>ORDER BY</strong></li>
+</ul>
+<hr>
+<h2 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h2><ul>
+<li><strong>WHERE:IN</strong><br>the example used was:</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/6171d7de2ab3f51d9154c6e1.png" alt="p1"></p>
+<p>However,instead of providing a list, one can also do a sub-query (here using a similar University database as in the example above):</p>
+<p><img src="https://pic.imgdb.cn/item/6171d8392ab3f51d9154e5f2.png" alt="p1"></p>
+<ul>
+<li><strong>WHERE: EXISTS</strong></li>
+</ul>
+<p>EXISTS is a generalization of IN<br><img src="https://pic.imgdb.cn/item/6171d8392ab3f51d9154e5f2.png" alt="p1"></p>
+<ul>
+<li><strong>WHERE: Semi-join</strong></li>
+</ul>
+<p>Most types of joins done in the <strong>FROM</strong> clause</p>
+<ul>
+<li>See the video on the required part of SQL queries</li>
+</ul>
+<p>There is q exception though, which is semi-joins, which are done in WHERE clauses</p>
+<p>A(left)semi-join between two tables A and B, find the subset of rows in A that would be used to form some row of the natural join of A and B</p>
+<ul>
+<li>A right semi-join would find the subset of instead</li>
+</ul>
+<p>These are done using <strong>EXISTS</strong>(or <strong>IN</strong>, if there is only one shared attribute)</p>
+<p>The example we saw of <strong>EXISTS</strong> was really a left semi-join of <strong>Student</strong> with <strong>lecturers</strong></p>
+<ul>
+<li><p>We only kept the rows from students that had a matching first and last name as a lecturer, which were their common attributes<br>  <img src="https://pic.imgdb.cn/item/6171db5b2ab3f51d91560de8.png" alt="p1"></p>
+</li>
+<li><p><strong>GROUP BY</strong></p>
+</li>
+</ul>
+<p>Instead of first discussing how it is used/what it does, I will start by what <strong>GROUP</strong> BY is used for Say I want to know how many transactions Anne(i.e. e_id=1)was part of:<br>    <img src="https://pic.imgdb.cn/item/6171dc672ab3f51d91568b12.png" alt="p1"></p>
+<p>Say I want to do that for each employee instead of just Anne</p>
+<p>To do that, you just replace <strong>WHERE</strong> with <strong>GROUP BY</strong>(and remove = 1)<br>    <img src="https://pic.imgdb.cn/item/6172bc222ab3f51d9103826e.png" alt="p2"></p>
+<ul>
+<li><p>A complication</p>
+<p>  If we include <strong>GROUP BY</strong>, then we can only include in <strong>SELECT</strong> attributes we <strong>GROUP</strong> <strong>BY</strong> or aggregates </p>
+<p>  E.g. say we wanted the first name of the employees as well as their employee id and the number of their transactions<br>  <img src="https://pic.imgdb.cn/item/6172ba732ab3f51d91014883.png" alt="p3"></p>
+</li>
+<li><p>A solution to the complication<br>  <img src="https://pic.imgdb.cn/item/6172bcee2ab3f51d91048992.png" alt="p1"><br>  <img src="https://pic.imgdb.cn/item/6172c33e2ab3f51d910c9e15.png" alt="p2"></p>
+</li>
+<li><p>Intution<br>Intuitively speaking, GROUP BY works like this:</p>
+</li>
+</ul>
+<p>Do the previous part of the query until GROUP BY (except ignoring the part in SELECT)</p>
+<p>Split the resulting table into sub-tables</p>
+<ul>
+<li><p>1 sub-table for each value of the variables in GROUP BY </p>
+</li>
+<li><p>I.e. if you had say first_nameand e_idlike in the example, you would have a sub-table for each pair of first_nameand e_id. This means, e.g. that if two employees were named Anne, you would have two sub-tables, one for each Anne, defined by their e_id<br><img src="https://pic.imgdb.cn/item/6172c4952ab3f51d910e67b4.png" alt="p1"></p>
+</li>
+<li><p><strong>HAVING</strong><br><img src="https://pic.imgdb.cn/item/6172c62b2ab3f51d91104c70.png" alt="p1"></p>
+</li>
+<li><p><strong>ORDER BY</strong><br><img src="https://pic.imgdb.cn/item/6172c65b2ab3f51d91108c35.png" alt="p1"></p>
+</li>
+</ul>
+<h1 id="Lec7-SQL-Queries"><a href="#Lec7-SQL-Queries" class="headerlink" title="Lec7- SQL Queries"></a>Lec7- SQL Queries</h1><h2 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h2><p>Basically, the same as in math with sets (不允许有重复元素出现)</p>
+<p>You can also view is as putting one list after another</p>
+<p>Say we have an Employees table<br>We want a list of names i.e. both first and family name</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name as name</span><br><span class="line">FROM Employees</span><br><span class="line">UNION</span><br><span class="line">SELECT family_name</span><br><span class="line">FROM Employees;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>Things</strong> <strong>work</strong></p>
+<p>  <img src="https://pic.imgdb.cn/item/6175a1c92ab3f51d917bc2fe.png" alt="p1"><br>  <img src="https://pic.imgdb.cn/item/6175a2012ab3f51d917bde0a.png" alt="p2"></p>
+</li>
+<li><p><strong>Things work in interesting ways</strong><br>  <img src="https://pic.imgdb.cn/item/6175a3692ab3f51d917c8b8d.png" alt="p1"></p>
+</li>
+</ul>
+<h1 id="Lec8-SQL-QUeries-misc-and-relational-algebra"><a href="#Lec8-SQL-QUeries-misc-and-relational-algebra" class="headerlink" title="Lec8- SQL QUeries - misc. and relational algebra"></a>Lec8- SQL QUeries - misc. and relational algebra</h1><h2 id="Views-as-saved-queries"><a href="#Views-as-saved-queries" class="headerlink" title="Views: as saved queries"></a>Views: as saved queries</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name, e_id,COUNT(t_id)</span><br><span class="line">FROM Employees NATURAL JOIN Transcations</span><br><span class="line">GROUP BY first_name, e_id;</span><br></pre></td></tr></table></figure>
+<pre><code>![p1](https://pic.imgdb.cn/item/6175a4ce2ab3f51d917d6007.png)
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW Employee_transaction_count AS</span><br><span class="line">SELECT first_name,e_id,COUNT(t_id)</span><br><span class="line">FROM Employees NATURAL JOIN Transactions </span><br><span class="line">GROUP BY first_name,e_id;</span><br></pre></td></tr></table></figure>
+<pre><code>![p1](https://pic.imgdb.cn/item/6175a5952ab3f51d917dd9a9.png)
+</code></pre>
+<h2 id="Views-as-virtual-tables"><a href="#Views-as-virtual-tables" class="headerlink" title="Views: as virtual tables"></a>Views: as virtual tables</h2><pre><code>![p1](https://pic.imgdb.cn/item/6175a5952ab3f51d917dd9a9.png)
+</code></pre>
+<h3 id="More-on-views"><a href="#More-on-views" class="headerlink" title="More on views"></a>More on views</h3><pre><code>视图可以覆盖或者删除
+![p1](https://pic.imgdb.cn/item/6175a6bc2ab3f51d917e7959.png)
+</code></pre>
+<h2 id="Relation-Algebra"><a href="#Relation-Algebra" class="headerlink" title="Relation Algebra"></a>Relation Algebra</h2><ul>
+<li><p><strong>Algebra</strong><br>  Algebra = branch of math</p>
+<p>  Example: Algebra with numbers</p>
+<ul>
+<li>Addition(+) = function that takes two numbers and returns a number</li>
+<li>Logarithm (written: log) = function that takes one number and returns another</li>
+<li>Has a subscript-the base</li>
+</ul>
+<p>  Can be composed, e.g.: log<sub>2</sub>(3 + 8) + 4</p>
+</li>
+<li><p><strong>Relational algebra</strong></p>
+<p>  Algebra with tables $\approx$ SQL SELECT queries</p>
+<ul>
+<li>Exception: uses set semantics</li>
+</ul>
+<p>  Relational algebra is crucial for optimization</p>
+</li>
+</ul>
+<h2 id="Projectin-pi"><a href="#Projectin-pi" class="headerlink" title="Projectin($\pi$)"></a>Projectin($\pi$)</h2><p>将R限制为属性列表中的属性(sets)<br><img src="https://pic.imgdb.cn/item/6175aa812ab3f51d9180246f.png" alt="p1"></p>
+<h2 id="Renaming-rh0"><a href="#Renaming-rh0" class="headerlink" title="Renaming($\rh0$)"></a>Renaming($\rh0$)</h2><p><img src="https://pic.imgdb.cn/item/6175aad02ab3f51d91804d98.png" alt="p1"></p>
+<h2 id="Selection-sigma"><a href="#Selection-sigma" class="headerlink" title="Selection($\sigma$)"></a>Selection($\sigma$)</h2><p>所有符合条件的束<br><img src="https://pic.imgdb.cn/item/6175ab9c2ab3f51d9180bcc9.png" alt="p1"></p>
+<h2 id="Cartesian-Product-chi"><a href="#Cartesian-Product-chi" class="headerlink" title="Cartesian Product($\chi$)"></a>Cartesian Product($\chi$)</h2><p><img src="https://pic.imgdb.cn/item/6175ac912ab3f51d918126aa.png" alt="p1"></p>
+<h2 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h2><p><img src="https://pic.imgdb.cn/item/6175ad4d2ab3f51d918181c7.png" alt="p1"></p>
+<h2 id="Many-others…"><a href="#Many-others…" class="headerlink" title="Many others…"></a>Many others…</h2><p><img src="https://pic.imgdb.cn/item/6175ad582ab3f51d9181864c.png" alt="p1"></p>
+<h2 id="Key-understanding"><a href="#Key-understanding" class="headerlink" title="Key understanding"></a>Key understanding</h2><p><img src="https://pic.imgdb.cn/item/6175ade72ab3f51d9181bd7e.png" alt="p1"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/09/27/COMP207/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-COMP219" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     

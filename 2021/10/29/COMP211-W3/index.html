@@ -6,20 +6,78 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://example.com">
-  <title>COMP211LAB | 俊樹の勉強ブログ</title>
+  <title>COMP211-W3 | 俊樹の勉強ブログ</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Assessment 1Part A: This part is based on the content for the first two lab  First we need to declare variables such as socket and cache Then I combine from the lab source and my own knowladge figure">
+  <meta name="description" content="Lec3 Transport layer传输层  OVERVIEWUnderstand priciples behind transport layer services:  multiplexing, demultiplexing 复用（源段）和解复用(目标段) reliable data transfer    可靠数据传输原理 flow control 流量控制 congestion con">
 <meta property="og:type" content="article">
-<meta property="og:title" content="COMP211LAB">
-<meta property="og:url" content="http://example.com/2021/10/10/COMP211LAB/index.html">
+<meta property="og:title" content="COMP211-W3">
+<meta property="og:url" content="http://example.com/2021/10/29/COMP211-W3/index.html">
 <meta property="og:site_name" content="俊樹の勉強ブログ">
-<meta property="og:description" content="Assessment 1Part A: This part is based on the content for the first two lab  First we need to declare variables such as socket and cache Then I combine from the lab source and my own knowladge figure">
+<meta property="og:description" content="Lec3 Transport layer传输层  OVERVIEWUnderstand priciples behind transport layer services:  multiplexing, demultiplexing 复用（源段）和解复用(目标段) reliable data transfer    可靠数据传输原理 flow control 流量控制 congestion con">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2021-10-10T20:36:07.000Z">
-<meta property="article:modified_time" content="2021-10-28T17:30:51.527Z">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617b869e2ab3f51d91d5102b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617b8bff2ab3f51d91da7e34.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617b8d0d2ab3f51d91db75af.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ba5972ab3f51d91f68502.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ba77f2ab3f51d91f809af.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617bad062ab3f51d91fcad02.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617badd62ab3f51d91fd44e2.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617c9ac92ab3f51d91e73cd6.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617c9aef2ab3f51d91e767f2.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617c9d4e2ab3f51d91e9b0a6.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617c9d6f2ab3f51d91e9c7d3.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617c9f132ab3f51d91eb3b6c.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ca0d72ab3f51d91ecbf5d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ca2d12ab3f51d91ee7a5d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ca63a2ab3f51d91f1b0c2.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ca7f52ab3f51d91f3b1f2.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ca8aa2ab3f51d91f4baf5.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617caa532ab3f51d91f691bc.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617caa842ab3f51d91f6c0c6.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cc3b62ab3f51d910dc6e7.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cc82c2ab3f51d9112d107.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cc84b2ab3f51d9112f3c9.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cc8a82ab3f51d9113661c.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cc9aa2ab3f51d9114b3b4.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ccc3e2ab3f51d9117040e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cef8f2ab3f51d91398130.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cefbf2ab3f51d9139bc8f.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cf0652ab3f51d913a8484.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617cf0f52ab3f51d913b0f59.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ed94d2ab3f51d91f0c020.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617edc282ab3f51d91f348b2.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617edc632ab3f51d91f37978.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ede142ab3f51d91f4ff68.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ee20e2ab3f51d91f831a4.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ee2b02ab3f51d91f8b9d6.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ee2e62ab3f51d91f8e7d7.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ee6d02ab3f51d91fc4d1e.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ee7c02ab3f51d91fd013d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ee9452ab3f51d91fdfef9.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617eebc12ab3f51d91ffb06b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ef2c92ab3f51d9103b914.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ef4f22ab3f51d910489cb.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617ef99e2ab3f51d91081da2.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617efb352ab3f51d91090839.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617efd002ab3f51d9109f188.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617efee62ab3f51d910aba0d.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f002e2ab3f51d910b69fd.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f00b72ab3f51d910ba4bd.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f01e92ab3f51d910c17ba.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f03252ab3f51d910c7cca.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f09912ab3f51d910f888a.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f0b9b2ab3f51d911083ee.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f0d0f2ab3f51d91112dd7.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f0f9e2ab3f51d9112612b.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f0feb2ab3f51d91128f35.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f111d2ab3f51d9113169c.png">
+<meta property="og:image" content="https://pic.imgdb.cn/item/617f12b82ab3f51d9113bd98.png">
+<meta property="article:published_time" content="2021-10-29T05:06:40.000Z">
+<meta property="article:modified_time" content="2021-11-01T06:26:27.747Z">
 <meta property="article:author" content="Sha Toshiki">
-<meta property="article:tag" content="exercise">
+<meta property="article:tag" content="learn">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://pic.imgdb.cn/item/617b869e2ab3f51d91d5102b.png">
   
     <link rel="alternative" href="/atom.xml" title="俊樹の勉強ブログ" type="application/atom+xml">
   
@@ -163,355 +221,691 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-COMP211LAB" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-COMP211-W3" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      COMP211LAB
+      COMP211-W3
     </h1>
   
 
         
-        <a href="/2021/10/10/COMP211LAB/" class="archive-article-date">
-  	<time datetime="2021-10-10T20:36:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-10</time>
+        <a href="/2021/10/29/COMP211-W3/" class="archive-article-date">
+  	<time datetime="2021-10-29T05:06:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Assessment-1"><a href="#Assessment-1" class="headerlink" title="Assessment 1"></a>Assessment 1</h2><h3 id="Part-A"><a href="#Part-A" class="headerlink" title="Part A:"></a>Part A:</h3><ul>
-<li>This part is based on the content for the first two lab </li>
-<li>First we need to declare variables such as socket and cache</li>
-<li>Then I combine from the lab source and my own knowladge figure out the result<!-- ```Java
-/*************************************</li>
-</ul>
+        <h1 id="Lec3-Transport-layer"><a href="#Lec3-Transport-layer" class="headerlink" title="Lec3 Transport layer"></a>Lec3 Transport layer</h1><p><strong>传输层</strong></p>
+<hr>
+<h2 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="OVERVIEW"></a>OVERVIEW</h2><p>Understand priciples behind transport layer services:</p>
 <ul>
-<li>Filename:  SMTPInteraction.java</li>
-<li>************************************/<br>import java.net.<em>;<br>import static java.lang.Integer.parseInt;<br>import java.io.</em>;<br>import java.util.*;</li>
+<li>multiplexing, demultiplexing 复用（源段）和解复用(目标段)</li>
+<li>reliable data transfer    可靠数据传输原理</li>
+<li>flow control 流量控制</li>
+<li>congestion control 堵塞控制</li>
 </ul>
-<p>// Name: Junshu Sha<br>// ID: 201600804<br>// Blog: <a target="_blank" rel="noopener" href="https://shaysha-pra.github.io/">https://shaysha-pra.github.io/</a></p>
-<p>// import jdk.internal.org.jline.utils.InputStreamReader;</p>
-<p>/**</p>
+<p>Learn about Internet transport layer protocols:</p>
 <ul>
-<li><p>Open an SMTP connection to mailserver and send one mail.</p>
+<li>UDP: connection-oriented</li>
+<li>TCP: connection-oriented reliable transport</li>
+<li>TCP congestion control</li>
+</ul>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>principles behind transport layer services<ul>
+<li>multiplexing, demultiplexing</li>
+<li>reliable data transfer</li>
+<li>flow control</li>
+<li>congestion control</li>
+</ul>
 </li>
-<li></li>
-<li><p>/<br>public class SMTPInteraction {<br>  /* Socket to the server <em>/<br>  private Socket connection;<br>  /</em> Streams for reading from and writing to socket <em>/<br>  private BufferedReader fromServer;<br>  private DataOutputStream toServer;<br>  private static final String CRLF = “\r\n”;<br>  /</em> Are we connected? Used in close() to determine what to do. */<br>  //the number of recipient address<br>  private boolean isConnected = false;<br>  private int number_of_RCPT = 0;<br>  private String check_RCPT[];</p>
-<p>  /* Create an SMTPInteraction object. Create the socket and the </p>
-<pre><code> associated streams. Initialise SMTP connection. */
-</code></pre>
-<p>  public SMTPInteraction(EmailMessage mailmessage) throws IOException {</p>
-<pre><code>  // Open a TCP client socket with hostname and portnumber specified in
-  // mailmessage.DestHost and  mailmessage.DestHostPort, respectively.
-  int PORT = mailmessage. DestHostPort;
-  connection = new Socket(mailmessage.DestHost, PORT);
-
-  // attach the BufferedReader fromServer to read from the socket and
-  // the DataOutputStream toServer to write to the socket
-  fromServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-  toServer =   new DataOutputStream(connection.getOutputStream());
-  // fromServer = new BufferedReader(new InputStreamReader(System.in));
-  // toServer = System.out;
-</code></pre>
+<li>instantiation, implemetation in the Internet<ul>
+<li>UDP</li>
+<li>TCP</li>
+</ul>
 </li>
 </ul>
-<pre><code>    /* Read one line from server and check that the reply code is 220.
-   If not, throw an IOException. */
-
-
-    String response = fromServer.readLine();
-    if (!response.startsWith(&quot;220&quot;)) &#123;
-        throw new IOException(&quot;220 reply not received from server.&quot;);
-    &#125;
-    /* SMTP handshake. We need the name of the local machine.
-    Send the appropriate SMTP handshake command. */
-    String localhost = InetAddress.getLocalHost().getHostName();
-    sendCommand(&quot;HELO &quot; + localhost, 250);
-
-
-    isConnected = true;
-&#125;
-
-/* Send message. Write the correct SMTP-commands in the
-   correct order. No checking for errors, just throw them to the
-   caller. */
-public void send(EmailMessage mailmessage) throws IOException &#123;
-
-// initialize the number of rcpt address.
-    check_RCPT = mailmessage.Recipient.split(&quot;,&quot;);
-    number_of_RCPT = check_RCPT.length;
-
-/* Send all the necessary commands to send a message. Call
-   sendCommand() to do the dirty work. Do _not_ catch the
-   exception thrown from sendCommand(). */
-
-    sendCommand((&quot;MAIL FROM: &quot; + &quot;&lt;&quot; + mailmessage.Sender+ &quot;&gt;&quot;), 250);
-
-    if (number_of_RCPT &gt; 1)&#123;
-            for (int i = 0; i &lt;= number_of_RCPT;i++)&#123;
-                sendCommand((&quot;RCPT TO: &quot; + &quot;&lt;&quot; + check_RCPT[i] + &quot;&gt;&quot;), 250);
-                number_of_RCPT--;
-            &#125;
-    &#125;else&#123;
-        sendCommand((&quot;RCPT TO: &quot; + &quot;&lt;&quot; + mailmessage.Recipient + &quot;&gt;&quot;), 250);
-    &#125;
-    sendCommand(&quot;DATA&quot;, 354);
-    sendCommand(mailmessage.Headers + CRLF + mailmessage.Body + CRLF + &quot;.&quot;, 250);
-&#125;
-
-/* Close SMTP connection. First, terminate on SMTP level, then
-   close the socket. */
-public void close() &#123;
-    isConnected = false;
-    try &#123;
-        sendCommand(&quot;QUIT&quot;, 221);
-        connection.close();
-    &#125; catch (IOException e) &#123;
-        System.out.println(&quot;Unable to close connection: &quot; + e);
-        isConnected = true;
-    &#125;
-&#125;
-
-/* Send an SMTP command to the server. Check that the reply code is
-   what is is supposed to be according to RFC 821. */
-private void sendCommand(String command, int rc) throws IOException &#123;
-
-    /* Write command to server and read reply from server. */
-    toServer.writeBytes(command + CRLF);
-
-    
-
-    /* Check that the server&#39;s reply code is the same as the parameter
-    rc. If not, throw an IOException. */
-    String response = fromServer.readLine().split(&quot; &quot;)[0];
-    int reply_code = parseInt(response);
-    System.out.println(response);
-    if(reply_code != rc)
-        throw new IOException(&quot;reply code is not matched.&quot;);
-&#125;
-
-protected void finalize() throws Throwable &#123;
-    if (isConnected) &#123;
-        close();
-    &#125;
-
-&#125;
+<h2 id="Transport-layer-services"><a href="#Transport-layer-services" class="headerlink" title="Transport-layer services"></a>Transport-layer services</h2><h3 id="Service-and-protocols"><a href="#Service-and-protocols" class="headerlink" title="Service and protocols"></a>Service and protocols</h3><ul>
+<li>provide <em>logical communication</em> between application processes running on different hosts</li>
+<li>transport protocols actions in end systems:<ul>
+<li>sender:breaks applications messages into <em>segments</em> which as messages passes to network layer</li>
+<li>receiver: reassembles segments into messages, passes to application layer</li>
+</ul>
+</li>
+<li>two transport protocols available to Internet applications<ul>
+<li>TCP,UDP</li>
+</ul>
+</li>
+</ul>
+<h3 id="Transport-vs-network-layer-services-and-protocols"><a href="#Transport-vs-network-layer-services-and-protocols" class="headerlink" title="Transport vs. network layer services and protocols"></a>Transport vs. network layer services and protocols</h3><ul>
+<li>network layer: logical communication between <em>host</em><ul>
+<li>Similar to postal service that send a letter to a postal address</li>
+</ul>
+</li>
+</ul>
+<p>主机与进程之间的区别</p>
+<ul>
+<li>transport layer: extends network service to provide a logical communication between <em>processes</em><ul>
+<li>relies on, enhances, network layer services 是一种对网络层的细分</li>
+</ul>
+</li>
+</ul>
+<h3 id="Transport-Layer-Action"><a href="#Transport-Layer-Action" class="headerlink" title="Transport Layer Action"></a>Transport Layer Action</h3><p>传送端:</p>
+<ul>
+<li>通过应用层的报文</li>
+<li>决定字段头的值</li>
+<li>创建字段</li>
+<li>将字段传送给IP<br><img src="https://pic.imgdb.cn/item/617b869e2ab3f51d91d5102b.png"></li>
+</ul>
+<p>接收端：</p>
+<ul>
+<li>从IP接受字段</li>
+<li>查看段头的值</li>
+<li>提供应用层报文</li>
+<li>由套接字解复用报文到应用</li>
+</ul>
+<h3 id="Two-principal-Internet-transport-protocols"><a href="#Two-principal-Internet-transport-protocols" class="headerlink" title="Two principal Internet transport protocols"></a>Two principal Internet transport protocols</h3><ul>
+<li>TCP: 传输控制协议<ul>
+<li>可靠， in-order delivery字节流</li>
+<li>多复用解复用</li>
+<li>流量控制</li>
+<li>congestion setup 阻塞控制</li>
+<li>connection setup</li>
+</ul>
+</li>
+<li>UDP: 用户数据报协议<ul>
+<li>不可靠， unordered delivery</li>
+<li>no-frills extension of “best-effort” IP</li>
+</ul>
+</li>
+</ul>
+<p><strong>两种服务无法改变延迟，带宽<br>（吞吐量）</strong></p>
+<hr>
+<h2 id="Multiplexing-demultiplexing-复用和解复用"><a href="#Multiplexing-demultiplexing-复用和解复用" class="headerlink" title="Multiplexing/demultiplexing 复用和解复用"></a>Multiplexing/demultiplexing 复用和解复用</h2><p>在传送端复用，在接收端解复用</p>
+<ul>
+<li>Multiplexing: 从多个套接字那里处理数据， 添加传输头</li>
+<li>用头信息来匹配接到的字段到正确的套接字<br>  <img src="https://pic.imgdb.cn/item/617b8bff2ab3f51d91da7e34.png"></li>
+</ul>
+<h3 id="How-demultiplexing-works"><a href="#How-demultiplexing-works" class="headerlink" title="How demultiplexing works"></a>How demultiplexing works</h3><ul>
+<li>host receives IP datagrams<ul>
+<li>each datagram has source(源段) IP address, destination(目标段) IP address</li>
+<li>each datagram carrie one transport-layer segment 数据报包含传输层字段</li>
+<li>each segment has source, destination port number</li>
+</ul>
+</li>
+<li>host uses <em>IP addresses &amp; port numbers</em> to direct segment to appropriate socket<br>主机通过 <strong>源端IP地址和目标端口号</strong> 来指导字段匹配套接字<br><img src="https://pic.imgdb.cn/item/617b8d0d2ab3f51d91db75af.png"></li>
+</ul>
+<h3 id="Connectionless-demultiplexing-无线连接复解用"><a href="#Connectionless-demultiplexing-无线连接复解用" class="headerlink" title="Connectionless demultiplexing 无线连接复解用"></a>Connectionless demultiplexing 无线连接复解用</h3><ul>
+<li>创建套接字的时候必须规定<em>host-local</em> 端口#：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DatagramSocket mySocket1 = <span class="keyword">new</span> DatagramSocket(<span class="number">12534</span>);</span><br></pre></td></tr></table></figure></li>
+<li>创建数据报来传输到UDP套接字时必须规范<ul>
+<li>目标端的IP地址</li>
+<li>目标端的端口#</li>
+</ul>
+</li>
+</ul>
+<p>当接收主机接收到 UDP字段：</p>
+<ul>
+<li>检查字段目标源端口</li>
+<li>direct UDP segment to socket with that port#</li>
+</ul>
+<p>IP/UDP datagrams with <em>same dest.port#,</em> but different source IP address and/or source port numbers will be directed to same socket at receiving host<br>目标端端口一样， 源端IP和端口被引导到同一个接受主机的套接字</p>
+<ul>
+<li><strong>example</strong><br><img src="https://pic.imgdb.cn/item/617ba5972ab3f51d91f68502.png"></li>
+</ul>
+<h3 id="Connection-oriented-demultiplexing-面向连接的解复用"><a href="#Connection-oriented-demultiplexing-面向连接的解复用" class="headerlink" title="Connection-oriented demultiplexing 面向连接的解复用"></a>Connection-oriented demultiplexing 面向连接的解复用</h3><ul>
+<li>TCP socket identified by 4-tuple:<ul>
+<li>source IP address</li>
+<li>source port number</li>
+<li>dest IP address</li>
+<li>dest port address</li>
+</ul>
+</li>
+<li>server may support many simultaneous TCP sockets:<ul>
+<li>each socket identified by its own sockets</li>
+<li>each socket associated with a different connecting client</li>
+</ul>
+</li>
+<li>example</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617ba77f2ab3f51d91f809af.png"></p>
+<h3 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h3><ul>
+<li>multiplexing, demultiplexing: based on segment, datagram header field values</li>
+<li><strong>UDP</strong>: demultiplexing using destination port number(only)</li>
+<li><strong>TCP</strong>: demultiplexing using 4-tuple: source and destination IP addresses, and port number</li>
+</ul>
+<hr>
+<h2 id="Connection-oriented-transport-UDP"><a href="#Connection-oriented-transport-UDP" class="headerlink" title="Connection-oriented transport: UDP"></a>Connection-oriented transport: UDP</h2><h3 id="UDP-User-Datagram-Protocol"><a href="#UDP-User-Datagram-Protocol" class="headerlink" title="UDP:User Datagram Protocol"></a>UDP:User Datagram Protocol</h3><ul>
+<li>“no frills,” “bare bones” Internet transport protocol</li>
+<li>“best effort” service, UDP segments may be:<ul>
+<li>lost</li>
+<li>delivered out-of-order</li>
+</ul>
+</li>
+<li>connectionless:<ul>
+<li>no handshaking between sender, receiver</li>
+<li>each UDP segment handled independently of others 彼此独立</li>
+</ul>
+</li>
+</ul>
+<p><strong>Wbhy is there a UDP</strong></p>
+<ul>
+<li>no connection establishment(which can add RTT delay)</li>
+<li>simple: connection state at sender, receiver</li>
+<li>small header size</li>
+<li>no congestion control <ul>
+<li>UDP can blast away as fast as desired</li>
+<li>can function in the face of congestion</li>
+</ul>
+</li>
+</ul>
+<h3 id="UDP-User-Datagram-protocol"><a href="#UDP-User-Datagram-protocol" class="headerlink" title="UDP: User Datagram protocol"></a>UDP: User Datagram protocol</h3><ul>
+<li>UDP use:<ul>
+<li>streaming multimedia apps(loss tolerant, rate sensitive) 流媒体app</li>
+<li>DNS</li>
+<li>SNMP</li>
+<li>HTTP/3</li>
+</ul>
+</li>
+<li>如果需要在UDP上稳定传输<ul>
+<li>add needed reliability at application layer</li>
+<li>add congestion control at application layer</li>
+</ul>
+</li>
+<li>RFC768<br>  <img src="https://pic.imgdb.cn/item/617bad062ab3f51d91fcad02.png"></li>
+</ul>
+<h3 id="UDP-segment-header"><a href="#UDP-segment-header" class="headerlink" title="UDP segment header"></a>UDP segment header</h3><pre><code>![](https://pic.imgdb.cn/item/617bad302ab3f51d91fcccd5.png)
 </code></pre>
-<p>} </p>
-<pre><code class="--&gt;">
----
+<h3 id="UDP-checksum"><a href="#UDP-checksum" class="headerlink" title="UDP checksum**"></a>UDP checksum**</h3><p>用来检测在传输字段里的错误</p>
+<p><img src="https://pic.imgdb.cn/item/617badd62ab3f51d91fd44e2.png"></p>
+<h3 id="Internet-checksum"><a href="#Internet-checksum" class="headerlink" title="Internet checksum"></a>Internet checksum</h3><p>Goal: detect errors in transmitted segment</p>
+<p><strong>Sender</strong>:</p>
+<ul>
+<li>treat contents of UDP segment as sequence of 16-bit integers</li>
+<li> <strong>checksum:</strong> addition (one’s complement sum) of segment content</li>
+<li> checksum value put into UDP checksum field</li>
+</ul>
+<p><strong>Receiver</strong></p>
+<ul>
+<li>compute checksum of received segment</li>
+<li>check if computed chechsum equals  checksum field value:<ul>
+<li>not equal - error detected</li>
+<li>equal - no error detecrted. But maybe errors notetheless? More later ….</li>
+</ul>
+</li>
+<li>Example<br>  <img src="https://pic.imgdb.cn/item/617c9ac92ab3f51d91e73cd6.png"></li>
+<li>weak proteciton!<br>  <img src="https://pic.imgdb.cn/item/617c9aef2ab3f51d91e767f2.png"></li>
+</ul>
+<h3 id="Summary-UDP"><a href="#Summary-UDP" class="headerlink" title="Summary: UDP"></a>Summary: UDP</h3><ul>
+<li>“no frills” protocol:<ul>
+<li>segments may be lost, delivered out of <strong>order</strong></li>
+<li>best effort service: “send and hope for the best”</li>
+</ul>
+</li>
+<li>UDP has its plusses:<ul>
+<li>no setup/handshaking needed(no RTT incurred)</li>
+<li>can function when network service is compromised</li>
+<li>helps with reliability(checksum)</li>
+</ul>
+</li>
+<li>Build additional functionality on top of UDP in application layer(e.g., HTTP/3)</li>
+</ul>
+<hr>
+<h2 id="Principle-of-reliable-data-transfer"><a href="#Principle-of-reliable-data-transfer" class="headerlink" title="Principle of reliable data transfer"></a>Principle of reliable data transfer</h2><p><img src="https://pic.imgdb.cn/item/617c9d4e2ab3f51d91e9b0a6.png"><br><img src="https://pic.imgdb.cn/item/617c9d6f2ab3f51d91e9c7d3.png"><br>需要在进入非可靠channel之前加安全协议</p>
+<p>可靠传输协议的复杂度由非可靠channel的特征决定</p>
+<p>接收端和发送端彼此不知道对方的状态除非经由报文沟通</p>
+<h3 id="protocol-rdt-interfaces"><a href="#protocol-rdt-interfaces" class="headerlink" title="protocol(rdt): interfaces"></a>protocol(rdt): interfaces</h3><p><img src="https://pic.imgdb.cn/item/617c9f132ab3f51d91eb3b6c.png"></p>
+<h3 id="Reliable-data-transfer-getting-started"><a href="#Reliable-data-transfer-getting-started" class="headerlink" title="Reliable data transfer: getting started"></a>Reliable data transfer: getting started</h3><p><strong>We will</strong>:</p>
+<ul>
+<li>incrementally develop sender, receiver sides of rdt protocol<br>逐步开放发送端和接收端的rdt协议</li>
+<li>consider only unidirectional data transfer<ul>
+<li>但是控制信息会双向流动</li>
+</ul>
+</li>
+<li>use finite state machines(FSM) to specify sender, receiver<br>  <img src="https://pic.imgdb.cn/item/617ca0d72ab3f51d91ecbf5d.png"><h3 id="rdt1-0-reliable-transfer-over-a-reliable-channel"><a href="#rdt1-0-reliable-transfer-over-a-reliable-channel" class="headerlink" title="rdt1.0: reliable transfer over a reliable channel"></a>rdt1.0: reliable transfer over a reliable channel</h3></li>
+<li>underlying channel perfectly reliable底层通道非常可靠<ul>
+<li>no bit errors </li>
+<li>no loss of packets</li>
+</ul>
+</li>
+<li><em>separate</em> FSMs for sender, receiver:<ul>
+<li>sender sends data into underlying channel</li>
+<li>receiver reads data from underlying channel<br><img src="https://pic.imgdb.cn/item/617ca2d12ab3f51d91ee7a5d.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="edt2-0"><a href="#edt2-0" class="headerlink" title="edt2.0:"></a>edt2.0:</h3><p><strong>channel with bit errors</strong></p>
+<ul>
+<li>underlying channel may flip bits in packet<ul>
+<li>checksum(e.g., Internet checksum) to detect bit errors<br>在1.0基础上加伤checksum</li>
+</ul>
+</li>
+<li>the question: how to recover from errors?</li>
+</ul>
+<p><strong>channel with bit errors</strong></p>
+<ul>
+<li><strong>acknowledgements(ACKs)</strong>: receiver explicitily tells sender that pkt receiverd OK</li>
+<li><strong>negative acknowledgements(NAKs):</strong> receiver explicitly tells sender that pkt had errors</li>
+<li>sender <strong>retransmits</strong> pkt on receipt of NAK 收到错误消息后重新发送</li>
+<li><strong>stop and wait</strong><br>发送端发送一个包裹， 然后等待接收端反应</li>
+</ul>
+<p><strong>FSM specifications</strong><br><img src="https://pic.imgdb.cn/item/617ca63a2ab3f51d91f1b0c2.png"><br><strong>Note</strong>: 接收端和发送端彼此不知道对方的状态除非经由某种方式沟通</p>
+<ul>
+<li>所以需要协议来控制</li>
+</ul>
+<p><strong>operation with no errors</strong><br><img src="https://pic.imgdb.cn/item/617ca7f52ab3f51d91f3b1f2.png"></p>
+<p><strong>corrupted packet scenario</strong><br><img src="https://pic.imgdb.cn/item/617ca8aa2ab3f51d91f4baf5.png"></p>
+<p><strong>has a fatal flaw!</strong></p>
+<p><em>when ACK/NAK corrupted happened</em></p>
+<ul>
+<li>sender doesn’t know what happened at receiver</li>
+<li>can’t just retransmit: possible duplicate</li>
+</ul>
+<p><em>handling duplicates:</em></p>
+<ul>
+<li>sender retransmits current pkt if ACK/NAK corrupted</li>
+<li>sender adds <em>sequence number</em> to each pkt</li>
+<li>receiver discards(doesn’t deliver up) duplicate pkt<br>发送端发送一个包裹， 然后等待接收端反应</li>
+</ul>
+<h3 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h3><p><strong>sender, handling grabled ACK/NAKs</strong><br><img src="https://pic.imgdb.cn/item/617caa532ab3f51d91f691bc.png"><br><img src="https://pic.imgdb.cn/item/617caa842ab3f51d91f6c0c6.png"></p>
+<p><strong>discussion</strong></p>
+<p><em>sender</em>:</p>
+<ul>
+<li>seq # added to pkt</li>
+<li>two seq. #s(0,1) will suffice.</li>
+<li>check if received ACK/NAK corrupted</li>
+<li>twice as many states<ul>
+<li>state must “remember” whether “expected” pkt should have seq # of 0 or 1</li>
+</ul>
+</li>
+</ul>
+<p><em>receiver</em>:</p>
+<ul>
+<li>if packet is duplicate<ul>
+<li>state indicates whether 0 or 1 is expected pkt seq#</li>
+</ul>
+</li>
+<li>note: receiver can notknow if its last ACK/NAK received OK at sender</li>
+</ul>
+<h3 id="rdt2-2"><a href="#rdt2-2" class="headerlink" title="rdt2.2"></a>rdt2.2</h3><p><strong>a NAK-free protocol</strong></p>
+<ul>
+<li>same functionality as rdt2.1, using ACKs only</li>
+<li>insted of NAK, receiver sends ACK for last pkt received OK<ul>
+<li>receiver must explicitly include seq# pf pkt being ACKed</li>
+</ul>
+</li>
+<li>duplicate ACK at sender results in same action as NAK: retransmit current pktTCP use this approach to be NAK-free</li>
+</ul>
+<p><strong>sender, receiver fragments</strong><br>    <img src="https://pic.imgdb.cn/item/617cc3b62ab3f51d910dc6e7.png"></p>
+<h3 id="rdt3-0-channels-with-errors-and-loss"><a href="#rdt3-0-channels-with-errors-and-loss" class="headerlink" title="rdt3.0: channels with errors and loss"></a>rdt3.0: channels with errors and loss</h3><p><strong>New channel assumption:</strong> underlying channel can also lose packets(data, ACKs)</p>
+<ul>
+<li>checksum, sequence #s, ACKs, retransmissions will be of help … but not quite enough</li>
+</ul>
+<p><strong>channel with errors and loss</strong><br><em>Approach:</em> sender waits “reasonable” amount of time for ACK</p>
+<ul>
+<li>如果ACK没有被接收重新发送</li>
+<li>if pkt()or ACK just dlayed:<ul>
+<li>retransmission will be duplicate, but seq #s already handles this!</li>
+<li>receiver must specify seq# of packet being ACKed</li>
+</ul>
+</li>
+<li>use countdown timer to interrupt after “reasonable” amount of time</li>
+</ul>
+<p><strong>sender</strong><br><img src="https://pic.imgdb.cn/item/617cc82c2ab3f51d9112d107.png"><br><img src="https://pic.imgdb.cn/item/617cc84b2ab3f51d9112f3c9.png"></p>
+<p><strong>in action</strong><br><img src="https://pic.imgdb.cn/item/617cc8a82ab3f51d9113661c.png"><br><img src="https://pic.imgdb.cn/item/617cc9aa2ab3f51d9114b3b4.png"></p>
+<hr>
+<h2 id="Principles-of-reliable-data-transfer-Pipelined-protocols"><a href="#Principles-of-reliable-data-transfer-Pipelined-protocols" class="headerlink" title="Principles of reliable data transfer - Pipelined protocols"></a>Principles of reliable data transfer - Pipelined protocols</h2><h3 id="rdt3-0"><a href="#rdt3-0" class="headerlink" title="rdt3.0"></a>rdt3.0</h3><p><strong>Performance of rdt3.0</strong></p>
+<ul>
+<li>U <sub>sender</sub>: <em>utilization</em> - fraction of time sender busy sending</li>
+<li>example: 1Gbps link, 15 ms prop. delay, 8000 bit packet<ul>
+<li>time to transmit packet into channel<br><img src="https://pic.imgdb.cn/item/617ccc3e2ab3f51d9117040e.png"></li>
+</ul>
+</li>
+</ul>
+<p><strong>stop-and-wait operation</strong><br><img src="https://pic.imgdb.cn/item/617cef8f2ab3f51d91398130.png"><br>RTT</p>
+<p><img src="https://pic.imgdb.cn/item/617cefbf2ab3f51d9139bc8f.png"></p>
+<h3 id="Pipelined-protocols-operation"><a href="#Pipelined-protocols-operation" class="headerlink" title="Pipelined protocols operation"></a><strong>Pipelined protocols operation</strong></h3><p><em>piplining</em>: sender allows multiple, “in-flight”, yet-to-be-acknoledged packets</p>
+<ul>
+<li>range of sequence numbers must be increased</li>
+<li>buffering at sender and/or receiver<br><img src="https://pic.imgdb.cn/item/617cf0652ab3f51d913a8484.png"></li>
+</ul>
+<p><strong>Pipelining: increased utilization</strong><br><img src="https://pic.imgdb.cn/item/617cf0f52ab3f51d913b0f59.png"></p>
+<hr>
+<h3 id="Go-Back-N"><a href="#Go-Back-N" class="headerlink" title="Go-Back-N:"></a><strong>Go-Back-N:</strong></h3><p><strong>sender</strong></p>
+<ul>
+<li>sender: “window” of up to N, consecutive transmitted but unACKed pkts<ul>
+<li>k-bit seq # in pkt header<br><img src="https://pic.imgdb.cn/item/617ed94d2ab3f51d91f0c020.png"></li>
+</ul>
+</li>
+<li><strong>cumulative(积累) ACK:</strong> ACK(n) all packets up to, including seq # n <ul>
+<li>on receiving ACK(n): move window forward to begin at n+1</li>
+</ul>
+</li>
+<li>timer for oldest in-flight packet</li>
+<li>timeout(n): retransmit packet n and all higher seq # packets in window</li>
+</ul>
+<p><strong>receiver</strong></p>
+<ul>
+<li>ACK-only: always send ACK for correctly-received packet so far, with highest <em>in-order</em> seq#<ul>
+<li>may generate duplicate ACKs</li>
+<li>need only remember <strong>rcv_base</strong></li>
+</ul>
+</li>
+<li>on receipt of out-of-order packet:<ul>
+<li>can discard(don’t buffer) or buffer: an implementation decision</li>
+<li>re-ACK pkt with highest in-order seq#</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617edc282ab3f51d91f348b2.png"></p>
+<p><strong>in action</strong><br><img src="https://pic.imgdb.cn/item/617edc632ab3f51d91f37978.png"></p>
+<h3 id="Selective-repeat"><a href="#Selective-repeat" class="headerlink" title="Selective repeat"></a>Selective repeat</h3><ul>
+<li>receiver <em>indually</em> acknowledges all correctly received pactet<ul>
+<li>buffers packets, as needed, for eventual in-order delivery to upper layer</li>
+</ul>
+</li>
+<li>sneder times-out/retransmits individually for unACKed packets</li>
+</ul>
+<p><strong>sender, receiver, windows</strong><br><img src="https://pic.imgdb.cn/item/617ede142ab3f51d91f4ff68.png"></p>
+<p><strong>sender and receiver</strong></p>
+<ul>
+<li>sender<ul>
+<li>data from above:<ul>
+<li>if next available seq# in window, send packet</li>
+</ul>
+</li>
+<li>timeout(n):<ul>
+<li>resend packet n, restart timer</li>
+</ul>
+</li>
+<li>ACK(n) in [sendbase, sendbase+N]:<ul>
+<li>mark packet n as received </li>
+<li>if n smallest unACKed packet, advance window base to next unACKed seq#</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>receiver<ul>
+<li>packet n in [rcvbase, rcvbase+N-1]<ul>
+<li>send ACK(n)</li>
+<li>out-of-order: buffer</li>
+<li>in-order: deliver (also deliver buffered, in-order packets), advance window to next not-yet-received packet</li>
+</ul>
+</li>
+<li>packetn in [rcvbase-N, rcvbase-1]<ul>
+<li>ACK(n)</li>
+</ul>
+</li>
+<li>otherwise<ul>
+<li>ignore</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Selective Repeat in action</strong><br><img src="https://pic.imgdb.cn/item/617ee20e2ab3f51d91f831a4.png"></p>
+<p><img src="https://pic.imgdb.cn/item/617ee2b02ab3f51d91f8b9d6.png"></p>
+<p><img src="https://pic.imgdb.cn/item/617ee2e62ab3f51d91f8e7d7.png"></p>
+<hr>
+<h2 id="Connection-oriented-transport-TCP"><a href="#Connection-oriented-transport-TCP" class="headerlink" title="Connection-oriented transport: TCP"></a>Connection-oriented transport: TCP</h2><h3 id="TCP-overview-RFCs-793-1122-2018-5681-7323"><a href="#TCP-overview-RFCs-793-1122-2018-5681-7323" class="headerlink" title="TCP: overview RFCs: 793, 1122, 2018, 5681, 7323"></a>TCP: overview<sub> RFCs: 793, 1122, 2018, 5681, 7323</sub></h3><ul>
+<li><strong>point</strong>-to-<strong>point</strong>:<ul>
+<li>one sender, one receiver</li>
+</ul>
+</li>
+<li><strong>reliable, in-order byte steam:</strong><ul>
+<li>no “message boundaries”</li>
+</ul>
+</li>
+<li><strong>full duplex data:</strong><ul>
+<li>bi-directional data flow in same connection</li>
+<li>MSS: maximum segment size</li>
+</ul>
+</li>
+<li><strong>cumulative ACKs</strong></li>
+<li><strong>pipelining</strong><ul>
+<li>TCP congestion and flow control set window size</li>
+</ul>
+</li>
+<li><strong>connection</strong>-<strong>oriented</strong>:<ul>
+<li>handshaking (exchange of control messages) initializes sender, receiver state before data exchange</li>
+</ul>
+</li>
+<li><strong>flow controlled</strong>:<ul>
+<li>sender will not overwhelm receiver</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-segment-structure"><a href="#TCP-segment-structure" class="headerlink" title="TCP segment structure"></a>TCP segment structure</h3><p><img src="https://pic.imgdb.cn/item/617ee6d02ab3f51d91fc4d1e.png"></p>
+<h3 id="TCP-sequence-numbers-ACKs"><a href="#TCP-sequence-numbers-ACKs" class="headerlink" title="TCP sequence numbers, ACKs"></a>TCP sequence numbers, ACKs</h3><ul>
+<li><p>Sequence numbers:</p>
+<ul>
+<li>byte stream “number” of first byte in segment’s data</li>
+</ul>
+</li>
+<li><p>Acknowledgements:</p>
+<ul>
+<li>seq # of next byte expeceted from other side </li>
+<li>cumulative ACK<br><img src="https://pic.imgdb.cn/item/617ee7c02ab3f51d91fd013d.png"><br><img src="https://pic.imgdb.cn/item/617ee9452ab3f51d91fdfef9.png"><h3 id="TCP-round-trip-time-timeout"><a href="#TCP-round-trip-time-timeout" class="headerlink" title="TCP round trip time, timeout"></a>TCP round trip time, timeout</h3></li>
+</ul>
+</li>
+<li><p>set TCP timeout</p>
+<ul>
+<li>longer than RTT, but RTT varies!</li>
+<li><strong>too short:</strong> premature timeout, unnecessary retransmissions</li>
+<li><strong>too long:</strong> slow reaction to segments loss</li>
+</ul>
+</li>
+<li><p>estimate RTT</p>
+<ul>
+<li><strong>SampleRTT</strong>: mesured time from segment transmission until ACK receipt<ul>
+<li>ignore retransimissions</li>
+</ul>
+</li>
+<li><strong>SampleRTT</strong>: will vary, want estimated RTT “smoother”<ul>
+<li>average several <em>recent</em> measurements, not ust current <strong>SampleRTT</strong></li>
+</ul>
+</li>
+<li><img src="https://pic.imgdb.cn/item/617eebc12ab3f51d91ffb06b.png"><ul>
+<li>指数加权移动平均</li>
+<li>过去样本呈指数衰减</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>timeout interval: EstimatedRTT plus “safety margin”</p>
+<ul>
+<li><p>large variation in EstimatedRTT: want a larger safety margin</p>
+<p>TimeoutInterval = EstimatedRTT + 4*DevRTT</p>
+</li>
+<li><p>DevRTT: EWMA of SampleRTT deviation from EstimatedRTT:</p>
+<p>DevRTT = （1-$\beta$) * DevRTT + $\beta$*| SampleRTT - EstimatedRTT|<br><sub>(typically, $\beta$ = 0.25)</sub></p>
+<h2 id="reliable-data-transfer"><a href="#reliable-data-transfer" class="headerlink" title="reliable data transfer"></a>reliable data transfer</h2></li>
+</ul>
+</li>
+</ul>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><ul>
+<li>TCP creates rdt service on top of IP’s unreliable service<ul>
+<li>pipelined segments</li>
+<li>cumulative acks</li>
+<li>single retransmission timer</li>
+</ul>
+</li>
+<li>retransmissions triggered by:<ul>
+<li>timeout events</li>
+<li>duplicate acks</li>
+</ul>
+</li>
+<li>simplified TCP sender:<ul>
+<li>ignore duplicate acks</li>
+<li>ignore flow control, congestion control</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-Sender-simplified"><a href="#TCP-Sender-simplified" class="headerlink" title="TCP Sender(simplified)"></a>TCP Sender(simplified)</h3><p><strong>event: data received from application</strong></p>
+<ul>
+<li>create segment with seq #</li>
+<li>seq # is byte-stream number of first data byte in segment</li>
+<li>start timer if not already running<ul>
+<li>think of timer as for oldest unACKed segment</li>
+<li>expiration interval: <strong>TimeOutInterval</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>event: timeout</strong></p>
+<ul>
+<li>retransmit segment that caused timeout</li>
+<li>restart timer</li>
+</ul>
+<p><strong>event: ACK received</strong></p>
+<ul>
+<li>if ACK acknowledges previously unACKed segments<ul>
+<li>update what is known to be ACKed</li>
+<li>start timer if there are still unACKed segments<br><img src="https://pic.imgdb.cn/item/617ef2c92ab3f51d9103b914.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="retransmission-scenarios"><a href="#retransmission-scenarios" class="headerlink" title="retransmission scenarios"></a>retransmission scenarios</h3><pre><code>![](https://pic.imgdb.cn/item/617ef3aa2ab3f51d910414ff.png)
 
-
-
-### Part B
-+ This part is the application of the HTTP method
-+ This part is some functional functions. The function I used to judge BUF_SIZE at the beginning is logically wrong. This is very common and it is difficult to find that after a long time of inspection, I changed to the function that I use now.
-&lt;!-- 
-```Java
-
-/**********************************
- * Filename:  HTTPInteraction.java
- *************************************/
-
-import java.io.*;
-import java.net.*;
-import java.util.*;
-
-// Name: Junshu Sha
-// ID: 201600804
-// Blog: https://shaysha-pra.github.io/
-
-// import jdk.internal.org.jline.utils.InputStreamReader;
-
-/**
- * Class for downloading one object from http server.
- *
- */
-public class HTTPInteraction &#123;
-    private String host;
-    private String path;
-    private String requestMessage;
-    
-        
-    private static final int HTTP_PORT = 80;
-    private static final String CRLF = &quot;\r\n&quot;;
-    private static final int BUF_SIZE = 4096; 
-    private static final int MAX_OBJECT_SIZE = 102400;
-
-     /* Create HTTPInteraction object. */
-    public HTTPInteraction(String url) &#123;
-        
-        /* Split &quot;URL&quot; into &quot;host name&quot; and &quot;path name&quot;, and
-         * set host and path class variables. 
-         * if the URL is only a host name, use &quot;/&quot; as path 
-         */        
-        
-        /* Fill in */            
-        String name[] = url.split(&quot;/&quot;, 2); // divided url into two parts when it meets the first &quot;/&quot; 
-        host = name[0];    // initial the host as first part of name[]
-        if (name.length &gt;= 2) &#123;
-            path = &quot;/&quot; + name[1]; // set path name when name&#39;s length is bigger or equal than 2
-
-        &#125;else&#123;
-            path = &quot;/&quot;;    
-        &#125;
-
-    
-        /* Construct requestMessage, add a header line so that
-         * server closes connection after one response. */        
-        requestMessage = &quot;GET &quot; + path  + &quot; HTTP/1.1&quot; + CRLF + &quot;Host: &quot; + host + CRLF; // normal format for GET method
-
-    
-        return;
-    &#125;    
-    
-    
-    /* Send Http request, parse response and return requested object 
-     * as a String (if no errors), 
-     * otherwise return meaningful error message. 
-     * Don&#39;t catch Exceptions. EmailClient will handle them. */        
-    public String send() throws IOException &#123;
-        
-        /* buffer to read object in 4kB chunks */
-        char[] buf = new char[BUF_SIZE];
-
-        /* Maximum size of object is 100kB, which should be enough for most objects. 
-         * Change constant if you need more. */        
-        char[] body = new char[MAX_OBJECT_SIZE];
-        
-        String statusLine=&quot;&quot;;    // status line
-        int status;        // status code
-        String headers=&quot;&quot;;    // headers
-        int bodyLength=-1;    // lenghth of body
-                
-        String[] tmp;
-        
-        /* The socket to the server */
-        Socket connection;
-        
-        /* Streams for reading from and writing to socket */
-        BufferedReader fromServer;
-        DataOutputStream toServer;
-
-        System.out.println(&quot;Connecting server: &quot; + host +CRLF); 
-        
-        /* Connect to http server on port 80.
-         * Assign input and output streams to connection. */        
-        connection = new Socket(host, HTTP_PORT); // get host and it&#39;s server
-        fromServer = new BufferedReader(new InputStreamReader(connection.getInputStream())); // get input of connection
-        toServer = new DataOutputStream(connection.getOutputStream());    // get out put of connection
-        
-        System.out.println(&quot;Send request:\n&quot; + requestMessage); //print request Message
-
-
-        /* Send requestMessage to http server */
-        /* Fill in */
-        toServer.writeBytes(requestMessage + CRLF); 
-        
-        /* Read the status line from response message */
-        statusLine= fromServer.readLine();
-        System.out.println(&quot;Status Line:\n&quot;+ statusLine +CRLF); //print status message 
-        
-        /* Extract status code from status line. If status code is not 200,
-         * close connection and return an error message. 
-         * Do NOT throw an exception */        
-        /* Fill in */
-        status = Integer.parseInt(statusLine.substring(9,12)); // get status codes
-
-        try&#123;                                    // this part is almost same as the lab session
-            if (status != 200)&#123;
-                connection.close();
-                System.out.println(&quot;status code is not 200!&quot;);
-            &#125;
-        &#125;catch(UnknownHostException e)&#123;
-            throw e;
-        &#125;
-
-        /* Read header lines from response message, convert to a string, 
-          * and assign to &quot;headers&quot; variable. 
-         * Recall that an empty line indicates end of headers.
-         * Extract length  from &quot;Content-Length:&quot; (or &quot;Content-length:&quot;) 
-         * header line, if present, and assign to &quot;bodyLength&quot; variable. 
-        */
-        /* Fill in */         // requires about 10 lines of code
-
-        
-        String header_lines;
-        
-        while(!(header_lines = fromServer.readLine()).isEmpty())&#123;
-            headers += header_lines + CRLF;  // generate the hearder&#39;s information
-            if(header_lines.startsWith(&quot;Content-Length:&quot;) || header_lines.startsWith(&quot;content-length:&quot;))&#123;
-                tmp = header_lines.split(&quot; &quot;);
-                int lth = Integer.parseInt(tmp[1]);
-                bodyLength = lth;
-                
-            &#125;
-            if (header_lines.startsWith(&quot;Location:&quot;)) &#123;
-                tmp = header_lines.split(&quot; &quot;);
-                return tmp[1];
-            &#125;
-        &#125;
-        System.out.println(&quot;Headers:\n&quot; + headers + CRLF);
-    
-
-        /* If object is larger than MAX_OBJECT_SIZE, close the connection and 
-         * return meaningful message. */
-        if (bodyLength &gt; MAX_OBJECT_SIZE) &#123;
-            /* Fill in */
-            connection.close();
-            return(headers +bodyLength);
-        &#125;
-                        
-        /* Read the body in chunks of BUF_SIZE using buf[] and copy the chunk
-         * into body[]. Stop when either we have
-         * read Content-Length bytes or when the connection is
-         * closed (when there is no Content-Length in the response). 
-         * Use one of the read() methods of BufferedReader here, NOT readLine().
-         * Make sure not to read more than MAX_OBJECT_SIZE characters.
-         */                
-        int bytesRead = 0;
-
-        /* Fill in */   // Requires 10-20 lines of code
-
-        if(bodyLength&gt;0)&#123;                //Read the body in chunks of BUF_SIZE using buf[] and copy the chunk in to body[]
-            while(bodyLength-bytesRead&gt;0)&#123;   
-                int read = fromServer.read(buf); // read form buf
-                for(int i=0;i&lt; read;i++)&#123;
-                    body[i+bytesRead] = buf[i];
-                &#125;
-                bytesRead += read;    // add read&#39;s content to bytesRead
-            &#125;
-        &#125;else&#123;
-            while(bytesRead&lt;MAX_OBJECT_SIZE)&#123;
-                int read = fromServer.read(buf,  0, BUF_SIZE); 
-                if(read == -1) break;
-                for(int i=0;i&lt; read;i++)&#123;
-                    body[i+bytesRead] = buf[i];
-                &#125;
-                bytesRead += read;
-            &#125;
-        &#125;
-        for(int i=0;i&lt;bytesRead;i++)&#123;
-            System.out.print(body[i]);
-        &#125;
-           
-        /* At this points body[] should hold to body of the downloaded object and 
-         * bytesRead should hold the number of bytes read from the BufferedReader
-         */
-        
-        /* Close connection and return object as String. */
-        System.out.println(&quot;Done reading file. Closing connection.&quot;);
-        connection.close();
-        return(new String(body, 0, bytesRead));
-    &#125;
-&#125;
-
-``` --&gt;
+累加ACK 覆盖了先前丢失的ACK
 </code></pre>
+<h3 id="TCP-Receiver-ACK-generation"><a href="#TCP-Receiver-ACK-generation" class="headerlink" title="TCP Receiver: ACK generation"></a>TCP Receiver: ACK generation</h3><p><img src="https://pic.imgdb.cn/item/617ef4f22ab3f51d910489cb.png"></p>
+<h3 id="TCP-fast-retransmit"><a href="#TCP-fast-retransmit" class="headerlink" title="TCP fast retransmit"></a>TCP fast retransmit</h3><p>if sender receives 3 additional ACKs for same data(“triple duplicate ACKs”), resned unACKed segment with smallest seq#</p>
+<ul>
+<li>likely that unACKed segment lost, so don’t wait for timeout<br><img src="https://pic.imgdb.cn/item/617ef99e2ab3f51d91081da2.png"><br>Receipt of three duplicate ACKs indicates 3 segments received after a missing segment –lost segment is likely. So retransmit!</li>
+</ul>
+<hr>
+<h2 id="Flow-control"><a href="#Flow-control" class="headerlink" title="Flow control"></a>Flow control</h2><p>当网络层传输信息的速度大于应用层从套接字缓冲区移除信息的速度</p>
+<h3 id="flow-control"><a href="#flow-control" class="headerlink" title="flow control"></a><strong>flow control</strong></h3><ul>
+<li>receiver controls sender, so sender won’t overflow receiver’s buffer by transmitting too much, too fast</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617efb352ab3f51d91090839.png"><br>Application removing data from TCP socket buffers</p>
+<ul>
+<li>TCP receiver “advertises” free buffer space in <strong>rwnd</strong> field in TCP header<ul>
+<li><strong>RcvBuffer</strong> size set via socket options (typical dfault is 4096 bytes)</li>
+<li>many operating systems autoadjust <strong>RcvBuffer</strong></li>
+<li>sender limits amount of unACKed(“in-flight”) data to received <strong>rwnd</strong>(free buffer space)</li>
+<li>guarantees receive buffer will not overflow</li>
+<li><img src="https://pic.imgdb.cn/item/617efd002ab3f51d9109f188.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-connection-management"><a href="#TCP-connection-management" class="headerlink" title="TCP connection management"></a>TCP connection management</h3><p>before exchanging data, sender/receiver “handshake”:</p>
+<ul>
+<li>agree to establish connection(each knowing the other willing to establish connection)</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617efee62ab3f51d910aba0d.png"></p>
+<p><strong>Agreeing to eatablish a connection</strong><br>2-way handshake in network</p>
+<ul>
+<li>variable delays</li>
+<li>retransmitted messages due to message loss</li>
+<li>message reordering</li>
+<li>can’t “see” other side</li>
+</ul>
+<p><strong>2-way handshake scenarios</strong><br><img src="https://pic.imgdb.cn/item/617f002e2ab3f51d910b69fd.png"></p>
+<p><strong>TCP 3-way handshake</strong><br><img src="https://pic.imgdb.cn/item/617f00b72ab3f51d910ba4bd.png"></p>
+<p><strong>Closing a TCP connection</strong></p>
+<ul>
+<li>client, sercver each close their side of connection<ul>
+<li>send TCP segment with FIN bit = 1</li>
+</ul>
+</li>
+<li>respond to received FIN with ACK<ul>
+<li>on receiving FIN, ACK can be combined with own FIN</li>
+</ul>
+</li>
+<li>simultaneous FIN exchanges can be handled</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617f01e92ab3f51d910c17ba.png"></p>
+<hr>
+<h2 id="Principles-of-congestion-control"><a href="#Principles-of-congestion-control" class="headerlink" title="Principles of congestion control"></a>Principles of congestion control</h2><h3 id="Pirnciples-of-congestion-control"><a href="#Pirnciples-of-congestion-control" class="headerlink" title="Pirnciples of congestion control"></a>Pirnciples of congestion control</h3><p><img src="https://pic.imgdb.cn/item/617f03252ab3f51d910c7cca.png"></p>
+<h3 id="Approaches-towards-congestion-control"><a href="#Approaches-towards-congestion-control" class="headerlink" title="Approaches towards congestion control"></a>Approaches towards congestion control</h3><p>End-end congestion control</p>
+<ul>
+<li>no explicit(明确的) feedback from network </li>
+<li>congestion <em>inferred</em> from obesrved loss, delay</li>
+<li>approach taken by TCP</li>
+</ul>
+<p>Network-assisted congestion control:</p>
+<ul>
+<li>routers provide <em>direct</em> feedback to sending/receiving hosts with flows passing through congested router</li>
+<li>may indicate congestion level or explicitly set sending rate</li>
+<li>TCP ECN, ATM, DECbit protocols</li>
+</ul>
+<hr>
+<h2 id="TCP-congestion-control"><a href="#TCP-congestion-control" class="headerlink" title="TCP congestion control"></a>TCP congestion control</h2><h3 id="AIMD-Additice-Increase-amp-Multiplicative-Decrease"><a href="#AIMD-Additice-Increase-amp-Multiplicative-Decrease" class="headerlink" title="AIMD(Additice Increase &amp; Multiplicative Decrease)"></a>AIMD(Additice Increase &amp; Multiplicative Decrease)</h3><ul>
+<li><em>approach:</em> senders can increase sending rate until packet loss(congestion)occurs, then decrease sending rate on loss event</li>
+<li><strong>Additive Increase</strong>: increase sending rate by 1 maximum segment size every RTT until loss detected</li>
+<li><strong>Multiplicative Decrease</strong>: cut sending rate in half at each loss event<ul>
+<li>sending rate is cut in half on loss detected by triple duplicate ACK(TCP Reno)</li>
+<li>Cut to 1 MSS(maximum segment size ) when loss detected by timeout(TCP Tahoe)</li>
+</ul>
+</li>
+<li><strong>AIMD</strong> sawtooth behavior: <em>probing</em> for bandwidth<ul>
+<li>a distributed, asynchronous algorithm - has been shown to:<ul>
+<li>optimize congested flow rates network wide!</li>
+<li>have desirable stability properties</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>details<ul>
+<li>TCP sending behavior:<ul>
+<li>roughly: send cwnd bytes, wait RTT for ACKs, then send more bytes<ul>
+<li>TCP rate $\approx$ cwnd/RTT bytes/sec</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TCP sender limits transmission<ul>
+<li><strong>LastByteSent - LastByteAcked &lt;= cwnd</strong></li>
+</ul>
+</li>
+<li>cwnd is dynamically adjusted in response to observed network congestion(implementing TCP congestion control)</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-slow-start"><a href="#TCP-slow-start" class="headerlink" title="TCP slow start"></a>TCP slow start</h3><ul>
+<li>when connection begins, increase rate exponentially until first loss event:<ul>
+<li>initially <strong>cwnd</strong> = 1MSS</li>
+<li>double <strong>cwnd</strong> every RTT</li>
+<li>done by inctementing <strong>cwnd</strong> for every ACK received</li>
+</ul>
+</li>
+<li>summary: initial rate is slow, but ramps up exponentially fast<br><img src="https://pic.imgdb.cn/item/617f09912ab3f51d910f888a.png"></li>
+</ul>
+<h3 id="TCP-from-slow-start-to-congestion-avoidance"><a href="#TCP-from-slow-start-to-congestion-avoidance" class="headerlink" title="TCP: from slow start to congestion avoidance"></a>TCP: from slow start to congestion avoidance</h3><p><img src="https://pic.imgdb.cn/item/617f0b9b2ab3f51d911083ee.png"></p>
+<h3 id="TCP-fairness"><a href="#TCP-fairness" class="headerlink" title="TCP fairness"></a>TCP fairness</h3><p><strong>Fairness goal:</strong> if K TCP sessions share same bottleneck link of banwidth R, each should have average rate of R/K</p>
+<p><img src="https://pic.imgdb.cn/item/617f0d0f2ab3f51d91112dd7.png"></p>
+<p><strong>Is TCP Fair?</strong><br>Example: 两个竞争的TCP会话</p>
+<ul>
+<li>additive increase gives slope of 1, as throughout increases</li>
+<li>multiplicative decrease decreases throughput proportionally</li>
+<li><img src="https://pic.imgdb.cn/item/617f0f9e2ab3f51d9112612b.png"></li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617f0feb2ab3f51d91128f35.png"></p>
+<hr>
+<h2 id="Evolution-of-transport-layer-functionality"><a href="#Evolution-of-transport-layer-functionality" class="headerlink" title="Evolution of transport-layer functionality"></a>Evolution of transport-layer functionality</h2><h3 id="Evolving-transport-layer-functionality"><a href="#Evolving-transport-layer-functionality" class="headerlink" title="Evolving transport-layer functionality"></a>Evolving transport-layer functionality</h3><p><img src="https://pic.imgdb.cn/item/617f111d2ab3f51d9113169c.png"></p>
+<h3 id="QUIC-Quick-UDP-Internet-Connections"><a href="#QUIC-Quick-UDP-Internet-Connections" class="headerlink" title="QUIC: Quick UDP Internet Connections"></a>QUIC: Quick UDP Internet Connections</h3><ul>
+<li>application performance of HTTP</li>
+<li>deployed on many Google servers, apps(Chrome, mobile YouTube app)<br><img src="https://pic.imgdb.cn/item/617f12b82ab3f51d9113bd98.png"></li>
+<li>adopts approaches we’ve studied in this chapter for connection establishment, error control, congestion control<ul>
+<li><strong>error and congestion control</strong>: “Readers familiar with TCP’s loss detection and congestion control will find algorithms here that parallel well-known TCP ones.” </li>
+<li><strong>connection establishment:</strong> reliability, congestion control, authentication, encryption, state established in one RTT</li>
+</ul>
+</li>
+<li>multiple application-level “streams” multiplexed over single QUIC connection<ul>
+<li>separate reliable data transfer, security</li>
+<li>common congestion control</li>
+</ul>
+</li>
+<li>Connection establishment</li>
+</ul>
 
       
 
@@ -551,7 +945,7 @@ public class HTTPInteraction &#123;
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">exercise</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
         		</li>
       		
 		</ul>
@@ -607,7 +1001,7 @@ public class HTTPInteraction &#123;
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/10/COMP211LAB/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2021/10/29/COMP211-W3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -621,18 +1015,9 @@ public class HTTPInteraction &#123;
   
 <nav id="article-nav">
   
-    <a href="/2021/10/14/COMP211-W2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          COMP211-W2
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/10/05/COMP207LAB-1/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">COMP207LAB</div>
+    <a href="/2021/10/20/COMP211LAB/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">COMP211LAB</div>
       <i class="icon-circle-right"></i>
     </a>
   

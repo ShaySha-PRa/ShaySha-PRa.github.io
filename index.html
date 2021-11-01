@@ -160,6 +160,827 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-COMP211-W3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/29/COMP211-W3/">COMP211-W3</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/29/COMP211-W3/" class="archive-article-date">
+  	<time datetime="2021-10-29T05:06:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Lec3-Transport-layer"><a href="#Lec3-Transport-layer" class="headerlink" title="Lec3 Transport layer"></a>Lec3 Transport layer</h1><p><strong>传输层</strong></p>
+<hr>
+<h2 id="OVERVIEW"><a href="#OVERVIEW" class="headerlink" title="OVERVIEW"></a>OVERVIEW</h2><p>Understand priciples behind transport layer services:</p>
+<ul>
+<li>multiplexing, demultiplexing 复用（源段）和解复用(目标段)</li>
+<li>reliable data transfer    可靠数据传输原理</li>
+<li>flow control 流量控制</li>
+<li>congestion control 堵塞控制</li>
+</ul>
+<p>Learn about Internet transport layer protocols:</p>
+<ul>
+<li>UDP: connection-oriented</li>
+<li>TCP: connection-oriented reliable transport</li>
+<li>TCP congestion control</li>
+</ul>
+<hr>
+<h2 id="Summary"><a href="#Summary" class="headerlink" title="Summary"></a>Summary</h2><ul>
+<li>principles behind transport layer services<ul>
+<li>multiplexing, demultiplexing</li>
+<li>reliable data transfer</li>
+<li>flow control</li>
+<li>congestion control</li>
+</ul>
+</li>
+<li>instantiation, implemetation in the Internet<ul>
+<li>UDP</li>
+<li>TCP</li>
+</ul>
+</li>
+</ul>
+<h2 id="Transport-layer-services"><a href="#Transport-layer-services" class="headerlink" title="Transport-layer services"></a>Transport-layer services</h2><h3 id="Service-and-protocols"><a href="#Service-and-protocols" class="headerlink" title="Service and protocols"></a>Service and protocols</h3><ul>
+<li>provide <em>logical communication</em> between application processes running on different hosts</li>
+<li>transport protocols actions in end systems:<ul>
+<li>sender:breaks applications messages into <em>segments</em> which as messages passes to network layer</li>
+<li>receiver: reassembles segments into messages, passes to application layer</li>
+</ul>
+</li>
+<li>two transport protocols available to Internet applications<ul>
+<li>TCP,UDP</li>
+</ul>
+</li>
+</ul>
+<h3 id="Transport-vs-network-layer-services-and-protocols"><a href="#Transport-vs-network-layer-services-and-protocols" class="headerlink" title="Transport vs. network layer services and protocols"></a>Transport vs. network layer services and protocols</h3><ul>
+<li>network layer: logical communication between <em>host</em><ul>
+<li>Similar to postal service that send a letter to a postal address</li>
+</ul>
+</li>
+</ul>
+<p>主机与进程之间的区别</p>
+<ul>
+<li>transport layer: extends network service to provide a logical communication between <em>processes</em><ul>
+<li>relies on, enhances, network layer services 是一种对网络层的细分</li>
+</ul>
+</li>
+</ul>
+<h3 id="Transport-Layer-Action"><a href="#Transport-Layer-Action" class="headerlink" title="Transport Layer Action"></a>Transport Layer Action</h3><p>传送端:</p>
+<ul>
+<li>通过应用层的报文</li>
+<li>决定字段头的值</li>
+<li>创建字段</li>
+<li>将字段传送给IP<br><img src="https://pic.imgdb.cn/item/617b869e2ab3f51d91d5102b.png"></li>
+</ul>
+<p>接收端：</p>
+<ul>
+<li>从IP接受字段</li>
+<li>查看段头的值</li>
+<li>提供应用层报文</li>
+<li>由套接字解复用报文到应用</li>
+</ul>
+<h3 id="Two-principal-Internet-transport-protocols"><a href="#Two-principal-Internet-transport-protocols" class="headerlink" title="Two principal Internet transport protocols"></a>Two principal Internet transport protocols</h3><ul>
+<li>TCP: 传输控制协议<ul>
+<li>可靠， in-order delivery字节流</li>
+<li>多复用解复用</li>
+<li>流量控制</li>
+<li>congestion setup 阻塞控制</li>
+<li>connection setup</li>
+</ul>
+</li>
+<li>UDP: 用户数据报协议<ul>
+<li>不可靠， unordered delivery</li>
+<li>no-frills extension of “best-effort” IP</li>
+</ul>
+</li>
+</ul>
+<p><strong>两种服务无法改变延迟，带宽<br>（吞吐量）</strong></p>
+<hr>
+<h2 id="Multiplexing-demultiplexing-复用和解复用"><a href="#Multiplexing-demultiplexing-复用和解复用" class="headerlink" title="Multiplexing/demultiplexing 复用和解复用"></a>Multiplexing/demultiplexing 复用和解复用</h2><p>在传送端复用，在接收端解复用</p>
+<ul>
+<li>Multiplexing: 从多个套接字那里处理数据， 添加传输头</li>
+<li>用头信息来匹配接到的字段到正确的套接字<br>  <img src="https://pic.imgdb.cn/item/617b8bff2ab3f51d91da7e34.png"></li>
+</ul>
+<h3 id="How-demultiplexing-works"><a href="#How-demultiplexing-works" class="headerlink" title="How demultiplexing works"></a>How demultiplexing works</h3><ul>
+<li>host receives IP datagrams<ul>
+<li>each datagram has source(源段) IP address, destination(目标段) IP address</li>
+<li>each datagram carrie one transport-layer segment 数据报包含传输层字段</li>
+<li>each segment has source, destination port number</li>
+</ul>
+</li>
+<li>host uses <em>IP addresses &amp; port numbers</em> to direct segment to appropriate socket<br>主机通过 <strong>源端IP地址和目标端口号</strong> 来指导字段匹配套接字<br><img src="https://pic.imgdb.cn/item/617b8d0d2ab3f51d91db75af.png"></li>
+</ul>
+<h3 id="Connectionless-demultiplexing-无线连接复解用"><a href="#Connectionless-demultiplexing-无线连接复解用" class="headerlink" title="Connectionless demultiplexing 无线连接复解用"></a>Connectionless demultiplexing 无线连接复解用</h3><ul>
+<li>创建套接字的时候必须规定<em>host-local</em> 端口#：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DatagramSocket mySocket1 = <span class="keyword">new</span> DatagramSocket(<span class="number">12534</span>);</span><br></pre></td></tr></table></figure></li>
+<li>创建数据报来传输到UDP套接字时必须规范<ul>
+<li>目标端的IP地址</li>
+<li>目标端的端口#</li>
+</ul>
+</li>
+</ul>
+<p>当接收主机接收到 UDP字段：</p>
+<ul>
+<li>检查字段目标源端口</li>
+<li>direct UDP segment to socket with that port#</li>
+</ul>
+<p>IP/UDP datagrams with <em>same dest.port#,</em> but different source IP address and/or source port numbers will be directed to same socket at receiving host<br>目标端端口一样， 源端IP和端口被引导到同一个接受主机的套接字</p>
+<ul>
+<li><strong>example</strong><br><img src="https://pic.imgdb.cn/item/617ba5972ab3f51d91f68502.png"></li>
+</ul>
+<h3 id="Connection-oriented-demultiplexing-面向连接的解复用"><a href="#Connection-oriented-demultiplexing-面向连接的解复用" class="headerlink" title="Connection-oriented demultiplexing 面向连接的解复用"></a>Connection-oriented demultiplexing 面向连接的解复用</h3><ul>
+<li>TCP socket identified by 4-tuple:<ul>
+<li>source IP address</li>
+<li>source port number</li>
+<li>dest IP address</li>
+<li>dest port address</li>
+</ul>
+</li>
+<li>server may support many simultaneous TCP sockets:<ul>
+<li>each socket identified by its own sockets</li>
+<li>each socket associated with a different connecting client</li>
+</ul>
+</li>
+<li>example</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617ba77f2ab3f51d91f809af.png"></p>
+<h3 id="Summary-1"><a href="#Summary-1" class="headerlink" title="Summary"></a>Summary</h3><ul>
+<li>multiplexing, demultiplexing: based on segment, datagram header field values</li>
+<li><strong>UDP</strong>: demultiplexing using destination port number(only)</li>
+<li><strong>TCP</strong>: demultiplexing using 4-tuple: source and destination IP addresses, and port number</li>
+</ul>
+<hr>
+<h2 id="Connection-oriented-transport-UDP"><a href="#Connection-oriented-transport-UDP" class="headerlink" title="Connection-oriented transport: UDP"></a>Connection-oriented transport: UDP</h2><h3 id="UDP-User-Datagram-Protocol"><a href="#UDP-User-Datagram-Protocol" class="headerlink" title="UDP:User Datagram Protocol"></a>UDP:User Datagram Protocol</h3><ul>
+<li>“no frills,” “bare bones” Internet transport protocol</li>
+<li>“best effort” service, UDP segments may be:<ul>
+<li>lost</li>
+<li>delivered out-of-order</li>
+</ul>
+</li>
+<li>connectionless:<ul>
+<li>no handshaking between sender, receiver</li>
+<li>each UDP segment handled independently of others 彼此独立</li>
+</ul>
+</li>
+</ul>
+<p><strong>Wbhy is there a UDP</strong></p>
+<ul>
+<li>no connection establishment(which can add RTT delay)</li>
+<li>simple: connection state at sender, receiver</li>
+<li>small header size</li>
+<li>no congestion control <ul>
+<li>UDP can blast away as fast as desired</li>
+<li>can function in the face of congestion</li>
+</ul>
+</li>
+</ul>
+<h3 id="UDP-User-Datagram-protocol"><a href="#UDP-User-Datagram-protocol" class="headerlink" title="UDP: User Datagram protocol"></a>UDP: User Datagram protocol</h3><ul>
+<li>UDP use:<ul>
+<li>streaming multimedia apps(loss tolerant, rate sensitive) 流媒体app</li>
+<li>DNS</li>
+<li>SNMP</li>
+<li>HTTP/3</li>
+</ul>
+</li>
+<li>如果需要在UDP上稳定传输<ul>
+<li>add needed reliability at application layer</li>
+<li>add congestion control at application layer</li>
+</ul>
+</li>
+<li>RFC768<br>  <img src="https://pic.imgdb.cn/item/617bad062ab3f51d91fcad02.png"></li>
+</ul>
+<h3 id="UDP-segment-header"><a href="#UDP-segment-header" class="headerlink" title="UDP segment header"></a>UDP segment header</h3><pre><code>![](https://pic.imgdb.cn/item/617bad302ab3f51d91fcccd5.png)
+</code></pre>
+<h3 id="UDP-checksum"><a href="#UDP-checksum" class="headerlink" title="UDP checksum**"></a>UDP checksum**</h3><p>用来检测在传输字段里的错误</p>
+<p><img src="https://pic.imgdb.cn/item/617badd62ab3f51d91fd44e2.png"></p>
+<h3 id="Internet-checksum"><a href="#Internet-checksum" class="headerlink" title="Internet checksum"></a>Internet checksum</h3><p>Goal: detect errors in transmitted segment</p>
+<p><strong>Sender</strong>:</p>
+<ul>
+<li>treat contents of UDP segment as sequence of 16-bit integers</li>
+<li> <strong>checksum:</strong> addition (one’s complement sum) of segment content</li>
+<li> checksum value put into UDP checksum field</li>
+</ul>
+<p><strong>Receiver</strong></p>
+<ul>
+<li>compute checksum of received segment</li>
+<li>check if computed chechsum equals  checksum field value:<ul>
+<li>not equal - error detected</li>
+<li>equal - no error detecrted. But maybe errors notetheless? More later ….</li>
+</ul>
+</li>
+<li>Example<br>  <img src="https://pic.imgdb.cn/item/617c9ac92ab3f51d91e73cd6.png"></li>
+<li>weak proteciton!<br>  <img src="https://pic.imgdb.cn/item/617c9aef2ab3f51d91e767f2.png"></li>
+</ul>
+<h3 id="Summary-UDP"><a href="#Summary-UDP" class="headerlink" title="Summary: UDP"></a>Summary: UDP</h3><ul>
+<li>“no frills” protocol:<ul>
+<li>segments may be lost, delivered out of <strong>order</strong></li>
+<li>best effort service: “send and hope for the best”</li>
+</ul>
+</li>
+<li>UDP has its plusses:<ul>
+<li>no setup/handshaking needed(no RTT incurred)</li>
+<li>can function when network service is compromised</li>
+<li>helps with reliability(checksum)</li>
+</ul>
+</li>
+<li>Build additional functionality on top of UDP in application layer(e.g., HTTP/3)</li>
+</ul>
+<hr>
+<h2 id="Principle-of-reliable-data-transfer"><a href="#Principle-of-reliable-data-transfer" class="headerlink" title="Principle of reliable data transfer"></a>Principle of reliable data transfer</h2><p><img src="https://pic.imgdb.cn/item/617c9d4e2ab3f51d91e9b0a6.png"><br><img src="https://pic.imgdb.cn/item/617c9d6f2ab3f51d91e9c7d3.png"><br>需要在进入非可靠channel之前加安全协议</p>
+<p>可靠传输协议的复杂度由非可靠channel的特征决定</p>
+<p>接收端和发送端彼此不知道对方的状态除非经由报文沟通</p>
+<h3 id="protocol-rdt-interfaces"><a href="#protocol-rdt-interfaces" class="headerlink" title="protocol(rdt): interfaces"></a>protocol(rdt): interfaces</h3><p><img src="https://pic.imgdb.cn/item/617c9f132ab3f51d91eb3b6c.png"></p>
+<h3 id="Reliable-data-transfer-getting-started"><a href="#Reliable-data-transfer-getting-started" class="headerlink" title="Reliable data transfer: getting started"></a>Reliable data transfer: getting started</h3><p><strong>We will</strong>:</p>
+<ul>
+<li>incrementally develop sender, receiver sides of rdt protocol<br>逐步开放发送端和接收端的rdt协议</li>
+<li>consider only unidirectional data transfer<ul>
+<li>但是控制信息会双向流动</li>
+</ul>
+</li>
+<li>use finite state machines(FSM) to specify sender, receiver<br>  <img src="https://pic.imgdb.cn/item/617ca0d72ab3f51d91ecbf5d.png"><h3 id="rdt1-0-reliable-transfer-over-a-reliable-channel"><a href="#rdt1-0-reliable-transfer-over-a-reliable-channel" class="headerlink" title="rdt1.0: reliable transfer over a reliable channel"></a>rdt1.0: reliable transfer over a reliable channel</h3></li>
+<li>underlying channel perfectly reliable底层通道非常可靠<ul>
+<li>no bit errors </li>
+<li>no loss of packets</li>
+</ul>
+</li>
+<li><em>separate</em> FSMs for sender, receiver:<ul>
+<li>sender sends data into underlying channel</li>
+<li>receiver reads data from underlying channel<br><img src="https://pic.imgdb.cn/item/617ca2d12ab3f51d91ee7a5d.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="edt2-0"><a href="#edt2-0" class="headerlink" title="edt2.0:"></a>edt2.0:</h3><p><strong>channel with bit errors</strong></p>
+<ul>
+<li>underlying channel may flip bits in packet<ul>
+<li>checksum(e.g., Internet checksum) to detect bit errors<br>在1.0基础上加伤checksum</li>
+</ul>
+</li>
+<li>the question: how to recover from errors?</li>
+</ul>
+<p><strong>channel with bit errors</strong></p>
+<ul>
+<li><strong>acknowledgements(ACKs)</strong>: receiver explicitily tells sender that pkt receiverd OK</li>
+<li><strong>negative acknowledgements(NAKs):</strong> receiver explicitly tells sender that pkt had errors</li>
+<li>sender <strong>retransmits</strong> pkt on receipt of NAK 收到错误消息后重新发送</li>
+<li><strong>stop and wait</strong><br>发送端发送一个包裹， 然后等待接收端反应</li>
+</ul>
+<p><strong>FSM specifications</strong><br><img src="https://pic.imgdb.cn/item/617ca63a2ab3f51d91f1b0c2.png"><br><strong>Note</strong>: 接收端和发送端彼此不知道对方的状态除非经由某种方式沟通</p>
+<ul>
+<li>所以需要协议来控制</li>
+</ul>
+<p><strong>operation with no errors</strong><br><img src="https://pic.imgdb.cn/item/617ca7f52ab3f51d91f3b1f2.png"></p>
+<p><strong>corrupted packet scenario</strong><br><img src="https://pic.imgdb.cn/item/617ca8aa2ab3f51d91f4baf5.png"></p>
+<p><strong>has a fatal flaw!</strong></p>
+<p><em>when ACK/NAK corrupted happened</em></p>
+<ul>
+<li>sender doesn’t know what happened at receiver</li>
+<li>can’t just retransmit: possible duplicate</li>
+</ul>
+<p><em>handling duplicates:</em></p>
+<ul>
+<li>sender retransmits current pkt if ACK/NAK corrupted</li>
+<li>sender adds <em>sequence number</em> to each pkt</li>
+<li>receiver discards(doesn’t deliver up) duplicate pkt<br>发送端发送一个包裹， 然后等待接收端反应</li>
+</ul>
+<h3 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h3><p><strong>sender, handling grabled ACK/NAKs</strong><br><img src="https://pic.imgdb.cn/item/617caa532ab3f51d91f691bc.png"><br><img src="https://pic.imgdb.cn/item/617caa842ab3f51d91f6c0c6.png"></p>
+<p><strong>discussion</strong></p>
+<p><em>sender</em>:</p>
+<ul>
+<li>seq # added to pkt</li>
+<li>two seq. #s(0,1) will suffice.</li>
+<li>check if received ACK/NAK corrupted</li>
+<li>twice as many states<ul>
+<li>state must “remember” whether “expected” pkt should have seq # of 0 or 1</li>
+</ul>
+</li>
+</ul>
+<p><em>receiver</em>:</p>
+<ul>
+<li>if packet is duplicate<ul>
+<li>state indicates whether 0 or 1 is expected pkt seq#</li>
+</ul>
+</li>
+<li>note: receiver can notknow if its last ACK/NAK received OK at sender</li>
+</ul>
+<h3 id="rdt2-2"><a href="#rdt2-2" class="headerlink" title="rdt2.2"></a>rdt2.2</h3><p><strong>a NAK-free protocol</strong></p>
+<ul>
+<li>same functionality as rdt2.1, using ACKs only</li>
+<li>insted of NAK, receiver sends ACK for last pkt received OK<ul>
+<li>receiver must explicitly include seq# pf pkt being ACKed</li>
+</ul>
+</li>
+<li>duplicate ACK at sender results in same action as NAK: retransmit current pktTCP use this approach to be NAK-free</li>
+</ul>
+<p><strong>sender, receiver fragments</strong><br>    <img src="https://pic.imgdb.cn/item/617cc3b62ab3f51d910dc6e7.png"></p>
+<h3 id="rdt3-0-channels-with-errors-and-loss"><a href="#rdt3-0-channels-with-errors-and-loss" class="headerlink" title="rdt3.0: channels with errors and loss"></a>rdt3.0: channels with errors and loss</h3><p><strong>New channel assumption:</strong> underlying channel can also lose packets(data, ACKs)</p>
+<ul>
+<li>checksum, sequence #s, ACKs, retransmissions will be of help … but not quite enough</li>
+</ul>
+<p><strong>channel with errors and loss</strong><br><em>Approach:</em> sender waits “reasonable” amount of time for ACK</p>
+<ul>
+<li>如果ACK没有被接收重新发送</li>
+<li>if pkt()or ACK just dlayed:<ul>
+<li>retransmission will be duplicate, but seq #s already handles this!</li>
+<li>receiver must specify seq# of packet being ACKed</li>
+</ul>
+</li>
+<li>use countdown timer to interrupt after “reasonable” amount of time</li>
+</ul>
+<p><strong>sender</strong><br><img src="https://pic.imgdb.cn/item/617cc82c2ab3f51d9112d107.png"><br><img src="https://pic.imgdb.cn/item/617cc84b2ab3f51d9112f3c9.png"></p>
+<p><strong>in action</strong><br><img src="https://pic.imgdb.cn/item/617cc8a82ab3f51d9113661c.png"><br><img src="https://pic.imgdb.cn/item/617cc9aa2ab3f51d9114b3b4.png"></p>
+<hr>
+<h2 id="Principles-of-reliable-data-transfer-Pipelined-protocols"><a href="#Principles-of-reliable-data-transfer-Pipelined-protocols" class="headerlink" title="Principles of reliable data transfer - Pipelined protocols"></a>Principles of reliable data transfer - Pipelined protocols</h2><h3 id="rdt3-0"><a href="#rdt3-0" class="headerlink" title="rdt3.0"></a>rdt3.0</h3><p><strong>Performance of rdt3.0</strong></p>
+<ul>
+<li>U <sub>sender</sub>: <em>utilization</em> - fraction of time sender busy sending</li>
+<li>example: 1Gbps link, 15 ms prop. delay, 8000 bit packet<ul>
+<li>time to transmit packet into channel<br><img src="https://pic.imgdb.cn/item/617ccc3e2ab3f51d9117040e.png"></li>
+</ul>
+</li>
+</ul>
+<p><strong>stop-and-wait operation</strong><br><img src="https://pic.imgdb.cn/item/617cef8f2ab3f51d91398130.png"><br>RTT</p>
+<p><img src="https://pic.imgdb.cn/item/617cefbf2ab3f51d9139bc8f.png"></p>
+<h3 id="Pipelined-protocols-operation"><a href="#Pipelined-protocols-operation" class="headerlink" title="Pipelined protocols operation"></a><strong>Pipelined protocols operation</strong></h3><p><em>piplining</em>: sender allows multiple, “in-flight”, yet-to-be-acknoledged packets</p>
+<ul>
+<li>range of sequence numbers must be increased</li>
+<li>buffering at sender and/or receiver<br><img src="https://pic.imgdb.cn/item/617cf0652ab3f51d913a8484.png"></li>
+</ul>
+<p><strong>Pipelining: increased utilization</strong><br><img src="https://pic.imgdb.cn/item/617cf0f52ab3f51d913b0f59.png"></p>
+<hr>
+<h3 id="Go-Back-N"><a href="#Go-Back-N" class="headerlink" title="Go-Back-N:"></a><strong>Go-Back-N:</strong></h3><p><strong>sender</strong></p>
+<ul>
+<li>sender: “window” of up to N, consecutive transmitted but unACKed pkts<ul>
+<li>k-bit seq # in pkt header<br><img src="https://pic.imgdb.cn/item/617ed94d2ab3f51d91f0c020.png"></li>
+</ul>
+</li>
+<li><strong>cumulative(积累) ACK:</strong> ACK(n) all packets up to, including seq # n <ul>
+<li>on receiving ACK(n): move window forward to begin at n+1</li>
+</ul>
+</li>
+<li>timer for oldest in-flight packet</li>
+<li>timeout(n): retransmit packet n and all higher seq # packets in window</li>
+</ul>
+<p><strong>receiver</strong></p>
+<ul>
+<li>ACK-only: always send ACK for correctly-received packet so far, with highest <em>in-order</em> seq#<ul>
+<li>may generate duplicate ACKs</li>
+<li>need only remember <strong>rcv_base</strong></li>
+</ul>
+</li>
+<li>on receipt of out-of-order packet:<ul>
+<li>can discard(don’t buffer) or buffer: an implementation decision</li>
+<li>re-ACK pkt with highest in-order seq#</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617edc282ab3f51d91f348b2.png"></p>
+<p><strong>in action</strong><br><img src="https://pic.imgdb.cn/item/617edc632ab3f51d91f37978.png"></p>
+<h3 id="Selective-repeat"><a href="#Selective-repeat" class="headerlink" title="Selective repeat"></a>Selective repeat</h3><ul>
+<li>receiver <em>indually</em> acknowledges all correctly received pactet<ul>
+<li>buffers packets, as needed, for eventual in-order delivery to upper layer</li>
+</ul>
+</li>
+<li>sneder times-out/retransmits individually for unACKed packets</li>
+</ul>
+<p><strong>sender, receiver, windows</strong><br><img src="https://pic.imgdb.cn/item/617ede142ab3f51d91f4ff68.png"></p>
+<p><strong>sender and receiver</strong></p>
+<ul>
+<li>sender<ul>
+<li>data from above:<ul>
+<li>if next available seq# in window, send packet</li>
+</ul>
+</li>
+<li>timeout(n):<ul>
+<li>resend packet n, restart timer</li>
+</ul>
+</li>
+<li>ACK(n) in [sendbase, sendbase+N]:<ul>
+<li>mark packet n as received </li>
+<li>if n smallest unACKed packet, advance window base to next unACKed seq#</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>receiver<ul>
+<li>packet n in [rcvbase, rcvbase+N-1]<ul>
+<li>send ACK(n)</li>
+<li>out-of-order: buffer</li>
+<li>in-order: deliver (also deliver buffered, in-order packets), advance window to next not-yet-received packet</li>
+</ul>
+</li>
+<li>packetn in [rcvbase-N, rcvbase-1]<ul>
+<li>ACK(n)</li>
+</ul>
+</li>
+<li>otherwise<ul>
+<li>ignore</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>Selective Repeat in action</strong><br><img src="https://pic.imgdb.cn/item/617ee20e2ab3f51d91f831a4.png"></p>
+<p><img src="https://pic.imgdb.cn/item/617ee2b02ab3f51d91f8b9d6.png"></p>
+<p><img src="https://pic.imgdb.cn/item/617ee2e62ab3f51d91f8e7d7.png"></p>
+<hr>
+<h2 id="Connection-oriented-transport-TCP"><a href="#Connection-oriented-transport-TCP" class="headerlink" title="Connection-oriented transport: TCP"></a>Connection-oriented transport: TCP</h2><h3 id="TCP-overview-RFCs-793-1122-2018-5681-7323"><a href="#TCP-overview-RFCs-793-1122-2018-5681-7323" class="headerlink" title="TCP: overview RFCs: 793, 1122, 2018, 5681, 7323"></a>TCP: overview<sub> RFCs: 793, 1122, 2018, 5681, 7323</sub></h3><ul>
+<li><strong>point</strong>-to-<strong>point</strong>:<ul>
+<li>one sender, one receiver</li>
+</ul>
+</li>
+<li><strong>reliable, in-order byte steam:</strong><ul>
+<li>no “message boundaries”</li>
+</ul>
+</li>
+<li><strong>full duplex data:</strong><ul>
+<li>bi-directional data flow in same connection</li>
+<li>MSS: maximum segment size</li>
+</ul>
+</li>
+<li><strong>cumulative ACKs</strong></li>
+<li><strong>pipelining</strong><ul>
+<li>TCP congestion and flow control set window size</li>
+</ul>
+</li>
+<li><strong>connection</strong>-<strong>oriented</strong>:<ul>
+<li>handshaking (exchange of control messages) initializes sender, receiver state before data exchange</li>
+</ul>
+</li>
+<li><strong>flow controlled</strong>:<ul>
+<li>sender will not overwhelm receiver</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-segment-structure"><a href="#TCP-segment-structure" class="headerlink" title="TCP segment structure"></a>TCP segment structure</h3><p><img src="https://pic.imgdb.cn/item/617ee6d02ab3f51d91fc4d1e.png"></p>
+<h3 id="TCP-sequence-numbers-ACKs"><a href="#TCP-sequence-numbers-ACKs" class="headerlink" title="TCP sequence numbers, ACKs"></a>TCP sequence numbers, ACKs</h3><ul>
+<li><p>Sequence numbers:</p>
+<ul>
+<li>byte stream “number” of first byte in segment’s data</li>
+</ul>
+</li>
+<li><p>Acknowledgements:</p>
+<ul>
+<li>seq # of next byte expeceted from other side </li>
+<li>cumulative ACK<br><img src="https://pic.imgdb.cn/item/617ee7c02ab3f51d91fd013d.png"><br><img src="https://pic.imgdb.cn/item/617ee9452ab3f51d91fdfef9.png"><h3 id="TCP-round-trip-time-timeout"><a href="#TCP-round-trip-time-timeout" class="headerlink" title="TCP round trip time, timeout"></a>TCP round trip time, timeout</h3></li>
+</ul>
+</li>
+<li><p>set TCP timeout</p>
+<ul>
+<li>longer than RTT, but RTT varies!</li>
+<li><strong>too short:</strong> premature timeout, unnecessary retransmissions</li>
+<li><strong>too long:</strong> slow reaction to segments loss</li>
+</ul>
+</li>
+<li><p>estimate RTT</p>
+<ul>
+<li><strong>SampleRTT</strong>: mesured time from segment transmission until ACK receipt<ul>
+<li>ignore retransimissions</li>
+</ul>
+</li>
+<li><strong>SampleRTT</strong>: will vary, want estimated RTT “smoother”<ul>
+<li>average several <em>recent</em> measurements, not ust current <strong>SampleRTT</strong></li>
+</ul>
+</li>
+<li><img src="https://pic.imgdb.cn/item/617eebc12ab3f51d91ffb06b.png"><ul>
+<li>指数加权移动平均</li>
+<li>过去样本呈指数衰减</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>timeout interval: EstimatedRTT plus “safety margin”</p>
+<ul>
+<li><p>large variation in EstimatedRTT: want a larger safety margin</p>
+<p>TimeoutInterval = EstimatedRTT + 4*DevRTT</p>
+</li>
+<li><p>DevRTT: EWMA of SampleRTT deviation from EstimatedRTT:</p>
+<p>DevRTT = （1-$\beta$) * DevRTT + $\beta$*| SampleRTT - EstimatedRTT|<br><sub>(typically, $\beta$ = 0.25)</sub></p>
+<h2 id="reliable-data-transfer"><a href="#reliable-data-transfer" class="headerlink" title="reliable data transfer"></a>reliable data transfer</h2></li>
+</ul>
+</li>
+</ul>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><ul>
+<li>TCP creates rdt service on top of IP’s unreliable service<ul>
+<li>pipelined segments</li>
+<li>cumulative acks</li>
+<li>single retransmission timer</li>
+</ul>
+</li>
+<li>retransmissions triggered by:<ul>
+<li>timeout events</li>
+<li>duplicate acks</li>
+</ul>
+</li>
+<li>simplified TCP sender:<ul>
+<li>ignore duplicate acks</li>
+<li>ignore flow control, congestion control</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-Sender-simplified"><a href="#TCP-Sender-simplified" class="headerlink" title="TCP Sender(simplified)"></a>TCP Sender(simplified)</h3><p><strong>event: data received from application</strong></p>
+<ul>
+<li>create segment with seq #</li>
+<li>seq # is byte-stream number of first data byte in segment</li>
+<li>start timer if not already running<ul>
+<li>think of timer as for oldest unACKed segment</li>
+<li>expiration interval: <strong>TimeOutInterval</strong></li>
+</ul>
+</li>
+</ul>
+<p><strong>event: timeout</strong></p>
+<ul>
+<li>retransmit segment that caused timeout</li>
+<li>restart timer</li>
+</ul>
+<p><strong>event: ACK received</strong></p>
+<ul>
+<li>if ACK acknowledges previously unACKed segments<ul>
+<li>update what is known to be ACKed</li>
+<li>start timer if there are still unACKed segments<br><img src="https://pic.imgdb.cn/item/617ef2c92ab3f51d9103b914.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="retransmission-scenarios"><a href="#retransmission-scenarios" class="headerlink" title="retransmission scenarios"></a>retransmission scenarios</h3><pre><code>![](https://pic.imgdb.cn/item/617ef3aa2ab3f51d910414ff.png)
+
+累加ACK 覆盖了先前丢失的ACK
+</code></pre>
+<h3 id="TCP-Receiver-ACK-generation"><a href="#TCP-Receiver-ACK-generation" class="headerlink" title="TCP Receiver: ACK generation"></a>TCP Receiver: ACK generation</h3><p><img src="https://pic.imgdb.cn/item/617ef4f22ab3f51d910489cb.png"></p>
+<h3 id="TCP-fast-retransmit"><a href="#TCP-fast-retransmit" class="headerlink" title="TCP fast retransmit"></a>TCP fast retransmit</h3><p>if sender receives 3 additional ACKs for same data(“triple duplicate ACKs”), resned unACKed segment with smallest seq#</p>
+<ul>
+<li>likely that unACKed segment lost, so don’t wait for timeout<br><img src="https://pic.imgdb.cn/item/617ef99e2ab3f51d91081da2.png"><br>Receipt of three duplicate ACKs indicates 3 segments received after a missing segment –lost segment is likely. So retransmit!</li>
+</ul>
+<hr>
+<h2 id="Flow-control"><a href="#Flow-control" class="headerlink" title="Flow control"></a>Flow control</h2><p>当网络层传输信息的速度大于应用层从套接字缓冲区移除信息的速度</p>
+<h3 id="flow-control"><a href="#flow-control" class="headerlink" title="flow control"></a><strong>flow control</strong></h3><ul>
+<li>receiver controls sender, so sender won’t overflow receiver’s buffer by transmitting too much, too fast</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617efb352ab3f51d91090839.png"><br>Application removing data from TCP socket buffers</p>
+<ul>
+<li>TCP receiver “advertises” free buffer space in <strong>rwnd</strong> field in TCP header<ul>
+<li><strong>RcvBuffer</strong> size set via socket options (typical dfault is 4096 bytes)</li>
+<li>many operating systems autoadjust <strong>RcvBuffer</strong></li>
+<li>sender limits amount of unACKed(“in-flight”) data to received <strong>rwnd</strong>(free buffer space)</li>
+<li>guarantees receive buffer will not overflow</li>
+<li><img src="https://pic.imgdb.cn/item/617efd002ab3f51d9109f188.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-connection-management"><a href="#TCP-connection-management" class="headerlink" title="TCP connection management"></a>TCP connection management</h3><p>before exchanging data, sender/receiver “handshake”:</p>
+<ul>
+<li>agree to establish connection(each knowing the other willing to establish connection)</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617efee62ab3f51d910aba0d.png"></p>
+<p><strong>Agreeing to eatablish a connection</strong><br>2-way handshake in network</p>
+<ul>
+<li>variable delays</li>
+<li>retransmitted messages due to message loss</li>
+<li>message reordering</li>
+<li>can’t “see” other side</li>
+</ul>
+<p><strong>2-way handshake scenarios</strong><br><img src="https://pic.imgdb.cn/item/617f002e2ab3f51d910b69fd.png"></p>
+<p><strong>TCP 3-way handshake</strong><br><img src="https://pic.imgdb.cn/item/617f00b72ab3f51d910ba4bd.png"></p>
+<p><strong>Closing a TCP connection</strong></p>
+<ul>
+<li>client, sercver each close their side of connection<ul>
+<li>send TCP segment with FIN bit = 1</li>
+</ul>
+</li>
+<li>respond to received FIN with ACK<ul>
+<li>on receiving FIN, ACK can be combined with own FIN</li>
+</ul>
+</li>
+<li>simultaneous FIN exchanges can be handled</li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617f01e92ab3f51d910c17ba.png"></p>
+<hr>
+<h2 id="Principles-of-congestion-control"><a href="#Principles-of-congestion-control" class="headerlink" title="Principles of congestion control"></a>Principles of congestion control</h2><h3 id="Pirnciples-of-congestion-control"><a href="#Pirnciples-of-congestion-control" class="headerlink" title="Pirnciples of congestion control"></a>Pirnciples of congestion control</h3><p><img src="https://pic.imgdb.cn/item/617f03252ab3f51d910c7cca.png"></p>
+<h3 id="Approaches-towards-congestion-control"><a href="#Approaches-towards-congestion-control" class="headerlink" title="Approaches towards congestion control"></a>Approaches towards congestion control</h3><p>End-end congestion control</p>
+<ul>
+<li>no explicit(明确的) feedback from network </li>
+<li>congestion <em>inferred</em> from obesrved loss, delay</li>
+<li>approach taken by TCP</li>
+</ul>
+<p>Network-assisted congestion control:</p>
+<ul>
+<li>routers provide <em>direct</em> feedback to sending/receiving hosts with flows passing through congested router</li>
+<li>may indicate congestion level or explicitly set sending rate</li>
+<li>TCP ECN, ATM, DECbit protocols</li>
+</ul>
+<hr>
+<h2 id="TCP-congestion-control"><a href="#TCP-congestion-control" class="headerlink" title="TCP congestion control"></a>TCP congestion control</h2><h3 id="AIMD-Additice-Increase-amp-Multiplicative-Decrease"><a href="#AIMD-Additice-Increase-amp-Multiplicative-Decrease" class="headerlink" title="AIMD(Additice Increase &amp; Multiplicative Decrease)"></a>AIMD(Additice Increase &amp; Multiplicative Decrease)</h3><ul>
+<li><em>approach:</em> senders can increase sending rate until packet loss(congestion)occurs, then decrease sending rate on loss event</li>
+<li><strong>Additive Increase</strong>: increase sending rate by 1 maximum segment size every RTT until loss detected</li>
+<li><strong>Multiplicative Decrease</strong>: cut sending rate in half at each loss event<ul>
+<li>sending rate is cut in half on loss detected by triple duplicate ACK(TCP Reno)</li>
+<li>Cut to 1 MSS(maximum segment size ) when loss detected by timeout(TCP Tahoe)</li>
+</ul>
+</li>
+<li><strong>AIMD</strong> sawtooth behavior: <em>probing</em> for bandwidth<ul>
+<li>a distributed, asynchronous algorithm - has been shown to:<ul>
+<li>optimize congested flow rates network wide!</li>
+<li>have desirable stability properties</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>details<ul>
+<li>TCP sending behavior:<ul>
+<li>roughly: send cwnd bytes, wait RTT for ACKs, then send more bytes<ul>
+<li>TCP rate $\approx$ cwnd/RTT bytes/sec</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>TCP sender limits transmission<ul>
+<li><strong>LastByteSent - LastByteAcked &lt;= cwnd</strong></li>
+</ul>
+</li>
+<li>cwnd is dynamically adjusted in response to observed network congestion(implementing TCP congestion control)</li>
+</ul>
+</li>
+</ul>
+<h3 id="TCP-slow-start"><a href="#TCP-slow-start" class="headerlink" title="TCP slow start"></a>TCP slow start</h3><ul>
+<li>when connection begins, increase rate exponentially until first loss event:<ul>
+<li>initially <strong>cwnd</strong> = 1MSS</li>
+<li>double <strong>cwnd</strong> every RTT</li>
+<li>done by inctementing <strong>cwnd</strong> for every ACK received</li>
+</ul>
+</li>
+<li>summary: initial rate is slow, but ramps up exponentially fast<br><img src="https://pic.imgdb.cn/item/617f09912ab3f51d910f888a.png"></li>
+</ul>
+<h3 id="TCP-from-slow-start-to-congestion-avoidance"><a href="#TCP-from-slow-start-to-congestion-avoidance" class="headerlink" title="TCP: from slow start to congestion avoidance"></a>TCP: from slow start to congestion avoidance</h3><p><img src="https://pic.imgdb.cn/item/617f0b9b2ab3f51d911083ee.png"></p>
+<h3 id="TCP-fairness"><a href="#TCP-fairness" class="headerlink" title="TCP fairness"></a>TCP fairness</h3><p><strong>Fairness goal:</strong> if K TCP sessions share same bottleneck link of banwidth R, each should have average rate of R/K</p>
+<p><img src="https://pic.imgdb.cn/item/617f0d0f2ab3f51d91112dd7.png"></p>
+<p><strong>Is TCP Fair?</strong><br>Example: 两个竞争的TCP会话</p>
+<ul>
+<li>additive increase gives slope of 1, as throughout increases</li>
+<li>multiplicative decrease decreases throughput proportionally</li>
+<li><img src="https://pic.imgdb.cn/item/617f0f9e2ab3f51d9112612b.png"></li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/617f0feb2ab3f51d91128f35.png"></p>
+<hr>
+<h2 id="Evolution-of-transport-layer-functionality"><a href="#Evolution-of-transport-layer-functionality" class="headerlink" title="Evolution of transport-layer functionality"></a>Evolution of transport-layer functionality</h2><h3 id="Evolving-transport-layer-functionality"><a href="#Evolving-transport-layer-functionality" class="headerlink" title="Evolving transport-layer functionality"></a>Evolving transport-layer functionality</h3><p><img src="https://pic.imgdb.cn/item/617f111d2ab3f51d9113169c.png"></p>
+<h3 id="QUIC-Quick-UDP-Internet-Connections"><a href="#QUIC-Quick-UDP-Internet-Connections" class="headerlink" title="QUIC: Quick UDP Internet Connections"></a>QUIC: Quick UDP Internet Connections</h3><ul>
+<li>application performance of HTTP</li>
+<li>deployed on many Google servers, apps(Chrome, mobile YouTube app)<br><img src="https://pic.imgdb.cn/item/617f12b82ab3f51d9113bd98.png"></li>
+<li>adopts approaches we’ve studied in this chapter for connection establishment, error control, congestion control<ul>
+<li><strong>error and congestion control</strong>: “Readers familiar with TCP’s loss detection and congestion control will find algorithms here that parallel well-known TCP ones.” </li>
+<li><strong>connection establishment:</strong> reliability, congestion control, authentication, encryption, state established in one RTT</li>
+</ul>
+</li>
+<li>multiple application-level “streams” multiplexed over single QUIC connection<ul>
+<li>separate reliable data transfer, security</li>
+<li>common congestion control</li>
+</ul>
+</li>
+<li>Connection establishment</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/29/COMP211-W3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP211LAB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/20/COMP211LAB/">COMP211LAB</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/20/COMP211LAB/" class="archive-article-date">
+  	<time datetime="2021-10-20T20:36:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Assessment-1"><a href="#Assessment-1" class="headerlink" title="Assessment 1"></a>Assessment 1</h2><h3 id="Part-A"><a href="#Part-A" class="headerlink" title="Part A:"></a>Part A:</h3><ul>
+<li>This part is based on the content for the first two lab </li>
+<li>First we need to declare variables such as socket and cache</li>
+<li>Then I combine from the lab source and my own knowladge figure out the result<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*************************************</span></span><br><span class="line"><span class="comment"> * Filename:  SMTPInteraction.java</span></span><br><span class="line"><span class="comment"> *************************************/</span></span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.Integer.parseInt;</span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Name: Junshu Sha</span></span><br><span class="line"><span class="comment">// ID: 201600804</span></span><br><span class="line"><span class="comment">// Blog: https://shaysha-pra.github.io/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// import jdk.internal.org.jline.utils.InputStreamReader;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Open an SMTP connection to mailserver and send one mail.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SMTPInteraction</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* Socket to the server */</span></span><br><span class="line">    <span class="keyword">private</span> Socket connection;</span><br><span class="line">    <span class="comment">/* Streams for reading from and writing to socket */</span></span><br><span class="line">    <span class="keyword">private</span> BufferedReader fromServer;</span><br><span class="line">    <span class="keyword">private</span> DataOutputStream toServer;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String CRLF = <span class="string">&quot;\r\n&quot;</span>;	</span><br><span class="line">    <span class="comment">/* Are we connected? Used in close() to determine what to do. */</span></span><br><span class="line">	<span class="comment">//the number of recipient address</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> isConnected = <span class="keyword">false</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> number_of_RCPT = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> String check_RCPT[];</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Create an SMTPInteraction object. Create the socket and the </span></span><br><span class="line"><span class="comment">       associated streams. Initialise SMTP connection. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SMTPInteraction</span><span class="params">(EmailMessage mailmessage)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="comment">// Open a TCP client socket with hostname and portnumber specified in</span></span><br><span class="line">        <span class="comment">// mailmessage.DestHost and  mailmessage.DestHostPort, respectively.</span></span><br><span class="line">		<span class="keyword">int</span> PORT = mailmessage. DestHostPort;</span><br><span class="line">		connection = <span class="keyword">new</span> Socket(mailmessage.DestHost, PORT);</span><br><span class="line">	</span><br><span class="line">        <span class="comment">// attach the BufferedReader fromServer to read from the socket and</span></span><br><span class="line">        <span class="comment">// the DataOutputStream toServer to write to the socket</span></span><br><span class="line">        fromServer = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(connection.getInputStream()));</span><br><span class="line">		toServer =   <span class="keyword">new</span> DataOutputStream(connection.getOutputStream());</span><br><span class="line">		<span class="comment">// fromServer = new BufferedReader(new InputStreamReader(System.in));</span></span><br><span class="line">		<span class="comment">// toServer = System.out;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Read one line from server and check that the reply code is 220.</span></span><br><span class="line"><span class="comment">	   If not, throw an IOException. */</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		String response = fromServer.readLine();</span><br><span class="line">		<span class="keyword">if</span> (!response.startsWith(<span class="string">&quot;220&quot;</span>)) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">&quot;220 reply not received from server.&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">/* SMTP handshake. We need the name of the local machine.</span></span><br><span class="line"><span class="comment">		Send the appropriate SMTP handshake command. */</span></span><br><span class="line">		String localhost = InetAddress.getLocalHost().getHostName();</span><br><span class="line">		sendCommand(<span class="string">&quot;HELO &quot;</span> + localhost, <span class="number">250</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		isConnected = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Send message. Write the correct SMTP-commands in the</span></span><br><span class="line"><span class="comment">       correct order. No checking for errors, just throw them to the</span></span><br><span class="line"><span class="comment">       caller. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send</span><span class="params">(EmailMessage mailmessage)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// initialize the number of rcpt address.</span></span><br><span class="line">		check_RCPT = mailmessage.Recipient.split(<span class="string">&quot;,&quot;</span>);</span><br><span class="line">		number_of_RCPT = check_RCPT.length;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/* Send all the necessary commands to send a message. Call</span></span><br><span class="line"><span class="comment">	   sendCommand() to do the dirty work. Do _not_ catch the</span></span><br><span class="line"><span class="comment">	   exception thrown from sendCommand(). */</span></span><br><span class="line"></span><br><span class="line">		sendCommand((<span class="string">&quot;MAIL FROM: &quot;</span> + <span class="string">&quot;&lt;&quot;</span> + mailmessage.Sender+ <span class="string">&quot;&gt;&quot;</span>), <span class="number">250</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (number_of_RCPT &gt; <span class="number">1</span>)&#123;</span><br><span class="line">				<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= number_of_RCPT;i++)&#123;</span><br><span class="line">					sendCommand((<span class="string">&quot;RCPT TO: &quot;</span> + <span class="string">&quot;&lt;&quot;</span> + check_RCPT[i] + <span class="string">&quot;&gt;&quot;</span>), <span class="number">250</span>);</span><br><span class="line">					number_of_RCPT--;</span><br><span class="line">				&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			sendCommand((<span class="string">&quot;RCPT TO: &quot;</span> + <span class="string">&quot;&lt;&quot;</span> + mailmessage.Recipient + <span class="string">&quot;&gt;&quot;</span>), <span class="number">250</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		sendCommand(<span class="string">&quot;DATA&quot;</span>, <span class="number">354</span>);</span><br><span class="line">		sendCommand(mailmessage.Headers + CRLF + mailmessage.Body + CRLF + <span class="string">&quot;.&quot;</span>, <span class="number">250</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Close SMTP connection. First, terminate on SMTP level, then</span></span><br><span class="line"><span class="comment">       close the socket. */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		isConnected = <span class="keyword">false</span>;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			sendCommand(<span class="string">&quot;QUIT&quot;</span>, <span class="number">221</span>);</span><br><span class="line">			connection.close();</span><br><span class="line">		&#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">			System.out.println(<span class="string">&quot;Unable to close connection: &quot;</span> + e);</span><br><span class="line">			isConnected = <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* Send an SMTP command to the server. Check that the reply code is</span></span><br><span class="line"><span class="comment">       what is is supposed to be according to RFC 821. */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">sendCommand</span><span class="params">(String command, <span class="keyword">int</span> rc)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Write command to server and read reply from server. */</span></span><br><span class="line">		toServer.writeBytes(command + CRLF);</span><br><span class="line"></span><br><span class="line">		</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Check that the server&#x27;s reply code is the same as the parameter</span></span><br><span class="line"><span class="comment">		rc. If not, throw an IOException. */</span></span><br><span class="line">		String response = fromServer.readLine().split(<span class="string">&quot; &quot;</span>)[<span class="number">0</span>];</span><br><span class="line">		<span class="keyword">int</span> reply_code = parseInt(response);</span><br><span class="line">		System.out.println(response);</span><br><span class="line">		<span class="keyword">if</span>(reply_code != rc)</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">&quot;reply code is not matched.&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (isConnected) &#123;</span><br><span class="line">            close();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="Part-B"><a href="#Part-B" class="headerlink" title="Part B"></a>Part B</h3><ul>
+<li>This part is the application of the HTTP method</li>
+<li>This part is some functional functions. The function I used to judge BUF_SIZE at the beginning is logically wrong. This is very common and it is difficult to find that after a long time of inspection, I changed to the function that I use now.<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**********************************</span></span><br><span class="line"><span class="comment"> * Filename:  HTTPInteraction.java</span></span><br><span class="line"><span class="comment"> *************************************/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.*;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Name: Junshu Sha</span></span><br><span class="line"><span class="comment">// ID: 201600804</span></span><br><span class="line"><span class="comment">// Blog: https://shaysha-pra.github.io/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// import jdk.internal.org.jline.utils.InputStreamReader;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Class for downloading one object from http server.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HTTPInteraction</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String host;</span><br><span class="line">	<span class="keyword">private</span> String path;</span><br><span class="line">	<span class="keyword">private</span> String requestMessage;</span><br><span class="line">	</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HTTP_PORT = <span class="number">80</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String CRLF = <span class="string">&quot;\r\n&quot;</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> BUF_SIZE = <span class="number">4096</span>; </span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_OBJECT_SIZE = <span class="number">102400</span>;</span><br><span class="line"></span><br><span class="line"> 	<span class="comment">/* Create HTTPInteraction object. */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">HTTPInteraction</span><span class="params">(String url)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* Split &quot;URL&quot; into &quot;host name&quot; and &quot;path name&quot;, and</span></span><br><span class="line"><span class="comment">		 * set host and path class variables. </span></span><br><span class="line"><span class="comment">		 * if the URL is only a host name, use &quot;/&quot; as path </span></span><br><span class="line"><span class="comment">		 */</span>		</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* Fill in */</span>			</span><br><span class="line">		String name[] = url.split(<span class="string">&quot;/&quot;</span>, <span class="number">2</span>); <span class="comment">// divided url into two parts when it meets the first &quot;/&quot; </span></span><br><span class="line">		host = name[<span class="number">0</span>];	<span class="comment">// initial the host as first part of name[]</span></span><br><span class="line">		<span class="keyword">if</span> (name.length &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">			path = <span class="string">&quot;/&quot;</span> + name[<span class="number">1</span>]; <span class="comment">// set path name when name&#x27;s length is bigger or equal than 2</span></span><br><span class="line"></span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			path = <span class="string">&quot;/&quot;</span>;	</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">		<span class="comment">/* Construct requestMessage, add a header line so that</span></span><br><span class="line"><span class="comment">		 * server closes connection after one response. */</span>		</span><br><span class="line">		requestMessage = <span class="string">&quot;GET &quot;</span> + path  + <span class="string">&quot; HTTP/1.1&quot;</span> + CRLF + <span class="string">&quot;Host: &quot;</span> + host + CRLF; <span class="comment">// normal format for GET method</span></span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/* Send Http request, parse response and return requested object </span></span><br><span class="line"><span class="comment">	 * as a String (if no errors), </span></span><br><span class="line"><span class="comment">	 * otherwise return meaningful error message. </span></span><br><span class="line"><span class="comment">	 * Don&#x27;t catch Exceptions. EmailClient will handle them. */</span>		</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">send</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* buffer to read object in 4kB chunks */</span></span><br><span class="line">		<span class="keyword">char</span>[] buf = <span class="keyword">new</span> <span class="keyword">char</span>[BUF_SIZE];</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Maximum size of object is 100kB, which should be enough for most objects. </span></span><br><span class="line"><span class="comment">		 * Change constant if you need more. */</span>		</span><br><span class="line">		<span class="keyword">char</span>[] body = <span class="keyword">new</span> <span class="keyword">char</span>[MAX_OBJECT_SIZE];</span><br><span class="line">		</span><br><span class="line">		String statusLine=<span class="string">&quot;&quot;</span>;	<span class="comment">// status line</span></span><br><span class="line">		<span class="keyword">int</span> status;		<span class="comment">// status code</span></span><br><span class="line">		String headers=<span class="string">&quot;&quot;</span>;	<span class="comment">// headers</span></span><br><span class="line">		<span class="keyword">int</span> bodyLength=-<span class="number">1</span>;	<span class="comment">// lenghth of body</span></span><br><span class="line">				</span><br><span class="line">		String[] tmp;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* The socket to the server */</span></span><br><span class="line">		Socket connection;</span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* Streams for reading from and writing to socket */</span></span><br><span class="line">		BufferedReader fromServer;</span><br><span class="line">		DataOutputStream toServer;</span><br><span class="line"></span><br><span class="line">		System.out.println(<span class="string">&quot;Connecting server: &quot;</span> + host +CRLF); </span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* Connect to http server on port 80.</span></span><br><span class="line"><span class="comment">		 * Assign input and output streams to connection. */</span>		</span><br><span class="line">		connection = <span class="keyword">new</span> Socket(host, HTTP_PORT); <span class="comment">// get host and it&#x27;s server</span></span><br><span class="line">		fromServer = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(connection.getInputStream())); <span class="comment">// get input of connection</span></span><br><span class="line">		toServer = <span class="keyword">new</span> DataOutputStream(connection.getOutputStream());	<span class="comment">// get out put of connection</span></span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;Send request:\n&quot;</span> + requestMessage); <span class="comment">//print request Message</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Send requestMessage to http server */</span></span><br><span class="line">		<span class="comment">/* Fill in */</span></span><br><span class="line">        toServer.writeBytes(requestMessage + CRLF); </span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* Read the status line from response message */</span></span><br><span class="line">		statusLine= fromServer.readLine();</span><br><span class="line">		System.out.println(<span class="string">&quot;Status Line:\n&quot;</span>+ statusLine +CRLF); <span class="comment">//print status message </span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* Extract status code from status line. If status code is not 200,</span></span><br><span class="line"><span class="comment">		 * close connection and return an error message. </span></span><br><span class="line"><span class="comment">		 * Do NOT throw an exception */</span>		</span><br><span class="line">		<span class="comment">/* Fill in */</span></span><br><span class="line">		status = Integer.parseInt(statusLine.substring(<span class="number">9</span>,<span class="number">12</span>)); <span class="comment">// get status codes</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span>&#123;									<span class="comment">// this part is almost same as the lab session</span></span><br><span class="line">			<span class="keyword">if</span> (status != <span class="number">200</span>)&#123;</span><br><span class="line">				connection.close();</span><br><span class="line">				System.out.println(<span class="string">&quot;status code is not 200!&quot;</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">catch</span>(UnknownHostException e)&#123;</span><br><span class="line">			<span class="keyword">throw</span> e;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Read header lines from response message, convert to a string, </span></span><br><span class="line"><span class="comment"> 		 * and assign to &quot;headers&quot; variable. </span></span><br><span class="line"><span class="comment">		 * Recall that an empty line indicates end of headers.</span></span><br><span class="line"><span class="comment">		 * Extract length  from &quot;Content-Length:&quot; (or &quot;Content-length:&quot;) </span></span><br><span class="line"><span class="comment">		 * header line, if present, and assign to &quot;bodyLength&quot; variable. </span></span><br><span class="line"><span class="comment">		*/</span></span><br><span class="line">		<span class="comment">/* Fill in */</span> 		<span class="comment">// requires about 10 lines of code</span></span><br><span class="line"></span><br><span class="line">		</span><br><span class="line">		String header_lines;</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(!(header_lines = fromServer.readLine()).isEmpty())&#123;</span><br><span class="line">			headers += header_lines + CRLF;  <span class="comment">// generate the hearder&#x27;s information</span></span><br><span class="line">			<span class="keyword">if</span>(header_lines.startsWith(<span class="string">&quot;Content-Length:&quot;</span>) || header_lines.startsWith(<span class="string">&quot;content-length:&quot;</span>))&#123;</span><br><span class="line">				tmp = header_lines.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">				<span class="keyword">int</span> lth = Integer.parseInt(tmp[<span class="number">1</span>]);</span><br><span class="line">				bodyLength = lth;</span><br><span class="line">				</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">if</span> (header_lines.startsWith(<span class="string">&quot;Location:&quot;</span>)) &#123;</span><br><span class="line">                tmp = header_lines.split(<span class="string">&quot; &quot;</span>);</span><br><span class="line">                <span class="keyword">return</span> tmp[<span class="number">1</span>];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(<span class="string">&quot;Headers:\n&quot;</span> + headers + CRLF);</span><br><span class="line">	</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* If object is larger than MAX_OBJECT_SIZE, close the connection and </span></span><br><span class="line"><span class="comment">		 * return meaningful message. */</span></span><br><span class="line">		<span class="keyword">if</span> (bodyLength &gt; MAX_OBJECT_SIZE) &#123;</span><br><span class="line">			<span class="comment">/* Fill in */</span></span><br><span class="line">			connection.close();</span><br><span class="line">			<span class="keyword">return</span>(headers +bodyLength);</span><br><span class="line">		&#125;</span><br><span class="line">					    </span><br><span class="line">		<span class="comment">/* Read the body in chunks of BUF_SIZE using buf[] and copy the chunk</span></span><br><span class="line"><span class="comment">		 * into body[]. Stop when either we have</span></span><br><span class="line"><span class="comment">		 * read Content-Length bytes or when the connection is</span></span><br><span class="line"><span class="comment">		 * closed (when there is no Content-Length in the response). </span></span><br><span class="line"><span class="comment">		 * Use one of the read() methods of BufferedReader here, NOT readLine().</span></span><br><span class="line"><span class="comment">		 * Make sure not to read more than MAX_OBJECT_SIZE characters.</span></span><br><span class="line"><span class="comment">		 */</span>				</span><br><span class="line">		<span class="keyword">int</span> bytesRead = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">		<span class="comment">/* Fill in */</span>   <span class="comment">// Requires 10-20 lines of code</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span>(bodyLength&gt;<span class="number">0</span>)&#123;				<span class="comment">//Read the body in chunks of BUF_SIZE using buf[] and copy the chunk in to body[]</span></span><br><span class="line">			<span class="keyword">while</span>(bodyLength-bytesRead&gt;<span class="number">0</span>)&#123;   </span><br><span class="line">				<span class="keyword">int</span> read = fromServer.read(buf); <span class="comment">// read form buf</span></span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; read;i++)&#123;</span><br><span class="line">					body[i+bytesRead] = buf[i];</span><br><span class="line">				&#125;</span><br><span class="line">				bytesRead += read;	<span class="comment">// add read&#x27;s content to bytesRead</span></span><br><span class="line">			&#125;</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="keyword">while</span>(bytesRead&lt;MAX_OBJECT_SIZE)&#123;</span><br><span class="line">				<span class="keyword">int</span> read = fromServer.read(buf,  <span class="number">0</span>, BUF_SIZE); </span><br><span class="line">				<span class="keyword">if</span>(read == -<span class="number">1</span>) <span class="keyword">break</span>;</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt; read;i++)&#123;</span><br><span class="line">					body[i+bytesRead] = buf[i];</span><br><span class="line">				&#125;</span><br><span class="line">				bytesRead += read;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;bytesRead;i++)&#123;</span><br><span class="line">			System.out.print(body[i]);</span><br><span class="line">		&#125;</span><br><span class="line">		   </span><br><span class="line">		<span class="comment">/* At this points body[] should hold to body of the downloaded object and </span></span><br><span class="line"><span class="comment">		 * bytesRead should hold the number of bytes read from the BufferedReader</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">/* Close connection and return object as String. */</span></span><br><span class="line">		System.out.println(<span class="string">&quot;Done reading file. Closing connection.&quot;</span>);</span><br><span class="line">		connection.close();</span><br><span class="line">		<span class="keyword">return</span>(<span class="keyword">new</span> String(body, <span class="number">0</span>, bytesRead));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">exercise</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/20/COMP211LAB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-COMP201-W3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -387,408 +1208,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/10/14/COMP211-W2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-COMP211LAB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/10/10/COMP211LAB/">COMP211LAB</a>
-    </h1>
-  
-
-        
-        <a href="/2021/10/10/COMP211LAB/" class="archive-article-date">
-  	<time datetime="2021-10-10T20:36:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Assessment-1"><a href="#Assessment-1" class="headerlink" title="Assessment 1"></a>Assessment 1</h2><h3 id="Part-A"><a href="#Part-A" class="headerlink" title="Part A:"></a>Part A:</h3><ul>
-<li>This part is based on the content for the first two lab </li>
-<li>First we need to declare variables such as socket and cache</li>
-<li>Then I combine from the lab source and my own knowladge figure out the result<!-- ```Java
-/*************************************</li>
-</ul>
-<ul>
-<li>Filename:  SMTPInteraction.java</li>
-<li>************************************/<br>import java.net.<em>;<br>import static java.lang.Integer.parseInt;<br>import java.io.</em>;<br>import java.util.*;</li>
-</ul>
-<p>// Name: Junshu Sha<br>// ID: 201600804<br>// Blog: <a target="_blank" rel="noopener" href="https://shaysha-pra.github.io/">https://shaysha-pra.github.io/</a></p>
-<p>// import jdk.internal.org.jline.utils.InputStreamReader;</p>
-<p>/**</p>
-<ul>
-<li><p>Open an SMTP connection to mailserver and send one mail.</p>
-</li>
-<li></li>
-<li><p>/<br>public class SMTPInteraction {<br>  /* Socket to the server <em>/<br>  private Socket connection;<br>  /</em> Streams for reading from and writing to socket <em>/<br>  private BufferedReader fromServer;<br>  private DataOutputStream toServer;<br>  private static final String CRLF = “\r\n”;<br>  /</em> Are we connected? Used in close() to determine what to do. */<br>  //the number of recipient address<br>  private boolean isConnected = false;<br>  private int number_of_RCPT = 0;<br>  private String check_RCPT[];</p>
-<p>  /* Create an SMTPInteraction object. Create the socket and the </p>
-<pre><code> associated streams. Initialise SMTP connection. */
-</code></pre>
-<p>  public SMTPInteraction(EmailMessage mailmessage) throws IOException {</p>
-<pre><code>  // Open a TCP client socket with hostname and portnumber specified in
-  // mailmessage.DestHost and  mailmessage.DestHostPort, respectively.
-  int PORT = mailmessage. DestHostPort;
-  connection = new Socket(mailmessage.DestHost, PORT);
-
-  // attach the BufferedReader fromServer to read from the socket and
-  // the DataOutputStream toServer to write to the socket
-  fromServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-  toServer =   new DataOutputStream(connection.getOutputStream());
-  // fromServer = new BufferedReader(new InputStreamReader(System.in));
-  // toServer = System.out;
-</code></pre>
-</li>
-</ul>
-<pre><code>    /* Read one line from server and check that the reply code is 220.
-   If not, throw an IOException. */
-
-
-    String response = fromServer.readLine();
-    if (!response.startsWith(&quot;220&quot;)) &#123;
-        throw new IOException(&quot;220 reply not received from server.&quot;);
-    &#125;
-    /* SMTP handshake. We need the name of the local machine.
-    Send the appropriate SMTP handshake command. */
-    String localhost = InetAddress.getLocalHost().getHostName();
-    sendCommand(&quot;HELO &quot; + localhost, 250);
-
-
-    isConnected = true;
-&#125;
-
-/* Send message. Write the correct SMTP-commands in the
-   correct order. No checking for errors, just throw them to the
-   caller. */
-public void send(EmailMessage mailmessage) throws IOException &#123;
-
-// initialize the number of rcpt address.
-    check_RCPT = mailmessage.Recipient.split(&quot;,&quot;);
-    number_of_RCPT = check_RCPT.length;
-
-/* Send all the necessary commands to send a message. Call
-   sendCommand() to do the dirty work. Do _not_ catch the
-   exception thrown from sendCommand(). */
-
-    sendCommand((&quot;MAIL FROM: &quot; + &quot;&lt;&quot; + mailmessage.Sender+ &quot;&gt;&quot;), 250);
-
-    if (number_of_RCPT &gt; 1)&#123;
-            for (int i = 0; i &lt;= number_of_RCPT;i++)&#123;
-                sendCommand((&quot;RCPT TO: &quot; + &quot;&lt;&quot; + check_RCPT[i] + &quot;&gt;&quot;), 250);
-                number_of_RCPT--;
-            &#125;
-    &#125;else&#123;
-        sendCommand((&quot;RCPT TO: &quot; + &quot;&lt;&quot; + mailmessage.Recipient + &quot;&gt;&quot;), 250);
-    &#125;
-    sendCommand(&quot;DATA&quot;, 354);
-    sendCommand(mailmessage.Headers + CRLF + mailmessage.Body + CRLF + &quot;.&quot;, 250);
-&#125;
-
-/* Close SMTP connection. First, terminate on SMTP level, then
-   close the socket. */
-public void close() &#123;
-    isConnected = false;
-    try &#123;
-        sendCommand(&quot;QUIT&quot;, 221);
-        connection.close();
-    &#125; catch (IOException e) &#123;
-        System.out.println(&quot;Unable to close connection: &quot; + e);
-        isConnected = true;
-    &#125;
-&#125;
-
-/* Send an SMTP command to the server. Check that the reply code is
-   what is is supposed to be according to RFC 821. */
-private void sendCommand(String command, int rc) throws IOException &#123;
-
-    /* Write command to server and read reply from server. */
-    toServer.writeBytes(command + CRLF);
-
-    
-
-    /* Check that the server&#39;s reply code is the same as the parameter
-    rc. If not, throw an IOException. */
-    String response = fromServer.readLine().split(&quot; &quot;)[0];
-    int reply_code = parseInt(response);
-    System.out.println(response);
-    if(reply_code != rc)
-        throw new IOException(&quot;reply code is not matched.&quot;);
-&#125;
-
-protected void finalize() throws Throwable &#123;
-    if (isConnected) &#123;
-        close();
-    &#125;
-
-&#125;
-</code></pre>
-<p>} </p>
-<pre><code class="--&gt;">
----
-
-
-
-### Part B
-+ This part is the application of the HTTP method
-+ This part is some functional functions. The function I used to judge BUF_SIZE at the beginning is logically wrong. This is very common and it is difficult to find that after a long time of inspection, I changed to the function that I use now.
-&lt;!-- 
-```Java
-
-/**********************************
- * Filename:  HTTPInteraction.java
- *************************************/
-
-import java.io.*;
-import java.net.*;
-import java.util.*;
-
-// Name: Junshu Sha
-// ID: 201600804
-// Blog: https://shaysha-pra.github.io/
-
-// import jdk.internal.org.jline.utils.InputStreamReader;
-
-/**
- * Class for downloading one object from http server.
- *
- */
-public class HTTPInteraction &#123;
-    private String host;
-    private String path;
-    private String requestMessage;
-    
-        
-    private static final int HTTP_PORT = 80;
-    private static final String CRLF = &quot;\r\n&quot;;
-    private static final int BUF_SIZE = 4096; 
-    private static final int MAX_OBJECT_SIZE = 102400;
-
-     /* Create HTTPInteraction object. */
-    public HTTPInteraction(String url) &#123;
-        
-        /* Split &quot;URL&quot; into &quot;host name&quot; and &quot;path name&quot;, and
-         * set host and path class variables. 
-         * if the URL is only a host name, use &quot;/&quot; as path 
-         */        
-        
-        /* Fill in */            
-        String name[] = url.split(&quot;/&quot;, 2); // divided url into two parts when it meets the first &quot;/&quot; 
-        host = name[0];    // initial the host as first part of name[]
-        if (name.length &gt;= 2) &#123;
-            path = &quot;/&quot; + name[1]; // set path name when name&#39;s length is bigger or equal than 2
-
-        &#125;else&#123;
-            path = &quot;/&quot;;    
-        &#125;
-
-    
-        /* Construct requestMessage, add a header line so that
-         * server closes connection after one response. */        
-        requestMessage = &quot;GET &quot; + path  + &quot; HTTP/1.1&quot; + CRLF + &quot;Host: &quot; + host + CRLF; // normal format for GET method
-
-    
-        return;
-    &#125;    
-    
-    
-    /* Send Http request, parse response and return requested object 
-     * as a String (if no errors), 
-     * otherwise return meaningful error message. 
-     * Don&#39;t catch Exceptions. EmailClient will handle them. */        
-    public String send() throws IOException &#123;
-        
-        /* buffer to read object in 4kB chunks */
-        char[] buf = new char[BUF_SIZE];
-
-        /* Maximum size of object is 100kB, which should be enough for most objects. 
-         * Change constant if you need more. */        
-        char[] body = new char[MAX_OBJECT_SIZE];
-        
-        String statusLine=&quot;&quot;;    // status line
-        int status;        // status code
-        String headers=&quot;&quot;;    // headers
-        int bodyLength=-1;    // lenghth of body
-                
-        String[] tmp;
-        
-        /* The socket to the server */
-        Socket connection;
-        
-        /* Streams for reading from and writing to socket */
-        BufferedReader fromServer;
-        DataOutputStream toServer;
-
-        System.out.println(&quot;Connecting server: &quot; + host +CRLF); 
-        
-        /* Connect to http server on port 80.
-         * Assign input and output streams to connection. */        
-        connection = new Socket(host, HTTP_PORT); // get host and it&#39;s server
-        fromServer = new BufferedReader(new InputStreamReader(connection.getInputStream())); // get input of connection
-        toServer = new DataOutputStream(connection.getOutputStream());    // get out put of connection
-        
-        System.out.println(&quot;Send request:\n&quot; + requestMessage); //print request Message
-
-
-        /* Send requestMessage to http server */
-        /* Fill in */
-        toServer.writeBytes(requestMessage + CRLF); 
-        
-        /* Read the status line from response message */
-        statusLine= fromServer.readLine();
-        System.out.println(&quot;Status Line:\n&quot;+ statusLine +CRLF); //print status message 
-        
-        /* Extract status code from status line. If status code is not 200,
-         * close connection and return an error message. 
-         * Do NOT throw an exception */        
-        /* Fill in */
-        status = Integer.parseInt(statusLine.substring(9,12)); // get status codes
-
-        try&#123;                                    // this part is almost same as the lab session
-            if (status != 200)&#123;
-                connection.close();
-                System.out.println(&quot;status code is not 200!&quot;);
-            &#125;
-        &#125;catch(UnknownHostException e)&#123;
-            throw e;
-        &#125;
-
-        /* Read header lines from response message, convert to a string, 
-          * and assign to &quot;headers&quot; variable. 
-         * Recall that an empty line indicates end of headers.
-         * Extract length  from &quot;Content-Length:&quot; (or &quot;Content-length:&quot;) 
-         * header line, if present, and assign to &quot;bodyLength&quot; variable. 
-        */
-        /* Fill in */         // requires about 10 lines of code
-
-        
-        String header_lines;
-        
-        while(!(header_lines = fromServer.readLine()).isEmpty())&#123;
-            headers += header_lines + CRLF;  // generate the hearder&#39;s information
-            if(header_lines.startsWith(&quot;Content-Length:&quot;) || header_lines.startsWith(&quot;content-length:&quot;))&#123;
-                tmp = header_lines.split(&quot; &quot;);
-                int lth = Integer.parseInt(tmp[1]);
-                bodyLength = lth;
-                
-            &#125;
-            if (header_lines.startsWith(&quot;Location:&quot;)) &#123;
-                tmp = header_lines.split(&quot; &quot;);
-                return tmp[1];
-            &#125;
-        &#125;
-        System.out.println(&quot;Headers:\n&quot; + headers + CRLF);
-    
-
-        /* If object is larger than MAX_OBJECT_SIZE, close the connection and 
-         * return meaningful message. */
-        if (bodyLength &gt; MAX_OBJECT_SIZE) &#123;
-            /* Fill in */
-            connection.close();
-            return(headers +bodyLength);
-        &#125;
-                        
-        /* Read the body in chunks of BUF_SIZE using buf[] and copy the chunk
-         * into body[]. Stop when either we have
-         * read Content-Length bytes or when the connection is
-         * closed (when there is no Content-Length in the response). 
-         * Use one of the read() methods of BufferedReader here, NOT readLine().
-         * Make sure not to read more than MAX_OBJECT_SIZE characters.
-         */                
-        int bytesRead = 0;
-
-        /* Fill in */   // Requires 10-20 lines of code
-
-        if(bodyLength&gt;0)&#123;                //Read the body in chunks of BUF_SIZE using buf[] and copy the chunk in to body[]
-            while(bodyLength-bytesRead&gt;0)&#123;   
-                int read = fromServer.read(buf); // read form buf
-                for(int i=0;i&lt; read;i++)&#123;
-                    body[i+bytesRead] = buf[i];
-                &#125;
-                bytesRead += read;    // add read&#39;s content to bytesRead
-            &#125;
-        &#125;else&#123;
-            while(bytesRead&lt;MAX_OBJECT_SIZE)&#123;
-                int read = fromServer.read(buf,  0, BUF_SIZE); 
-                if(read == -1) break;
-                for(int i=0;i&lt; read;i++)&#123;
-                    body[i+bytesRead] = buf[i];
-                &#125;
-                bytesRead += read;
-            &#125;
-        &#125;
-        for(int i=0;i&lt;bytesRead;i++)&#123;
-            System.out.print(body[i]);
-        &#125;
-           
-        /* At this points body[] should hold to body of the downloaded object and 
-         * bytesRead should hold the number of bytes read from the BufferedReader
-         */
-        
-        /* Close connection and return object as String. */
-        System.out.println(&quot;Done reading file. Closing connection.&quot;);
-        connection.close();
-        return(new String(body, 0, bytesRead));
-    &#125;
-&#125;
-
-``` --&gt;
-</code></pre>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">exercise</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/10/10/COMP211LAB/">展开全文 >></a>
         </p>
       
 
@@ -1760,441 +2179,6 @@ public class HTTPInteraction &#123;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2021/10/05/COMP211/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-COMP207" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/27/COMP207/">COMP207</a>
-    </h1>
-  
-
-        
-        <a href="/2021/09/27/COMP207/" class="archive-article-date">
-  	<time datetime="2021-09-27T13:39:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h1><h2 id="Course’s-aim"><a href="#Course’s-aim" class="headerlink" title="Course’s aim:"></a>Course’s aim:</h2><ul>
-<li><strong>Introdution for coursees</strong><br>  A CS Store from Liverpool to national</li>
-</ul>
-<hr>
-<h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Introduction-to-databases"><a href="#Introduction-to-databases" class="headerlink" title="Introduction to databases:"></a>Introduction to databases:</h2><ul>
-<li>Databases can be used for most purposes in computer science (Python, Java, C or C++) </li>
-<li>Databases are not general-purpose, they are domain-specific<br>  (<em><strong>It’s everywhere !</strong></em>)</li>
-</ul>
-<h3 id="Databases-Drives-the-Web"><a href="#Databases-Drives-the-Web" class="headerlink" title="Databases Drives the Web"></a>Databases Drives the Web</h3><pre><code>User -&gt; Web service -&gt; Database
-</code></pre>
-<ul>
-<li>Requires extremely efficient systems for querying dada,<br>  and for storing and mainpulating data in a safe way.</li>
-</ul>
-<p><strong>Application</strong></p>
-<ul>
-<li>Online store</li>
-<li>Social media site</li>
-<li>Airline/train/hotel/reservation</li>
-<li>many more</li>
-</ul>
-<h3 id="Databases-Drives-Businesses"><a href="#Databases-Drives-Businesses" class="headerlink" title="Databases Drives Businesses"></a>Databases Drives Businesses</h3><ul>
-<li>Banking:<ul>
-<li>debit/ credit card transactons</li>
-</ul>
-</li>
-<li>Stock market</li>
-<li>Big companies &amp; organisations:<ul>
-<li>Employees, customers, products, sales, schedules, logistics, clients, etc</li>
-<li>Purposes:<ul>
-<li>Some are worthwhile directly</li>
-<li>Management, data analytics and decision making</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="Databases-in-Science-amp-Public-Service"><a href="#Databases-in-Science-amp-Public-Service" class="headerlink" title="Databases in Science &amp; Public Service"></a>Databases in Science &amp; Public Service</h3><ul>
-<li>Science:<ul>
-<li>Astronomy</li>
-<li>Human Genome</li>
-<li>Biochemists exploring properties of proteins</li>
-<li>Biology and life sciences</li>
-<li>Geology</li>
-</ul>
-</li>
-<li>Medicine/NHS:<ul>
-<li>Patinet records</li>
-<li>Diseases and their relationaships, treaments, etc.</li>
-<li>Decision making</li>
-</ul>
-</li>
-<li>Many otheres</li>
-</ul>
-<hr>
-<h1 id="Lecture-3"><a href="#Lecture-3" class="headerlink" title="Lecture 3"></a>Lecture 3</h1><h2 id="Basics-of-SQL-and-the-relational-model"><a href="#Basics-of-SQL-and-the-relational-model" class="headerlink" title="Basics of SQL and the relational model"></a>Basics of SQL and the relational model</h2><ul>
-<li>insert</li>
-<li>delete</li>
-<li>query</li>
-</ul>
-<h2 id="Relational-DBMS-Components"><a href="#Relational-DBMS-Components" class="headerlink" title="Relational DBMS Components"></a>Relational DBMS Components</h2><ul>
-<li><p>User/application</p>
-<ul>
-<li>QUery Compiler</li>
-<li>Exection Engine</li>
-<li>index/file/record manager</li>
-</ul>
-</li>
-<li><p>Transaction Management</p>
-<ul>
-<li>Transaction manager</li>
-<li>Logging and recovery</li>
-<li>Concurrency Control</li>
-</ul>
-</li>
-</ul>
-<h2 id="Beyond-Plain-Relational-DBMS"><a href="#Beyond-Plain-Relational-DBMS" class="headerlink" title="Beyond Plain Relational DBMS"></a>Beyond Plain Relational DBMS</h2><pre><code>+ Distributed DBMSs
-+ Beyond Relational data
-+ data warehouses/analysis/mining
-</code></pre>
-<hr>
-<h1 id="Lecture-4"><a href="#Lecture-4" class="headerlink" title="Lecture 4"></a>Lecture 4</h1><h2 id="Introduction-to-relational-databases-and-SQL"><a href="#Introduction-to-relational-databases-and-SQL" class="headerlink" title="Introduction to relational databases and SQL"></a>Introduction to relational databases and SQL</h2><h3 id="Relational-database"><a href="#Relational-database" class="headerlink" title="Relational database"></a>Relational database</h3><ul>
-<li>Data is organised in tables</li>
-<li>Each table has a schema</li>
-</ul>
-<h3 id="In-typical-use-Tables"><a href="#In-typical-use-Tables" class="headerlink" title="In typical use(Tables)"></a>In typical use(Tables)</h3><p><strong>Each table typically has:</strong></p>
-<ul>
-<li>Few columns/attributes that are fixed(i.e. in name and type of content)</li>
-<li>The number of rows depends on the table and can change</li>
-</ul>
-<p><strong>(Rows)</strong><br>Each row corresponds to an entity or similar, or to relationship between such</p>
-<ul>
-<li>Rows in the same table corresponds to the same kind of entity or relation</li>
-<li>A row in a table could correspond to a transaction </li>
-<li>A sidenote</li>
-</ul>
-<h3 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h3><ul>
-<li>Relational databases are accessed using SQL(Standard Query Language)</li>
-<li>The standard for SQL is updated every few years</li>
-<li>The implementations does not follow the standard that well though</li>
-</ul>
-<p><strong>SQL Parts</strong></p>
-<blockquote>
-<ul>
-<li>Data Definition Language(DDL)</li>
-<li>Data Manipulation Language(DML)</li>
-<li>Transact-SQL</li>
-<li>Transact-SQL</li>
-</ul>
-</blockquote>
-<ul>
-<li><p>SQL DDL</p>
-<ul>
-<li>Create a database: <em>CREATE DATABASE nnnnnn;</em> (不区分大小写)<br>(换行操作和线性同样)</li>
-<li>Unique specify that you want some attribute to be unique</li>
-<li>Primary Key: <em>CONSTRAINT PK_tablenames PRIMARY KEY (attributes)</em><pre><code>  data should be sorted physically in storage by defining a primary key 
-</code></pre>
-<ul>
-<li>Primary keys must be <em>unique</em> and can ony be <em>1</em></li>
-<li>Primary key per table(there can be many unique attributes/set of attributes)<ul>
-<li>Primary key are often id number, e.g. student id/employee id or similar</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>Foreign key: <em>CONSTRAINT FK_kidtablename FOREIGN KEY(attributes) REFERENCES Fathertablename(attributes)</em><ul>
-<li>A foreign key is used to link two tables together explicitly<ul>
-<li>从<em>一个table</em>的一些<em>attributes</em>指向<em>另外的table</em>的<em>primary key</em> (子表的某些属性指向主键)</li>
-<li>It ensured that the values in the attributes with the foreign key in the child table must also be in the parent table</li>
-<li>Can be used to create custom datatypes, by having a table with all the values you want to allow</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>DROP : <em>DROP DATABASE database_name;</em> to removes the current database<pre><code>   *DROP TABLE tablename* to removes the current table
-</code></pre>
-</li>
-<li>Modifying tables:<ul>
-<li><em>ALTER TABLE tablenames ADD attribute datatype</em> : Adds an attribute</li>
-<li><em>ALTER TABLE tablenames MODIFY attribute datatype</em> : Changes the current attribute</li>
-<li><em>ALTER TABLE tablenames DROP COLUMN attribute</em>   : Removes the email attribute again</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>SQL DML</p>
-<ul>
-<li>Insert: <em>INSERT INTO students VALUES(‘Oliver’, 20171112, ‘G402’);</em></li>
-<li>Delete: <em>DELETE FROM Students WHERE name = ‘john’;</em></li>
-<li>Conditions in <em>WHERE</em> clauses<ul>
-<li>Comparisons: =, &lt;, &lt;=, &gt;=, &lt;&gt;(or != for the last)</li>
-</ul>
-</li>
-<li>Conditions can contain:<ul>
-<li>AND </li>
-<li>OR</li>
-<li>NOT</li>
-<li>BETWEEN</li>
-<li>LIKE: for string matching<ul>
-<li>“_” for any 1 letter</li>
-<li>“%” for any number of letters</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>UPDATE: <em>UPDATE studnets SET programme = ‘G402’ WHERE name = ‘Oliver’;</em></li>
-</ul>
-</li>
-<li><p>operation details:</p>
-<ul>
-<li>插入新数据要有主键</li>
-<li>外键要和主键对应</li>
-<li>不能超过规定长度</li>
-<li>变量名字不能错误</li>
-</ul>
-</li>
-<li><p>Datatypes:</p>
-<ul>
-<li>INT - integers</li>
-<li>FLOAT - decimal numbers</li>
-<li>CHAR(x) - x is an integer, fixed length string 必须填满5个字符</li>
-<li>VARCHAR(x) - x is an integer, variable length storing 最多五个字符</li>
-<li>DATE - dates<ul>
-<li>Format YYYY-MM-DD</li>
-</ul>
-</li>
-<li>DATETIME - for time and dates<ul>
-<li>Format YYYY-MM-DD HH:MI:SS</li>
-</ul>
-</li>
-<li>XML - for XML files</li>
-<li>BLOB - binary files(e.g. programs)</li>
-<li>“–” is used to denote comments</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h1 id="Lce-5-SQL-qureries-required-part"><a href="#Lce-5-SQL-qureries-required-part" class="headerlink" title="Lce-5 SQL qureries - required part"></a>Lce-5 SQL qureries - required part</h1><h2 id="SQL-Queries"><a href="#SQL-Queries" class="headerlink" title="SQL Queries:"></a>SQL Queries:</h2><p><strong>Queries in SQL have the following form:</strong></p>
-<p><img src="https://pic.imgdb.cn/item/6170b6aa2ab3f51d9150f750.png" alt="p1"></p>
-<h2 id="Most-basic-query"><a href="#Most-basic-query" class="headerlink" title="Most basic query"></a>Most basic query</h2><p><img src="https://pic.imgdb.cn/item/6170b6ec2ab3f51d91511e82.png" alt="p1"></p>
-<ul>
-<li><strong>SELECT</strong></li>
-</ul>
-<p><strong>SELECT</strong> defines what is outputted, making you able to do four kinds of modifications of it:</p>
-<p>这里星号表示查询出表里面的全部字段</p>
-<ol>
-<li>Projection($\pi$)</li>
-<li>DISTINCT</li>
-<li>Renaming($\rho$)</li>
-<li>Creating new columns</li>
-</ol>
-<p><strong>Projection</strong>($\pi$)</p>
-<blockquote>
-<p>Projection allows you to select attributes you want to keep(the rest qre discarded)<br>You use it by writing a list of attributes<br>变量的顺序很重要<br><img src="https://pic.imgdb.cn/item/6170b87b2ab3f51d91520179.png" alt="p1"></p>
-</blockquote>
-<hr>
-<p><strong>DISTINCT</strong></p>
-<blockquote>
-<p>DISTINCT is for remobing duplicated rows<br><img src="https://pic.imgdb.cn/item/6170b8cf2ab3f51d91522ad1.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6170b92c2ab3f51d91525825.png" alt="p2"></p>
-</blockquote>
-<hr>
-<p><strong>Renaming</strong>($\rho$)</p>
-<blockquote>
-<p>Renaming allows you to rename attributes<br>You use it by writing AS and then the new name after the attribute<br><img src="https://pic.imgdb.cn/item/6170b99c2ab3f51d915295c8.png" alt="p1"></p>
-</blockquote>
-<hr>
-<p><strong>Creating new columns</strong></p>
-<blockquote>
-<p><img src="https://pic.imgdb.cn/item/6170ba522ab3f51d91530670.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6170ba7b2ab3f51d91531d0a.png" alt="p2"></p>
-</blockquote>
-<hr>
-<p><strong>Mix and match</strong></p>
-<blockquote>
-<p>The four modification types can also be mixed and matched as wanted<br><img src="https://pic.imgdb.cn/item/6171ce982ab3f51d9151cfa5.png"></p>
-</blockquote>
-<hr>
-<p><strong>FROM</strong></p>
-<blockquote>
-<p>FORM defines the input and would be easy if we only allowed one input<br>In general, FROM can cotain many input tables and we combine them together in various ways</p>
-<ul>
-<li>How we combine the tables is defined by FROM<br>Only some ways of combining will be discussed in this course, but there exists others<br>The primarily used ones will be:<br><img src="https://pic.imgdb.cn/item/6171d09e2ab3f51d91526b78.png" alt="p1"></li>
-</ul>
-</blockquote>
-<hr>
-<p><strong>Cross product</strong>(X)</p>
-<blockquote>
-<p><img src="https://pic.imgdb.cn/item/6171d1f12ab3f51d9152d54a.png" alt="p2"></p>
-</blockquote>
-<hr>
-<p><strong>Natural join</strong></p>
-<blockquote>
-<p><img src="https://pic.imgdb.cn/item/6171d3332ab3f51d91534047.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6171d34c2ab3f51d91534808.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/6171d3b42ab3f51d915365d1.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/6171d3e42ab3f51d91537416.png" alt="p4"></p>
-</blockquote>
-<hr>
-<h1 id="Lec-6-SQL-queries-optional-part"><a href="#Lec-6-SQL-queries-optional-part" class="headerlink" title="Lec 6 SQL queries (optional part)"></a>Lec 6 SQL queries (optional part)</h1><h2 id="Conetent"><a href="#Conetent" class="headerlink" title="Conetent:"></a>Conetent:</h2><ul>
-<li><strong>WHERE</strong></li>
-<li><strong>GROUP BY</strong></li>
-<li><strong>HAVING</strong></li>
-<li><strong>ORDER BY</strong></li>
-</ul>
-<hr>
-<h2 id="WHERE"><a href="#WHERE" class="headerlink" title="WHERE"></a>WHERE</h2><ul>
-<li><strong>WHERE:IN</strong><br>the example used was:</li>
-</ul>
-<p><img src="https://pic.imgdb.cn/item/6171d7de2ab3f51d9154c6e1.png" alt="p1"></p>
-<p>However,instead of providing a list, one can also do a sub-query (here using a similar University database as in the example above):</p>
-<p><img src="https://pic.imgdb.cn/item/6171d8392ab3f51d9154e5f2.png" alt="p1"></p>
-<ul>
-<li><strong>WHERE: EXISTS</strong></li>
-</ul>
-<p>EXISTS is a generalization of IN<br><img src="https://pic.imgdb.cn/item/6171d8392ab3f51d9154e5f2.png" alt="p1"></p>
-<ul>
-<li><strong>WHERE: Semi-join</strong></li>
-</ul>
-<p>Most types of joins done in the <strong>FROM</strong> clause</p>
-<ul>
-<li>See the video on the required part of SQL queries</li>
-</ul>
-<p>There is q exception though, which is semi-joins, which are done in WHERE clauses</p>
-<p>A(left)semi-join between two tables A and B, find the subset of rows in A that would be used to form some row of the natural join of A and B</p>
-<ul>
-<li>A right semi-join would find the subset of instead</li>
-</ul>
-<p>These are done using <strong>EXISTS</strong>(or <strong>IN</strong>, if there is only one shared attribute)</p>
-<p>The example we saw of <strong>EXISTS</strong> was really a left semi-join of <strong>Student</strong> with <strong>lecturers</strong></p>
-<ul>
-<li><p>We only kept the rows from students that had a matching first and last name as a lecturer, which were their common attributes<br>  <img src="https://pic.imgdb.cn/item/6171db5b2ab3f51d91560de8.png" alt="p1"></p>
-</li>
-<li><p><strong>GROUP BY</strong></p>
-</li>
-</ul>
-<p>Instead of first discussing how it is used/what it does, I will start by what <strong>GROUP</strong> BY is used for Say I want to know how many transactions Anne(i.e. e_id=1)was part of:<br>    <img src="https://pic.imgdb.cn/item/6171dc672ab3f51d91568b12.png" alt="p1"></p>
-<p>Say I want to do that for each employee instead of just Anne</p>
-<p>To do that, you just replace <strong>WHERE</strong> with <strong>GROUP BY</strong>(and remove = 1)<br>    <img src="https://pic.imgdb.cn/item/6172bc222ab3f51d9103826e.png" alt="p2"></p>
-<ul>
-<li><p>A complication</p>
-<p>  If we include <strong>GROUP BY</strong>, then we can only include in <strong>SELECT</strong> attributes we <strong>GROUP</strong> <strong>BY</strong> or aggregates </p>
-<p>  E.g. say we wanted the first name of the employees as well as their employee id and the number of their transactions<br>  <img src="https://pic.imgdb.cn/item/6172ba732ab3f51d91014883.png" alt="p3"></p>
-</li>
-<li><p>A solution to the complication<br>  <img src="https://pic.imgdb.cn/item/6172bcee2ab3f51d91048992.png" alt="p1"><br>  <img src="https://pic.imgdb.cn/item/6172c33e2ab3f51d910c9e15.png" alt="p2"></p>
-</li>
-<li><p>Intution<br>Intuitively speaking, GROUP BY works like this:</p>
-</li>
-</ul>
-<p>Do the previous part of the query until GROUP BY (except ignoring the part in SELECT)</p>
-<p>Split the resulting table into sub-tables</p>
-<ul>
-<li><p>1 sub-table for each value of the variables in GROUP BY </p>
-</li>
-<li><p>I.e. if you had say first_nameand e_idlike in the example, you would have a sub-table for each pair of first_nameand e_id. This means, e.g. that if two employees were named Anne, you would have two sub-tables, one for each Anne, defined by their e_id<br><img src="https://pic.imgdb.cn/item/6172c4952ab3f51d910e67b4.png" alt="p1"></p>
-</li>
-<li><p><strong>HAVING</strong><br><img src="https://pic.imgdb.cn/item/6172c62b2ab3f51d91104c70.png" alt="p1"></p>
-</li>
-<li><p><strong>ORDER BY</strong><br><img src="https://pic.imgdb.cn/item/6172c65b2ab3f51d91108c35.png" alt="p1"></p>
-</li>
-</ul>
-<h1 id="Lec7-SQL-Queries"><a href="#Lec7-SQL-Queries" class="headerlink" title="Lec7- SQL Queries"></a>Lec7- SQL Queries</h1><h2 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h2><p>Basically, the same as in math with sets (不允许有重复元素出现)</p>
-<p>You can also view is as putting one list after another</p>
-<p>Say we have an Employees table<br>We want a list of names i.e. both first and family name</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name as name</span><br><span class="line">FROM Employees</span><br><span class="line">UNION</span><br><span class="line">SELECT family_name</span><br><span class="line">FROM Employees;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p><strong>Things</strong> <strong>work</strong></p>
-<p>  <img src="https://pic.imgdb.cn/item/6175a1c92ab3f51d917bc2fe.png" alt="p1"><br>  <img src="https://pic.imgdb.cn/item/6175a2012ab3f51d917bde0a.png" alt="p2"></p>
-</li>
-<li><p><strong>Things work in interesting ways</strong><br>  <img src="https://pic.imgdb.cn/item/6175a3692ab3f51d917c8b8d.png" alt="p1"></p>
-</li>
-</ul>
-<h1 id="Lec8-SQL-QUeries-misc-and-relational-algebra"><a href="#Lec8-SQL-QUeries-misc-and-relational-algebra" class="headerlink" title="Lec8- SQL QUeries - misc. and relational algebra"></a>Lec8- SQL QUeries - misc. and relational algebra</h1><h2 id="Views-as-saved-queries"><a href="#Views-as-saved-queries" class="headerlink" title="Views: as saved queries"></a>Views: as saved queries</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name, e_id,COUNT(t_id)</span><br><span class="line">FROM Employees NATURAL JOIN Transcations</span><br><span class="line">GROUP BY first_name, e_id;</span><br></pre></td></tr></table></figure>
-<pre><code>![p1](https://pic.imgdb.cn/item/6175a4ce2ab3f51d917d6007.png)
-</code></pre>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CREATE VIEW Employee_transaction_count AS</span><br><span class="line">SELECT first_name,e_id,COUNT(t_id)</span><br><span class="line">FROM Employees NATURAL JOIN Transactions </span><br><span class="line">GROUP BY first_name,e_id;</span><br></pre></td></tr></table></figure>
-<pre><code>![p1](https://pic.imgdb.cn/item/6175a5952ab3f51d917dd9a9.png)
-</code></pre>
-<h2 id="Views-as-virtual-tables"><a href="#Views-as-virtual-tables" class="headerlink" title="Views: as virtual tables"></a>Views: as virtual tables</h2><pre><code>![p1](https://pic.imgdb.cn/item/6175a5952ab3f51d917dd9a9.png)
-</code></pre>
-<h3 id="More-on-views"><a href="#More-on-views" class="headerlink" title="More on views"></a>More on views</h3><pre><code>视图可以覆盖或者删除
-![p1](https://pic.imgdb.cn/item/6175a6bc2ab3f51d917e7959.png)
-</code></pre>
-<h2 id="Relation-Algebra"><a href="#Relation-Algebra" class="headerlink" title="Relation Algebra"></a>Relation Algebra</h2><ul>
-<li><p><strong>Algebra</strong><br>  Algebra = branch of math</p>
-<p>  Example: Algebra with numbers</p>
-<ul>
-<li>Addition(+) = function that takes two numbers and returns a number</li>
-<li>Logarithm (written: log) = function that takes one number and returns another</li>
-<li>Has a subscript-the base</li>
-</ul>
-<p>  Can be composed, e.g.: log<sub>2</sub>(3 + 8) + 4</p>
-</li>
-<li><p><strong>Relational algebra</strong></p>
-<p>  Algebra with tables $\approx$ SQL SELECT queries</p>
-<ul>
-<li>Exception: uses set semantics</li>
-</ul>
-<p>  Relational algebra is crucial for optimization</p>
-</li>
-</ul>
-<h2 id="Projectin-pi"><a href="#Projectin-pi" class="headerlink" title="Projectin($\pi$)"></a>Projectin($\pi$)</h2><p>将R限制为属性列表中的属性(sets)<br><img src="https://pic.imgdb.cn/item/6175aa812ab3f51d9180246f.png" alt="p1"></p>
-<h2 id="Renaming-rh0"><a href="#Renaming-rh0" class="headerlink" title="Renaming($\rh0$)"></a>Renaming($\rh0$)</h2><p><img src="https://pic.imgdb.cn/item/6175aad02ab3f51d91804d98.png" alt="p1"></p>
-<h2 id="Selection-sigma"><a href="#Selection-sigma" class="headerlink" title="Selection($\sigma$)"></a>Selection($\sigma$)</h2><p>所有符合条件的束<br><img src="https://pic.imgdb.cn/item/6175ab9c2ab3f51d9180bcc9.png" alt="p1"></p>
-<h2 id="Cartesian-Product-chi"><a href="#Cartesian-Product-chi" class="headerlink" title="Cartesian Product($\chi$)"></a>Cartesian Product($\chi$)</h2><p><img src="https://pic.imgdb.cn/item/6175ac912ab3f51d918126aa.png" alt="p1"></p>
-<h2 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h2><p><img src="https://pic.imgdb.cn/item/6175ad4d2ab3f51d918181c7.png" alt="p1"></p>
-<h2 id="Many-others…"><a href="#Many-others…" class="headerlink" title="Many others…"></a>Many others…</h2><p><img src="https://pic.imgdb.cn/item/6175ad582ab3f51d9181864c.png" alt="p1"></p>
-<h2 id="Key-understanding"><a href="#Key-understanding" class="headerlink" title="Key understanding"></a>Key understanding</h2><p><img src="https://pic.imgdb.cn/item/6175ade72ab3f51d9181bd7e.png" alt="p1"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/27/COMP207/">展开全文 >></a>
         </p>
       
 
