@@ -160,6 +160,1619 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-COMP201-W3" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/18/COMP201-W3/">COMP201-W3</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/18/COMP201-W3/" class="archive-article-date">
+  	<time datetime="2021-10-18T00:23:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Lec-7"><a href="#Lec-7" class="headerlink" title="Lec-7"></a>Lec-7</h1><h2 id="Lecture-Overview"><a href="#Lecture-Overview" class="headerlink" title="Lecture Overview"></a>Lecture Overview</h2><ul>
+<li><strong>System</strong> <strong>models</strong> are abstract descriptions of systems whose requirements are being analysed</li>
+<li>Objectives - To explain why the context of a system should be modelled as part of RE process</li>
+<li>To describe<ul>
+<li>Behavioural modelling (FSM, Petri-nets)</li>
+<li>Data modelling </li>
+<li>Object modelling(Unified Modelling Language, UML)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="Lecture-Key-points"><a href="#Lecture-Key-points" class="headerlink" title="Lecture Key points"></a>Lecture Key points</h2><ul>
+<li>A <strong>model</strong> is an abstract system view. Complementary(互补) types of model provide different system information.</li>
+<li><strong>Context models</strong> show the position of a system in its environment with other systems and processes.</li>
+<li><strong>Data flow models</strong> may be used to model the data processing in a system.</li>
+<li><strong>State machine models</strong> model the system’s behaviour in response to internal or external events</li>
+</ul>
+<hr>
+<h2 id="System-models"><a href="#System-models" class="headerlink" title="System models"></a>System models</h2><ul>
+<li><strong>User</strong> <strong>requirements</strong> must be written in such way that non-technical experts can understand them, e.g., by using natural language</li>
+<li>Detailed <strong>system</strong> <strong>requirements</strong> may be expressed in a more technical way <ul>
+<li>One widely used technique is  document the system specification as a set of <strong>system</strong> <strong>models</strong> </li>
+<li>These are graphical represnetations which describe business processes and the system to be developed</li>
+<li>They are an  important bridge between the analysis and design processes</li>
+</ul>
+</li>
+</ul>
+<h3 id="System-Modelling"><a href="#System-Modelling" class="headerlink" title="System Modelling"></a>System Modelling</h3><ul>
+<li><strong>System modelling</strong> helps the analyst <strong>to understand the functionality of the system</strong> and models are used to communicate with customers</li>
+<li>Different models present the system from different perspectives:<ul>
+<li><strong>External perspective</strong>: showing the system/s context or environment</li>
+<li><strong>Behavioural perspective</strong> showing the behaviour of the system</li>
+<li><strong>Structural perspective</strong> showing the system or data architecture</li>
+</ul>
+</li>
+<li>“A Picture Paints a Thousand Words”<br><img src="https://pic.imgdb.cn/item/616cc8062ab3f51d915a9279.png" alt="p1"></li>
+</ul>
+<h3 id="System-Model-advantages"><a href="#System-Model-advantages" class="headerlink" title="System Model advantages"></a>System Model advantages</h3><ul>
+<li>They can be easier to understand than using a verbose natural language description</li>
+<li>System models can leave out unnecessary details of the system so way may focus on what is important<ul>
+<li>A system <strong>representation</strong> should maintain all the information of a system</li>
+<li>An <strong>abstraction</strong> deliberately simplifies the system and picks out its most salient characteristics</li>
+</ul>
+</li>
+<li>Different models can focus on different approaches to abstraction</li>
+</ul>
+<h3 id="System-Model-Weaknesses"><a href="#System-Model-Weaknesses" class="headerlink" title="System Model Weaknesses"></a>System Model Weaknesses</h3><ul>
+<li>They do not model <strong>non-functional</strong> system requirements</li>
+<li>They do not usually include information about whether a method is appropriate for a given problem</li>
+<li>They may produce too much documentation</li>
+<li>System models are <strong>sometimes too detailed and difficult for users to understand</strong></li>
+</ul>
+<hr>
+<h3 id="Model-Types"><a href="#Model-Types" class="headerlink" title="Model Types"></a>Model Types</h3><ul>
+<li><strong>Data processing model</strong> - showing how the data is processed at different stages</li>
+<li><strong>Composition model(组合模型)</strong> - showing how entities are composed of other entities</li>
+<li><strong>Architectural model</strong> - showing principal sub-systems </li>
+<li><strong>Classification model</strong> - showing how entities have common characteristics</li>
+<li><strong>Stimulus/response model(刺激反应模型)</strong> - showing the system’s reaction to events</li>
+</ul>
+<hr>
+<h2 id="Context-Models"><a href="#Context-Models" class="headerlink" title="Context Models"></a>Context Models</h2><ul>
+<li><strong>Context models</strong> 说明系统边界<ul>
+<li>Identifying the boundaries of the system to be developed is not always straightforward</li>
+</ul>
+</li>
+<li><strong>Social and organisational concerns</strong> may affect the decision on where to position system boundaries</li>
+<li><strong>Architectural models</strong> show the system and its relationship with other systems</li>
+<li><strong>Example - Architechtural Model of an ATM System</strong><br><img src="https://pic.imgdb.cn/item/6182d9042ab3f51d91209db6.png"></li>
+</ul>
+<h2 id="Process-Models"><a href="#Process-Models" class="headerlink" title="Process Models"></a>Process Models</h2><ul>
+<li><strong>Process Models</strong> show the overall process and the processes that are supported by the system<ul>
+<li>In process models it is implicit 1 process is completed before another process begins</li>
+<li>Process models are similar to flow charts</li>
+</ul>
+</li>
+<li><strong>Data flow models</strong> may be used to show the processes and <strong>flow of information</strong> from one process to another<ul>
+<li>数据流模型隐式地表示过程将并行发生(并发处理)</li>
+</ul>
+</li>
+</ul>
+<h2 id="Behavioural-Models"><a href="#Behavioural-Models" class="headerlink" title="Behavioural Models"></a>Behavioural Models</h2><ul>
+<li><strong>Behavioural models</strong> are used to descibe the overall behaviour of system</li>
+<li>Two types of behavioural model<ul>
+<li><strong>Data processing models</strong> that show how data is processed as it moves through the sysyem</li>
+<li><strong>State machine models</strong> that show the systems response to events</li>
+</ul>
+</li>
+<li><strong>Both</strong> of these models are required for a description of the system’s behaviour</li>
+</ul>
+<h2 id="Data-Processing-Models"><a href="#Data-Processing-Models" class="headerlink" title="Data-Processing Models"></a>Data-Processing Models</h2><ul>
+<li><strong>Data flow diagrams</strong> are used to model the system’s data processing</li>
+<li>These show the processing steps as data flows through a systme</li>
+<li>IMPORTANT part of many analysis methodes</li>
+<li><strong>Simple and intuitive notation</strong></li>
+<li><strong>Show end-to-end</strong> <strong>processing of data</strong></li>
+<li>Example: Order Processing Data Flow Diagram<br><img src="https://pic.imgdb.cn/item/6182df592ab3f51d9124de23.png"></li>
+</ul>
+<h2 id="Data-Flow-Diagrams"><a href="#Data-Flow-Diagrams" class="headerlink" title="Data Flow Diagrams"></a>Data Flow Diagrams</h2><ul>
+<li><strong>Data Flow Diagrams</strong> track and documenthow the data associated with a process is helpful to develop an overall understanding of the system</li>
+<li>Data flow diagrams may also be used in <strong>showing the data exchange</strong> between a system and other systems in its environment</li>
+<li>数据流图的优势在于，它们简单而直观，因此可以显示给能够帮助验证分析的用户</li>
+<li>开发数据流图通常是一个自顶向下的过程<ul>
+<li>We begin by evaluating the overall process we wish to model before considering sub-processes</li>
+</ul>
+</li>
+<li>数据流图显示了一个功能透视图，其中每个转换表示单个功能或过程，这在需求分析期间特别有用，因为它显示了端到端处理。</li>
+</ul>
+<p>DFD Context diagram<br><img src="https://pic.imgdb.cn/item/6182e0c22ab3f51d9125baaf.png"><br><img src="https://pic.imgdb.cn/item/6182e0f72ab3f51d9125da6a.png"><br><img src="https://pic.imgdb.cn/item/6182e10d2ab3f51d9125e926.png"></p>
+<h2 id="Statechart-Diagrams"><a href="#Statechart-Diagrams" class="headerlink" title="Statechart Diagrams"></a>Statechart Diagrams</h2><ul>
+<li><p>状态图(或状态机模型)显示系统响应外部和内部事件的行为</p>
+</li>
+<li><p>它们显示了系统对刺激的反应(事件-动作范式)，因此经常被用于建模实时系统</p>
+</li>
+<li><p>状态图将系统状态显示为节点，事件显示为节点之间的弧线。当事件发生时，系统从一种状态转移到另一种状态</p>
+</li>
+<li><p>状态图是统一建模语言(UML)不可分割的一部分</p>
+</li>
+<li><p>初始状态用实心圆表示，并且是可选的(有时系统会在不同的地方开始，因此初始状态应该省略)。</p>
+</li>
+<li><p>如果需要，也可以使用最终状态;这用一个实心圆和一个环来表示。</p>
+</li>
+<li><p>我们使用抽象级别，以便能够观察我们想要建模的系统的基本行为。</p>
+</li>
+<li><p>圆角矩形用于状态。每个状态包含两个组件，<strong>状态名称</strong>和在该状态中<strong>执行的操作</strong>的简要描述。</p>
+</li>
+<li><p>Example - Microwave Oven Model:<br><img src="https://pic.imgdb.cn/item/6182e3122ab3f51d91274a56.png"><br><img src="https://pic.imgdb.cn/item/6182e3552ab3f51d9127736b.png"></p>
+</li>
+<li><p>Statechearts</p>
+<ul>
+<li>状态图还允许将模型分解为子模型。</li>
+<li>在每个状态的“do”之后都包含了对动作的简要描述(“do”是可选的)。</li>
+<li>可以由描述状态和刺激的表格补充。</li>
+<li>弧线上的标签可以表示从一种状态移动到下一种状态(事件)的方法。</li>
+<li>一个保护用来确保系统只有在满足表达式时才从一种状态移动到另一种状态。</li>
+<li>状态可以包含子图(也称为组合状态)。例如，当我们希望为子系统或子状态建模时，这是有用的。<br><img src="https://pic.imgdb.cn/item/6182e4b22ab3f51d91285a2d.png"></li>
+</ul>
+<p> Actions</p>
+<ul>
+<li>put actions after the event using a /<br><img src="https://pic.imgdb.cn/item/6182e5b42ab3f51d91290975.png"></li>
+</ul>
+</li>
+<li><p>More hints on state charts</p>
+<ul>
+<li>Often have an Idle state where the process is not active</li>
+<li>All states need some exit </li>
+<li>Use multiple state charts to keep the design simple</li>
+<li>Do NOT need to have a state chart as sub state of other chart<ul>
+<li>System can be described by multiple state machines running concurrently<br><img src="https://pic.imgdb.cn/item/61844b5d2ab3f51d9187bb37.png"><br><img src="https://pic.imgdb.cn/item/61844b732ab3f51d9187c3d9.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Finite-State-Machines-有限状态机"><a href="#Finite-State-Machines-有限状态机" class="headerlink" title="Finite State Machines 有限状态机"></a>Finite State Machines 有限状态机</h2><ul>
+<li><strong>Finite State Machines</strong>, also known as <strong>Finite State Automata(有限状体自动机)</strong>(FSA) are models of the behaviours of a system or a complex object, with a limited number of defined coditions or modes, where mode transitions change with circustance. 转型模式会随环境变化而变化.<br><img src="https://pic.imgdb.cn/item/61844dc62ab3f51d91889789.png"></li>
+<li><strong>definition</strong></li>
+</ul>
+<p>计算从输入字符串的开始状态开始。它会根据转移函数变成新的状态。</p>
+<ul>
+<li>A model of computation consisting of <ul>
+<li>states : define behaviour and may produce actions</li>
+<li>start(initial) state</li>
+<li>input alphabet</li>
+<li>transition function &amp; next state</li>
+<li><strong>state transitions</strong> are movement from one state to another</li>
+<li><strong>rules or conditions</strong> must be met to allow a state transition</li>
+<li><strong>input events</strong> are either externally or internally generated, which may possibly trigger rules and lead to state transitions<br><img src="https://pic.imgdb.cn/item/61844f242ab3f51d91891473.png"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<h1 id="Lec-8-System-Models"><a href="#Lec-8-System-Models" class="headerlink" title="Lec-8- System Models"></a>Lec-8- System Models</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li><strong>system models</strong>:<ul>
+<li>Mealy machines</li>
+<li>Moore machines</li>
+<li>Petri Nets</li>
+<li>UML diagrams</li>
+</ul>
+</li>
+<li>这些模型可以指定系统各部分并分析性能</li>
+<li>知道模型可以代表什么类型属性</li>
+</ul>
+<h2 id="FSMs-的变体"><a href="#FSMs-的变体" class="headerlink" title="FSMs 的变体"></a>FSMs 的变体</h2><ul>
+<li>machines having actions associated with transitions(<strong>Mealy machine</strong>) or states(<strong>Moore machine</strong>)</li>
+<li>multiple start states,</li>
+<li>tarnsitions conditioned on no input symbol(a null) or more than one transition for a given symbol and state(非确定性有限状态机)</li>
+<li>one or more states designated as accepting states(recognizer), etc</li>
+</ul>
+<h3 id="Mealy-and-Moore-Machines"><a href="#Mealy-and-Moore-Machines" class="headerlink" title="Mealy and Moore Machines"></a>Mealy and Moore Machines</h3><ul>
+<li><strong>Finite state automata</strong> are like computers in that they receive input and process the input bt changing states.</li>
+<li>The output of finite automata produce is a yes/no at end of processing<ul>
+<li>there are two models of finite automata that produce more output than a yes/no.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Moore-Machine"><a href="#Moore-Machine" class="headerlink" title="Moore Machine"></a>Moore Machine</h3><ul>
+<li>Basically a <strong>Moore machine</strong> is just a FSA with two extra atttibutes<ol>
+<li>It has TWO alphabets, an <strong>input</strong> and <strong>output</strong> alphabet.</li>
+<li>它有一个与每个状态相关联的输出字母。当机器进入每个状态时，它会写入适当的输出字母。<br><img src="https://pic.imgdb.cn/item/618456ef2ab3f51d918c0dea.png"></li>
+</ol>
+</li>
+<li>Example<br><img src="https://pic.imgdb.cn/item/618457602ab3f51d918c3c55.png"><br>机器产生的输出包含一个1，表示在输入字符串中找到的每一个子字符串aab。</li>
+</ul>
+<h3 id="Mealy-Machine"><a href="#Mealy-Machine" class="headerlink" title="Mealy Machine"></a>Mealy Machine</h3><ul>
+<li><strong>Mealy machines</strong> are computationally equivalent to Moore machines 与摩尔机器互补</li>
+<li>Mealy machines move the output function from the state to the transition. This turns out to be easier to deal with in practice, making Mealy machines more practical.</li>
+<li>A Mealy machine Produces Output on a Transition<ul>
+<li>Transitions are labelled i/o where<ul>
+<li>i is a character in the input alphabet  </li>
+<li>o is a character in the output alpahbet<br><img src="https://pic.imgdb.cn/item/61845a6c2ab3f51d918d7f16.png"></li>
+</ul>
+</li>
+<li>从某种意义上说，米利机器是完整的，因为输入字母表中的每个字符都有一个离开每个状态的过渡。</li>
+<li>在米利机器中没有接受状态，因为它不是语言识别器，而是输出生成器。它的输出长度和输入长度相同。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Petri-Net-Models"><a href="#Petri-Net-Models" class="headerlink" title="Petri Net Models"></a>Petri Net Models</h3><ul>
+<li>很好的方法是通过图形化构建系统来学习建模。</li>
+<li>The Basics<br><img src="https://pic.imgdb.cn/item/61845d402ab3f51d918eabad.png"></li>
+<li>Capacity<ul>
+<li><strong>Arcs</strong> have capacity 1 by default; if other than 1, the capacity is marked on the arc, or else we use multiple arrows to denote the capacity</li>
+<li><strong>Places</strong> have infinite capacity by default</li>
+<li><strong>Transitions</strong> have no capacity, and cannot store tokens all.</li>
+<li>弧线只能连接位置和过渡，反之亦然。</li>
+</ul>
+</li>
+</ul>
+<p><strong>Enabled Transitions and Firing</strong></p>
+<ul>
+<li>A <strong>transition is enabled</strong> when the number of tokens is each of its input palces is at least equal to the arc weight going from the palce to the transition</li>
+<li>An enabled transition may fire at any time!<br><a target="_blank" rel="noopener" href="https://pic.imgdb.cn/item/61845eef2ab3f51d918f7c33.png"></a></li>
+</ul>
+<p><strong>When Arc have Different Weights</strong></p>
+<ul>
+<li><p>When fired, the tokens in the input places are moved to output places, according to arc weights and place capacities.</p>
+</li>
+<li><p>This results in a new marking of the net, a state description of all places.<br><img src="https://pic.imgdb.cn/item/61845eef2ab3f51d918f7c33.png"><br><img src="https://pic.imgdb.cn/item/618461512ab3f51d9190b650.png"><br><img src="https://pic.imgdb.cn/item/618462be2ab3f51d919164ea.png"></p>
+</li>
+<li><p>Characteristics:</p>
+<ul>
+<li><strong>non-deterministic</strong> thus may be used to model discrete distributed systems</li>
+<li>There have been many variations and extensions of Petri nets to more effectively model a wider variety of systems.</li>
+<li>由于Petri网具有严格的数学符号，许多关于系统的问题都可以通过研究Petri网的性质来验证。</li>
+</ul>
+</li>
+<li><p><strong>Semantic Data Models</strong></p>
+<ul>
+<li><strong>Used to describe the logical strucuture of data</strong> processed by the system</li>
+<li><strong>Entity-relation-attribute model</strong> sets out the entities in the system, the relationships between these entities and the entity attributes</li>
+<li><strong>Widely used in database design</strong>. Can redily be implemented using relational databases</li>
+<li><strong>No specific notation provided in the UML</strong> but objects and associations can be used<ul>
+<li>Class diagrams show some of the same ideas</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Data dictionary Entries</strong></p>
+<ul>
+<li><em>A data dictionaries</em> is a list of all of the names used in the system models.</li>
+<li>Descriptions of the <strong>entities</strong>, <strong>relationships</strong> and <strong>attributes</strong> are also included</li>
+<li>It may be used for <strong>name-management</strong> so that all names used in a system are consistent and do not clash</li>
+<li>It serves as a store of organisational information so that all data is stored in one location.</li>
+<li>Example<br> <img src="https://pic.imgdb.cn/item/619231162ab3f51d912af4a1.png"></li>
+</ul>
+</li>
+</ul>
+<h3 id="Object-Models"><a href="#Object-Models" class="headerlink" title="Object Models"></a>Object Models</h3><ul>
+<li><strong>Object models describe the system in terms of object classes</strong></li>
+<li>An <strong>object class</strong> is an abstraction over a set of objects with common attritubes and the services(opeartions) provided by each object</li>
+<li><strong>Various object models may be produced</strong><ul>
+<li>Inheritance models</li>
+<li>Aggregation models (聚合)</li>
+<li>Interaction models</li>
+</ul>
+</li>
+<li><strong>Natural ways of reflecting the real-world entites</strong> manipulated(操纵) by the system</li>
+<li><strong>More abstract entites are more difficult</strong> to model using this approach</li>
+<li>Object class identification is recognised as a difficult process requiring a deep understanding of the application domain</li>
+<li>Object classes reflecting domain entities are reusable across systems</li>
+</ul>
+<h2 id="The-Unified-Modelling-Languange-UML"><a href="#The-Unified-Modelling-Languange-UML" class="headerlink" title="The Unified Modelling Languange(UML)"></a>The Unified Modelling Languange(UML)</h2><ul>
+<li>Devised by developers of widely used object-oriented analysis and design methods</li>
+<li>Has become an effective standard for <strong>object-oriented modelling</strong></li>
+<li>The unified modeling language contains many different types of diagram we may use to model systems,<ul>
+<li>Use-case diagrams</li>
+<li>Class dagrams </li>
+<li>Sequence diagrams</li>
+<li>Statechart diagrams</li>
+<li>Deployment diagrams</li>
+<li>Etc.</li>
+</ul>
+</li>
+<li>Notation for UML Class Diagrams:<ul>
+<li>object classes are rectangles with the name at the top, <strong>attributes</strong> in the middle section and <strong>operations</strong> in the bottom section.</li>
+<li>Relationships between object classes(know as associations) are shown as lines linking objects</li>
+<li>Inheritanceis referred to as generalisation and is shown ‘upwards’ rather than ‘downwards’ in a hierachy</li>
+</ul>
+</li>
+</ul>
+<h1 id="Lec-9-amp-10-Modelling-Based-on-Petri-Nets"><a href="#Lec-9-amp-10-Modelling-Based-on-Petri-Nets" class="headerlink" title="Lec 9 &amp; 10 - Modelling Based on Petri Nets"></a>Lec 9 &amp; 10 - Modelling Based on Petri Nets</h1><h2 id="High-level-Petri-Nets"><a href="#High-level-Petri-Nets" class="headerlink" title="High-level Petri Nets"></a>High-level Petri Nets</h2><ul>
+<li>High-level Petri nets are Petri nets extended with<ul>
+<li>colour(modelling of attributes)</li>
+<li>time(performance analysis)</li>
+<li>hierarchy(Structuring of models)</li>
+</ul>
+</li>
+<li>可以用来严格定义系统</li>
+<li>常被用于分布式系统喝给系统资源分享</li>
+<li>More than one transition in the Petri Net active at the same time, they are <strong>non-deterministic</strong></li>
+</ul>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p><img src="https://pic.imgdb.cn/item/619247632ab3f51d9131d080.png"></p>
+<h3 id="The-Extension-with-Colour"><a href="#The-Extension-with-Colour" class="headerlink" title="The Extension with Colour"></a>The Extension with Colour</h3><p><img src="https://pic.imgdb.cn/item/619249932ab3f51d91326bab.png"></p>
+<ul>
+<li>Each transition has an (in)formal specification which specifies:<ul>
+<li>the number of tokens to be produced</li>
+<li>the values of these tokens</li>
+<li>and(optionally) a precondition.</li>
+</ul>
+</li>
+<li>The complexity is divided over the network and the values of tokens.</li>
+<li>This result in compact, manageable and natural process description</li>
+<li>Example<br><img src="https://pic.imgdb.cn/item/61924acf2ab3f51d9132d07d.png"></li>
+</ul>
+<h3 id="The-Extension-with-Time"><a href="#The-Extension-with-Time" class="headerlink" title="The Extension with Time"></a>The Extension with Time</h3><p>To analyse performance, we must model durations, delays, etc.</p>
+<p>A timed Petri net associates a pair t<sub>min</sub> and t<sub>max</sub> with each transition(there are other possaible definitions for timed Petri net, but we shall only cosider this one).</p>
+<p><img src="https://pic.imgdb.cn/item/61924cf22ab3f51d9133796f.png"></p>
+<p>The values  t<sub>min</sub> and t<sub>max</sub>, tell us the minimum and maximum time that a transition will take to fire once enabled.</p>
+<p>This allows us to model performace properties of the system, although the analysis of such systems may be more difficult<br><img src="https://pic.imgdb.cn/item/61924da62ab3f51d9133b45b.png"></p>
+<h3 id="The-Extension-with-Hierarchy"><a href="#The-Extension-with-Hierarchy" class="headerlink" title="The Extension with Hierarchy"></a>The Extension with Hierarchy</h3><ul>
+<li>A hierarchy is a mechanism to structure complex Petri nets comparable to data flow diagrams</li>
+<li>A <strong>subnet</strong> is a net composed out of places, transitions and other subnets</li>
+<li>This allows us to model a system at different levels of abstraction and can reduce the complexity of the model.<br><img src="https://pic.imgdb.cn/item/61924da62ab3f51d9133b45b.png"><br><img src="https://pic.imgdb.cn/item/61924f632ab3f51d9134445b.png"></li>
+<li>Example<br><img src="https://pic.imgdb.cn/item/61924fd02ab3f51d91346538.png"></li>
+<li>Message Triplication<br><img src="https://pic.imgdb.cn/item/61924fd02ab3f51d91346538.png"><br><img src="https://pic.imgdb.cn/item/6192507b2ab3f51d91349ae4.png"></li>
+</ul>
+<hr>
+<h2 id="The-Classical-Petri-Net-Model"><a href="#The-Classical-Petri-Net-Model" class="headerlink" title="The Classical Petri Net Model"></a>The Classical Petri Net Model</h2><p><img src="https://pic.imgdb.cn/item/619236a72ab3f51d912c9efd.png"><br><strong>Connection</strong> are directed and between a place and a transition, or a transition and a place</p>
+<p><strong>Tokens(.)</strong> are the dynamic objects</p>
+<p>Another(<strong>equicalent</strong>) notation is to use a solid bar for the transitions:<br><img src="https://pic.imgdb.cn/item/619237b12ab3f51d912ce825.png"><br>The <strong>state</strong> of a Petri net is determined by the distribution of tokens over the places</p>
+<h3 id="Transitions-with-Multiple-Inputs-and-Outputs"><a href="#Transitions-with-Multiple-Inputs-and-Outputs" class="headerlink" title="Transitions with Multiple Inputs and Outputs"></a>Transitions with Multiple Inputs and Outputs</h3><p><img src="https://pic.imgdb.cn/item/619238372ab3f51d912d0b06.png"><br>Transition t1 has three <strong>input places</strong>(p1,p2 and p3) and two <strong>output places</strong></p>
+<p>Place p3 is both an input and an output place of t1</p>
+<h3 id="Enabling-Condition"><a href="#Enabling-Condition" class="headerlink" title="Enabling Condition"></a>Enabling Condition</h3><ul>
+<li>Transitions are the <strong>active</strong> components and places and tokens are <strong>passive</strong> componets</li>
+<li>A transition is <strong>enabled</strong> if  each of the input places contains tokens<br><img src="https://pic.imgdb.cn/item/619239252ab3f51d912d4d39.png"></li>
+</ul>
+<h3 id="Firing"><a href="#Firing" class="headerlink" title="Firing"></a>Firing</h3><p>An <strong>enabled</strong> transition may <strong>fire</strong></p>
+<p>Firing corresponds to <strong>consuming</strong> tokens from the input place and <strong>producing</strong> tokens for the output places<br><img src="https://pic.imgdb.cn/item/619239af2ab3f51d912d72cc.png"></p>
+<p>Firing is <strong>atomic</strong>(only one transition fires at a time, even if more than one is enabled)</p>
+<p>Example</p>
+<p><img src="https://pic.imgdb.cn/item/61923a452ab3f51d912d9e28.png"></p>
+<h3 id="Creating-Consuming-Tokens"><a href="#Creating-Consuming-Tokens" class="headerlink" title="Creating/Consuming Tokens"></a>Creating/Consuming Tokens</h3><p>A transition without any input can fire at any time and produces tokens in the connected places:<br><img src="https://pic.imgdb.cn/item/61923aa62ab3f51d912dbb1a.png"></p>
+<p>A transition without any out but must be enabled to fire and deletes(or consumes) the incoming token(s):<br><img src="https://pic.imgdb.cn/item/61923afc2ab3f51d912dcd79.png"></p>
+<h3 id="Non-Determinism-in-Petri-Nets"><a href="#Non-Determinism-in-Petri-Nets" class="headerlink" title="Non-Determinism in Petri Nets"></a>Non-Determinism in Petri Nets</h3><p><img src="https://pic.imgdb.cn/item/61923b2b2ab3f51d912ddc31.png"><br>two transition fight for the same token: <strong>conflict</strong></p>
+<p>Even if there are two tokens, there is still a conflict.</p>
+<p>The next transition to fire(t1 or t2) is arbitrary(non-deterministic)</p>
+<h3 id="Modelling"><a href="#Modelling" class="headerlink" title="Modelling"></a>Modelling</h3><p>States of a process can be modelled by tokens in places and state transitions leading from one state to another are modelled by transitions.</p>
+<ul>
+<li><p><strong>Toknes</strong> can be represent resources</p>
+</li>
+<li><p><strong>Places</strong> represent buffers, channels, geographical locations, conditions or states.</p>
+</li>
+<li><p><strong>Transitions</strong> represent events, transformations or transportations</p>
+</li>
+<li><p>Modelling a Traffic Light<br>EGB changed on the Traffic light</p>
+</li>
+<li><p>Modelling Two Traffic lights</p>
+<ul>
+<li><p>An informal specification of a traffic light junction:</p>
+<ul>
+<li>A single traffic light turns from “Red” to “Green” to “Amber” and then back to “Red” (we’ll ignore “red and aamber” for now)</li>
+<li>There are two sets of lights. When one of the traffic lights is “Amber” or “Green”, the other must be “red”</li>
+</ul>
+</li>
+<li><p>As a first step, we may decide to model the system as a Petri net this allows us to make sure the specification is <strong>rigorously defined</strong> and reduecs potential ambiguities later.</p>
+</li>
+<li><p>We can also <strong>prove properties about the model</strong> if we wish</p>
+</li>
+<li><p>Example<br> <img src="https://pic.imgdb.cn/item/61923e5c2ab3f51d912ec8fe.png"></p>
+<p> Two traffic lights</p>
+<p> <img src="https://pic.imgdb.cn/item/61923e862ab3f51d912ed73e.png"></p>
+<p> Two Safe Traffic Lights<br> <img src="https://pic.imgdb.cn/item/61923eb22ab3f51d912ee613.png"></p>
+<p> Two safe and Fair Traffic Lights<br> <img src="https://pic.imgdb.cn/item/61923f012ab3f51d912f0302.png"></p>
+</li>
+<li><p>Exercise</p>
+<p>Prove that the Petri net from the previous slide will never allow two red lights to be shown simltaneously</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Arc in Petri Nets</strong></p>
+<p><img src="https://pic.imgdb.cn/item/619240682ab3f51d912f7ff7.png"></p>
+<ul>
+<li>The number of arcs between two objects specifies the number of tokens to be produced/consumed(we can alternatively represent this by writing a number next to a single arc)</li>
+<li>This can be used to model (dis) assembly processes.</li>
+</ul>
+</li>
+<li><p><strong>Some definitions</strong></p>
+<ul>
+<li><strong>Current state</strong> - The configuration of tokens over the places.</li>
+<li><strong>Reachable state</strong> - A state reachable form the current state by firing a sequence of enabled transitions</li>
+<li><strong>Deadlock state</strong> - A state where no transition is enabled.</li>
+<li>If we write the places in some fixed order(red, black say),then we can use a tuple:(n,m) to denote the number of tokens in each corresponding place(n tokens “red” and m tokens in “black”)<br><img src="https://pic.imgdb.cn/item/6192433a2ab3f51d91307b6c.png"><br><img src="https://pic.imgdb.cn/item/6192435f2ab3f51d91308934.png"></li>
+</ul>
+</li>
+<li><p>Exercise: Readers and Writers<br><img src="https://pic.imgdb.cn/item/619244352ab3f51d9130e2ca.png"></p>
+<ul>
+<li>How many states are reachable? </li>
+<li>Are there any deadlock states?</li>
+<li>How to model the situation with 2 writers and 3 readers</li>
+<li>How to model a “bounded mailbox” (buffer size = 4)</li>
+</ul>
+</li>
+<li><p><strong>The Four Seasons</strong></p>
+<ul>
+<li>We would like to denote the current season {spring, summer, autumn, winter}, the temperature {hot,cold} and the light level{bright, dark}.</li>
+<li>As a first step, let us model the seasons(with a token to represent that it is currently autumn)<br><img src="https://pic.imgdb.cn/item/6192467a2ab3f51d91318f9a.png"> </li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/18/COMP201-W3/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP211-W2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/14/COMP211-W2/">COMP211-W2</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/14/COMP211-W2/" class="archive-article-date">
+  	<time datetime="2021-10-14T19:53:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Lec2-Application-Layer"><a href="#Lec2-Application-Layer" class="headerlink" title="Lec2  Application Layer"></a>Lec2  Application Layer</h2><p><strong>应用层</strong></p>
+<h3 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h3><p><strong>goals</strong>:</p>
+<ul>
+<li>conceptual and implementation aspects of application-layer protocols<ul>
+<li>transport-layer service models</li>
+<li>client-server</li>
+<li>peer-to-peer paradigm</li>
+</ul>
+</li>
+<li>Learn about protocols by examining popular application-layer protocols<ul>
+<li>HTTP</li>
+<li>SMTP, IMAP</li>
+<li>DNS</li>
+</ul>
+</li>
+<li>programming network application<ul>
+<li>socket API</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Summary"><a href="#Summary" class="headerlink" title="Summary:"></a>Summary:</h3><ul>
+<li>application architectures<ul>
+<li>client-server</li>
+<li>P2P</li>
+</ul>
+</li>
+<li>application service requirements:<ul>
+<li>reliability, bandwidth, delay</li>
+</ul>
+</li>
+<li>Internet transport service model<ul>
+<li>connection-oriented, reliable: TCP</li>
+<li>unreliable, datagrams: UDP</li>
+</ul>
+</li>
+<li>specific protocols: <ul>
+<li>HTTO</li>
+<li>SMTP, IMAP</li>
+<li>DNS</li>
+<li>P2P: BitTorrent</li>
+</ul>
+</li>
+<li>soket programming<ul>
+<li>TCP, UDP sockets</li>
+</ul>
+</li>
+<li>Typical request/reply message exchange:<ul>
+<li>client requests info or service</li>
+<li>server responds with data, status code</li>
+</ul>
+</li>
+<li>message formats:<ul>
+<li>headers: fields giving info about dat</li>
+<li>data: info(payload) being communicated</li>
+</ul>
+</li>
+<li>impoetant themes: <ul>
+<li>centralized vs. decentralized</li>
+<li>stateless vs. stateful</li>
+<li>scalavility</li>
+<li>reliable vs. unreliable message transfer</li>
+<li>“complexity at network edge”</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="重点"><a href="#重点" class="headerlink" title="重点"></a>重点</h3><ul>
+<li>服务器</li>
+<li>客户端</li>
+<li>寻址过程</li>
+<li>点对点结构</li>
+<li>标志符 （identifier）</li>
+<li>进程间通信</li>
+<li>网络协议接口</li>
+<li>套接字（socket） <em>（还未掌握）</em></li>
+</ul>
+        
+          <a class="article-more-a" href="/2021/10/14/COMP211-W2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/14/COMP211-W2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP207LAB-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/COMP207LAB-1/">COMP207LAB</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/05/COMP207LAB-1/" class="archive-article-date">
+  	<time datetime="2021-10-05T21:37:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/COMP207LAB-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP201-W2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/COMP201-W2/">COMP201 W2</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/05/COMP201-W2/" class="archive-article-date">
+  	<time datetime="2021-10-05T21:24:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Lec4"><a href="#Lec4" class="headerlink" title="Lec4"></a>Lec4</h2><h3 id="This-lec-will-focus-on"><a href="#This-lec-will-focus-on" class="headerlink" title="This lec will focus on"></a>This lec will focus on</h3><ul>
+<li>The concepts of <strong>user and system requirements</strong></li>
+<li>To describe <strong>functional/non-functional requirements</strong></li>
+<li>To explain <strong>two techniques</strong> for describing system requirements</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>需求列出了系统应该做什么，并定义对其运行和实施的限制</li>
+<li>功能需要列出系统应该提供的服务</li>
+<li>Non-functional需求限制了正在开发的系统或开发过程</li>
+<li>用户需求是对于系统要做什么的高阶陈述</li>
+</ul>
+<p><em><strong>Requirements Engineering</strong></em><br>It is the process of establishing  </p>
+<ul>
+<li><strong>the services</strong> that the customer requires from a system</li>
+<li><strong>the constraints</strong> under which it operates and is developed<br><img src="" alt="alt p1"><br>lec4-p3</li>
+</ul>
+<h4 id="正式编程前"><a href="#正式编程前" class="headerlink" title="正式编程前"></a>正式编程前</h4><blockquote>
+<p>  完全了解需要被解决的问题<br>  发现为什么问题需要被解决<br>  决定应该涉及到什么</p>
+</blockquote>
+<h4 id="垃圾的需求带来诸多问题-并浪费时间"><a href="#垃圾的需求带来诸多问题-并浪费时间" class="headerlink" title="垃圾的需求带来诸多问题 并浪费时间"></a>垃圾的需求带来诸多问题 并浪费时间</h4>
+        
+          <a class="article-more-a" href="/2021/10/05/COMP201-W2/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/COMP201-W2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP219LAB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/COMP219LAB/">COMP219LAB</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/05/COMP219LAB/" class="archive-article-date">
+  	<time datetime="2021-10-05T20:36:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Lab2-—-Basic-Python-and-Visualisation"><a href="#Lab2-—-Basic-Python-and-Visualisation" class="headerlink" title="Lab2 — Basic Python and Visualisation"></a>Lab2 — Basic Python and Visualisation</h3><p><strong>1.4.1</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">xdata = <span class="number">7</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line">ydata = np.sin(xdata) + <span class="number">0.25</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line">zdata = np.exp(xdata) + <span class="number">0.25</span> * np.random.random(<span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">fig = plt.figure(figsize=(<span class="number">9</span>, <span class="number">6</span>))</span><br><span class="line"><span class="comment"># Create 3D container</span></span><br><span class="line">ax = plt.axes(projection = <span class="string">&#x27;3d&#x27;</span>)</span><br><span class="line"><span class="comment"># Visualize 3D scatter plot</span></span><br><span class="line">ax.scatter3D(xdata, ydata, zdata)</span><br><span class="line"><span class="comment"># Give labels</span></span><br><span class="line">ax.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax.set_zlabel(<span class="string">&#x27;z&#x27;</span>)</span><br><span class="line"><span class="comment"># Save figure</span></span><br><span class="line">plt.savefig(<span class="string">&#x27;3d_scatter.png&#x27;</span>, dpi = <span class="number">300</span>, bbox_inches = <span class="string">&#x27;tight&#x27;</span>,</span><br><span class="line">    pad_inches = <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<p><img src="https://pic.imgdb.cn/item/61683c7e2ab3f51d91ab78e3.png" alt="alt p1"></p>
+<hr>
+<p><strong>1.4.2</strong> </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">100</span>)</span><br><span class="line">y = np.array(<span class="number">5</span>)</span><br><span class="line"></span><br><span class="line">z=x+y</span><br><span class="line">xLastTen = x[<span class="number">90</span>:]   <span class="comment"># Using array indexing to give the last ten values of z</span></span><br><span class="line"></span><br><span class="line">xUpdate = np.arange(<span class="number">0</span>, <span class="number">1000</span>, <span class="number">10</span>) <span class="comment"># update the code 从 0-1000 分成十步</span></span><br><span class="line"></span><br><span class="line">xDotProduct = x.dot(x) <span class="comment">#Take dot product between x and x</span></span><br><span class="line"></span><br><span class="line">xAsteriskProduct = x * x <span class="comment">#Take (*) product between x and x</span></span><br><span class="line"></span><br><span class="line">xReshape = xUpdate.reshape((<span class="number">10</span>, <span class="number">10</span>)) <span class="comment"># Reshape x so that it is no langer a 100 value array but a 10x10 matrix</span></span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Multiply the first row by 1, the  sceond by 2, the third by3 and so on</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line">yNew = np.arange(<span class="number">1</span>,<span class="number">11</span>)</span><br><span class="line">zNew = xReshape * yNew[:, np.newaxis]</span><br><span class="line"><span class="built_in">print</span>(zNew)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Using the matolitlib library to plot each row of this matrix as a single series on the same graph</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">   plt.plot(zNew[i])</span><br><span class="line">plt.show()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Using the matplotlib library to plot each row of this matrix as a single series on separate sub-plots of the same figure and save this figure as figure1.png</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    ax = plt.subplot(<span class="number">5</span>, <span class="number">2</span>, i + <span class="number">1</span>)</span><br><span class="line">    plt.plot(zNew[i])</span><br><span class="line">plt.show()</span><br><span class="line">plt.savefig(<span class="string">&#x27;figure1.png&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>Output:<br><img src="https://pic.imgdb.cn/item/616840022ab3f51d91b33d5d.png" alt="alt output"></p>
+<hr>
+<p><img src="https://pic.imgdb.cn/item/61683f992ab3f51d91b2688e.png" alt="alt p1"><br><img src="https://pic.imgdb.cn/item/61683fae2ab3f51d91b290cd.png" alt="alt p2"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">exercise</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/COMP219LAB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP207LAB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/COMP207LAB/">COMP207LAB</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/05/COMP207LAB/" class="archive-article-date">
+  	<time datetime="2021-10-05T20:35:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Assignment-1"><a href="#Assignment-1" class="headerlink" title="Assignment 1"></a>Assignment 1</h1><p><em>Basic SQL</em></p>
+<h2 id="插入语法-（INSRT-INTO"><a href="#插入语法-（INSRT-INTO" class="headerlink" title="插入语法 （INSRT INTO)"></a>插入语法 （INSRT INTO)</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO table_name ( field1, field2,...fieldN )</span><br><span class="line">                       VALUES</span><br><span class="line">                       ( value1, value2,...valueN );</span><br></pre></td></tr></table></figure>
+
+<h3 id="读取数据表"><a href="#读取数据表" class="headerlink" title="读取数据表"></a>读取数据表</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from runoob_tbl;</span><br></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="Execrises"><a href="#Execrises" class="headerlink" title="Execrises"></a>Execrises</h2><blockquote>
+<p>P1<br><img src="https://pic.imgdb.cn/item/6171b8f72ab3f51d914785b3.png" alt="p1"><br>P2</p>
+<hr>
+<p><img src="https://pic.imgdb.cn/item/6171b9be2ab3f51d9147dd11.png" alt="p2"><br><strong>Solution</strong><br>p1<br><img src="https://pic.imgdb.cn/item/6171b9f12ab3f51d9147f379.png" alt="p1"></p>
+<hr>
+<p>p2<br><img src="https://pic.imgdb.cn/item/6171ba322ab3f51d91480d23.png" alt="p2"></p>
+<hr>
+<p>p3<br><img src="https://pic.imgdb.cn/item/6171ba632ab3f51d914820be.png" alt="p3"></p>
+<hr>
+<p>p4<br><img src="https://pic.imgdb.cn/item/6171bada2ab3f51d9148522c.png" alt="p4"></p>
+<hr>
+<p>p5<br><img src="https://pic.imgdb.cn/item/6171bb102ab3f51d91486e96.png" alt="p5"></p>
+<hr>
+<p>p6<br><img src="https://pic.imgdb.cn/item/6171bb3e2ab3f51d91488691.png" alt="p6"></p>
+</blockquote>
+<hr>
+<h1 id="Lab2-ttl"><a href="#Lab2-ttl" class="headerlink" title="Lab2 (ttl)"></a>Lab2 (ttl)</h1><h2 id="PART1-Simple-queries"><a href="#PART1-Simple-queries" class="headerlink" title="PART1: Simple queries"></a><strong>PART1: Simple queries</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-- Average grade</span><br><span class="line">SELECT AVG(grade)</span><br><span class="line">FROM Enrolment</span><br><span class="line">WHERE s_id = 1;</span><br><span class="line"></span><br><span class="line">-- How many years have COMP207 been taught</span><br><span class="line">SELECT COUNT(*)</span><br><span class="line">FROM CoursesInYear</span><br><span class="line">WHERE code = &#x27;COMP207&#x27;;</span><br><span class="line"></span><br><span class="line">-- How many students are in COMP207 this year?</span><br><span class="line"></span><br><span class="line">SELECT COUNT(*)</span><br><span class="line">FROM Enrolment</span><br><span class="line">WHERE code = &#x27;COMP207&#x27; AND year = 2021;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Simple joins:</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-- 1.What lecturers have taught you? - sort by their birthday</span><br><span class="line">SELECT first_name,last_name</span><br><span class="line">FROM Enrolment e,CoursesInyear C,Lecturers l</span><br><span class="line">WHERE c.l_id = l.l_id AND s_id=1 AND e.code = c.code AND c.year = e.year</span><br><span class="line">ORDER BY birthday;</span><br><span class="line"></span><br><span class="line">-- 2.What are the names of the courses you have attended? Sort by name</span><br><span class="line">SELECT name</span><br><span class="line">FROM Enrolment e,Courses c   </span><br><span class="line">WHERE e.code = c.code AND s_id = 1</span><br><span class="line">ORDER BY name;</span><br><span class="line"></span><br><span class="line">-- 3.What are the names of the courses l, Rasums Ibsen-Jensen, have taught?(my name is unique...) -sort by code</span><br><span class="line">SELECt name</span><br><span class="line">FROM CoursesInYear ciy,Lecturers l,Courses c  </span><br><span class="line">WHERE ciy.code = c.code AND l.l_id = ciy.l_id</span><br><span class="line">AND first_name=&#x27;Rasmus&#x27; AND last_name = &#x27;Ibsen-Jensen&#x27;</span><br><span class="line">ORDER BY c.code;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>Unions:</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">-- What names (of students, lecturers or courses) exists?</span><br><span class="line">SELECT name</span><br><span class="line">FROM Courses</span><br><span class="line">UNION</span><br><span class="line">SELECT first_name</span><br><span class="line">FROM Students</span><br><span class="line">UNION</span><br><span class="line">SELECT last_name</span><br><span class="line">FROM Students</span><br><span class="line">UNION</span><br><span class="line">SELECT first_name</span><br><span class="line">FROM Lecturers</span><br><span class="line">UNION</span><br><span class="line">SELECT last_name</span><br><span class="line">FROM Lecturers;</span><br><span class="line">-- List all lecturers and studnets, ordered by their first and last name</span><br><span class="line">SELECT first_name, last_name</span><br><span class="line">FROM Students</span><br><span class="line">UNION</span><br><span class="line">SELECT first_name,last_name</span><br><span class="line">FROM Lecturers</span><br><span class="line">ORDER BY first_name, last_name;</span><br></pre></td></tr></table></figure></li>
+<li><p><strong>How would you do the above simple queries for each student or each course, depending(instead of you and COMP207)If you got the point of GROUP BY, this is hopefully reasonably clear and easy to do, otherwise you will hopefully get it from the answer… How about the simple joins?</strong></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">-- Simple queries:</span><br><span class="line">SELECT s_id, AVG(grade)</span><br><span class="line">FROM Enrolment</span><br><span class="line">GROUP BY s_id;</span><br><span class="line"></span><br><span class="line">SELECT code, COUNT(*)</span><br><span class="line">FROM CoursesInYear</span><br><span class="line">GROUP BY code;</span><br><span class="line"></span><br><span class="line">SELECT code, COUNT(*)</span><br><span class="line">FROM Enrolment</span><br><span class="line">WHERE year = 2021</span><br><span class="line">GROUP BY code;</span><br><span class="line"></span><br><span class="line">-- Simple joins:</span><br><span class="line">SELECT s_id, first_name, last_name</span><br><span class="line">FROM Enrolment e, CoursesInYear c, Lecturers l   </span><br><span class="line">WHERE c.l_id = l.l_id AND e.code = c.code AND c.year=e.year</span><br><span class="line">ORDER BY birthday;</span><br><span class="line"></span><br><span class="line">SELECT name,s_id</span><br><span class="line">FROM Enrolment e, Courses c</span><br><span class="line">WHERE e.code = c.code</span><br><span class="line">ORDER BY name;</span><br><span class="line"></span><br><span class="line">SELECT name, first_name, last_name</span><br><span class="line">FROM CoursesInYear ciy, Lecturers l, Courses C</span><br><span class="line">WHERE ciy.code = c.code AND l.l_id = ciy.l_id</span><br><span class="line">ORDER BY c.code;</span><br></pre></td></tr></table></figure>
+
+<h2 id="PART-2-More-complex-queries"><a href="#PART-2-More-complex-queries" class="headerlink" title="PART 2: More complex queries"></a><strong>PART 2: More complex queries</strong></h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">-- Find the students you have shared a course with</span><br><span class="line">SELECT DISTINCT first_name, last_name</span><br><span class="line">FROM Students s, Enrolment e1, Enrolment e2</span><br><span class="line">WHERE s.s_id = e1.s_id AND e2.s_id AND e1.code = e2.code AND e1.year = e2.year;</span><br><span class="line"></span><br><span class="line">-- Find the lectures who has not taught you</span><br><span class="line">SELECT *</span><br><span class="line">FROM Lecturers</span><br><span class="line">WHERE l_id not in (SELECT l_id FROM Enrolment e, CoursesInYear c </span><br><span class="line">                    WHERE s_id = 1 AND e.code = c.code AND c.year = e.year);</span><br><span class="line">                </span><br><span class="line">-- Find the staff-student ratio(i.e. how many student per staff) in the computer science department this year</span><br><span class="line">SELECT student_count/COUNT(*)</span><br><span class="line">FROM (SELECT count(*)AS student_count</span><br><span class="line">        FORM Students</span><br><span class="line">        WHERE s_id IN (SELECT s_id</span><br><span class="line">                        FROM Enrolments NATURAL JOIN Courses</span><br><span class="line">                        WHERE year = 2021 AND department = &#x27;Computer Science&#x27;)),</span><br><span class="line">        Lectures</span><br><span class="line">WHERE l_id IN (SELECT l_id</span><br><span class="line">                FROM CoursesInYear NATURAL JOIN Courses</span><br><span class="line">                WHERE year = 2021 AND</span><br><span class="line">                department = &#x27;Computer Science&#x27;);</span><br><span class="line"></span><br><span class="line">-- Using views:</span><br><span class="line">CREATE VIEW sc AS</span><br><span class="line">SELECT COUNT(*) AS student_count</span><br><span class="line">FROM Lecturers</span><br><span class="line">WHERE l_id IN (SELECT l_id</span><br><span class="line">                FROM CoursesInYear NATURAL JOIN Courses</span><br><span class="line">                WHERE Year = 2021 AND department = &#x27;Computer Science&#x27;);</span><br><span class="line"></span><br><span class="line">CREATE VIEW lc AS</span><br><span class="line">SELECT COUNT(*) AS lecturer_count</span><br><span class="line">FROM Lecturers</span><br><span class="line">WHERE l_id IN (SELECT l_id</span><br><span class="line">                FROM CoursesInYear NATURAL JOIN Courses</span><br><span class="line">                WHERE Year = 2021 AND department = &#x27;Computer Science&#x27;);</span><br><span class="line">SELECT studnet_count/lecturer_count</span><br><span class="line">FROM sc,lc;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">--WHAT day(s) in the year are the most common birthdays for students?</span><br><span class="line">--Without views</span><br><span class="line">SELECT MONTH(birthday),DAYOFMONTH(birthday)</span><br><span class="line">FROM Students</span><br><span class="line">GROUP BY DAYOFMONTH(birthday) + MONTH(birthday)*100</span><br><span class="line">HAVING COUNT(*) IN (SELECT MAX(cnt)</span><br><span class="line">                    FROM (SELECT COUNT(*) AS cnt</span><br><span class="line">                            FROM Students</span><br><span class="line">                            GROUP BY DAYOFMONTH(birthday)+MONTH(birthday)*100)AS T);</span><br><span class="line"></span><br><span class="line">-- Using views:</span><br><span class="line">CREATE VIEW birthdayCounter AS</span><br><span class="line">SELECT DAYOFMONTH(birthday) + MONTH(birthday)*100, COUNT(*) as cnt</span><br><span class="line">FROM Students</span><br><span class="line">GROUP BY DAYOFMONTH(birthday) + MONTH(birthday)*100;</span><br><span class="line"></span><br><span class="line">SELECT MONTH(birthday),DAYOFMONTH(birthday)</span><br><span class="line">FROM Students</span><br><span class="line">GROUP BY DAYOFMONTH(birthday) + MONTH(birthday)*100</span><br><span class="line">HAVING COUNT(*) IN (SELECT MAX(cnt)</span><br><span class="line">                                FROM birthdayCounter);</span><br><span class="line"></span><br><span class="line">-- Sort all students so the first is the one with the soonest birthday - you can sort the ones with the same birthday by name(i.e. if you had your birthday yesterday you should be last, if you have it today you should be first, ignoring others with the same birthday)</span><br><span class="line">-- Without views</span><br><span class="line">SELECT first_name, last_name</span><br><span class="line">FROM (SELECT 1 as part, birthday, first_name,last_name</span><br><span class="line">Students</span><br><span class="line">        WHERE DAYOFMONTH(birthday) + MONTH(birthday)*100 &gt;= DAYOFMONTH(CURRENT_DATE)+MONTH(CURRENT_DATE)*100</span><br><span class="line">        UNION</span><br><span class="line">        SELECT 2, birthday, first_name, last_name</span><br><span class="line">        FROM Students</span><br><span class="line">        WHERE DAYOFMONTH(birthday)+MONTH(birthday)*100&lt;DAYOFMONTH(CURRENT_DATE)+MONTH(CURRENT_DATE)*100) AS T</span><br><span class="line">ORDER BY part,</span><br><span class="line">DAYOFMONTH(birthday) + MONTH(birthday)*100, first_name,last_name;</span><br><span class="line"></span><br><span class="line">-- Using views:</span><br><span class="line">CREATE VIEW birthdaySorter AS</span><br><span class="line">SELECT 1 as part, birthday, first_name, last_name</span><br><span class="line">FROM Students</span><br><span class="line">WHERE</span><br><span class="line">DAYOFMONTH(birthday) + MONTH(birthday)*100 &gt;=</span><br><span class="line">DAYOFMONTH(CURRENT_DATE) + MONTH(CURRENT_DATE)*100</span><br><span class="line">UNION</span><br><span class="line">SELECT 2, birthday, first_name, last_name</span><br><span class="line">FROM Students</span><br><span class="line">WHERE DAYOFMONTH(birthday) + MONTH(birthday * 100 &lt;</span><br><span class="line">DAYOFMONTH(CURRENT_DATE) + MONTH(CURRENT_DATE)*100;</span><br><span class="line"></span><br><span class="line">SELECT first_name, last_name</span><br><span class="line">FROM birthdaySorter</span><br><span class="line">ORDER BY part, DAYOFMONTH(birthday) + MONTH(birthday)*100,</span><br><span class="line">first_name,last_name;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">exercise</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/COMP207LAB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP201LAB" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/COMP201LAB/">COMP201LAB</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/05/COMP201LAB/" class="archive-article-date">
+  	<time datetime="2021-10-05T15:53:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">exercise</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/COMP201LAB/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-COMP211" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/10/05/COMP211/">COMP211</a>
+    </h1>
+  
+
+        
+        <a href="/2021/10/05/COMP211/" class="archive-article-date">
+  	<time datetime="2021-10-05T13:39:12.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-10-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Lec-0-Preliminaries"><a href="#Lec-0-Preliminaries" class="headerlink" title="Lec 0 - Preliminaries"></a>Lec 0 - <strong>Preliminaries</strong></h1><p><em><strong>Computer Network</strong></em></p>
+<h2 id="Course-Aims"><a href="#Course-Aims" class="headerlink" title="Course Aims:"></a>Course Aims:</h2><ul>
+<li>To introduce networked computer systems in general and Internet in particular:<ul>
+<li>The basic operating principles</li>
+<li>The design and organization priciples of successful computer networks </li>
+<li>The key protocols and technologies used in the Internet</li>
+</ul>
+</li>
+</ul>
+<h2 id="Learning-Outcomes"><a href="#Learning-Outcomes" class="headerlink" title="Learning Outcomes:"></a>Learning Outcomes:</h2><ul>
+<li>be able to describe and justify the OSI Reference Model and the key protocols that govern the Internet</li>
+<li>be able to program application and protocols for computer networks</li>
+<li>be able to illustrate and debate the use and need of cryptographic techniques in network security</li>
+</ul>
+<h2 id="Assessment"><a href="#Assessment" class="headerlink" title="Assessment"></a><em><strong>Assessment</strong></em></h2><ul>
+<li><strong>Coursework: 30%</strong><ul>
+<li>2 JAVA programming assignments, 10% each<ul>
+<li>A1 Deadline: 21 OCtober 2021</li>
+<li>A2 Deadline: 4 Novermber 2021</li>
+</ul>
+</li>
+<li>1 class test, 10%<ul>
+<li>22 Novermber 2021</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Exam: 70%</strong></li>
+</ul>
+<h1 id="Lec-1"><a href="#Lec-1" class="headerlink" title="Lec 1"></a>Lec 1</h1><h2 id="Chapter-goal"><a href="#Chapter-goal" class="headerlink" title="Chapter goal:"></a>Chapter goal:</h2><ul>
+<li>Get “feel”, “big picture,” Intruduction to terminology<ul>
+<li>more depth, detail <em>later</em> in course</li>
+</ul>
+</li>
+<li>Approach:<ul>
+<li>use Internet as example</li>
+</ul>
+</li>
+<li>Overview/roadmap:<ul>
+<li>What is the Internet?</li>
+<li>What is a protocol?</li>
+<li><strong>Network edge</strong>: hosts, access network, physical media</li>
+<li><strong>Network core</strong>: packet/circuit switching, internet structure</li>
+<li><strong>Performace</strong>: loss, delay, throughput</li>
+<li>Security</li>
+<li>Protocol layers, service models</li>
+<li>History</li>
+</ul>
+</li>
+</ul>
+<p><strong>The Internet: a “nuts and bolts” view</strong></p>
+<ul>
+<li>connected computing devices:</li>
+<li>Packet switches</li>
+<li>Communication links</li>
+<li>Networks</li>
+<li>Internet: “network of networks”</li>
+<li>protocols are everywhere</li>
+<li>Internet standards<ul>
+<li>RFC: Request for Comments</li>
+<li>IETF: Internet Engineering Task Force</li>
+</ul>
+</li>
+</ul>
+<p><strong>The Internet: a “service” view</strong></p>
+<ul>
+<li>为应用程序提供服务的基础设施</li>
+<li>Provides <em>programming interface</em> to distributed applications:<ul>
+<li>“hooks” allowing sending/receiving  apps to “connect”to, use  Internet transport service</li>
+<li>provides service options, analogous to postal service</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><em><strong>PROTOCOL</strong></em>协议</p>
+<ul>
+<li><em>Human protocols</em><ul>
+<li>“what’s the time?”</li>
+<li>“I have a questin”</li>
+<li>introductions</li>
+</ul>
+</li>
+<li><em>Network protocols:</em><ul>
+<li>computers(devices) rather than humans</li>
+<li>all communication activity in Internet governed by protocols<br>Protocols define the <em>format</em>, orderof <em>messages sent and received</em> among network entities, and <em>actions taken</em><br>on msg transmission, receipt<br><img src="https://pic.imgdb.cn/item/6168863e2ab3f51d9133c309.png" alt="p1"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>A closer look at Internet structure</strong></p>
+<ul>
+<li><em>Network edge:</em><ul>
+<li>hosts: clients and servers</li>
+<li>servers often in data centers<br><img src="https://pic.imgdb.cn/item/616886bd2ab3f51d913412b2.png" alt="p1"></li>
+</ul>
+</li>
+<li>*Access networks, physical media:<ul>
+<li>wired, wireless communication links<br><img src="https://pic.imgdb.cn/item/616886f52ab3f51d913435b5.png" alt="p2"></li>
+</ul>
+</li>
+<li><em>Network core:</em><ul>
+<li>interconnected routers</li>
+<li>network of networks<br><img src="https://pic.imgdb.cn/item/616887222ab3f51d91345405.png" alt="p3"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Access networks and physical media</strong></p>
+<ul>
+<li>connect end systems to edge router<ul>
+<li>residential access nets</li>
+<li>institutional access networks(school, company)</li>
+<li>mobile sccess networks(WiFi, 4G/5G)</li>
+</ul>
+</li>
+<li>寻找需求：<ul>
+<li>transmission rate(bits per second) of acces network?</li>
+<li>shared or dedicated access among users?<br><img src="https://pic.imgdb.cn/item/616887562ab3f51d913478d9.png" alt="p1"></li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<ul>
+<li><em>cable-based access</em>:<br>  通过线缆连接从供应商到各户<br>  <img src="https://pic.imgdb.cn/item/616887872ab3f51d91349d77.png" alt="p1"><br>  frequency division multiplexing(FDM): different channels transmitted in different frequency bands<br>  <img src="https://pic.imgdb.cn/item/616887e22ab3f51d9134e844.png" alt="p2"><ul>
+<li>HFC: hybrid fiber coax 混合光纤同轴<ul>
+<li>asymmetric: up to 40 Mbps- 1.2Gbs Gbsdownstream transmission rate, 30-100 Mbps upstream transmission rate<br><img src="https://pic.imgdb.cn/item/6169d8182ab3f51d91d88ac1.png"></li>
+</ul>
+</li>
+<li>network of cable, fiber attaches homes to ISP router<ul>
+<li>homes <em>share access network</em> to cable headend </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><em>digital subscriber line(DSL)：</em><br>  电话上网<br>  <img src="https://pic.imgdb.cn/item/616888562ab3f51d91353dc3.png" alt="p1"><ul>
+<li>use <em>existing</em> telephone line to central office DSLAM<ul>
+<li>data over DSL phone line goes to Internet</li>
+<li>voice over DSL phone line goes to telephone net</li>
+</ul>
+</li>
+<li>24-52 Mbps dedicated downstream transmission rate </li>
+<li>3.5-16 Mbps dedicated upstream transmission rate</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<ul>
+<li><em>home networks</em><br><img src="https://pic.imgdb.cn/item/616888942ab3f51d91356ca1.png" alt="p1"><ul>
+<li>Wireless access networks Shared wirelessaccess network connects end system to router<ul>
+<li>via base station aka”access point”</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><strong>Wireless local area networks</strong><ul>
+<li>typically within or around building(~30 m)</li>
+<li>802.11b/g/n(WiFi): 11, 54, 450 Mbps transmission rate</li>
+</ul>
+</li>
+<li><strong>Wide-area cellular access networks</strong><ul>
+<li>provided by mobile, cellular network operator(10’s)km</li>
+<li>10’s Mbps</li>
+<li>4G cellular networks(5G)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<ul>
+<li><em>enterprise networks</em><br><img src="https://pic.imgdb.cn/item/616888d82ab3f51d9135a99e.png" alt="p1"><ul>
+<li>companies, universities, etc.</li>
+<li>mix of wired, wireless link technologies, connecting a mix of switches and routers (we’ll cover differences shortly)<ul>
+<li>Ethernet” wired access at 100Mbps, 1Gbps, 10Gbps </li>
+<li>WiFi: wireless access points at 11, 54, 450 Mbps </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<hr>
+<p><strong>Host:</strong> sends <em>packets</em> of data<br>host sending function:</p>
+<ul>
+<li>takes application message</li>
+<li>breaks into smaller chunks, known as packets, of length L bits</li>
+<li>transmits packet into access network at <em>transmission rate R</em><ul>
+<li>link transmission rate, aka link <em>capacity, aka link bandwidth</em></li>
+</ul>
+</li>
+</ul>
+<p><em><strong>delay = L/R</strong></em></p>
+<hr>
+<p><strong>Links: physical media</strong></p>
+<ul>
+<li><em>bit</em>: propagates between transmitter/receiver pairs</li>
+<li><em>physical link:</em></li>
+<li><em>guided media:</em></li>
+<li><em>unguided media:</em></li>
+<li>Twisted pair(TP)网线接口<ul>
+<li>physical media<ul>
+<li><em>Coaxial cable:</em><ul>
+<li>two concentric copper conductors</li>
+<li>bidirectional</li>
+<li>broadband:<ul>
+<li>multiple frequency channels on cable</li>
+<li>100’s Mbps per channel</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><em>Fiber optic cable:</em><ul>
+<li>glass fiber carrying light pulses, each pulse a bit</li>
+<li>high-speed operation:<ul>
+<li>high-speed point-to-point transmission(10’s-100’s Gbps)</li>
+</ul>
+</li>
+<li>low error rate: <ul>
+<li>repeaters spaced far apart </li>
+<li>immune to electromagnetic noise</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Wireless radio:<ul>
+<li>signal carried in electromagnetic spectrum</li>
+<li>no physical “wire”</li>
+<li>propagation environment effects: <ul>
+<li>reflection</li>
+<li>obstruction by objects</li>
+<li>interference</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Radio link types:<ul>
+<li>terrstrial microwave</li>
+<li>Wireless LAN</li>
+<li>wide-area<ul>
+<li>4G cellular: ~ 10’s Mbps</li>
+</ul>
+</li>
+<li>satellite<ul>
+<li>up to 45 Mbps per channel</li>
+<li>270 msec end-end delay</li>
+<li>geosynchronous versus low-earth-orbit</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>The network core</strong></p>
+<ul>
+<li>mesh of interconnected routers</li>
+<li>packet-switching: hosts break application-layer messages into packets<ul>
+<li>forward packetsfrom one router to the next, across links on path from source to destination</li>
+<li>each packet transmitted at full link capacityIntroduction: 1-25mobile networkhome network</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>Packet-switching:</strong></p>
+<ol>
+<li>store-and-forward<br><img src="https://pic.imgdb.cn/item/6168892c2ab3f51d9135e337.png" alt="p1"></li>
+</ol>
+<ul>
+<li><em>Transmission delay</em>:takes L/Rseconds to transmit (push out) L-bit packet into link at Rbps 传输延迟等于 L/R</li>
+<li><em>store and forward</em>: entirepacket must  arrive at router before it can be transmitted on next link 一存一进</li>
+<li>End-end delay: 2L/R (above), assuming zero propagation delay (more on delay shortly)  端端延迟</li>
+</ul>
+<ol start="2">
+<li>queueing delay, loss<br><img src="https://pic.imgdb.cn/item/616889732ab3f51d91361996.png" alt="p2"></li>
+</ol>
+<p>*packet queuing and loss: if arrival rate (in bps) to link exceeds transmission rate (bps) of link for a period of time:</p>
+<ul>
+<li>packets will queue, waiting to be transmitted on output link 排队</li>
+<li>packets can be dropped (lost) if memory (buffer) in router fills up 丢包</li>
+</ul>
+<hr>
+<p><strong>Two key network-core functions</strong><br><img src="https://pic.imgdb.cn/item/6168899f2ab3f51d91363c0a.png" alt="p1"></p>
+<ul>
+<li>Forwarding:<ul>
+<li>local: move arriving packets from router’s input link to appropriate router output link</li>
+</ul>
+</li>
+<li>Routing:<ul>
+<li>global <em>action</em>: determine source-destination paths taken by packets</li>
+<li>routing algorithms</li>
+</ul>
+</li>
+</ul>
+<p><strong>Alternative to packet switching: circuit switching</strong><br>end-end resources allocated to, reserved for “call” between source and destination</p>
+<ul>
+<li>in diagram, each link has four circuits.<ul>
+<li>call gets 2nd circuit in top link and 1stcircuit in right link.</li>
+</ul>
+</li>
+<li>dedicated resources: no sharing<ul>
+<li>circuit-like(guaranteed)<br>performance</li>
+</ul>
+</li>
+<li>circuit segment idle if not used by call</li>
+<li>commonly used in trafitional telephone networks<br><img src="https://pic.imgdb.cn/item/616889e02ab3f51d91366e0a.png" alt="FDM and TDM"></li>
+</ul>
+<p><strong>Packet switching versus circuit switching</strong></p>
+<ol>
+<li><em><strong>packet switching allows more users to use network!</strong></em></li>
+<li>circuit switching good at: <ul>
+<li>resource sharing </li>
+<li>simpler, no call setup</li>
+</ul>
+</li>
+<li>excessive congestion possible: packet delay and loss due to buffer overflow<ul>
+<li>protocols needed for reliable data transfer, congestion control</li>
+<li>How to provide circuit-like behavior?<ul>
+<li>bandwidth guarantess traditionally needed for audio/video applications</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p><strong>Internet strucutre: a “network of networks”</strong> 由小到大逐渐组成互联网<br><img src="https://pic.imgdb.cn/item/61688a1b2ab3f51d91369cb7.png" alt="p1"></p>
+<ul>
+<li>Hosts connect to Internet via access Internet Service Providers (ISPs)<ul>
+<li>residential, enterprise (company, university, commercial) ISPs</li>
+</ul>
+</li>
+<li>Access ISPs in turn must be interconnected•so that any two hosts can send packets to each other</li>
+<li>Resulting network of networks is very complex•evolution was driven by economicsand national policies</li>
+<li>Let’s take a stepwise approach to describe current Internet structure<br><img src="https://pic.imgdb.cn/item/61688a4d2ab3f51d9136bbe7.png" alt="p2"><br>组成形式</li>
+<li>global ISP</li>
+<li>company ISP</li>
+<li>IXP ( Internet exchange point): to connet each ISP</li>
+<li>peering link</li>
+<li>regional ISP</li>
+<li>access ISP</li>
+</ul>
+<hr>
+<p><em><strong>Packet loss and delay</strong></em><br>packets queue in router buffers</p>
+<ul>
+<li>packets queue, wait for turn</li>
+<li><em>arrival rate to link exceeds output link capacity: packet loss</em><blockquote>
+<p><strong>Packet delay: four sources</strong></p>
+<ul>
+<li><strong>“transmission”, “propagation”, “nodal processing”, “queueing”</strong></li>
+<li>d(nodal) = d(proc) + d(queue) + d(trans) + d(prop)</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><strong>d(proc)</strong>: nodal processing</p>
+<ul>
+<li>check bit errors</li>
+<li>determine output link </li>
+<li>typically &lt; msec</li>
+</ul>
+<p><strong>d(queue)</strong>: queueing delay</p>
+<ul>
+<li>time waiting at output link for transmission</li>
+<li>depends on congestion level of router</li>
+</ul>
+<p><strong>d(tran)</strong>: transmission delay:</p>
+<ul>
+<li>L: packet length(bits)</li>
+<li>R: link transmission rate(bps)</li>
+<li>d(trans) = L/R</li>
+</ul>
+<p><strong>d(prop)</strong>: propagatin delay:</p>
+<ul>
+<li>d: length of physical link</li>
+<li>s: propagation speed </li>
+<li>d(prop) = d/s</li>
+</ul>
+<p><strong>packet loss</strong> 缓冲区无法容纳的就会丢失</p>
+<ul>
+<li>queue(aka buffer) preceding link in buffer has finite capacity</li>
+<li>packet arriving to full queue dropped(aka lost)</li>
+<li>lost packet may be retransmitted by previous node, by source end system, or not at all</li>
+</ul>
+<p><strong>Throughput</strong> 吞吐量</p>
+<ul>
+<li>throughput: rate(bits/time unit) at which bits are being sent from sender to receiver<ul>
+<li>instantaneous: rate at given point in time </li>
+<li>average: rate over longer period of time</li>
+<li>Rs &lt; Rc &amp; Rs &gt; Rc<br>bottleneck link: link on end-end path that constrains end-end throughput</li>
+</ul>
+</li>
+<li>network scenario<ul>
+<li>per-connection end-end throughput: min(Rc,Rs,R/10)</li>
+<li>in practice: Rc or Rs is often bottleneck</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="Network-security"><a href="#Network-security" class="headerlink" title="Network security"></a><em><strong>Network security</strong></em></h3><ul>
+<li>field of network security:<ul>
+<li>under attacks</li>
+<li>defend attacks</li>
+<li>immune to attacks</li>
+</ul>
+</li>
+<li>Internet not originally designed with(much) security in mind<ul>
+<li>起初的互联网比较封闭安全</li>
+<li>protocol designers playing “cathc-up”</li>
+<li>security considerations in all layers<h3 id="Bad-guys"><a href="#Bad-guys" class="headerlink" title="Bad guys"></a>Bad guys</h3></li>
+</ul>
+</li>
+</ul>
+<p><strong>malware</strong></p>
+<ul>
+<li><p>virus:self-replicating infection by receiving/executing  object (e.g., e-mail attachment)</p>
+</li>
+<li><p>worm: self-replicating infection by passively receiving object that gets itself executed</p>
+</li>
+<li><p>spyware malware can record keystrokes, web sites visited, upload info to collection site</p>
+</li>
+<li><p>infected host can be enrolled in  botnet,used for spam or distributed denial of service  (DDoS) attacks</p>
+</li>
+</ul>
+<p><strong>denial of service</strong><br>Denial of Service(Dos): attackers make resources (server, bandwidth) unavailable to legitimate traffic by overwhelming resource with bogus traffic</p>
+<ol>
+<li>select target</li>
+<li>break into hosts</li>
+<li>send packets to target from compromised hosts</li>
+</ol>
+<p><strong>packet interception</strong><br>packet “sniffing”</p>
+<ul>
+<li>broadcast media(shared Ethernet, wireless)</li>
+<li>promiscuous network interface reads/records all packets(e.g.,including passwords!) passing by</li>
+</ul>
+<p><strong>fake identity</strong><br>IP spoofing: send packet with false source address</p>
+<hr>
+<h3 id="Protocol-“layers”-and-reference-models"><a href="#Protocol-“layers”-and-reference-models" class="headerlink" title="Protocol “layers” and reference models"></a><em><strong>Protocol “layers” and reference models</strong></em></h3><ul>
+<li>Networks are complex, with many “pieces”:<ul>
+<li>hosts</li>
+<li>routers</li>
+<li>links of various media</li>
+<li>applications</li>
+<li>protocols</li>
+<li>hardware, software</li>
+</ul>
+</li>
+</ul>
+<h3 id="Internet-protocol-stack"><a href="#Internet-protocol-stack" class="headerlink" title="Internet protocol stack"></a>Internet protocol stack</h3><ul>
+<li>application</li>
+<li>treansport</li>
+<li>network</li>
+<li>link</li>
+<li>physical</li>
+</ul>
+<p><strong>ISO/OSI reference model</strong></p>
+<ul>
+<li>presentation: allow applications to interpret meaning of data, e.g., encryption, compression, machine-specific conventions</li>
+<li>session: synchronization, checkpointing, recovery of data exchange</li>
+<li>Internet statck “missing” these layers!<br><img src="https://pic.imgdb.cn/item/616884b62ab3f51d9132b895.png" alt="p1"></li>
+</ul>
+<p><img src="https://pic.imgdb.cn/item/616884f02ab3f51d9132dec9.png" alt="p2"></p>
+<ul>
+<li><strong>Internet history</strong><br><img src="https://pic.imgdb.cn/item/616885322ab3f51d91330c9d.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/616885662ab3f51d91333416.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/616885992ab3f51d91335861.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/616885c02ab3f51d913375dc.png" alt="p4"><br><img src="https://pic.imgdb.cn/item/616885e72ab3f51d913393e1.png" alt="p5"></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/10/05/COMP211/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-COMP207" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -184,12 +1797,16 @@
 <li><strong>Introdution for coursees</strong><br>  A CS Store from Liverpool to national</li>
 </ul>
 <hr>
-<h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Introduction-to-databases"><a href="#Introduction-to-databases" class="headerlink" title="Introduction to databases:"></a>Introduction to databases:</h2><ul>
-<li>Databases can be used for most purposes in computer science (Python, Java, C or C++) </li>
-<li>Databases are not general-purpose, they are domain-specific<br>  (<em><strong>It’s everywhere !</strong></em>)</li>
+<h1 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h1><h2 id="Introduction-to-databases"><a href="#Introduction-to-databases" class="headerlink" title="Introduction to databases:"></a>Introduction to databases:</h2><h3 id="Databases-abstractly"><a href="#Databases-abstractly" class="headerlink" title="Databases abstractly"></a>Databases abstractly</h3><ul>
+<li><p>Databases can be used for most purposes in computer science (Python, Java, C or C++) </p>
+</li>
+<li><p>Databases are not general-purpose, they are domain-specific<br>  (<em><strong>It’s everywhere !</strong></em>)</p>
+<p>  Databases, in a nutshell, are for storing, searching and aggregating information/data</p>
+</li>
 </ul>
 <h3 id="Databases-Drives-the-Web"><a href="#Databases-Drives-the-Web" class="headerlink" title="Databases Drives the Web"></a>Databases Drives the Web</h3><pre><code>User -&gt; Web service -&gt; Database
 </code></pre>
+<p><img src="https://pic.imgdb.cn/item/61daad9e2ab3f51d91da3067.png"></p>
 <ul>
 <li>Requires extremely efficient systems for querying dada,<br>  and for storing and mainpulating data in a safe way.</li>
 </ul>
@@ -255,14 +1872,16 @@
 </ul>
 </li>
 </ul>
-<h2 id="Beyond-Plain-Relational-DBMS"><a href="#Beyond-Plain-Relational-DBMS" class="headerlink" title="Beyond Plain Relational DBMS"></a>Beyond Plain Relational DBMS</h2><pre><code>+ Distributed DBMSs
-+ Beyond Relational data
-+ data warehouses/analysis/mining
-</code></pre>
+<h2 id="Beyond-Plain-Relational-DBMS"><a href="#Beyond-Plain-Relational-DBMS" class="headerlink" title="Beyond Plain Relational DBMS"></a>Beyond Plain Relational DBMS</h2><ul>
+<li>Distributed DBMSs 分散数据库</li>
+<li>Beyond Relational data</li>
+<li>data warehouses/analysis/mining</li>
+</ul>
 <hr>
-<h1 id="Lecture-4"><a href="#Lecture-4" class="headerlink" title="Lecture 4"></a>Lecture 4</h1><h2 id="Introduction-to-relational-databases-and-SQL"><a href="#Introduction-to-relational-databases-and-SQL" class="headerlink" title="Introduction to relational databases and SQL"></a>Introduction to relational databases and SQL</h2><h3 id="Relational-database"><a href="#Relational-database" class="headerlink" title="Relational database"></a>Relational database</h3><ul>
+<h1 id="Lecture-4-Basic-SQL"><a href="#Lecture-4-Basic-SQL" class="headerlink" title="Lecture 4 Basic SQL"></a>Lecture 4 Basic SQL</h1><h2 id="Introduction-to-relational-databases-and-SQL"><a href="#Introduction-to-relational-databases-and-SQL" class="headerlink" title="Introduction to relational databases and SQL"></a>Introduction to relational databases and SQL</h2><h3 id="Relational-database"><a href="#Relational-database" class="headerlink" title="Relational database"></a>Relational database</h3><p><img src="https://pic.imgdb.cn/item/61daae7b2ab3f51d91dacdff.png"></p>
+<ul>
 <li>Data is organised in tables</li>
-<li>Each table has a schema</li>
+<li>Each table has a schema =&gt; <span style="color:red">Items(name, price, number)</span></li>
 </ul>
 <h3 id="In-typical-use-Tables"><a href="#In-typical-use-Tables" class="headerlink" title="In typical use(Tables)"></a>In typical use(Tables)</h3><p><strong>Each table typically has:</strong></p>
 <ul>
@@ -280,19 +1899,28 @@
 <li>The standard for SQL is updated every few years</li>
 <li>The implementations does not follow the standard that well though</li>
 </ul>
-<p><strong>SQL Parts</strong></p>
+<p><span style = "color:red"><strong>SQL Parts</strong></span></p>
 <blockquote>
 <ul>
-<li>Data Definition Language(DDL)</li>
-<li>Data Manipulation Language(DML)</li>
-<li>Transact-SQL</li>
-<li>Transact-SQL</li>
+<li>Data Definition Language(DDL)<ul>
+<li>Create/alter/delete databases, tables and their attributes</li>
+</ul>
+</li>
+<li>Data Manipulation Language(DML)<ul>
+<li>Add/remove/update and query rows in tables</li>
+</ul>
+</li>
+<li>Transact-SQL<ul>
+<li>ntuitively, do a sequence of SQL statements</li>
+</ul>
+</li>
 </ul>
 </blockquote>
-<ul>
-<li><p>SQL DDL</p>
-<ul>
-<li>Create a database: <em>CREATE DATABASE nnnnnn;</em> (不区分大小写)<br>(换行操作和线性同样)</li>
+<h3 id="SQL-DDL"><a href="#SQL-DDL" class="headerlink" title="SQL DDL"></a>SQL DDL</h3><ul>
+<li>SQL DDL<ul>
+<li>Create a database: <em>CREATE DATABASE nnnnnn;</em> (不区分大小写)</li>
+<li>CREATE TABLE Table_name (column1 datatype,column2 datatype,column3 datatype);<br>(换行操作和线性同样)</li>
+<li>Datatypes<br><img src="https://pic.imgdb.cn/item/61dab0712ab3f51d91dc217c.png"></li>
 <li>Unique specify that you want some attribute to be unique</li>
 <li>Primary Key: <em>CONSTRAINT PK_tablenames PRIMARY KEY (attributes)</em><pre><code>  data should be sorted physically in storage by defining a primary key 
 </code></pre>
@@ -324,8 +1952,9 @@
 </li>
 </ul>
 </li>
-<li><p>SQL DML</p>
-<ul>
+</ul>
+<h3 id="SQL-DML"><a href="#SQL-DML" class="headerlink" title="SQL DML"></a>SQL DML</h3><ul>
+<li>SQL DML<ul>
 <li>Insert: <em>INSERT INTO students VALUES(‘Oliver’, 20171112, ‘G402’);</em></li>
 <li>Delete: <em>DELETE FROM Students WHERE name = ‘john’;</em></li>
 <li>Conditions in <em>WHERE</em> clauses<ul>
@@ -344,36 +1973,13 @@
 </li>
 </ul>
 </li>
-<li>UPDATE: <em>UPDATE studnets SET programme = ‘G402’ WHERE name = ‘Oliver’;</em></li>
+<li>UPDATE: <em>UPDATE studnets SET programme = ‘G402’ WHERE name = ‘Oliver’;</em><h3 id="operation-details"><a href="#operation-details" class="headerlink" title="operation details:"></a>operation details:</h3></li>
 </ul>
 </li>
-<li><p>operation details:</p>
-<ul>
 <li>插入新数据要有主键</li>
 <li>外键要和主键对应</li>
 <li>不能超过规定长度</li>
 <li>变量名字不能错误</li>
-</ul>
-</li>
-<li><p>Datatypes:</p>
-<ul>
-<li>INT - integers</li>
-<li>FLOAT - decimal numbers</li>
-<li>CHAR(x) - x is an integer, fixed length string 必须填满5个字符</li>
-<li>VARCHAR(x) - x is an integer, variable length storing 最多五个字符</li>
-<li>DATE - dates<ul>
-<li>Format YYYY-MM-DD</li>
-</ul>
-</li>
-<li>DATETIME - for time and dates<ul>
-<li>Format YYYY-MM-DD HH:MI:SS</li>
-</ul>
-</li>
-<li>XML - for XML files</li>
-<li>BLOB - binary files(e.g. programs)</li>
-<li>“–” is used to denote comments</li>
-</ul>
-</li>
 </ul>
 <hr>
 <h1 id="Lce-5-SQL-qureries-required-part"><a href="#Lce-5-SQL-qureries-required-part" class="headerlink" title="Lce-5 SQL qureries - required part"></a>Lce-5 SQL qureries - required part</h1><h2 id="SQL-Queries"><a href="#SQL-Queries" class="headerlink" title="SQL Queries:"></a>SQL Queries:</h2><p><strong>Queries in SQL have the following form:</strong></p>
@@ -428,7 +2034,7 @@
 <p><img src="https://pic.imgdb.cn/item/6171d1f12ab3f51d9152d54a.png" alt="p2"></p>
 </blockquote>
 <hr>
-<p><strong>Natural join</strong></p>
+<p><strong>Natural join</strong><br>U<sub>A</sub> 和 U<sub>B</sub> 的并集</p>
 <blockquote>
 <p><img src="https://pic.imgdb.cn/item/6171d3332ab3f51d91534047.png" alt="p1"><br><img src="https://pic.imgdb.cn/item/6171d34c2ab3f51d91534808.png" alt="p2"><br><img src="https://pic.imgdb.cn/item/6171d3b42ab3f51d915365d1.png" alt="p3"><br><img src="https://pic.imgdb.cn/item/6171d3e42ab3f51d91537416.png" alt="p4"></p>
 </blockquote>
@@ -465,12 +2071,10 @@
 <p>These are done using <strong>EXISTS</strong>(or <strong>IN</strong>, if there is only one shared attribute)</p>
 <p>The example we saw of <strong>EXISTS</strong> was really a left semi-join of <strong>Student</strong> with <strong>lecturers</strong></p>
 <ul>
-<li><p>We only kept the rows from students that had a matching first and last name as a lecturer, which were their common attributes<br>  <img src="https://pic.imgdb.cn/item/6171db5b2ab3f51d91560de8.png" alt="p1"></p>
-</li>
-<li><p><strong>GROUP BY</strong></p>
-</li>
+<li>We only kept the rows from students that had a matching first and last name as a lecturer, which were their common attributes<br>  <img src="https://pic.imgdb.cn/item/6171db5b2ab3f51d91560de8.png" alt="p1"></li>
 </ul>
-<p>Instead of first discussing how it is used/what it does, I will start by what <strong>GROUP</strong> BY is used for Say I want to know how many transactions Anne(i.e. e_id=1)was part of:<br>    <img src="https://pic.imgdb.cn/item/6171dc672ab3f51d91568b12.png" alt="p1"></p>
+<hr>
+<h3 id="GROUP-BY"><a href="#GROUP-BY" class="headerlink" title="GROUP BY"></a><strong>GROUP BY</strong></h3><p>Instead of first discussing how it is used/what it does, I will start by what <strong>GROUP</strong> BY is used for Say I want to know how many transactions Anne(i.e. e_id=1)was part of:<br>    <img src="https://pic.imgdb.cn/item/6171dc672ab3f51d91568b12.png" alt="p1"></p>
 <p>Say I want to do that for each employee instead of just Anne</p>
 <p>To do that, you just replace <strong>WHERE</strong> with <strong>GROUP BY</strong>(and remove = 1)<br>    <img src="https://pic.imgdb.cn/item/6172bc222ab3f51d9103826e.png" alt="p2"></p>
 <ul>
@@ -486,16 +2090,15 @@
 <p>Do the previous part of the query until GROUP BY (except ignoring the part in SELECT)</p>
 <p>Split the resulting table into sub-tables</p>
 <ul>
-<li><p>1 sub-table for each value of the variables in GROUP BY </p>
-</li>
-<li><p>I.e. if you had say first_nameand e_idlike in the example, you would have a sub-table for each pair of first_nameand e_id. This means, e.g. that if two employees were named Anne, you would have two sub-tables, one for each Anne, defined by their e_id<br><img src="https://pic.imgdb.cn/item/6172c4952ab3f51d910e67b4.png" alt="p1"></p>
-</li>
-<li><p><strong>HAVING</strong><br><img src="https://pic.imgdb.cn/item/6172c62b2ab3f51d91104c70.png" alt="p1"></p>
-</li>
-<li><p><strong>ORDER BY</strong><br><img src="https://pic.imgdb.cn/item/6172c65b2ab3f51d91108c35.png" alt="p1"></p>
-</li>
+<li>1 sub-table for each value of the variables in GROUP BY </li>
+<li>I.e. if you had say first_nameand e_idlike in the example, you would have a sub-table for each pair of first_nameand e_id. This means, e.g. that if two employees were named Anne, you would have two sub-tables, one for each Anne, defined by their e_id<br><img src="https://pic.imgdb.cn/item/6172c4952ab3f51d910e67b4.png" alt="p1"></li>
 </ul>
-<h1 id="Lec7-SQL-Queries"><a href="#Lec7-SQL-Queries" class="headerlink" title="Lec7- SQL Queries"></a>Lec7- SQL Queries</h1><h2 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h2><p>Basically, the same as in math with sets (不允许有重复元素出现)</p>
+<hr>
+<h3 id="HAVING"><a href="#HAVING" class="headerlink" title="HAVING"></a><strong>HAVING</strong></h3><p>在 GROUP BY 之后的 WHERE<br><img src="https://pic.imgdb.cn/item/6172c62b2ab3f51d91104c70.png" alt="p1"></p>
+<hr>
+<h3 id="ORDER-BY"><a href="#ORDER-BY" class="headerlink" title="ORDER BY"></a><strong>ORDER BY</strong></h3><p><img src="https://pic.imgdb.cn/item/6172c65b2ab3f51d91108c35.png" alt="p1"></p>
+<h1 id="Lec7-SQL-Queries"><a href="#Lec7-SQL-Queries" class="headerlink" title="Lec7- SQL Queries"></a>Lec7- SQL Queries</h1><h2 id="UNION"><a href="#UNION" class="headerlink" title="UNION"></a>UNION</h2><p>取并集</p>
+<p>合并的名字要一直<br>Basically, the same as in math with sets (不允许有重复元素出现)</p>
 <p>You can also view is as putting one list after another</p>
 <p>Say we have an Employees table<br>We want a list of names i.e. both first and family name</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">SELECT first_name as name</span><br><span class="line">FROM Employees</span><br><span class="line">UNION</span><br><span class="line">SELECT family_name</span><br><span class="line">FROM Employees;</span><br></pre></td></tr></table></figure>
@@ -536,7 +2139,7 @@
 </li>
 </ul>
 <h2 id="Projectin-pi"><a href="#Projectin-pi" class="headerlink" title="Projectin($\pi$)"></a>Projectin($\pi$)</h2><p>将R限制为属性列表中的属性(sets)<br><img src="https://pic.imgdb.cn/item/6175aa812ab3f51d9180246f.png" alt="p1"></p>
-<h2 id="Renaming-rh0"><a href="#Renaming-rh0" class="headerlink" title="Renaming($\rh0$)"></a>Renaming($\rh0$)</h2><p><img src="https://pic.imgdb.cn/item/6175aad02ab3f51d91804d98.png" alt="p1"></p>
+<h2 id="Renaming-rho"><a href="#Renaming-rho" class="headerlink" title="Renaming($\rho$)"></a>Renaming($\rho$)</h2><p><img src="https://pic.imgdb.cn/item/6175aad02ab3f51d91804d98.png" alt="p1"></p>
 <h2 id="Selection-sigma"><a href="#Selection-sigma" class="headerlink" title="Selection($\sigma$)"></a>Selection($\sigma$)</h2><p>所有符合条件的束<br><img src="https://pic.imgdb.cn/item/6175ab9c2ab3f51d9180bcc9.png" alt="p1"></p>
 <h2 id="Cartesian-Product-chi"><a href="#Cartesian-Product-chi" class="headerlink" title="Cartesian Product($\chi$)"></a>Cartesian Product($\chi$)</h2><p><img src="https://pic.imgdb.cn/item/6175ac912ab3f51d918126aa.png" alt="p1"></p>
 <h2 id="Natural-Join"><a href="#Natural-Join" class="headerlink" title="Natural Join"></a>Natural Join</h2><p><img src="https://pic.imgdb.cn/item/6175ad4d2ab3f51d918181c7.png" alt="p1"></p>
@@ -956,6 +2559,79 @@ print(a.cumsum(axis = 1))</li>
 </ul>
 </li>
 </ul>
+<h1 id="Lec-9-Decision-Tree-Learning"><a href="#Lec-9-Decision-Tree-Learning" class="headerlink" title="Lec-9 Decision Tree Learning"></a>Lec-9 Decision Tree Learning</h1><h2 id="Topic-1"><a href="#Topic-1" class="headerlink" title="Topic:"></a>Topic:</h2><ul>
+<li>Stopping criteria of decision trees</li>
+<li>Accuracy of decision trees</li>
+<li>Pruning and validartion dataset</li>
+<li>Overfitting</li>
+</ul>
+<h2 id="Stopping-criteria"><a href="#Stopping-criteria" class="headerlink" title="Stopping criteria"></a>Stopping criteria</h2><ul>
+<li>We should form a leaf when<ul>
+<li>all of the given subset of instances qre of the same class</li>
+<li>we’ve exhausted all of the candidate splits</li>
+</ul>
+</li>
+</ul>
+<h2 id="Accuracy-of-Decision-Tree"><a href="#Accuracy-of-Decision-Tree" class="headerlink" title="Accuracy of Decision Tree"></a>Accuracy of Decision Tree</h2><p><strong>Definition of Accuracy and Error</strong></p>
+<ul>
+<li><p>Given a set D of samples and a trained model M, the accuracy is the precentage of correctly labeled samples </p>
+<pre><code>  Accurarcy(D,M) = |&#123;M(x) = l&lt;sub&gt;x&lt;/sub&gt; | x $\in$ D&#125;| / |D|
+</code></pre>
+<p>  Where l<sub>x</sub> is the true label of sample X and M(x) gives the predicted label of x by M</p>
+</li>
+<li><p>Error is a dual concept of accuracy</p>
+<pre><code>  Error(D,M) = 1 - Accuracy(D,M)
+</code></pre>
+</li>
+</ul>
+<h3 id="Assess-the-accuracy-of-a-tree"><a href="#Assess-the-accuracy-of-a-tree" class="headerlink" title="Assess the accuracy of a tree"></a>Assess the accuracy of a tree</h3><ul>
+<li><p>Can we just calculate the fraction of <strong>training</strong> instances that are correctly classified</p>
+</li>
+<li><p>Consider a problem domain in which instances are assigned labels at random with P(Y = t) = 0.5</p>
+<ul>
+<li>how accurate would a learned decision tree be on previously unseen instances?<ul>
+<li>Can never reach 1.0</li>
+</ul>
+</li>
+<li>how accurate would it be on its training set?<ul>
+<li>Can be arbitrarily close to, or reach, 1.0 if model can be very large</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>to get an unbiased estimate of a learned model’s accuracy, we must use a set of instances that are held-aside during learning</p>
+</li>
+<li><p>this is called a <strong>test</strong> <strong>set</strong><br>  <img src="https://pic.imgdb.cn/item/619595cc2ab3f51d91d6eb44.png"></p>
+</li>
+</ul>
+<h2 id="Pruning-and-Validation-Dataset"><a href="#Pruning-and-Validation-Dataset" class="headerlink" title="Pruning and Validation Dataset"></a>Pruning and Validation Dataset</h2><h3 id="Stopping-ctriteria"><a href="#Stopping-ctriteria" class="headerlink" title="Stopping ctriteria"></a>Stopping ctriteria</h3><ul>
+<li>We should form a leaf when<ul>
+<li>all of the given subset o f instances are of the same class</li>
+<li>we’ve exhausted all of the candidate splits</li>
+</ul>
+</li>
+<li>Is there a reanson to stop eariler, or to prune back the tree?</li>
+</ul>
+<p>Pruning in C4.5</p>
+<ul>
+<li>split given datainto training and <em>validation</em>(tuning) sets</li>
+<li>a validation set(a.k.a. tuning set) is a subset of the training set that is held aside<ul>
+<li>not used for primary training process(e.g. tree growing)</li>
+<li>but used to select among models(e.g. trees pruned to varying degrees)</li>
+</ul>
+</li>
+<li>Grow a complete tree</li>
+<li>do until further pruning is harmful<ul>
+<li>evaluate impact on tuning-set accuracy of pruning each node</li>
+<li>greedily remove the one that least reduces tuning-set accuracy</li>
+</ul>
+</li>
+</ul>
+<h2 id="Overfitting"><a href="#Overfitting" class="headerlink" title="Overfitting"></a>Overfitting</h2><h3 id="Example-regresion-using-polynomial"><a href="#Example-regresion-using-polynomial" class="headerlink" title="Example: regresion using polynomial"></a>Example: regresion using polynomial</h3><p><img src="https://pic.imgdb.cn/item/619598ab2ab3f51d91d8502b.png"></p>
+<p><img src="https://pic.imgdb.cn/item/619598dd2ab3f51d91d86747.png"></p>
+<p><img src="https://pic.imgdb.cn/item/619598fc2ab3f51d91d87103.png"></p>
+<p><img src="https://pic.imgdb.cn/item/619599282ab3f51d91d8889a.png"></p>
+<p><img src="https://pic.imgdb.cn/item/619599482ab3f51d91d89a08.png"></p>
 
       
 
@@ -1009,460 +2685,9 @@ print(a.cumsum(axis = 1))</li>
 
 
   
-    <article id="post-COMP201" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/09/27/COMP201/">COMP201</a>
-    </h1>
-  
-
-        
-        <a href="/2021/09/27/COMP201/" class="archive-article-date">
-  	<time datetime="2021-09-27T13:38:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Lecture-1"><a href="#Lecture-1" class="headerlink" title="Lecture 1"></a>Lecture 1</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p><strong>General Introducton</strong></p>
-<hr>
-<h2 id="Lecture-2"><a href="#Lecture-2" class="headerlink" title="Lecture 2"></a>Lecture 2</h2><ul>
-<li><p>   本节主要介绍 程序设计的步骤和软件周期 </p>
-</li>
-<li><p>   同时引进了四种软件设计模型    <em><strong>落水式开发， 演化式开发， 敏捷开发， 增量开发</strong></em>       </p>
-</li>
-</ul>
-<blockquote>
-<p>Process</p>
-<blockquote>
-<ul>
-<li>Major activities</li>
-<li>Intermediate and final products</li>
-<li>Sub-processes and has entry and exit criteria</li>
-<li>Organized in a sequence</li>
-</ul>
-</blockquote>
-</blockquote>
-<h3 id="Process-Building-development"><a href="#Process-Building-development" class="headerlink" title="Process Building development"></a><em><strong>Process Building development</strong></em></h3><p><img src="" alt="alt p1"></p>
-<ul>
-<li>lec2 p8</li>
-</ul>
-<h3 id="Software-life-cycle"><a href="#Software-life-cycle" class="headerlink" title="Software life cycle"></a><em><strong>Software life cycle</strong></em></h3><blockquote>
-<ul>
-<li><strong>Sepcifying</strong></li>
-<li><strong>Designing</strong></li>
-<li><strong>Implementing</strong></li>
-<li><strong>Testing Software System</strong></li>
-</ul>
-</blockquote>
-<h3 id="Software-Process-Models"><a href="#Software-Process-Models" class="headerlink" title="Software Process Models"></a><em><strong>Software Process Models</strong></em></h3><blockquote>
-<ul>
-<li><strong>The Water fall model</strong></li>
-<li><strong>Evolutionary Development</strong></li>
-<li><strong>Agile and Scrum</strong></li>
-</ul>
-</blockquote>
-<h3 id="The-Water-fall-model"><a href="#The-Water-fall-model" class="headerlink" title="+ The Water fall model*"></a>+ <strong>The Water fall model</strong>*</h3><p><img src="" alt="alt p2"><br>lec2-p12</p>
-<ul>
-<li><em>Waterfall Model Problems</em><ul>
-<li><em>Inflexible partitioning</em> of the project into distinct stages </li>
-<li>difficult to respond to changing customer requirements</li>
-<li>onky apply for requirements which are <em>well-understood</em></li>
-<li><em>describes a process of stepwise refinement</em><ul>
-<li>Based on hardware engineering models</li>
-<li>Widely used in military and aerospace industries</li>
-</ul>
-</li>
-<li><em>Reality check</em></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p><em>Evolutionary Development</em></p>
-<ul>
-<li>On idea of developing an <strong>initial implementation</strong></li>
-<li><em><strong>Exploratory development</strong></em><ul>
-<li>Objective is to worl with CUSTOMEERS &lt;=&gt; evolve a final system from an initial outline specification</li>
-<li>Start with <strong>well-understood requirements</strong></li>
-<li>System evolves by adding newe features as they are proposed by customer.</li>
-</ul>
-</li>
-<li><em>Problem</em><ul>
-<li>Lack of <strong>process visibility</strong></li>
-<li>System are sometimes <em><strong>poorly structured</strong></em></li>
-</ul>
-</li>
-<li>Applicability<ul>
-<li>All types of system but rare in safety critical</li>
-</ul>
-</li>
-<li>Reality check<ul>
-<li>所有现代开发都采用这种方式但是是混合的形式</li>
-<li>大多数情况下规范在最开始进行， 后续进行补全</li>
-<li>周期先确定100个功能 后续分部分完成<br><img src="" alt="alt p3"><br>lec2-p16</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><em>Agile development</em> 轻量化 便捷 可以自己维护</p>
-<ul>
-<li>Lightweight approach to software development 轻量级软件开发</li>
-<li>Focused on<ul>
-<li>Code development as code activity</li>
-<li>Test driven development </li>
-<li>Often use pair proframming</li>
-<li>Iterative decelopment</li>
-<li>Self organised teams</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p><em>Increment Development</em></p>
-<ul>
-<li>broken down into increments =&gt; 每一片实现一个需求功能</li>
-<li><strong>User requirements are prioritised</strong></li>
-<li><strong>Once the development of an increment is started, the requirements are frozen</strong></li>
-<li><em>advantages</em><ul>
-<li><strong>Customer value</strong> =&gt; increment =&gt; system functionality is available earlier</li>
-<li><strong>Early increments</strong> =&gt; prototype =&gt; elicit requirements for later increments</li>
-<li><strong>Lower risk of overall project failure</strong></li>
-<li><strong>The highest priotity system services</strong> tend to receive the most testing</li>
-</ul>
-</li>
-<li>In reality<ul>
-<li>Most software processes involve<ul>
-<li>Prototyping</li>
-<li>Iterative building</li>
-</ul>
-</li>
-<li>why<ul>
-<li>降低程序开发风险</li>
-<li>允许软件经受更多测试</li>
-<li>随着程序开发建设库存损失机会</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<h2 id="Lecture-3"><a href="#Lecture-3" class="headerlink" title="Lecture 3"></a>Lecture 3</h2><p><strong>This lecture</strong></p>
-<ul>
-<li>Requirements engineering and specification</li>
-<li>Software design</li>
-<li>Programming, testing and debugging</li>
-<li>Software Evolution</li>
-</ul>
-<h3 id="software-Specification"><a href="#software-Specification" class="headerlink" title="software Specification"></a><strong>software Specification</strong></h3><ul>
-<li><em>The process of establishing</em> =&gt; 确定需要哪些服务以及系统运行和开发的约束条件</li>
-<li>Requirements Engineering Process<ul>
-<li>Feasibility study</li>
-<li>Requirements elicitation and analysis</li>
-<li>Requirements specification </li>
-<li>Requirements validation</li>
-</ul>
-</li>
-</ul>
-<p><em><strong>The Requirements Engineering Process</strong></em><br><img src="" alt="alt p2"><br>lec3-p4<br><strong>由此我们总结出程序设计的设计分类和设计思想</strong></p>
-<blockquote>
-<p>Design</p>
-<blockquote>
-<ul>
-<li>Architechtural design</li>
-<li>Abstract Specification</li>
-<li>Interface design</li>
-<li>Component design</li>
-<li>Data Structure Design</li>
-<li>Algorithm</li>
-</ul>
-</blockquote>
-</blockquote>
-<ul>
-<li><em>Example System</em><ul>
-<li>Coffee machine</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>Method<br>Systematic approaches to developing a software design</p>
-<blockquote>
-<ul>
-<li>Data-flow model</li>
-<li>Entity-realtion-attribute model</li>
-<li>Structural model</li>
-<li>Object models</li>
-<li>A state transition model showing system states and triggers</li>
-</ul>
-</blockquote>
-</blockquote>
-<p><em><strong>Programming and Debugging</strong></em></p>
-<blockquote>
-<ul>
-<li>design =&gt; program &amp; removing errors</li>
-<li>Programming is usually personal activity</li>
-<li>Programmers carry out some program testing</li>
-</ul>
-</blockquote>
-<p><em><strong>The testing Process</strong></em><br><img src="" alt="alt p5"><br>Lec3-p13</p>
-<p><em><strong>Testing Stages</strong></em></p>
-<ul>
-<li><strong>Unit testing</strong></li>
-<li><strong>Module testing</strong><ul>
-<li>Related collections of dependent components are tested</li>
-</ul>
-</li>
-<li><strong>Sub-system testing(merges with system testing)</strong><ul>
-<li>Modules are integrated into sub-systems and tested. The focus here should be on interface testing</li>
-</ul>
-</li>
-<li><strong>System testing</strong><ul>
-<li>Testing of the system as whole. Testin of emergent properties</li>
-</ul>
-</li>
-<li><strong>Acceptance testing</strong><ul>
-<li>Testing with customer data to check that it is acceptable</li>
-</ul>
-</li>
-</ul>
-<p><em><strong>Testing mapped to OO progtamming</strong></em></p>
-<ul>
-<li><strong>Unit testing</strong><ul>
-<li>Testing an individual classes methods</li>
-</ul>
-</li>
-<li><strong>Module testing</strong><ul>
-<li>Testing classes which integrate with other classes</li>
-</ul>
-</li>
-<li><strong>Sub-system testing</strong><ul>
-<li>A number of classes tested which produce a given service</li>
-<li>Organised as package or JAR library</li>
-</ul>
-</li>
-<li><strong>System Test</strong><ul>
-<li>Test whole system</li>
-</ul>
-</li>
-</ul>
-<hr>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">learn</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/09/27/COMP201/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-My-first-blog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2021/08/11/My-first-blog/">Hexo 博客的基础部署</a>
-    </h1>
-  
-
-        
-        <a href="/2021/08/11/My-first-blog/" class="archive-article-date">
-  	<time datetime="2021-08-11T05:05:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="About："><a href="#About：" class="headerlink" title="About："></a>About：</h1><p>这是一个关于用Hexo来搭建个人博客的过程。第一篇文章用来记录学习的过程。</p>
-<h1 id="搭建过程"><a href="#搭建过程" class="headerlink" title="搭建过程"></a>搭建过程</h1><hr>
-<h2 id="需要的软件"><a href="#需要的软件" class="headerlink" title="需要的软件"></a>需要的软件</h2><p><a target="_blank" rel="noopener" href="https://nodejs.org/en/">Node.js</a><br><a target="_blank" rel="noopener" href="http://git-scm.com/">Git</a></p>
-<hr>
-<h2 id="安装前提"><a href="#安装前提" class="headerlink" title="安装前提"></a>安装前提</h2><p>1.<strong>Node.js</strong><br>Node.js 为大多数平台提供了官方的 安装程序。对于中国大陆地区用户，可以前往 淘宝 Node.js 镜像 下载。</p>
-<p>其它的安装方法：<br>    - Windows：通过 nvs（推荐）或者 nvm 安装。<br>    - Node.js 版本需不低于 10.13，建议使用 Node.js 12.0 及以上版本<br>    - Mac：使用 Homebrew 或 MacPorts 安装。<br>    - Linux（DEB/RPM-based）：从 NodeSource 安装。<br>    - 其它：使用相应的软件包管理器进行安装，可以参考由 Node.js 提供的 指导。对于 Mac 和 Linux 同样建议使用 nvs 或者 nvm，以避免可能会出现的权限问题。</p>
-<hr>
-<p>2.<strong>Git</strong><br>    - Windows：下载并安装 git.<br>    - Mac：使用 Homebrew, MacPorts 或者下载 安装程序.<br>    - Linux (Ubuntu, Debian)：sudo apt-get install git-core<br>    - Linux (Fedora, Red Hat, CentOS)：sudo yum install git-core</p>
-<blockquote>
-<p><strong>Mac用户</strong><br>如果在编译时可能会遇到问题，请先到 App Store 安装 Xcode，Xcode 完成后，启动并进入 Preferences -&gt; Download -&gt; Command Line Tools -&gt; Install 安装命令行工具。<br><strong>Windows用户</strong><br>对于中国大陆地区用户，可以前往 淘宝 Git for Windows 镜像 下载 git 安装包。</p>
-</blockquote>
-<hr>
-<p>3.Hexo<br>所有必备的应用程序安装完成后，即可使用 npm 安装 Hexo。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-<h2 id="Node-js-版本限制"><a href="#Node-js-版本限制" class="headerlink" title="Node.js 版本限制"></a>Node.js 版本限制</h2><p>强烈建议永远安装最新版本的 Hexo，以及 推荐的 Node.js 版本。<br>|Hexo version|Node.js version|<br>|:—|—-|<br>|5.0+|10.13.0+|</p>
-<table>
-<thead>
-<tr>
-<th align="left">Hexo version</th>
-<th>Node.js version</th>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">5.0+</td>
-<td>10.13.0+</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">explore</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2021/08/11/My-first-blog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1474,7 +2699,7 @@ print(a.cumsum(axis = 1))</li>
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2021 Sha Toshiki
+    		&copy; 2022 Sha Toshiki
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1566,6 +2791,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">explore</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">execrise</a>
               </li>
             
             <div class="clearfix"></div>
