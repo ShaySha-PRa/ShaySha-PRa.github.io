@@ -1,0 +1,224 @@
+---
+import { Picture as Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../../lib/i18n';
+
+type JournalPhoto = CollectionEntry<'journal'>['data']['photos'][number];
+
+interface Props {
+  photos: JournalPhoto[];
+  locale: Locale;
+}
+
+const { photos, locale } = Astro.props;
+const labels =
+  locale === 'zh'
+    ? {
+        title: '照片查看器',
+        close: '关闭照片查看器',
+        previous: '上一张照片',
+        next: '下一张照片',
+      }
+    : {
+        title: 'Photo viewer',
+        close: 'Close photo viewer',
+        previous: 'Previous photo',
+        next: 'Next photo',
+      };
+---
+
+<dialog class="lightbox" data-lightbox aria-labelledby="lightbox-heading">
+  <div class="lightbox__surface">
+    <h2 id="lightbox-heading" class="lightbox__title">{labels.title}</h2>
+    <button class="lightbox__close" type="button" data-lightbox-close>
+      {labels.close}
+    </button>
+    <div class="lightbox__slides">
+      {
+        photos.map((photo, index) => (
+          <figure data-lightbox-slide hidden={index !== 0}>
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              widths={[480, 960, 1440]}
+              formats={['avif', 'webp']}
+              sizes="(max-width: 48rem) 92vw, 80rem"
+            />
+            {photo.caption && <figcaption>{photo.caption}</figcaption>}
+          </figure>
+        ))
+      }
+    </div>
+    <nav class="lightbox__controls" aria-label={labels.title}>
+      <button type="button" data-lightbox-previous disabled={photos.length < 2}>
+        {labels.previous}
+      </button>
+      <button type="button" data-lightbox-next disabled={photos.length < 2}>
+        {labels.next}
+      </button>
+    </nav>
+  </div>
+</dialog>
+
+<script is:inline type="module">
+  const dialog = document.querySelector('[data-lightbox]');
+  if (dialog instanceof HTMLDialogElement) {
+    const triggers = Array.from(
+      document.querySelectorAll('[data-photo-trigger]'),
+    );
+    const slides = Array.from(dialog.querySelectorAll('[data-lightbox-slide]'));
+    const closeButton = dialog.querySelector('[data-lightbox-close]');
+    const previousButton = dialog.querySelector('[data-lightbox-previous]');
+    const nextButton = dialog.querySelector('[data-lightbox-next]');
+    let currentIndex = 0;
+    let trigger = null;
+
+    function showSlide(index) {
+      if (slides.length === 0) return;
+      currentIndex = (index + slides.length) % slides.length;
+      slides.forEach((slide, slideIndex) => {
+        slide.hidden = slideIndex !== currentIndex;
+      });
+    }
+
+    function openLightbox(button) {
+      trigger = button;
+      showSlide(Number(button.dataset.photoIndex) || 0);
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+      closeButton?.focus();
+    }
+
+    function closeLightbox() {
+      if (dialog.open) dialog.close();
+      if (trigger instanceof HTMLElement) trigger.focus();
+      trigger = null;
+    }
+
+    triggers.forEach((button) => {
+      if (button instanceof HTMLElement) {
+        button.addEventListener('click', () => openLightbox(button));
+      }
+    });
+    closeButton?.addEventListener('click', closeLightbox);
+    previousButton?.addEventListener('click', () =>
+      showSlide(currentIndex - 1),
+    );
+    nextButton?.addEventListener('click', () => showSlide(currentIndex + 1));
+
+    dialog.addEventListener('cancel', (event) => {
+      event.preventDefault();
+      closeLightbox();
+    });
+    dialog.addEventListener('close', () => {
+      if (trigger instanceof HTMLElement) trigger.focus();
+      trigger = null;
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!dialog.open) return;
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        showSlide(currentIndex - 1);
+      } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        showSlide(currentIndex + 1);
+      }
+    });
+  }
+</script>
+
+<style>
+  .lightbox {
+    width: min(92vw, 84rem);
+    max-width: none;
+    padding: 0;
+    border: 1px solid var(--sand);
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  .lightbox::backdrop {
+    background: rgb(23 23 23 / 78%);
+  }
+
+  .lightbox__surface {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1rem, 3vw, 2rem);
+  }
+
+  .lightbox__title {
+    margin: 0;
+    font-size: 1.25rem;
+  }
+
+  .lightbox__close,
+  .lightbox__controls button {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.85rem;
+    border: 1px solid var(--ink);
+    color: var(--ink);
+    background: var(--paper);
+    font: inherit;
+    cursor: pointer;
+  }
+
+  .lightbox__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .lightbox__slides figure {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+
+  .lightbox__slides figure[hidden] {
+    display: none;
+  }
+
+  .lightbox__slides :global(img) {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 72vh;
+    margin-inline: auto;
+    object-fit: contain;
+  }
+
+  .lightbox__slides figcaption {
+    color: var(--muted);
+    text-align: center;
+  }
+
+  .lightbox__controls {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .lightbox__controls button:disabled {
+    cursor: default;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 48rem) {
+    .lightbox__close {
+      top: 0.75rem;
+      right: 0.75rem;
+    }
+
+    .lightbox__title {
+      padding-right: 7rem;
+    }
+  }
+</style>

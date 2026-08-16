@@ -1,0 +1,131 @@
+---
+import { Picture as Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../../lib/i18n';
+
+type JournalRecord = CollectionEntry<'journal'>['data'] & {
+  id: string;
+  entry: CollectionEntry<'journal'>;
+};
+
+interface Props {
+  journal: JournalRecord;
+  requestedLocale: Locale;
+  fallback: boolean;
+}
+
+const { journal, requestedLocale, fallback } = Astro.props;
+const detailPath = `${requestedLocale === 'en' ? '/en' : ''}/journal/${journal.slug}/`;
+const date = journal.date.toISOString().slice(0, 10);
+const labels =
+  requestedLocale === 'zh'
+    ? { tags: '标签', photos: '张照片' }
+    : { tags: 'Tags', photos: 'photos' };
+---
+
+<article class="journal-card" data-journal-card>
+  <a
+    class="journal-card__cover"
+    href={detailPath}
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <Image
+      src={journal.cover}
+      alt=""
+      widths={[480, 960, 1440]}
+      formats={['avif', 'webp']}
+      sizes="(max-width: 48rem) 100vw, 50vw"
+    />
+  </a>
+  <div class="journal-card__body">
+    <p class="journal-card__meta">
+      <time datetime={journal.date.toISOString()}>{date}</time>
+      <span aria-hidden="true"> · </span>
+      <span>{journal.photos.length} {labels.photos}</span>
+    </p>
+    <h2><a href={detailPath}>{journal.title}</a></h2>
+    <p class="journal-card__summary">{journal.summary}</p>
+    {
+      journal.tags.length > 0 && (
+        <ul class="journal-card__tags" aria-label={labels.tags}>
+          {journal.tags.map((tag) => (
+            <li>{tag}</li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      fallback && (
+        <p class="journal-card__fallback" data-translation-fallback>
+          {requestedLocale === 'en'
+            ? 'English version in preparation · 中文内容暂代'
+            : '英文版准备中 · English version in preparation'}
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .journal-card {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--sand);
+    background: color-mix(in srgb, var(--paper) 78%, white);
+  }
+
+  .journal-card__cover {
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid var(--sand);
+    background: var(--paper);
+  }
+
+  .journal-card__cover :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .journal-card__body {
+    padding: 1.25rem;
+  }
+
+  .journal-card__meta {
+    margin: 0 0 0.65rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .journal-card h2 {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.3vw, 2rem);
+  }
+
+  .journal-card__summary {
+    color: var(--muted);
+  }
+
+  .journal-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .journal-card__tags li {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--sand);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .journal-card__fallback {
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>

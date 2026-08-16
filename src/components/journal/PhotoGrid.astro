@@ -1,0 +1,103 @@
+---
+import { Picture as Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../../lib/i18n';
+import Lightbox from './Lightbox.astro';
+
+type JournalPhoto = CollectionEntry<'journal'>['data']['photos'][number];
+
+interface Props {
+  photos: JournalPhoto[];
+  locale: Locale;
+}
+
+const { photos, locale } = Astro.props;
+---
+
+<section class="photo-gallery" aria-labelledby="photo-gallery-heading">
+  <h2 id="photo-gallery-heading">
+    {locale === 'zh' ? '照片' : 'Photographs'}
+  </h2>
+  <div class="photo-grid" data-photo-grid>
+    {
+      photos.map((photo, index) => (
+        <figure class="photo-grid__item">
+          <button
+            class="photo-grid__button"
+            type="button"
+            data-photo-trigger
+            data-photo-index={index}
+            aria-label={
+              locale === 'zh'
+                ? `在大图查看器中查看第 ${index + 1} 张照片`
+                : `View photo ${index + 1} in the lightbox`
+            }
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              width={photo.src.width}
+              height={photo.src.height}
+              widths={[480, 960, 1440]}
+              formats={['avif', 'webp']}
+              sizes="(max-width: 48rem) 100vw, 50vw"
+              loading={index === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+            />
+          </button>
+          {photo.caption && <figcaption>{photo.caption}</figcaption>}
+        </figure>
+      ))
+    }
+  </div>
+</section>
+
+<Lightbox photos={photos} locale={locale} />
+
+<style>
+  .photo-gallery {
+    margin-top: 4rem;
+  }
+
+  .photo-gallery h2 {
+    margin-block: 0 1.5rem;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .photo-grid__item {
+    margin: 0;
+  }
+
+  .photo-grid__button {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 1px solid var(--sand);
+    background: var(--paper);
+    cursor: zoom-in;
+  }
+
+  .photo-grid__button :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .photo-grid figcaption {
+    margin-top: 0.5rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  @media (max-width: 48rem) {
+    .photo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

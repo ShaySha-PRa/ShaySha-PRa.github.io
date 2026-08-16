@@ -1,0 +1,138 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PhotoGrid from '../../../components/journal/PhotoGrid.astro';
+import { getLocalizedCollection } from '../../../lib/content';
+
+type JournalSelection = Awaited<
+  ReturnType<typeof getLocalizedCollection<'journal'>>
+>[number];
+
+export async function getStaticPaths() {
+  const journals = await getLocalizedCollection('journal', 'en');
+  return journals.map((selection) => ({
+    params: { slug: selection.entry.slug },
+    props: selection,
+  }));
+}
+
+const selection = Astro.props as JournalSelection;
+const journal = selection.entry.entry as CollectionEntry<'journal'>;
+const { Content } = await render(journal);
+const date = journal.data.date.toISOString().slice(0, 10);
+---
+
+<BaseLayout
+  locale="en"
+  title={`${journal.data.title} · Junshu Sha`}
+  description={journal.data.summary}
+  canonicalPath={`/en/journal/${journal.data.slug}/`}
+  translationPath={`/journal/${journal.data.slug}/`}
+  fallback={selection.isFallback}
+  type="article"
+>
+  <article class="journal-detail shell">
+    <a class="journal-detail__back" href="/en/journal/">← Back to the journal</a
+    >
+    <header class="journal-detail__header">
+      <p class="journal-detail__eyebrow">Photography &amp; life</p>
+      <h1>{journal.data.title}</h1>
+      <p class="journal-detail__summary">{journal.data.summary}</p>
+      <dl class="journal-detail__meta">
+        <div>
+          <dt>Date</dt>
+          <dd>
+            <time datetime={journal.data.date.toISOString()}>{date}</time>
+          </dd>
+        </div>
+        {
+          journal.data.place && (
+            <div>
+              <dt>Place</dt>
+              <dd>{journal.data.place}</dd>
+            </div>
+          )
+        }
+        {
+          journal.data.camera && (
+            <div>
+              <dt>Camera</dt>
+              <dd>{journal.data.camera}</dd>
+            </div>
+          )
+        }
+      </dl>
+    </header>
+    <div class="journal-detail__body prose"><Content /></div>
+    <PhotoGrid photos={journal.data.photos} locale="en" />
+  </article>
+</BaseLayout>
+
+<style>
+  .journal-detail {
+    padding-block: 3rem 1rem;
+  }
+
+  .journal-detail__back {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .journal-detail__header {
+    max-width: 60rem;
+    margin-top: 2rem;
+  }
+
+  .journal-detail__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .journal-detail h1 {
+    max-width: 50rem;
+    margin: 0;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+  }
+
+  .journal-detail__summary {
+    max-width: 46rem;
+    margin: 1.25rem 0 2rem;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+  }
+
+  .journal-detail__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin: 0;
+    padding-block: 1rem;
+    border-block: 1px solid var(--sand);
+  }
+
+  .journal-detail__meta dt {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .journal-detail__meta dd {
+    margin: 0.35rem 0 0;
+  }
+
+  .journal-detail__body {
+    margin-top: 4rem;
+  }
+
+  @media (max-width: 48rem) {
+    .journal-detail {
+      padding-block-start: 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JournalCard from '../../components/cards/JournalCard.astro';
+import { getLocalizedCollection } from '../../lib/content';
+
+const journals = await getLocalizedCollection('journal', 'zh');
+---
+
+<BaseLayout
+  locale="zh"
+  title="影像与生活 · Junshu Sha"
+  description="Junshu Sha 的摄影与生活记录。"
+  canonicalPath="/journal/"
+  translationPath="/en/journal/"
+>
+  <section class="shell journal-index">
+    <header class="journal-index__header">
+      <p class="journal-index__eyebrow">Photography &amp; life</p>
+      <h1>影像与生活</h1>
+      <p>以照片集和生活片段记录值得回看的时刻。</p>
+    </header>
+    {
+      journals.length > 0 ? (
+        <div class="journal-grid" data-journal-list>
+          {journals.map((selection) => (
+            <JournalCard
+              journal={selection.entry}
+              requestedLocale={selection.requestedLocale}
+              fallback={selection.isFallback}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="journal-empty" data-journal-empty role="status">
+          影像记录正在整理中。
+        </p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .journal-index {
+    padding-block: 3rem 1rem;
+  }
+
+  .journal-index__header {
+    max-width: 44rem;
+    margin-bottom: 3rem;
+  }
+
+  .journal-index__eyebrow {
+    margin: 0 0 1rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .journal-index h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+  }
+
+  .journal-index__header > p:last-child {
+    max-width: 38rem;
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+
+  .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .journal-empty {
+    max-width: 42rem;
+    margin: 0;
+    padding: 2rem 1.25rem;
+    border-block: 1px solid var(--sand);
+    color: var(--muted);
+  }
+
+  @media (max-width: 48rem) {
+    .journal-index {
+      padding-block-start: 2rem;
+    }
+
+    .journal-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
