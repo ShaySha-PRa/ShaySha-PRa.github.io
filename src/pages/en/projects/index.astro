@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectCard from '../../../components/cards/ProjectCard.astro';
+import { getLocalizedCollection } from '../../../lib/content';
+
+const projects = await getLocalizedCollection('projects', 'en');
+---
+
+<BaseLayout
+  locale="en"
+  title="Projects · Junshu Sha"
+  description="Six personal software projects and case studies by Junshu Sha."
+  canonicalPath="/en/projects/"
+  translationPath="/projects/"
+>
+  <section class="shell projects-index">
+    <header class="projects-index__header">
+      <p class="projects-index__eyebrow">Selected work / 01—06</p>
+      <h1>Projects</h1>
+      <p>
+        Six personal software projects, with the problem, design, engineering
+        choices, and repository evidence kept in view.
+      </p>
+    </header>
+    <div class="projects-grid">
+      {
+        projects.map((selection) => (
+          <ProjectCard
+            project={selection.entry}
+            requestedLocale={selection.requestedLocale}
+            fallback={selection.isFallback}
+          />
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .projects-index {
+    padding-block: 3rem 1rem;
+  }
+
+  .projects-index__header {
+    max-width: 44rem;
+    margin-bottom: 3rem;
+  }
+
+  .projects-index__eyebrow {
+    margin: 0 0 1rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .projects-index h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+  }
+
+  .projects-index__header > p:last-child {
+    max-width: 38rem;
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .projects-grid :global(.project-card:first-child) {
+    grid-column: span 2;
+  }
+
+  @media (max-width: 48rem) {
+    .projects-index {
+      padding-block-start: 2rem;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .projects-grid :global(.project-card:first-child) {
+      grid-column: auto;
+    }
+  }
+</style>

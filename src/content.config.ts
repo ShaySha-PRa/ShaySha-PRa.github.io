@@ -15,7 +15,12 @@ const localizedBase = z.object({
 });
 
 const projects = defineCollection({
-  loader: glob({ base: './src/content/projects', pattern: '**/*.{md,mdx}' }),
+  loader: glob({
+    base: './src/content/projects',
+    pattern: '**/*.{md,mdx}',
+    generateId: ({ data }) =>
+      `${String(data.locale ?? 'und')}-${String(data.slug ?? '')}`,
+  }),
   schema: ({ image }) =>
     localizedBase.extend({
       status: z.enum(['active', 'completed', 'experiment']),

@@ -1,0 +1,249 @@
+---
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import ProjectMeta from '../components/project/ProjectMeta.astro';
+import type { Locale } from '../lib/i18n';
+import '../styles/prose.css';
+
+interface Props {
+  locale: Locale;
+  project: CollectionEntry<'projects'>;
+  previous?: CollectionEntry<'projects'>;
+  next?: CollectionEntry<'projects'>;
+  fallback?: boolean;
+}
+
+const { locale, project, previous, next, fallback = false } = Astro.props;
+const { Content } = await render(project);
+const detailPrefix = locale === 'en' ? '/en' : '';
+const projectPath = `${detailPrefix}/projects/${project.data.slug}/`;
+const labels =
+  locale === 'zh'
+    ? {
+        back: '返回项目列表',
+        repository: '查看 GitHub 仓库',
+        previous: '上一个项目',
+        next: '下一个项目',
+        gallery: '项目图像',
+      }
+    : {
+        back: 'Back to projects',
+        repository: 'View GitHub repository',
+        previous: 'Previous project',
+        next: 'Next project',
+        gallery: 'Project images',
+      };
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${project.data.title} · Junshu Sha`}
+  description={project.data.summary}
+  canonicalPath={projectPath}
+  image={project.data.cover.src}
+  fallback={fallback}
+  type="article"
+>
+  <article class="project-detail shell">
+    <a class="project-detail__back" href={`${detailPrefix}/projects/`}
+      >← {labels.back}</a
+    >
+    <header class="project-detail__hero">
+      <p class="project-detail__eyebrow">
+        Project / {String(project.data.order).padStart(2, '0')}
+      </p>
+      <h1>{project.data.title}</h1>
+      <p class="project-detail__summary">{project.data.summary}</p>
+      <div class="project-detail__cover">
+        <Image
+          src={project.data.cover}
+          alt={`${project.data.title} cover`}
+          sizes="(max-width: 48rem) 100vw, 72rem"
+          priority
+        />
+      </div>
+      <ProjectMeta project={project.data} locale={locale} />
+      <p class="project-detail__repository">
+        <a href={project.data.repoUrl} rel="external noopener"
+          >{labels.repository} ↗</a
+        >
+      </p>
+    </header>
+
+    <div class="project-detail__body prose">
+      <Content />
+    </div>
+
+    {
+      project.data.gallery.length > 0 && (
+        <section
+          class="project-detail__gallery"
+          aria-labelledby="project-gallery-heading"
+        >
+          <h2 id="project-gallery-heading">{labels.gallery}</h2>
+          <div class="project-detail__gallery-grid">
+            {project.data.gallery.map((image, index) => (
+              <Image
+                src={image}
+                alt={`${project.data.title} ${index + 1}`}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <nav
+      class="project-detail__pager"
+      aria-label={locale === 'zh' ? '项目导航' : 'Project navigation'}
+    >
+      {
+        previous ? (
+          <a href={`${detailPrefix}/projects/${previous.data.slug}/`}>
+            <>
+              <span>{labels.previous}</span>
+              <strong>{previous.data.title}</strong>
+            </>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+      {
+        next ? (
+          <a href={`${detailPrefix}/projects/${next.data.slug}/`}>
+            <>
+              <span>{labels.next}</span>
+              <strong>{next.data.title}</strong>
+            </>
+          </a>
+        ) : (
+          <span />
+        )
+      }
+    </nav>
+  </article>
+</BaseLayout>
+
+<style>
+  .project-detail {
+    padding-block: 3rem 1rem;
+  }
+
+  .project-detail__back {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .project-detail__hero {
+    max-width: 60rem;
+    margin-top: 2rem;
+  }
+
+  .project-detail__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .project-detail h1 {
+    max-width: 50rem;
+    margin: 0;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+  }
+
+  .project-detail__summary {
+    max-width: 46rem;
+    margin: 1.25rem 0 2rem;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+  }
+
+  .project-detail__cover {
+    overflow: hidden;
+    margin-block: 2rem;
+    border: 1px solid var(--sand);
+    background: var(--paper);
+  }
+
+  .project-detail__cover :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .project-detail__repository {
+    margin: 1.25rem 0 0;
+  }
+
+  .project-detail__body {
+    margin-top: 4rem;
+  }
+
+  .project-detail__gallery {
+    max-width: 60rem;
+    margin-top: 4rem;
+  }
+
+  .project-detail__gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .project-detail__gallery-grid :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .project-detail__pager {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 4rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sand);
+  }
+
+  .project-detail__pager a {
+    display: grid;
+    gap: 0.3rem;
+    padding: 0.85rem;
+    border: 1px solid var(--sand);
+    text-decoration: none;
+  }
+
+  .project-detail__pager a:last-child {
+    text-align: end;
+  }
+
+  .project-detail__pager span {
+    color: var(--muted);
+    font-size: 0.8rem;
+  }
+
+  .project-detail__pager strong {
+    font-family: Georgia, 'Noto Serif SC', 'Source Han Serif SC', serif;
+    font-size: 1.15rem;
+  }
+
+  @media (max-width: 48rem) {
+    .project-detail {
+      padding-block-start: 2rem;
+    }
+
+    .project-detail__gallery-grid,
+    .project-detail__pager {
+      grid-template-columns: 1fr;
+    }
+
+    .project-detail__pager a:last-child {
+      text-align: start;
+    }
+  }
+</style>

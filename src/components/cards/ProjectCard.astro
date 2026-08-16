@@ -1,0 +1,128 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../../lib/i18n';
+
+interface Props {
+  project: CollectionEntry<'projects'>['data'] & {
+    id: string;
+    entry: CollectionEntry<'projects'>;
+  };
+  requestedLocale: Locale;
+  fallback: boolean;
+}
+
+const { project, requestedLocale, fallback } = Astro.props;
+const detailPath = `${requestedLocale === 'en' ? '/en' : ''}/projects/${project.slug}/`;
+const statusLabels = {
+  zh: { active: '持续开发中', completed: '已完成', experiment: '实验项目' },
+  en: {
+    active: 'In active development',
+    completed: 'Completed',
+    experiment: 'Experiment',
+  },
+} as const;
+---
+
+<article class="project-card" data-project-card>
+  <div class="project-card__cover">
+    <Image
+      src={project.cover}
+      alt={`${project.title} cover`}
+      sizes="(max-width: 48rem) 100vw, 33vw"
+    />
+  </div>
+  <div class="project-card__body">
+    <p class="project-card__status">
+      {statusLabels[requestedLocale][project.status]}
+    </p>
+    <h2><a href={detailPath}>{project.title}</a></h2>
+    <p>{project.summary}</p>
+    <ul
+      class="project-card__tech"
+      aria-label={requestedLocale === 'zh' ? '技术栈' : 'Technology'}
+    >
+      {project.tech.slice(0, 3).map((item) => <li>{item}</li>)}
+    </ul>
+    {
+      fallback && (
+        <p class="project-card__fallback">
+          {requestedLocale === 'en'
+            ? 'English version in preparation'
+            : '英文版准备中'}
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .project-card {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--sand);
+    background: color-mix(in srgb, var(--paper) 78%, white);
+  }
+
+  .project-card__cover {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-bottom: 1px solid var(--sand);
+    background: var(--paper);
+  }
+
+  .project-card__cover :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .project-card__body {
+    padding: 1.25rem;
+  }
+
+  .project-card__status {
+    margin: 0 0 0.65rem;
+    color: var(--vermilion);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-card h2 {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.3vw, 2rem);
+  }
+
+  .project-card h2 a {
+    text-decoration-thickness: 1px;
+  }
+
+  .project-card__body
+    > p:not(.project-card__status):not(.project-card__fallback) {
+    color: var(--muted);
+  }
+
+  .project-card__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-card__tech li {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--sand);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .project-card__fallback {
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>

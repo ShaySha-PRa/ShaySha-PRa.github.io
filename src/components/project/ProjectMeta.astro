@@ -1,0 +1,94 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../../lib/i18n';
+
+interface Props {
+  project: CollectionEntry<'projects'>['data'];
+  locale: Locale;
+}
+
+const { project, locale } = Astro.props;
+const statusLabels = {
+  zh: { active: '持续开发中', completed: '已完成', experiment: '实验项目' },
+  en: {
+    active: 'In active development',
+    completed: 'Completed',
+    experiment: 'Experiment',
+  },
+} as const;
+const labels =
+  locale === 'zh'
+    ? { status: '状态', role: '角色', tech: '技术栈' }
+    : { status: 'Status', role: 'Role', tech: 'Technology' };
+---
+
+<dl class="project-meta" data-project-meta>
+  <div>
+    <dt>{labels.status}</dt>
+    <dd>{statusLabels[locale][project.status]}</dd>
+  </div>
+  <div>
+    <dt>{labels.role}</dt>
+    <dd>{project.role}</dd>
+  </div>
+  <div>
+    <dt>{labels.tech}</dt>
+    <dd>
+      <ul>
+        {project.tech.map((item) => <li>{item}</li>)}
+      </ul>
+    </dd>
+  </div>
+</dl>
+
+<style>
+  .project-meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 1rem 0;
+    border-block: 1px solid var(--sand);
+  }
+
+  .project-meta dt {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-meta dd {
+    margin: 0.35rem 0 0;
+  }
+
+  .project-meta > div:first-child dd {
+    color: var(--vermilion);
+    font-weight: 700;
+  }
+
+  .project-meta ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-meta li::after {
+    content: ' ·';
+    color: var(--sand);
+  }
+
+  .project-meta li:last-child::after {
+    content: '';
+  }
+
+  @media (max-width: 48rem) {
+    .project-meta {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

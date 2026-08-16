@@ -1,0 +1,37 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import { getLocalizedCollection } from '../../lib/content';
+
+type ProjectSelection = Awaited<
+  ReturnType<typeof getLocalizedCollection<'projects'>>
+>[number];
+
+export async function getStaticPaths() {
+  const projects = await getLocalizedCollection('projects', 'zh');
+  return projects.map((selection) => ({
+    params: { slug: selection.entry.slug },
+    props: selection,
+  }));
+}
+
+const selection = Astro.props as ProjectSelection;
+const projects = await getLocalizedCollection('projects', 'zh');
+const currentIndex = projects.findIndex(
+  (item) => item.entry.id === selection.entry.id,
+);
+const previous =
+  currentIndex > 0 ? projects[currentIndex - 1].entry.entry : undefined;
+const next =
+  currentIndex >= 0 && currentIndex < projects.length - 1
+    ? projects[currentIndex + 1].entry.entry
+    : undefined;
+---
+
+<ProjectLayout
+  locale="zh"
+  project={selection.entry.entry as CollectionEntry<'projects'>}
+  previous={previous}
+  next={next}
+  fallback={selection.isFallback}
+/>
