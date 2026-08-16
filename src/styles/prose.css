@@ -1,0 +1,46 @@
+.prose {
+  max-width: 45rem;
+  color: var(--ink);
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose h2,
+.prose h3 {
+  margin-top: 2.5rem;
+}
+
+.prose p,
+.prose ul,
+.prose ol,
+.prose blockquote {
+  margin-block: 1.25rem;
+}
+
+.prose blockquote {
+  margin-inline: 0;
+  padding-inline: 1rem;
+  border-inline-start: 3px solid var(--vermilion);
+  color: var(--muted);
+}
+
+.prose code {
+  padding: 0.1em 0.25em;
+  background: color-mix(in srgb, var(--sand) 35%, transparent);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 0.9em;
+}
+
+.prose pre {
+  overflow-x: auto;
+  padding: 1rem;
+  color: var(--paper);
+  background: var(--ink);
+}
+
+.prose pre code {
+  padding: 0;
+  background: transparent;
+}

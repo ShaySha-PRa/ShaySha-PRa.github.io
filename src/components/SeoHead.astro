@@ -1,0 +1,35 @@
+---
+import type { HreflangLink } from '../lib/seo';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl: string;
+  alternates: HreflangLink[];
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  alternates,
+  image,
+  type = 'website',
+} = Astro.props;
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+{
+  alternates.map((alternate) => (
+    <link rel="alternate" hreflang={alternate.lang} href={alternate.href} />
+  ))
+}
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:type" content={type} />
+{image && <meta property="og:image" content={image} />}

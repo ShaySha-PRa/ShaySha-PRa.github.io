@@ -1,0 +1,16 @@
+---
+import type { Locale } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  translationPath?: string;
+}
+
+const { locale, translationPath } = Astro.props;
+const href = translationPath ?? (locale === 'zh' ? '/en/' : '/');
+const label = locale === 'zh' ? 'English' : '中文';
+---
+
+<a class="locale-switch" href={href} lang={locale === 'zh' ? 'en' : 'zh-CN'}>
+  {label}
+</a>

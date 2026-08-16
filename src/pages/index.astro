@@ -1,10 +1,16 @@
 ---
-import '../styles/tokens.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../config/site';
 ---
 
-<html lang="zh-CN">
-  <head><title>Junshu Sha</title></head>
-  <body>
-    <main><h1>Building useful systems, collecting curious ideas.</h1></main>
-  </body>
-</html>
+<BaseLayout
+  locale="zh"
+  title="Junshu Sha · 个人空间"
+  description={SITE.descriptions.zh}
+  canonicalPath="/"
+  translationPath="/en/"
+>
+  <div class="shell home-intro">
+    <h1>Building useful systems, collecting curious ideas.</h1>
+  </div>
+</BaseLayout>

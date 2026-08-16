@@ -1,0 +1,83 @@
+---
+import { SITE } from '../config/site';
+import type { Locale } from '../lib/i18n';
+import { buildHreflangLinks } from '../lib/seo';
+import FallbackNotice from '../components/FallbackNotice.astro';
+import SeoHead from '../components/SeoHead.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  canonicalPath: string;
+  translationPath?: string;
+  image?: string;
+  fallback?: boolean;
+  type?: 'website' | 'article';
+}
+
+const {
+  locale,
+  title,
+  description,
+  canonicalPath,
+  translationPath,
+  image,
+  fallback = false,
+  type = 'website',
+} = Astro.props;
+
+function counterpartPath(path: string, currentLocale: Locale): string {
+  if (currentLocale === 'zh') {
+    if (path === '/') return '/en/';
+    return `/en${path.startsWith('/') ? path : `/${path}`}`;
+  }
+
+  if (path === '/en/' || path === '/en') return '/';
+  const withoutPrefix = path.replace(/^\/en(?=\/|$)/, '');
+  return withoutPrefix || '/';
+}
+
+const canonicalUrl = new URL(canonicalPath, SITE.url).href;
+const zhPath =
+  locale === 'zh'
+    ? canonicalPath
+    : (translationPath ?? counterpartPath(canonicalPath, locale));
+const enPath =
+  locale === 'en'
+    ? canonicalPath
+    : (translationPath ?? counterpartPath(canonicalPath, locale));
+const alternates = buildHreflangLinks(new URL(SITE.url), zhPath, enPath);
+const localeTranslationPath =
+  translationPath ?? counterpartPath(canonicalPath, locale);
+---
+
+<!doctype html>
+<html lang={locale === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <SeoHead
+      title={title}
+      description={description}
+      canonicalUrl={canonicalUrl}
+      alternates={alternates}
+      image={image}
+      type={type}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content"
+      >{locale === 'zh' ? '跳转到主要内容' : 'Skip to main content'}</a
+    >
+    <SiteHeader locale={locale} translationPath={localeTranslationPath} />
+    <main id="main-content">
+      {fallback && <FallbackNotice locale={locale} />}
+      <slot />
+    </main>
+    <SiteFooter locale={locale} />
+  </body>
+</html>

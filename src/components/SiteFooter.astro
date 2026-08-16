@@ -1,0 +1,26 @@
+---
+import { SITE } from '../config/site';
+import { localizedPath, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="shell site-footer__inner">
+    <p class="site-footer__label">© {SITE.name}</p>
+    <nav aria-label={locale === 'zh' ? '页脚链接' : 'Footer links'}>
+      <ul class="site-footer__links">
+        <li><a href={SITE.github} rel="me">GitHub</a></li>
+        <li>
+          <a href={localizedPath(locale, 'resume')}
+            >{locale === 'zh' ? '简历' : 'Résumé'}</a
+          >
+        </li>
+      </ul>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,70 @@
+---
+import { SITE } from '../config/site';
+import LocaleSwitch from './LocaleSwitch.astro';
+import type { Locale, Section } from '../lib/i18n';
+import { localizedPath } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+  translationPath?: string;
+}
+
+const { locale, translationPath } = Astro.props;
+const labels = SITE.nav[locale];
+const links: Array<{ key: keyof typeof labels; section: Section }> = [
+  { key: 'home', section: 'home' },
+  { key: 'projects', section: 'projects' },
+  { key: 'writing', section: 'writing' },
+  { key: 'journal', section: 'journal' },
+  { key: 'about', section: 'about' },
+];
+
+const linkItems = links.map(({ key, section }) => ({
+  label: labels[key],
+  href: localizedPath(locale, section),
+}));
+---
+
+<header class="site-header">
+  <div class="shell site-header__inner">
+    <a class="site-brand" href={localizedPath(locale, 'home')}>{SITE.name}</a>
+
+    <nav
+      class="primary-nav"
+      aria-label={locale === 'zh' ? '主导航' : 'Primary'}
+    >
+      <ul>
+        {
+          linkItems.map((item) => (
+            <li>
+              <a href={item.href}>{item.label}</a>
+            </li>
+          ))
+        }
+        <li>
+          <LocaleSwitch locale={locale} translationPath={translationPath} />
+        </li>
+      </ul>
+    </nav>
+
+    <details class="mobile-nav">
+      <summary>{locale === 'zh' ? '打开菜单' : 'Open menu'}</summary>
+      <div class="mobile-nav__panel">
+        <nav aria-label={locale === 'zh' ? '移动端导航' : 'Mobile navigation'}>
+          <ul>
+            {
+              linkItems.map((item) => (
+                <li>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))
+            }
+            <li>
+              <LocaleSwitch locale={locale} translationPath={translationPath} />
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </details>
+  </div>
+</header>

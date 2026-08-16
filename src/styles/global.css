@@ -1,0 +1,176 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color-scheme: light;
+  background: var(--paper);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family:
+    Inter, 'Noto Sans SC', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  line-height: 1.65;
+}
+
+h1,
+h2,
+h3 {
+  font-family: Georgia, 'Noto Serif SC', 'Source Han Serif SC', serif;
+  line-height: 1.1;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--vermilion);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--vermilion);
+}
+
+:focus-visible {
+  outline: 3px solid var(--vermilion);
+  outline-offset: 4px;
+}
+
+.shell {
+  width: min(calc(100% - 2rem), var(--content-max));
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 10;
+  top: 0.75rem;
+  left: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  color: var(--paper);
+  background: var(--ink);
+  transform: translateY(-160%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.site-header {
+  border-bottom: 1px solid var(--sand);
+}
+
+.site-header__inner,
+.site-footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-block: 1.25rem;
+}
+
+.site-brand {
+  font-family: Georgia, 'Noto Serif SC', 'Source Han Serif SC', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.primary-nav ul,
+.site-footer__links,
+.mobile-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.primary-nav a,
+.mobile-nav a,
+.site-footer a {
+  text-decoration: none;
+}
+
+.locale-switch {
+  padding-inline-start: 0.25rem;
+  border-inline-start: 1px solid var(--sand);
+  font-size: 0.9rem;
+}
+
+.mobile-nav {
+  display: none;
+}
+
+.mobile-nav summary {
+  cursor: pointer;
+  color: var(--vermilion);
+  font-weight: 700;
+}
+
+.mobile-nav__panel {
+  padding-block: 0.75rem 1rem;
+}
+
+.mobile-nav__panel ul {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.site-footer {
+  margin-top: 5rem;
+  border-top: 1px solid var(--sand);
+}
+
+.site-footer__inner {
+  align-items: flex-start;
+}
+
+.site-footer__label {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+main {
+  min-height: 50vh;
+}
+
+@media (max-width: 48rem) {
+  .site-header__inner,
+  .site-footer__inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .primary-nav ul {
+    gap: 0.65rem 1rem;
+  }
+
+  .mobile-nav {
+    display: block;
+    width: 100%;
+  }
+
+  .site-footer__links {
+    gap: 0.75rem 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
