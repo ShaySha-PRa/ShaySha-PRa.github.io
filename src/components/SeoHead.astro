@@ -1,5 +1,9 @@
 ---
-import type { HreflangLink } from '../lib/seo';
+import {
+  serializeStructuredData,
+  type HreflangLink,
+  type StructuredData,
+} from '../lib/seo';
 
 interface Props {
   title: string;
@@ -8,6 +12,7 @@ interface Props {
   alternates: HreflangLink[];
   image?: string;
   type?: 'website' | 'article';
+  structuredData?: StructuredData;
 }
 
 const {
@@ -17,12 +22,17 @@ const {
   alternates,
   image,
   type = 'website',
+  structuredData,
 } = Astro.props;
+const jsonLd = structuredData
+  ? serializeStructuredData(structuredData)
+  : undefined;
 ---
 
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 {
   alternates.map((alternate) => (
     <link rel="alternate" hreflang={alternate.lang} href={alternate.href} />
@@ -33,3 +43,4 @@ const {
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:type" content={type} />
 {image && <meta property="og:image" content={image} />}
+{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}

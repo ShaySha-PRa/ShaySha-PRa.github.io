@@ -1,6 +1,7 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { SITE } from '../../config/site';
 import '../../styles/prose.css';
 
 const entries = await getCollection('profile', ({ data }) => !data.draft);
@@ -23,6 +24,13 @@ const Content = rendered?.Content;
   canonicalPath="/en/about/"
   translationPath="/about/"
   fallback={fallback}
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: SITE.name,
+    url: SITE.url,
+    sameAs: [SITE.github],
+  }}
 >
   <article class="profile-page shell">
     <header class="profile-page__header">
@@ -60,7 +68,7 @@ const Content = rendered?.Content;
 
   .profile-page__eyebrow {
     margin: 0 0 0.75rem;
-    color: var(--vermilion);
+    color: var(--ink);
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.1em;

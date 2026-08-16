@@ -1,6 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import { render, type CollectionEntry } from 'astro:content';
+import { SITE } from '../config/site';
 import BaseLayout from './BaseLayout.astro';
 import ProjectMeta from '../components/project/ProjectMeta.astro';
 import type { Locale } from '../lib/i18n';
@@ -46,6 +47,13 @@ const labels =
   image={project.data.cover.src}
   fallback={fallback}
   type="article"
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: project.data.title,
+    description: project.data.summary,
+    url: new URL(projectPath, SITE.url).href,
+  }}
 >
   <article class="project-detail shell">
     <a class="project-detail__back" href={`${detailPrefix}/projects/`}
@@ -155,7 +163,7 @@ const labels =
 
   .project-detail__eyebrow {
     margin: 0 0 0.75rem;
-    color: var(--vermilion);
+    color: var(--ink);
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.1em;

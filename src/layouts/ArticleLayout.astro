@@ -1,5 +1,6 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
+import { SITE } from '../config/site';
 import BaseLayout from './BaseLayout.astro';
 import ArticleCard from '../components/cards/ArticleCard.astro';
 import type { Locale, LocalizedSelection } from '../lib/i18n';
@@ -61,6 +62,15 @@ const labels =
   translationPath={translationPath}
   fallback={fallback}
   type="article"
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: article.data.title,
+    description: article.data.summary,
+    url: new URL(articlePath, SITE.url).href,
+    datePublished: article.data.published.toISOString(),
+    dateModified: article.data.updated.toISOString(),
+  }}
 >
   <article class="article-detail shell">
     <a
@@ -150,7 +160,7 @@ const labels =
 
   .article-detail__eyebrow {
     margin: 0 0 0.75rem;
-    color: var(--vermilion);
+    color: var(--ink);
     font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.1em;

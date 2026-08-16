@@ -1,7 +1,7 @@
 ---
 import { SITE } from '../config/site';
 import type { Locale } from '../lib/i18n';
-import { buildHreflangLinks } from '../lib/seo';
+import { buildHreflangLinks, type StructuredData } from '../lib/seo';
 import FallbackNotice from '../components/FallbackNotice.astro';
 import SeoHead from '../components/SeoHead.astro';
 import SiteFooter from '../components/SiteFooter.astro';
@@ -17,6 +17,7 @@ interface Props {
   image?: string;
   fallback?: boolean;
   type?: 'website' | 'article';
+  structuredData?: StructuredData;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   image,
   fallback = false,
   type = 'website',
+  structuredData,
 } = Astro.props;
 
 function counterpartPath(path: string, currentLocale: Locale): string {
@@ -67,6 +69,7 @@ const localeTranslationPath =
       alternates={alternates}
       image={image}
       type={type}
+      structuredData={structuredData}
     />
   </head>
   <body>

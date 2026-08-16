@@ -24,6 +24,13 @@ const selected = projects
   description={SITE.descriptions.zh}
   canonicalPath="/"
   translationPath="/en/"
+  structuredData={{
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: SITE.name,
+    url: SITE.url,
+    sameAs: [SITE.github],
+  }}
 >
   <div class="home-page">
     <EditorialHero locale="zh" />

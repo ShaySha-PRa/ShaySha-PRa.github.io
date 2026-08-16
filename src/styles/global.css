@@ -112,7 +112,7 @@ a:hover {
 
 .mobile-nav summary {
   cursor: pointer;
-  color: var(--vermilion);
+  color: var(--ink);
   font-weight: 700;
 }
 
@@ -154,7 +154,7 @@ main {
 
 .home-kicker {
   margin: 0 0 1.25rem;
-  color: var(--vermilion);
+  color: var(--ink);
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.12em;

@@ -1,5 +1,92 @@
 import { expect, test } from '@playwright/test';
 
+const projectSlugs = [
+  'agent-teams-project',
+  'graphrag-agent',
+  'ita-maskit',
+  'manim-project',
+  'my-company-brain',
+  'sql-agent',
+];
+
+test('all public routes and generated files respond successfully', async ({
+  request,
+}) => {
+  const routes = [
+    '/',
+    '/en/',
+    '/projects/',
+    '/en/projects/',
+    '/writing/',
+    '/en/writing/',
+    '/journal/',
+    '/en/journal/',
+    '/about/',
+    '/en/about/',
+    '/resume/',
+    '/en/resume/',
+    '/rss.xml',
+    '/robots.txt',
+    '/sitemap-index.xml',
+    '/404.html',
+    '/favicon.svg',
+    ...projectSlugs.flatMap((slug) => [
+      `/projects/${slug}/`,
+      `/en/projects/${slug}/`,
+    ]),
+  ];
+
+  for (const route of routes) {
+    const response = await request.get(route);
+    expect(response.ok(), `${route} returned ${response.status()}`).toBe(true);
+  }
+});
+
+test('robots and 404 include the required public guidance', async ({
+  request,
+}) => {
+  const robots = await request.get('/robots.txt');
+  expect(await robots.text()).toContain(
+    'User-agent: *\nAllow: /\nSitemap: https://shaysha-pra.github.io/sitemap-index.xml',
+  );
+
+  const notFound = await request.get('/404.html');
+  const notFoundHtml = await notFound.text();
+  expect(notFoundHtml).toContain('页面未找到');
+  expect(notFoundHtml).toContain('Page not found');
+  expect(notFoundHtml).toContain('href="/"');
+  expect(notFoundHtml).toContain('href="/projects/"');
+  expect(notFoundHtml).toContain('href="/writing/"');
+});
+
+test('structured data is scoped to confirmed page types', async ({ page }) => {
+  await page.goto('/');
+  const person = page.locator('script[type="application/ld+json"]');
+  await expect(person).toHaveCount(1);
+  expect(await person.evaluate((node) => node.textContent)).toContain(
+    '"@type":"Person"',
+  );
+
+  await page.goto('/about/');
+  expect(
+    await page
+      .locator('script[type="application/ld+json"]')
+      .evaluate((node) => node.textContent),
+  ).toContain('"@type":"Person"');
+
+  await page.goto('/projects/graphrag-agent/');
+  expect(
+    await page
+      .locator('script[type="application/ld+json"]')
+      .evaluate((node) => node.textContent),
+  ).toContain('"@type":"CreativeWork"');
+
+  await page.goto('/writing/');
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(
+    0,
+  );
+});
+
 test('writing routes and RSS respond successfully', async ({
   page,
   request,
