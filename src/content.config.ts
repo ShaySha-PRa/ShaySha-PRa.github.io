@@ -75,7 +75,12 @@ const journal = defineCollection({
 });
 
 const profile = defineCollection({
-  loader: glob({ base: './src/content/profile', pattern: '**/*.md' }),
+  loader: glob({
+    base: './src/content/profile',
+    pattern: '**/*.md',
+    generateId: ({ data }) =>
+      `${String(data.locale ?? 'und')}-${String(data.slug ?? '')}`,
+  }),
   schema: localizedBase.extend({ order: z.number().default(1) }),
 });
 

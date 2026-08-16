@@ -1,0 +1,74 @@
+---
+import { SITE } from '../config/site';
+import { localizedPath, type Locale } from '../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<section class="profile-contact" id="contact" aria-labelledby="contact-heading">
+  <p class="profile-contact__eyebrow">Contact</p>
+  <h2 id="contact-heading">{locale === 'zh' ? '联系' : 'Contact'}</h2>
+  <p>
+    {
+      locale === 'zh'
+        ? '目前公开的联系与履历入口如下。'
+        : 'My currently published contact and résumé links are below.'
+    }
+  </p>
+  <ul>
+    {
+      SITE.contacts.map((contact) => (
+        <li>
+          <a href={contact.href}>{contact.label} ↗</a>
+        </li>
+      ))
+    }
+    <li>
+      <a href={localizedPath(locale, 'resume')}>
+        {locale === 'zh' ? '在线简历' : 'Online résumé'} →
+      </a>
+    </li>
+  </ul>
+</section>
+
+<style>
+  .profile-contact {
+    max-width: 46rem;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--sand);
+    scroll-margin-top: 2rem;
+  }
+
+  .profile-contact__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--vermilion);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .profile-contact h2 {
+    margin: 0;
+    font-size: clamp(2.2rem, 5vw, 4rem);
+  }
+
+  .profile-contact > p:not(.profile-contact__eyebrow) {
+    color: var(--muted);
+  }
+
+  .profile-contact ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    margin: 1.5rem 0 0;
+    padding: 0;
+    list-style: none;
+    font-weight: 700;
+  }
+</style>

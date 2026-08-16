@@ -7,6 +7,7 @@ interface Props {
 }
 
 const { locale } = Astro.props;
+const projectPath = `${locale === 'en' ? '/en' : ''}/projects/my-company-brain/`;
 ---
 
 <section class="home-now shell" data-section="now">
@@ -14,7 +15,13 @@ const { locale } = Astro.props;
     {locale === 'zh' ? '最近在做什么 / 03' : 'Now / 03'}
   </p>
   <h2>{locale === 'zh' ? '最近在做什么' : 'What I am doing now'}</h2>
-  <p>{SITE.now[locale]}</p>
+  <div class="home-now__content">
+    <p class="home-now__date">{SITE.now.date}</p>
+    <p>{SITE.now[locale]}</p>
+    <a class="home-text-link" href={projectPath}>
+      {locale === 'zh' ? '查看项目进展 →' : 'View project progress →'}
+    </a>
+  </div>
   <p class="home-now__note">
     {
       locale === 'zh'

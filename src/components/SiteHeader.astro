@@ -11,18 +11,32 @@ interface Props {
 
 const { locale, translationPath } = Astro.props;
 const labels = SITE.nav[locale];
-const links: Array<{ key: keyof typeof labels; section: Section }> = [
+const routedLinks: Array<{ key: keyof typeof labels; section: Section }> = [
   { key: 'home', section: 'home' },
   { key: 'projects', section: 'projects' },
   { key: 'writing', section: 'writing' },
   { key: 'journal', section: 'journal' },
   { key: 'about', section: 'about' },
+  { key: 'resume', section: 'resume' },
 ];
 
-const linkItems = links.map(({ key, section }) => ({
+const currentPath = Astro.url.pathname;
+const isCurrentSection = (section: Section) => {
+  const target = localizedPath(locale, section);
+  if (section === 'home') return currentPath === target;
+  return currentPath.startsWith(target);
+};
+
+const linkItems = routedLinks.map(({ key, section }) => ({
   label: labels[key],
   href: localizedPath(locale, section),
+  current: isCurrentSection(section),
 }));
+linkItems.push({
+  label: labels.contact,
+  href: `${localizedPath(locale, 'about')}#contact`,
+  current: false,
+});
 ---
 
 <header class="site-header">
@@ -37,7 +51,12 @@ const linkItems = links.map(({ key, section }) => ({
         {
           linkItems.map((item) => (
             <li>
-              <a href={item.href}>{item.label}</a>
+              <a
+                href={item.href}
+                aria-current={item.current ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
             </li>
           ))
         }
@@ -48,14 +67,19 @@ const linkItems = links.map(({ key, section }) => ({
     </nav>
 
     <details class="mobile-nav">
-      <summary>{locale === 'zh' ? '打开菜单' : 'Open menu'}</summary>
+      <summary>{locale === 'zh' ? '菜单' : 'Menu'}</summary>
       <div class="mobile-nav__panel">
         <nav aria-label={locale === 'zh' ? '移动端导航' : 'Mobile navigation'}>
           <ul>
             {
               linkItems.map((item) => (
                 <li>
-                  <a href={item.href}>{item.label}</a>
+                  <a
+                    href={item.href}
+                    aria-current={item.current ? 'page' : undefined}
+                  >
+                    {item.label}
+                  </a>
                 </li>
               ))
             }

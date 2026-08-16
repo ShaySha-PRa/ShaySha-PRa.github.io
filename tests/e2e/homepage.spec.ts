@@ -1,10 +1,39 @@
 import { expect, test } from '@playwright/test';
 
-test('Chinese homepage has the personal-space identity', async ({ page }) => {
+test('Chinese homepage leads with the approved AI application positioning', async ({
+  page,
+}) => {
   await page.goto('/');
   await expect(page).toHaveTitle(/Junshu Sha/);
-  await expect(page.getByRole('heading', { level: 1 })).toContainText(
-    'Building useful systems',
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'AI 应用工程师 · Agent / RAG / Data Systems',
+  );
+  await expect(page.locator('.home-hero__lede')).toHaveText(
+    '将复杂知识、数据和业务流程构建为可验证、可部署的 AI 应用。',
+  );
+  await expect(page.locator('.home-hero__signature')).toHaveText(
+    'Building useful systems, collecting curious ideas.',
+  );
+});
+
+test('homepage exposes representative project, resume, and contact calls to action', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const actions = page.locator('.home-hero__actions');
+  await expect(
+    actions.getByRole('link', { name: '查看代表项目' }),
+  ).toHaveAttribute('href', '#featured-project');
+  await expect(actions.getByRole('link', { name: '查看简历' })).toHaveAttribute(
+    'href',
+    '/resume/',
+  );
+  await expect(actions.getByRole('link', { name: '联系我' })).toHaveAttribute(
+    'href',
+    '/about/#contact',
+  );
+  await expect(page.locator('.home-hero__proof')).toContainText(
+    '测试与验收边界',
   );
 });
 
@@ -50,10 +79,34 @@ test('mobile menu hides desktop navigation and exposes all routes', async ({
   const mobileNavigation = menu.locator('nav');
   await expect(mobileNavigation).toBeVisible();
   const routeLinks = mobileNavigation.locator('a:not(.locale-switch)');
-  await expect(routeLinks).toHaveCount(5);
-  for (const href of ['/', '/projects/', '/writing/', '/journal/', '/about/']) {
+  await expect(routeLinks).toHaveCount(7);
+  for (const href of [
+    '/',
+    '/projects/',
+    '/writing/',
+    '/journal/',
+    '/about/',
+    '/resume/',
+    '/about/#contact',
+  ]) {
     await expect(mobileNavigation.locator(`a[href="${href}"]`)).toBeVisible();
   }
+});
+
+test('desktop navigation exposes one current page and never marks contact current', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name === 'mobile-chromium');
+  await page.goto('/projects/');
+  const navigation = page.getByRole('navigation', { name: '主导航' });
+  await expect(navigation.getByRole('link', { name: '项目' })).toHaveAttribute(
+    'aria-current',
+    'page',
+  );
+  await expect(navigation.locator('[aria-current="page"]')).toHaveCount(1);
+  await expect(
+    navigation.getByRole('link', { name: '联系' }),
+  ).not.toHaveAttribute('aria-current', 'page');
 });
 
 test('mobile menu traps focus and restores it when closed', async ({
@@ -88,7 +141,7 @@ test('mobile menu traps focus and restores it when closed', async ({
   await expect(summary).toBeFocused();
 });
 
-test('homepage follows the approved curated-cover hierarchy', async ({
+test('homepage follows the approved recruiter-oriented curated hierarchy', async ({
   page,
 }) => {
   await page.goto('/');
@@ -98,35 +151,24 @@ test('homepage follows the approved curated-cover hierarchy', async ({
   await expect(
     page.locator('[data-section="selected-projects"] [data-project-card]'),
   ).toHaveCount(5);
-  await expect(page.locator('[data-section="latest-writing"]')).toBeVisible();
+  await expect(page.locator('[data-section="latest-writing"]')).toHaveCount(0);
   await expect(page.locator('[data-section="latest-journal"]')).toBeVisible();
-  await expect(page.locator('[data-section="latest-writing"]')).toContainText(
-    '文章正在整理中。 / Writing is being prepared.',
-  );
   await expect(page.locator('[data-section="latest-journal"]')).toContainText(
     '云与石',
   );
 });
 
-test('homepage annotates mixed-language hero and keeps only writing empty', async ({
+test('homepage keeps the English brand signature and hides empty writing', async ({
   page,
 }) => {
   await page.goto('/');
-  await expect(page.locator('.home-hero h1[lang="en"]')).toHaveText(
+  await expect(page.locator('.home-hero__signature[lang="en"]')).toHaveText(
     'Building useful systems, collecting curious ideas.',
   );
   await expect(page.locator('.home-hero__lede[lang="zh-CN"]')).toHaveText(
-    '记录软件项目、技术文章，以及值得慢慢观察的影像与生活片段。',
+    '将复杂知识、数据和业务流程构建为可验证、可部署的 AI 应用。',
   );
-  await expect(
-    page.locator('[data-section="latest-writing"] .home-empty [lang="zh-CN"]'),
-  ).toHaveText('文章正在整理中。');
-  await expect(
-    page.locator('[data-section="latest-writing"] .home-empty [lang="en"]'),
-  ).toHaveText('Writing is being prepared.');
-  await expect(
-    page.locator('[data-section="latest-journal"] .home-empty'),
-  ).toHaveCount(0);
+  await expect(page.locator('[data-section="latest-writing"]')).toHaveCount(0);
   await expect(page.locator('[data-section="latest-journal"] h3 a')).toHaveText(
     '云与石',
   );
@@ -138,7 +180,7 @@ test('mobile homepage is a single readable column', async ({
   test.skip(testInfo.project.name !== 'mobile-chromium');
   await page.goto('/');
   const sections = page.locator('[data-section]');
-  await expect(sections).toHaveCount(6);
+  await expect(sections).toHaveCount(5);
   const viewportWidth = page.viewportSize()?.width ?? 420;
   const boxes = await sections.evaluateAll((items) =>
     items.map((section) => {
@@ -158,7 +200,10 @@ test('English homepage publishes the latest translated journal entry', async ({
   page,
 }) => {
   await page.goto('/en/');
-  await expect(page.locator('[data-section]')).toHaveCount(6);
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'AI Application Engineer · Agent / RAG / Data Systems',
+  );
+  await expect(page.locator('[data-section]')).toHaveCount(5);
   await expect(page.locator('[data-section="featured-project"]')).toContainText(
     'My Company Brain',
   );
@@ -166,11 +211,9 @@ test('English homepage publishes the latest translated journal entry', async ({
     page.locator('[data-section="selected-projects"] [data-project-card]'),
   ).toHaveCount(5);
   await expect(page.locator('[data-section="now"]')).toContainText(
-    'Building My Company Brain and organizing project and technical notes.',
+    'Organizing My Company Brain’s three knowledge paths, source tracing, and acceptance boundaries for real-material validation.',
   );
-  await expect(page.locator('[data-section="latest-writing"]')).toContainText(
-    '文章正在整理中。 / Writing is being prepared.',
-  );
+  await expect(page.locator('[data-section="latest-writing"]')).toHaveCount(0);
   await expect(page.locator('[data-section="latest-journal"]')).toContainText(
     'Cloud and Stone',
   );

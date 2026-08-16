@@ -40,8 +40,13 @@ const selected = projects
       <NowPanel locale="zh" />
     </div>
     <ProjectSelection projects={selected} locale="zh" />
-    <div class="home-closing-row shell">
-      <LatestWriting articles={articles} locale="zh" />
+    <div
+      class:list={[
+        'home-closing-row shell',
+        { 'home-closing-row--single': articles.length === 0 },
+      ]}
+    >
+      {articles.length > 0 && <LatestWriting articles={articles} locale="zh" />}
       <LatestJournal entries={journal} locale="zh" />
     </div>
   </div>

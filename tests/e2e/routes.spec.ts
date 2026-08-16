@@ -143,26 +143,37 @@ test('writing routes and RSS respond successfully', async ({
   expect(await rss.text()).toContain('<rss');
 });
 
-test('bilingual about routes expose private-safe empty states', async ({
+test('bilingual about routes publish the confirmed profile and contact links', async ({
   page,
 }) => {
   await page.goto('/about/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('关于');
-  await expect(page.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
-    'href',
-    'https://github.com/ShaySha-PRa',
+  await expect(page.locator('.profile-page__summary')).toContainText(
+    '专注 Agent、RAG 与数据系统',
   );
-  await expect(page.getByRole('status')).toContainText('简介正在整理中');
+  await expect(page.locator('#contact')).toBeVisible();
+  await expect(
+    page.locator('#contact').getByRole('link', { name: 'GitHub ↗' }),
+  ).toHaveAttribute('href', 'https://github.com/ShaySha-PRa');
+  await expect(page.getByRole('link', { name: '在线简历' })).toHaveAttribute(
+    'href',
+    '/resume/',
+  );
+  await expect(page.getByRole('status')).toHaveCount(0);
 
   await page.goto('/en/about/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('About');
-  await expect(page.getByRole('link', { name: 'GitHub' })).toHaveAttribute(
-    'href',
-    'https://github.com/ShaySha-PRa',
+  await expect(page.locator('.profile-page__summary')).toContainText(
+    'focused on agents, RAG, and data systems',
   );
-  await expect(page.getByRole('status')).toContainText(
-    'Biography is being prepared',
-  );
+  await expect(page.locator('#contact')).toBeVisible();
+  await expect(
+    page.locator('#contact').getByRole('link', { name: 'GitHub ↗' }),
+  ).toHaveAttribute('href', 'https://github.com/ShaySha-PRa');
+  await expect(
+    page.getByRole('link', { name: 'Online résumé' }),
+  ).toHaveAttribute('href', '/en/resume/');
+  await expect(page.getByRole('status')).toHaveCount(0);
 });
 
 test('bilingual resume routes publish the supplied experience', async ({

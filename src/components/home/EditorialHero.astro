@@ -1,25 +1,51 @@
 ---
 import type { Locale } from '../../lib/i18n';
+import { SITE } from '../../config/site';
+import { localizedPath } from '../../lib/i18n';
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
+const projectLabel = locale === 'zh' ? '查看代表项目' : 'View featured project';
+const resumeLabel = locale === 'zh' ? '查看简历' : 'View résumé';
+const contactLabel = locale === 'zh' ? '联系我' : 'Contact me';
 ---
 
 <section class="home-hero shell" data-section="intro">
   <div class="home-hero__copy">
-    <p class="home-kicker">
-      {locale === 'zh' ? '个人空间 / 01' : 'Personal space / 01'}
-    </p>
-    <h1 lang="en">Building useful systems, collecting curious ideas.</h1>
+    <p class="home-kicker">AI Application Engineer / 01</p>
+    <h1>{SITE.positioning[locale]}</h1>
     <p class="home-hero__lede" lang={locale === 'zh' ? 'zh-CN' : 'en'}>
-      {
-        locale === 'zh'
-          ? '记录软件项目、技术文章，以及值得慢慢观察的影像与生活片段。'
-          : 'A working archive of software projects, technical writing, and images or life notes worth keeping.'
-      }
+      {SITE.valueProposition[locale]}
     </p>
+    <nav
+      class="home-hero__actions"
+      aria-label={locale === 'zh' ? '首页快捷入口' : 'Homepage shortcuts'}
+    >
+      <a
+        class="home-hero__action home-hero__action--primary"
+        href="#featured-project"
+      >
+        {projectLabel}
+      </a>
+      <a class="home-hero__action" href={localizedPath(locale, 'resume')}>
+        {resumeLabel}
+      </a>
+      <a
+        class="home-hero__action home-hero__action--text"
+        href={`${localizedPath(locale, 'about')}#contact`}
+      >
+        {contactLabel}
+      </a>
+    </nav>
+    <p class="home-hero__signature" lang="en">{SITE.signature}</p>
+    <ul
+      class="home-hero__proof"
+      aria-label={locale === 'zh' ? '核心能力' : 'Core capabilities'}
+    >
+      {SITE.proof[locale].map((item) => <li>{item}</li>)}
+    </ul>
   </div>
 </section>
