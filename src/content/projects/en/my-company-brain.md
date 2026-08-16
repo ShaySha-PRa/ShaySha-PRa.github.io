@@ -11,7 +11,7 @@ status: active
 role: Independent developer
 tech: [TypeScript, Python, PostgreSQL, Neo4j, Docker, RAG, GraphRAG]
 repoUrl: https://github.com/ShaySha-PRa/my-company-brain
-cover: ../../../assets/projects/my-company-brain/cover.svg
+cover: ../../../assets/projects/my-company-brain/workspace.png
 gallery: []
 featured: true
 order: 1
