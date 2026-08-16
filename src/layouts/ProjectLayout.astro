@@ -23,6 +23,7 @@ const labels =
     ? {
         back: '返回项目列表',
         repository: '查看 GitHub 仓库',
+        demo: '查看在线演示',
         previous: '上一个项目',
         next: '下一个项目',
         gallery: '项目图像',
@@ -30,6 +31,7 @@ const labels =
     : {
         back: 'Back to projects',
         repository: 'View GitHub repository',
+        demo: 'View live demo',
         previous: 'Previous project',
         next: 'Next project',
         gallery: 'Project images',
@@ -69,6 +71,15 @@ const labels =
           >{labels.repository} ↗</a
         >
       </p>
+      {
+        project.data.demoUrl && (
+          <p class="project-detail__repository">
+            <a href={project.data.demoUrl} rel="external noopener">
+              {labels.demo} ↗
+            </a>
+          </p>
+        )
+      }
     </header>
 
     <div class="project-detail__body prose">
