@@ -1,0 +1,43 @@
+---
+import ProjectCard from '../cards/ProjectCard.astro';
+import type { Locale } from '../../lib/i18n';
+import type { getLocalizedCollection } from '../../lib/content';
+
+type ProjectSelection = Awaited<
+  ReturnType<typeof getLocalizedCollection<'projects'>>
+>[number];
+
+interface Props {
+  projects: ProjectSelection[];
+  locale: Locale;
+}
+
+const { projects, locale } = Astro.props;
+---
+
+<section class="home-selected shell" data-section="selected-projects">
+  <header class="home-section-heading">
+    <p class="home-kicker">
+      {locale === 'zh' ? '精选项目 / 04' : 'Selected projects / 04'}
+    </p>
+    <h2>{locale === 'zh' ? '其余五个项目' : 'Five more projects'}</h2>
+    <p>
+      {
+        locale === 'zh'
+          ? '从知识图谱到数据脱敏，记录不同问题中的工程取舍。'
+          : 'Different engineering decisions across knowledge graphs, workflows, animation, data, and privacy.'
+      }
+    </p>
+  </header>
+  <div class="home-selected__grid">
+    {
+      projects.map((selection) => (
+        <ProjectCard
+          project={selection.entry}
+          requestedLocale={selection.requestedLocale}
+          fallback={selection.isFallback}
+        />
+      ))
+    }
+  </div>
+</section>

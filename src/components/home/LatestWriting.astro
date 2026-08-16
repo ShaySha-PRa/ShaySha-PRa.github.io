@@ -1,0 +1,55 @@
+---
+import type { Locale } from '../../lib/i18n';
+import type { getLocalizedCollection } from '../../lib/content';
+
+type ArticleSelection = Awaited<
+  ReturnType<typeof getLocalizedCollection<'articles'>>
+>[number];
+
+interface Props {
+  articles: ArticleSelection[];
+  locale: Locale;
+}
+
+const { articles, locale } = Astro.props;
+const latest = articles[0];
+const writingPath = `${locale === 'en' ? '/en' : ''}/writing/`;
+---
+
+<section class="home-writing shell" data-section="latest-writing">
+  <div class="home-writing__heading">
+    <p class="home-kicker">
+      {locale === 'zh' ? '最新文章 / 05' : 'Latest writing / 05'}
+    </p>
+    <h2>{locale === 'zh' ? '技术文章' : 'Technical writing'}</h2>
+  </div>
+  <div class="home-writing__content">
+    {
+      latest ? (
+        <article>
+          <h3>
+            <a href={`${writingPath}${latest.entry.slug}/`}>
+              {latest.entry.title}
+            </a>
+          </h3>
+          <p>{latest.entry.summary}</p>
+          <a
+            class="home-text-link"
+            href={`${writingPath}${latest.entry.slug}/`}
+          >
+            {locale === 'zh' ? '阅读文章 →' : 'Read the article →'}
+          </a>
+        </article>
+      ) : (
+        <p class="home-empty" role="status">
+          {locale === 'zh'
+            ? '文章正在整理中。 / Writing is being prepared.'
+            : 'Writing is being prepared. / 文章正在整理中。'}
+        </p>
+      )
+    }
+    <a class="home-text-link" href={writingPath}>
+      {locale === 'zh' ? '进入文章页 →' : 'Browse writing →'}
+    </a>
+  </div>
+</section>

@@ -1,6 +1,21 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EditorialHero from '../components/home/EditorialHero.astro';
+import FeaturedProject from '../components/home/FeaturedProject.astro';
+import NowPanel from '../components/home/NowPanel.astro';
+import ProjectSelection from '../components/home/ProjectSelection.astro';
+import LatestWriting from '../components/home/LatestWriting.astro';
+import LatestJournal from '../components/home/LatestJournal.astro';
 import { SITE } from '../config/site';
+import { getLocalizedCollection } from '../lib/content';
+
+const projects = await getLocalizedCollection('projects', 'zh');
+const articles = await getLocalizedCollection('articles', 'zh');
+const journal = await getLocalizedCollection('journal', 'zh');
+const featured = projects.find(({ entry }) => entry.featured) ?? projects[0];
+const selected = projects
+  .filter((selection) => selection !== featured)
+  .slice(0, 5);
 ---
 
 <BaseLayout
@@ -10,7 +25,14 @@ import { SITE } from '../config/site';
   canonicalPath="/"
   translationPath="/en/"
 >
-  <div class="shell home-intro">
-    <h1>Building useful systems, collecting curious ideas.</h1>
+  <div class="home-page">
+    <EditorialHero locale="zh" />
+    <div class="home-featured-row shell">
+      {featured && <FeaturedProject selection={featured} locale="zh" />}
+      <NowPanel locale="zh" />
+    </div>
+    <ProjectSelection projects={selected} locale="zh" />
+    <LatestWriting articles={articles} locale="zh" />
+    <LatestJournal entries={journal} locale="zh" />
   </div>
 </BaseLayout>

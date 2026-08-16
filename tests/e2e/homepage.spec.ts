@@ -55,3 +55,30 @@ test('mobile menu hides desktop navigation and exposes all routes', async ({
     await expect(mobileNavigation.locator(`a[href="${href}"]`)).toBeVisible();
   }
 });
+
+test('homepage follows the approved curated-cover hierarchy', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await expect(page.locator('[data-section="featured-project"]')).toContainText(
+    'My Company Brain',
+  );
+  await expect(
+    page.locator('[data-section="selected-projects"] [data-project-card]'),
+  ).toHaveCount(5);
+  await expect(page.locator('[data-section="latest-writing"]')).toBeVisible();
+  await expect(page.locator('[data-section="latest-journal"]')).toBeVisible();
+});
+
+test('mobile homepage is a single readable column', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-chromium');
+  await page.goto('/');
+  const boxes = await page
+    .locator('main > section')
+    .evaluateAll((sections) =>
+      sections.map((section) => section.getBoundingClientRect().width),
+    );
+  expect(boxes.every((width) => width <= 420)).toBe(true);
+});

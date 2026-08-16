@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import type { Locale } from '../../lib/i18n';
+import type { getLocalizedCollection } from '../../lib/content';
+
+type ProjectSelection = Awaited<
+  ReturnType<typeof getLocalizedCollection<'projects'>>
+>[number];
+
+interface Props {
+  selection: ProjectSelection;
+  locale: Locale;
+}
+
+const { selection, locale } = Astro.props;
+const project = selection.entry;
+const detailPath = `${locale === 'en' ? '/en' : ''}/projects/${project.slug}/`;
+const status =
+  locale === 'zh'
+    ? { active: '持续开发中', completed: '已完成', experiment: '实验项目' }
+    : {
+        active: 'In active development',
+        completed: 'Completed',
+        experiment: 'Experiment',
+      };
+---
+
+<section class="home-featured shell" data-section="featured-project">
+  <div class="home-featured__heading">
+    <p class="home-kicker">
+      {locale === 'zh' ? '主项目 / 02' : 'Featured project / 02'}
+    </p>
+    <p class="home-featured__status">{status[project.status]}</p>
+  </div>
+  <a class="home-featured__cover" href={detailPath} aria-label={project.title}>
+    <Image
+      src={project.cover}
+      alt={`${project.title} cover`}
+      widths={[720, 1080, 1440]}
+      sizes="(max-width: 48rem) 100vw, 62vw"
+      loading="eager"
+    />
+  </a>
+  <div class="home-featured__body">
+    <h2><a href={detailPath}>{project.title}</a></h2>
+    <p>{project.summary}</p>
+    <p class="home-featured__meta">
+      {locale === 'zh' ? '角色' : 'Role'}：{project.role}
+    </p>
+    <a class="home-text-link" href={detailPath}>
+      {locale === 'zh' ? '查看项目案例 →' : 'Read the case study →'}
+    </a>
+  </div>
+</section>

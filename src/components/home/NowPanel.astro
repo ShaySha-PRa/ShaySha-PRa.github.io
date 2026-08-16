@@ -1,0 +1,25 @@
+---
+import { SITE } from '../../config/site';
+import type { Locale } from '../../lib/i18n';
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+---
+
+<section class="home-now shell" data-section="now">
+  <p class="home-kicker">
+    {locale === 'zh' ? '最近在做什么 / 03' : 'Now / 03'}
+  </p>
+  <h2>{locale === 'zh' ? '最近在做什么' : 'What I am doing now'}</h2>
+  <p>{SITE.now[locale]}</p>
+  <p class="home-now__note">
+    {
+      locale === 'zh'
+        ? '这是一个简短的、会随工作重心变化的现场记录。'
+        : 'A short field note that changes with the work in progress.'
+    }
+  </p>
+</section>

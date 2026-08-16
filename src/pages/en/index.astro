@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EditorialHero from '../../components/home/EditorialHero.astro';
+import FeaturedProject from '../../components/home/FeaturedProject.astro';
+import NowPanel from '../../components/home/NowPanel.astro';
+import ProjectSelection from '../../components/home/ProjectSelection.astro';
+import LatestWriting from '../../components/home/LatestWriting.astro';
+import LatestJournal from '../../components/home/LatestJournal.astro';
+import { SITE } from '../../config/site';
+import { getLocalizedCollection } from '../../lib/content';
+
+const projects = await getLocalizedCollection('projects', 'en');
+const articles = await getLocalizedCollection('articles', 'en');
+const journal = await getLocalizedCollection('journal', 'en');
+const featured = projects.find(({ entry }) => entry.featured) ?? projects[0];
+const selected = projects
+  .filter((selection) => selection !== featured)
+  .slice(0, 5);
+---
+
+<BaseLayout
+  locale="en"
+  title="Junshu Sha · Personal space"
+  description={SITE.descriptions.en}
+  canonicalPath="/en/"
+  translationPath="/"
+>
+  <div class="home-page">
+    <EditorialHero locale="en" />
+    <div class="home-featured-row shell">
+      {featured && <FeaturedProject selection={featured} locale="en" />}
+      <NowPanel locale="en" />
+    </div>
+    <ProjectSelection projects={selected} locale="en" />
+    <LatestWriting articles={articles} locale="en" />
+    <LatestJournal entries={journal} locale="en" />
+  </div>
+</BaseLayout>

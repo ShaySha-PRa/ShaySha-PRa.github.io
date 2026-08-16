@@ -1,0 +1,55 @@
+---
+import type { Locale } from '../../lib/i18n';
+import type { getLocalizedCollection } from '../../lib/content';
+
+type JournalSelection = Awaited<
+  ReturnType<typeof getLocalizedCollection<'journal'>>
+>[number];
+
+interface Props {
+  entries: JournalSelection[];
+  locale: Locale;
+}
+
+const { entries, locale } = Astro.props;
+const latest = entries[0];
+const journalPath = `${locale === 'en' ? '/en' : ''}/journal/`;
+---
+
+<section class="home-journal shell" data-section="latest-journal">
+  <div class="home-journal__heading">
+    <p class="home-kicker">
+      {locale === 'zh' ? '最近影像 / 06' : 'Latest journal / 06'}
+    </p>
+    <h2>{locale === 'zh' ? '影像与生活' : 'Journal'}</h2>
+  </div>
+  <div class="home-journal__content">
+    {
+      latest ? (
+        <article>
+          <h3>
+            <a href={`${journalPath}${latest.entry.slug}/`}>
+              {latest.entry.title}
+            </a>
+          </h3>
+          <p>{latest.entry.summary}</p>
+          <a
+            class="home-text-link"
+            href={`${journalPath}${latest.entry.slug}/`}
+          >
+            {locale === 'zh' ? '查看记录 →' : 'View the entry →'}
+          </a>
+        </article>
+      ) : (
+        <p class="home-empty" role="status">
+          {locale === 'zh'
+            ? '影像记录正在整理中。 / Journal entries are being prepared.'
+            : 'Journal entries are being prepared. / 影像记录正在整理中。'}
+        </p>
+      )
+    }
+    <a class="home-text-link" href={journalPath}>
+      {locale === 'zh' ? '进入影像与生活 →' : 'Browse the journal →'}
+    </a>
+  </div>
+</section>
