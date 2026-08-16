@@ -4,6 +4,7 @@ import {
   type HreflangLink,
   type StructuredData,
 } from '../lib/seo';
+import { SITE } from '../config/site';
 
 interface Props {
   title: string;
@@ -27,6 +28,7 @@ const {
 const jsonLd = structuredData
   ? serializeStructuredData(structuredData)
   : undefined;
+const absoluteImage = image ? new URL(image, SITE.url).href : undefined;
 ---
 
 <title>{title}</title>
@@ -42,5 +44,12 @@ const jsonLd = structuredData
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonicalUrl} />
 <meta property="og:type" content={type} />
-{image && <meta property="og:image" content={image} />}
+{absoluteImage && <meta property="og:image" content={absoluteImage} />}
+<meta
+  name="twitter:card"
+  content={absoluteImage ? 'summary_large_image' : 'summary'}
+/>
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+{absoluteImage && <meta name="twitter:image" content={absoluteImage} />}
 {jsonLd && <script type="application/ld+json" set:html={jsonLd} />}

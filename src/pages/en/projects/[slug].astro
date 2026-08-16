@@ -1,7 +1,8 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import ProjectLayout from '../../../layouts/ProjectLayout.astro';
 import { getLocalizedCollection } from '../../../lib/content';
+import { projectTranslationPath } from '../../../lib/project-routes';
 
 type ProjectSelection = Awaited<
   ReturnType<typeof getLocalizedCollection<'projects'>>
@@ -17,6 +18,8 @@ export async function getStaticPaths() {
 
 const selection = Astro.props as ProjectSelection;
 const projects = await getLocalizedCollection('projects', 'en');
+const allProjects = await getCollection('projects', ({ data }) => !data.draft);
+const projectRecords = allProjects.map(({ data }) => data);
 const currentIndex = projects.findIndex(
   (item) => item.entry.id === selection.entry.id,
 );
@@ -26,6 +29,11 @@ const next =
   currentIndex >= 0 && currentIndex < projects.length - 1
     ? projects[currentIndex + 1].entry.entry
     : undefined;
+const translationPath = projectTranslationPath(
+  'en',
+  selection.entry,
+  projectRecords,
+);
 ---
 
 <ProjectLayout
@@ -33,5 +41,6 @@ const next =
   project={selection.entry.entry as CollectionEntry<'projects'>}
   previous={previous}
   next={next}
+  translationPath={translationPath}
   fallback={selection.isFallback}
 />

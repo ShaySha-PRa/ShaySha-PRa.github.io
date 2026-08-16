@@ -56,6 +56,38 @@ test('mobile menu hides desktop navigation and exposes all routes', async ({
   }
 });
 
+test('mobile menu traps focus and restores it when closed', async ({
+  page,
+}, testInfo) => {
+  test.skip(
+    testInfo.project.name !== 'mobile-chromium',
+    'mobile-only regression',
+  );
+
+  await page.goto('/');
+  const menu = page.locator('details.mobile-nav');
+  const summary = menu.locator('summary');
+  await summary.focus();
+  await summary.press('Enter');
+
+  await expect(menu).toHaveAttribute('open', '');
+  await expect(page.locator('main')).toHaveAttribute('inert', '');
+  const links = menu.locator('a');
+  const first = links.first();
+  const last = links.last();
+  await expect(first).toBeFocused();
+
+  await page.keyboard.press('Shift+Tab');
+  await expect(last).toBeFocused();
+  await page.keyboard.press('Tab');
+  await expect(first).toBeFocused();
+
+  await page.keyboard.press('Escape');
+  await expect(menu).not.toHaveAttribute('open', '');
+  await expect(page.locator('main')).not.toHaveAttribute('inert', '');
+  await expect(summary).toBeFocused();
+});
+
 test('homepage follows the approved curated-cover hierarchy', async ({
   page,
 }) => {
@@ -74,6 +106,30 @@ test('homepage follows the approved curated-cover hierarchy', async ({
   await expect(page.locator('[data-section="latest-journal"]')).toContainText(
     '影像记录正在整理中。 / Journal entries are being prepared.',
   );
+});
+
+test('homepage annotates mixed-language hero and empty-state fragments', async ({
+  page,
+}) => {
+  await page.goto('/');
+  await expect(page.locator('.home-hero h1[lang="en"]')).toHaveText(
+    'Building useful systems, collecting curious ideas.',
+  );
+  await expect(page.locator('.home-hero__lede[lang="zh-CN"]')).toHaveText(
+    '记录软件项目、技术文章，以及值得慢慢观察的影像与生活片段。',
+  );
+  await expect(
+    page.locator('[data-section="latest-writing"] .home-empty [lang="zh-CN"]'),
+  ).toHaveText('文章正在整理中。');
+  await expect(
+    page.locator('[data-section="latest-writing"] .home-empty [lang="en"]'),
+  ).toHaveText('Writing is being prepared.');
+  await expect(
+    page.locator('[data-section="latest-journal"] .home-empty [lang="zh-CN"]'),
+  ).toHaveText('影像记录正在整理中。');
+  await expect(
+    page.locator('[data-section="latest-journal"] .home-empty [lang="en"]'),
+  ).toHaveText('Journal entries are being prepared.');
 });
 
 test('mobile homepage is a single readable column', async ({

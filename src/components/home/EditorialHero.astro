@@ -13,8 +13,8 @@ const { locale } = Astro.props;
     <p class="home-kicker">
       {locale === 'zh' ? '个人空间 / 01' : 'Personal space / 01'}
     </p>
-    <h1>Building useful systems, collecting curious ideas.</h1>
-    <p class="home-hero__lede">
+    <h1 lang="en">Building useful systems, collecting curious ideas.</h1>
+    <p class="home-hero__lede" lang={locale === 'zh' ? 'zh-CN' : 'en'}>
       {
         locale === 'zh'
           ? '记录软件项目、技术文章，以及值得慢慢观察的影像与生活片段。'

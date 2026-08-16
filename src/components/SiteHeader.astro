@@ -68,3 +68,82 @@ const linkItems = links.map(({ key, section }) => ({
     </details>
   </div>
 </header>
+
+<script>
+  const mobileNav = document.querySelector(
+    'details.mobile-nav',
+  ) as HTMLDetailsElement | null;
+  const summary = mobileNav?.querySelector('summary') as HTMLElement | null;
+  const panel = mobileNav?.querySelector(
+    '.mobile-nav__panel',
+  ) as HTMLElement | null;
+  const background = Array.from(document.body.children).filter(
+    (element) => !element.matches('.site-header'),
+  );
+
+  if (mobileNav && summary && panel) {
+    const focusableSelector =
+      'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+
+    const focusable = () =>
+      Array.from(panel.querySelectorAll<HTMLElement>(focusableSelector)).filter(
+        (element) =>
+          !element.hasAttribute('disabled') &&
+          element.getAttribute('aria-hidden') !== 'true',
+      );
+
+    const setBackgroundInert = (inert: boolean) => {
+      background.forEach((element) => {
+        if (inert) {
+          element.setAttribute('inert', '');
+        } else {
+          element.removeAttribute('inert');
+        }
+      });
+    };
+
+    mobileNav.addEventListener('toggle', () => {
+      if (mobileNav.open) {
+        setBackgroundInert(true);
+        focusable()[0]?.focus();
+      } else {
+        setBackgroundInert(false);
+        summary.focus();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (!mobileNav.open) return;
+
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        mobileNav.open = false;
+        return;
+      }
+
+      if (event.key !== 'Tab') return;
+      const items = focusable();
+      if (items.length === 0) {
+        event.preventDefault();
+        summary.focus();
+        return;
+      }
+
+      if (!panel.contains(document.activeElement)) {
+        event.preventDefault();
+        items[0].focus();
+        return;
+      }
+
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+  }
+</script>

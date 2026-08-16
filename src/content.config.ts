@@ -1,5 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { httpsUrl } from './lib/schema';
 
 const localizedBase = z.object({
   title: z.string().min(1),
@@ -26,8 +27,8 @@ const projects = defineCollection({
       status: z.enum(['active', 'completed', 'experiment']),
       role: z.string().min(1),
       tech: z.array(z.string()).min(1),
-      repoUrl: z.string().url(),
-      demoUrl: z.string().url().optional(),
+      repoUrl: httpsUrl,
+      demoUrl: httpsUrl.optional(),
       cover: image(),
       gallery: z.array(image()).default([]),
       featured: z.boolean().default(false),
@@ -43,7 +44,7 @@ const articles = defineCollection({
       tags: z.array(z.string()).default([]),
       cover: image().optional(),
       series: z.string().optional(),
-      canonicalUrl: z.string().url().optional(),
+      canonicalUrl: httpsUrl.optional(),
     }),
 });
 

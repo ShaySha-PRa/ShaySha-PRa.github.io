@@ -13,9 +13,17 @@ interface Props {
   previous?: CollectionEntry<'projects'>;
   next?: CollectionEntry<'projects'>;
   fallback?: boolean;
+  translationPath?: string;
 }
 
-const { locale, project, previous, next, fallback = false } = Astro.props;
+const {
+  locale,
+  project,
+  previous,
+  next,
+  fallback = false,
+  translationPath,
+} = Astro.props;
 const { Content } = await render(project);
 const detailPrefix = locale === 'en' ? '/en' : '';
 const projectPath = `${detailPrefix}/projects/${project.data.slug}/`;
@@ -45,6 +53,7 @@ const labels =
   description={project.data.summary}
   canonicalPath={projectPath}
   image={project.data.cover.src}
+  translationPath={translationPath}
   fallback={fallback}
   type="article"
   structuredData={{

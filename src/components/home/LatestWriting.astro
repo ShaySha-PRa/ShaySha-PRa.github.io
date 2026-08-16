@@ -43,7 +43,9 @@ const writingPath = `${locale === 'en' ? '/en' : ''}/writing/`;
         </article>
       ) : (
         <p class="home-empty" role="status">
-          文章正在整理中。 / Writing is being prepared.
+          <span lang="zh-CN">文章正在整理中。</span>
+          {' / '}
+          <span lang="en">Writing is being prepared.</span>
         </p>
       )
     }

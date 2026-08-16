@@ -33,7 +33,9 @@ a {
 }
 
 a:hover {
-  color: var(--vermilion);
+  color: var(--ink);
+  text-decoration-color: var(--vermilion);
+  text-decoration-thickness: 0.14em;
 }
 
 :focus-visible {

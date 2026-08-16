@@ -101,6 +101,35 @@ test('structured data is scoped to confirmed page types', async ({ page }) => {
   );
 });
 
+test('social metadata uses absolute confirmed cover images', async ({
+  page,
+}) => {
+  for (const route of ['/', '/projects/my-company-brain/']) {
+    await page.goto(route);
+    await expect(page.locator('meta[name="twitter:card"]')).toHaveAttribute(
+      'content',
+      'summary_large_image',
+    );
+    await expect(page.locator('meta[name="twitter:title"]')).toHaveAttribute(
+      'content',
+      /.+/,
+    );
+    await expect(
+      page.locator('meta[name="twitter:description"]'),
+    ).toHaveAttribute('content', /.+/);
+    const image = page.locator('meta[property="og:image"]');
+    await expect(image).toHaveCount(1);
+    await expect(image).toHaveAttribute(
+      'content',
+      /^https:\/\/shaysha-pra\.github\.io\/.+/,
+    );
+    await expect(page.locator('meta[name="twitter:image"]')).toHaveAttribute(
+      'content',
+      /^https:\/\/shaysha-pra\.github\.io\/.+/,
+    );
+  }
+});
+
 test('writing routes and RSS respond successfully', async ({
   page,
   request,

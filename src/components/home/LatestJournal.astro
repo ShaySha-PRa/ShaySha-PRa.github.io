@@ -46,7 +46,9 @@ const journalPath = `${locale === 'en' ? '/en' : ''}/journal/`;
         </article>
       ) : (
         <p class="home-empty" role="status">
-          影像记录正在整理中。 / Journal entries are being prepared.
+          <span lang="zh-CN">影像记录正在整理中。</span>
+          {' / '}
+          <span lang="en">Journal entries are being prepared.</span>
         </p>
       )
     }
