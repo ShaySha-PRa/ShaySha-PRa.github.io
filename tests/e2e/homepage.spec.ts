@@ -104,11 +104,11 @@ test('homepage follows the approved curated-cover hierarchy', async ({
     '文章正在整理中。 / Writing is being prepared.',
   );
   await expect(page.locator('[data-section="latest-journal"]')).toContainText(
-    '影像记录正在整理中。 / Journal entries are being prepared.',
+    '云与石',
   );
 });
 
-test('homepage annotates mixed-language hero and empty-state fragments', async ({
+test('homepage annotates mixed-language hero and keeps only writing empty', async ({
   page,
 }) => {
   await page.goto('/');
@@ -125,11 +125,11 @@ test('homepage annotates mixed-language hero and empty-state fragments', async (
     page.locator('[data-section="latest-writing"] .home-empty [lang="en"]'),
   ).toHaveText('Writing is being prepared.');
   await expect(
-    page.locator('[data-section="latest-journal"] .home-empty [lang="zh-CN"]'),
-  ).toHaveText('影像记录正在整理中。');
-  await expect(
-    page.locator('[data-section="latest-journal"] .home-empty [lang="en"]'),
-  ).toHaveText('Journal entries are being prepared.');
+    page.locator('[data-section="latest-journal"] .home-empty'),
+  ).toHaveCount(0);
+  await expect(page.locator('[data-section="latest-journal"] h3 a')).toHaveText(
+    '云与石',
+  );
 });
 
 test('mobile homepage is a single readable column', async ({
@@ -154,7 +154,7 @@ test('mobile homepage is a single readable column', async ({
   expect(closingBoxes[1].y).toBeGreaterThanOrEqual(closingBoxes[0].bottom);
 });
 
-test('English homepage keeps the approved bilingual empty states', async ({
+test('English homepage publishes the latest translated journal entry', async ({
   page,
 }) => {
   await page.goto('/en/');
@@ -172,6 +172,6 @@ test('English homepage keeps the approved bilingual empty states', async ({
     '文章正在整理中。 / Writing is being prepared.',
   );
   await expect(page.locator('[data-section="latest-journal"]')).toContainText(
-    '影像记录正在整理中。 / Journal entries are being prepared.',
+    'Cloud and Stone',
   );
 });

@@ -49,7 +49,12 @@ const articles = defineCollection({
 });
 
 const journal = defineCollection({
-  loader: glob({ base: './src/content/journal', pattern: '**/*.{md,mdx}' }),
+  loader: glob({
+    base: './src/content/journal',
+    pattern: '**/*.{md,mdx}',
+    generateId: ({ data }) =>
+      `${String(data.locale ?? 'und')}-${String(data.slug ?? '')}`,
+  }),
   schema: ({ image }) =>
     localizedBase.extend({
       date: z.coerce.date(),

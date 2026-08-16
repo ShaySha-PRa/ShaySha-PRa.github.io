@@ -21,6 +21,8 @@ test('all public routes and generated files respond successfully', async ({
     '/en/writing/',
     '/journal/',
     '/en/journal/',
+    '/journal/cloud-and-stone/',
+    '/en/journal/cloud-and-stone/',
     '/about/',
     '/en/about/',
     '/resume/',

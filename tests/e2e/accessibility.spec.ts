@@ -6,6 +6,7 @@ for (const path of [
   '/projects/',
   '/writing/',
   '/journal/',
+  '/journal/cloud-and-stone/',
   '/about/',
   '/resume/',
 ]) {
