@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "check": "astro check",
+    "check": "astro check && node scripts/verify-content.mjs",
     "test": "vitest run",
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
