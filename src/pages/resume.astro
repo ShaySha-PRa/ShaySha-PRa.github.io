@@ -1,0 +1,114 @@
+---
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/prose.css';
+
+const entries = await getCollection(
+  'resume',
+  ({ data }) => !data.draft && data.locale === 'zh',
+);
+const resume = entries.sort((a, b) => a.data.order - b.data.order)[0] as
+  CollectionEntry<'resume'> | undefined;
+const rendered = resume ? await render(resume) : undefined;
+const Content = rendered?.Content;
+const pdfPath = resume?.data.pdfPath;
+const hasPdf =
+  pdfPath === '/resume/junshu-sha-resume.pdf' &&
+  existsSync(
+    fileURLToPath(
+      new URL('../../public/resume/junshu-sha-resume.pdf', import.meta.url),
+    ),
+  );
+---
+
+<BaseLayout
+  locale="zh"
+  title="简历 · Junshu Sha"
+  description="Junshu Sha 的网页履历。"
+  canonicalPath="/resume/"
+  translationPath="/en/resume/"
+>
+  <article class="resume-page shell">
+    <header class="resume-page__header">
+      <p class="resume-page__eyebrow">Résumé</p>
+      <h1>简历</h1>
+      {
+        resume ? (
+          <p class="resume-page__summary">{resume.data.summary}</p>
+        ) : (
+          <p class="resume-page__empty" role="status">
+            履历正在整理中，确认后会发布。
+          </p>
+        )
+      }
+      {
+        hasPdf && (
+          <p class="resume-page__download">
+            <a href={pdfPath}>下载 PDF 简历 ↗</a>
+          </p>
+        )
+      }
+    </header>
+    {
+      Content && (
+        <div class="resume-page__body prose">
+          <Content />
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .resume-page {
+    padding-block: 3rem 1rem;
+  }
+
+  .resume-page__header {
+    max-width: 46rem;
+  }
+
+  .resume-page__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .resume-page h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+  }
+
+  .resume-page__summary,
+  .resume-page__empty {
+    max-width: 42rem;
+    margin-block: 1.25rem 0;
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+
+  .resume-page__empty {
+    margin-block: 2rem 0;
+    padding: 1.5rem 1.25rem;
+    border-block: 1px solid var(--sand);
+  }
+
+  .resume-page__download {
+    margin-top: 1.5rem;
+  }
+
+  .resume-page__body {
+    margin-top: 4rem;
+  }
+
+  @media (max-width: 48rem) {
+    .resume-page {
+      padding-block-start: 2rem;
+    }
+  }
+</style>

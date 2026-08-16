@@ -1,0 +1,93 @@
+---
+import { getCollection, render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/prose.css';
+
+const entries = await getCollection(
+  'profile',
+  ({ data }) => !data.draft && data.locale === 'zh',
+);
+const profile = entries.sort((a, b) => a.data.order - b.data.order)[0] as
+  CollectionEntry<'profile'> | undefined;
+const rendered = profile ? await render(profile) : undefined;
+const Content = rendered?.Content;
+---
+
+<BaseLayout
+  locale="zh"
+  title="关于 · Junshu Sha"
+  description="Junshu Sha 的个人简介。"
+  canonicalPath="/about/"
+  translationPath="/en/about/"
+>
+  <article class="profile-page shell">
+    <header class="profile-page__header">
+      <p class="profile-page__eyebrow">About</p>
+      <h1>关于</h1>
+      {
+        profile ? (
+          <p class="profile-page__summary">{profile.data.summary}</p>
+        ) : (
+          <p class="profile-page__empty" role="status">
+            简介正在整理中，确认后会发布。
+          </p>
+        )
+      }
+    </header>
+    {
+      Content && (
+        <div class="profile-page__body prose">
+          <Content />
+        </div>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .profile-page {
+    padding-block: 3rem 1rem;
+  }
+
+  .profile-page__header {
+    max-width: 46rem;
+  }
+
+  .profile-page__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .profile-page h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+  }
+
+  .profile-page__summary,
+  .profile-page__empty {
+    max-width: 42rem;
+    margin-block: 1.25rem 0;
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+
+  .profile-page__empty {
+    margin-block: 2rem 0;
+    padding: 1.5rem 1.25rem;
+    border-block: 1px solid var(--sand);
+  }
+
+  .profile-page__body {
+    margin-top: 4rem;
+  }
+
+  @media (max-width: 48rem) {
+    .profile-page {
+      padding-block-start: 2rem;
+    }
+  }
+</style>

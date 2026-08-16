@@ -1,7 +1,18 @@
+export interface SiteContact {
+  label: string;
+  href: string;
+  kind: 'profile' | 'website';
+}
+
+const contacts: SiteContact[] = [
+  { label: 'GitHub', href: 'https://github.com/ShaySha-PRa', kind: 'profile' },
+];
+
 export const SITE = {
   name: 'Junshu Sha',
   url: 'https://shaysha-pra.github.io',
   github: 'https://github.com/ShaySha-PRa',
+  contacts,
   descriptions: {
     zh: 'Junshu Sha 的个人空间：软件项目、技术文章、摄影与生活记录。',
     en: 'Junshu Sha’s personal space for software projects, technical writing, photography, and life.',
