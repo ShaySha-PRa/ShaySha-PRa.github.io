@@ -3,6 +3,7 @@ import { expect, it } from 'vitest';
 import {
   buildArticleStructuredData,
   buildHreflangLinks,
+  buildSoftwareSourceCodeStructuredData,
   serializeStructuredData,
 } from '../../src/lib/seo';
 
@@ -18,6 +19,42 @@ it('builds Chinese, English, and x-default alternate links', () => {
     { lang: 'en', href: 'https://example.com/en/projects/a/' },
     { lang: 'x-default', href: 'https://example.com/projects/a/' },
   ]);
+});
+
+it('builds software project JSON-LD with repository, dates, author, and keywords', () => {
+  expect(
+    buildSoftwareSourceCodeStructuredData({
+      name: 'My Company Brain',
+      description: 'A multi-knowledge-base workspace for teams.',
+      url: 'https://example.com/projects/my-company-brain/',
+      codeRepository: 'https://github.com/example/my-company-brain',
+      datePublished: '2026-08-16T00:00:00.000Z',
+      dateModified: '2026-08-17T00:00:00.000Z',
+      author: {
+        '@type': 'Person',
+        name: 'Junshu Sha',
+        url: 'https://example.com',
+      },
+      keywords: ['RAG', 'GraphRAG', 'Docker'],
+      creativeWorkStatus: 'active',
+    }),
+  ).toEqual({
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    name: 'My Company Brain',
+    description: 'A multi-knowledge-base workspace for teams.',
+    url: 'https://example.com/projects/my-company-brain/',
+    codeRepository: 'https://github.com/example/my-company-brain',
+    datePublished: '2026-08-16T00:00:00.000Z',
+    dateModified: '2026-08-17T00:00:00.000Z',
+    author: {
+      '@type': 'Person',
+      name: 'Junshu Sha',
+      url: 'https://example.com',
+    },
+    keywords: ['RAG', 'GraphRAG', 'Docker'],
+    creativeWorkStatus: 'active',
+  });
 });
 
 it('serializes JSON-LD safely while preserving valid JSON', () => {

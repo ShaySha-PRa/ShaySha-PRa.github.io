@@ -5,6 +5,7 @@ import { SITE } from '../config/site';
 import BaseLayout from './BaseLayout.astro';
 import ProjectMeta from '../components/project/ProjectMeta.astro';
 import type { Locale } from '../lib/i18n';
+import { buildSoftwareSourceCodeStructuredData } from '../lib/seo';
 import '../styles/prose.css';
 
 interface Props {
@@ -27,6 +28,15 @@ const {
 const { Content } = await render(project);
 const detailPrefix = locale === 'en' ? '/en' : '';
 const projectPath = `${detailPrefix}/projects/${project.data.slug}/`;
+const caseStudy = project.data.caseStudy;
+const statusLabels = {
+  zh: { active: '持续开发中', completed: '已完成', experiment: '实验项目' },
+  en: {
+    active: 'In active development',
+    completed: 'Completed',
+    experiment: 'Experiment',
+  },
+} as const;
 const labels =
   locale === 'zh'
     ? {
@@ -36,6 +46,11 @@ const labels =
         previous: '上一个项目',
         next: '下一个项目',
         gallery: '项目图像',
+        scope: '项目范围',
+        status: '当前状态',
+        role: '我的角色',
+        technology: '技术栈',
+        evidence: '查看验证证据',
       }
     : {
         back: 'Back to projects',
@@ -44,6 +59,11 @@ const labels =
         previous: 'Previous project',
         next: 'Next project',
         gallery: 'Project images',
+        scope: 'Project scope',
+        status: 'Current status',
+        role: 'My role',
+        technology: 'Technology',
+        evidence: 'View validation evidence',
       };
 ---
 
@@ -56,45 +76,105 @@ const labels =
   translationPath={translationPath}
   fallback={fallback}
   type="article"
-  structuredData={{
-    '@context': 'https://schema.org',
-    '@type': 'CreativeWork',
+  structuredData={buildSoftwareSourceCodeStructuredData({
     name: project.data.title,
     description: project.data.summary,
     url: new URL(projectPath, SITE.url).href,
-  }}
+    codeRepository: project.data.repoUrl,
+    datePublished: project.data.published.toISOString(),
+    dateModified: project.data.updated.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: SITE.name,
+      url: SITE.url,
+    },
+    keywords: project.data.tech,
+    creativeWorkStatus: project.data.status,
+  })}
 >
   <article class="project-detail shell">
     <a class="project-detail__back" href={`${detailPrefix}/projects/`}
       >← {labels.back}</a
     >
     <header class="project-detail__hero">
-      <p class="project-detail__eyebrow">
-        Project / {String(project.data.order).padStart(2, '0')}
-      </p>
+      {
+        caseStudy ? (
+          <p class="project-detail__category">{caseStudy.category}</p>
+        ) : (
+          <p class="project-detail__eyebrow">
+            Project / {String(project.data.order).padStart(2, '0')}
+          </p>
+        )
+      }
       <h1>{project.data.title}</h1>
       <p class="project-detail__summary">{project.data.summary}</p>
-      <div class="project-detail__cover">
-        <Image
-          src={project.data.cover}
-          alt={`${project.data.title} cover`}
-          sizes="(max-width: 48rem) 100vw, 72rem"
-          priority
-        />
-      </div>
-      <ProjectMeta project={project.data} locale={locale} />
-      <p class="project-detail__repository">
-        <a href={project.data.repoUrl} rel="external noopener"
-          >{labels.repository} ↗</a
-        >
-      </p>
       {
-        project.data.demoUrl && (
-          <p class="project-detail__repository">
-            <a href={project.data.demoUrl} rel="external noopener">
-              {labels.demo} ↗
-            </a>
-          </p>
+        caseStudy ? (
+          <>
+            <dl class="project-detail__overview">
+              <div>
+                <dt>{labels.scope}</dt>
+                <dd>{caseStudy.scope}</dd>
+              </div>
+              <div>
+                <dt>{labels.status}</dt>
+                <dd>{statusLabels[locale][project.data.status]}</dd>
+              </div>
+              <div>
+                <dt>{labels.role}</dt>
+                <dd>{project.data.role}</dd>
+              </div>
+            </dl>
+            <nav
+              class="project-detail__actions"
+              aria-label={locale === 'zh' ? '项目入口' : 'Project links'}
+            >
+              <a href={project.data.repoUrl} rel="external noopener">
+                {labels.repository} ↗
+              </a>
+              <a href={caseStudy.evidenceTarget}>{labels.evidence} ↓</a>
+            </nav>
+            <div class="project-detail__cover">
+              <Image
+                src={project.data.cover}
+                alt={`${project.data.title} cover`}
+                sizes="(max-width: 48rem) 100vw, 72rem"
+                priority
+              />
+            </div>
+            <div class="project-detail__technology">
+              <p>{labels.technology}</p>
+              <ul>
+                {project.data.tech.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </>
+        ) : (
+          <>
+            <div class="project-detail__cover">
+              <Image
+                src={project.data.cover}
+                alt={`${project.data.title} cover`}
+                sizes="(max-width: 48rem) 100vw, 72rem"
+                priority
+              />
+            </div>
+            <ProjectMeta project={project.data} locale={locale} />
+            <p class="project-detail__repository">
+              <a href={project.data.repoUrl} rel="external noopener">
+                {labels.repository} ↗
+              </a>
+            </p>
+            {project.data.demoUrl && (
+              <p class="project-detail__repository">
+                <a href={project.data.demoUrl} rel="external noopener">
+                  {labels.demo} ↗
+                </a>
+              </p>
+            )}
+          </>
         )
       }
     </header>
@@ -179,6 +259,15 @@ const labels =
     text-transform: uppercase;
   }
 
+  .project-detail__category {
+    margin: 0 0 0.75rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
   .project-detail h1 {
     max-width: 50rem;
     margin: 0;
@@ -203,6 +292,81 @@ const labels =
     display: block;
     width: 100%;
     height: auto;
+  }
+
+  .project-detail__overview {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 2rem 0 0;
+    padding-block: 1rem;
+    border-block: 1px solid var(--sand);
+  }
+
+  .project-detail__overview dt,
+  .project-detail__technology > p {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .project-detail__overview dd {
+    margin: 0.35rem 0 0;
+    font-weight: 700;
+  }
+
+  .project-detail__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .project-detail__actions a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.8rem;
+    padding: 0.6rem 0.9rem;
+    border: 1px solid var(--ink);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .project-detail__actions a:first-child {
+    color: var(--paper);
+    background: var(--ink);
+  }
+
+  .project-detail__actions a:first-child:hover {
+    color: var(--paper);
+  }
+
+  .project-detail__technology {
+    display: grid;
+    grid-template-columns: minmax(7rem, 0.25fr) minmax(0, 1fr);
+    gap: 1rem;
+    padding-block: 1rem;
+    border-bottom: 1px solid var(--sand);
+  }
+
+  .project-detail__technology > p {
+    margin: 0;
+  }
+
+  .project-detail__technology ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.55rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .project-detail__technology li:not(:last-child)::after {
+    content: ' ·';
+    color: var(--sand);
   }
 
   .project-detail__repository {
@@ -266,7 +430,12 @@ const labels =
     }
 
     .project-detail__gallery-grid,
-    .project-detail__pager {
+    .project-detail__pager,
+    .project-detail__overview {
+      grid-template-columns: 1fr;
+    }
+
+    .project-detail__technology {
       grid-template-columns: 1fr;
     }
 

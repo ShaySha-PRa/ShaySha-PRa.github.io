@@ -21,6 +21,23 @@ export interface CreativeWorkStructuredData extends SchemaContext {
   url: string;
 }
 
+export interface SoftwareSourceCodeStructuredData extends SchemaContext {
+  '@type': 'SoftwareSourceCode';
+  name: string;
+  description: string;
+  url: string;
+  codeRepository: string;
+  datePublished: string;
+  dateModified: string;
+  author: {
+    '@type': 'Person';
+    name: string;
+    url: string;
+  };
+  keywords: string[];
+  creativeWorkStatus: 'active' | 'completed' | 'experiment';
+}
+
 export interface ArticleStructuredData extends SchemaContext {
   '@type': 'Article';
   headline: string;
@@ -31,7 +48,20 @@ export interface ArticleStructuredData extends SchemaContext {
 }
 
 export type StructuredData =
-  PersonStructuredData | CreativeWorkStructuredData | ArticleStructuredData;
+  | PersonStructuredData
+  | CreativeWorkStructuredData
+  | SoftwareSourceCodeStructuredData
+  | ArticleStructuredData;
+
+export function buildSoftwareSourceCodeStructuredData(
+  fields: Omit<SoftwareSourceCodeStructuredData, '@context' | '@type'>,
+): SoftwareSourceCodeStructuredData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareSourceCode',
+    ...fields,
+  };
+}
 
 export function buildArticleStructuredData(
   fields: Omit<ArticleStructuredData, '@context' | '@type'>,

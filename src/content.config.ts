@@ -1,6 +1,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { httpsUrl } from './lib/schema';
+import { caseStudySchema, httpsUrl } from './lib/schema';
 
 const localizedBase = z.object({
   title: z.string().min(1),
@@ -34,6 +34,7 @@ const projects = defineCollection({
       featured: z.boolean().default(false),
       order: z.number().int().min(1),
       evidence: z.array(z.string()).default([]),
+      caseStudy: caseStudySchema.optional(),
     }),
 });
 

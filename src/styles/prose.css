@@ -15,7 +15,9 @@
 .prose p,
 .prose ul,
 .prose ol,
-.prose blockquote {
+.prose blockquote,
+.prose figure,
+.prose table {
   margin-block: 1.25rem;
 }
 
@@ -43,4 +45,84 @@
 .prose pre code {
   padding: 0;
   background: transparent;
+}
+
+.prose .project-flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  counter-reset: project-flow;
+  list-style: none;
+}
+
+.prose .project-flow li {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--sand);
+  counter-increment: project-flow;
+}
+
+.prose .project-flow li::before {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: var(--vermilion);
+  content: '0' counter(project-flow);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.prose .project-architecture {
+  margin-inline: 0;
+}
+
+.prose .project-architecture__scroller {
+  max-width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--sand);
+}
+
+.prose .project-architecture img {
+  display: block;
+  min-width: 50rem;
+  width: 100%;
+  height: auto;
+}
+
+.prose .project-architecture figcaption {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.prose .project-validation {
+  max-width: 100%;
+  overflow-x: auto;
+  scroll-margin-top: 2rem;
+}
+
+.prose table {
+  min-width: 42rem;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+}
+
+.prose th,
+.prose td {
+  padding: 0.8rem;
+  border: 1px solid var(--sand);
+  text-align: start;
+  vertical-align: top;
+}
+
+.prose th {
+  background: color-mix(in srgb, var(--sand) 24%, transparent);
+}
+
+@media (max-width: 48rem) {
+  .prose .project-flow {
+    grid-template-columns: 1fr;
+  }
 }

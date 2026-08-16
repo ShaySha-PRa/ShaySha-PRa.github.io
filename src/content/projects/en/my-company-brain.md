@@ -5,7 +5,7 @@ locale: en
 translationKey: my-company-brain
 summary: A multi-knowledge-base workspace for teams, organizing document knowledge, relational knowledge, knowledge pages, and an assistant behind one governable surface.
 published: 2026-08-16
-updated: 2026-08-16
+updated: 2026-08-17
 draft: false
 status: active
 role: Independent developer
@@ -18,28 +18,62 @@ order: 1
 evidence:
   - The codebase contains a web app, unified API, Agent Gateway, three knowledge paths, and Compose deployment definitions.
   - The repository records automated checks and local Compose service status; end-to-end validation with real material is still pending.
+caseStudy:
+  category: Enterprise Knowledge Platform / RAG + Agent
+  scope: 3 knowledge paths
+  evidenceTarget: '#validation'
 ---
 
-## The problem to solve
+## How someone uses it
 
-Team documents, relationship knowledge, knowledge pages, and assistant entry points can become scattered across separate tools. This project brings those paths into one governable workspace while keeping the evidence boundary explicit.
+<ol class="project-flow" data-project-flow>
+  <li>Create a knowledge source</li>
+  <li>Import material</li>
+  <li>Ask a question</li>
+  <li>Inspect the answer and sources</li>
+</ol>
 
-## My design and implementation
-
-The codebase contains a web app, unified API, and Agent Gateway, with document knowledge, relationship knowledge, and knowledge-page/assistant paths. This case study describes the implementation present in the repository; it does not present unfinished validation as a delivered outcome.
+Team members enter the knowledge paths through one workspace. The shared entry point governs knowledge sources and authorization, while each module keeps the parsing, retrieval, and citation behavior suited to its material.
 
 ## System architecture
 
-The repository structure routes the Web layer through a unified API and then to the Agent Gateway and its knowledge paths. PostgreSQL and Neo4j define relational and graph-oriented data boundaries, while Compose files describe local service orchestration.
+<figure class="project-architecture">
+  <div class="project-architecture__scroller" data-project-architecture-scroller>
+    <img src="/projects/my-company-brain-architecture.svg" alt="My Company Brain architecture: Web enters the Agent Gateway through a unified API and connects to three knowledge paths" />
+  </div>
+  <figcaption>The diagram establishes the code boundaries between Web, the unified API, the Agent Gateway, and the three knowledge paths; runtime claims remain in the validation matrix.</figcaption>
+</figure>
 
-## Key technical decisions
+The Web layer enters only through the unified API, while the Agent Gateway orchestrates Nano Brain, Traditional RAG, and GraphRAG. Identity, platform, Agent, and the three knowledge paths use six logical PostgreSQL databases, with Neo4j dedicated to GraphRAG data.
 
-TypeScript and Python are used across the Web/API and agent-oriented code; RAG and GraphRAG organize retrieval paths; Docker Compose makes local service status inspectable. These are implementation choices visible in the code, not claims about unverified runtime outcomes.
+## Three key technical decisions
 
-## Results and validation evidence
+### The unified API is the governance boundary
 
-The repository records automated checks and local Compose service status. The codebase contains the modules and deployment definitions above, but end-to-end validation with real material is still pending, so this page does not call it production-validated.
+The frontend does not connect directly to individual knowledge services. The unified API applies identity and knowledge-source access boundaries, while the Agent Gateway invokes modules only through protected HTTP Tools and MCP adapters.
 
-## Known limitations and next steps
+### The three knowledge paths remain independent
 
-End-to-end validation with real material is still pending, as is confirmation of how the knowledge paths behave against real team data. The next step is to complete that material-driven validation while retaining qualifiers such as “the codebase contains,” “the README reports,” and “still pending.”
+Nano Brain, Traditional RAG, and GraphRAG serve different material and retrieval goals. Traditional RAG combines keyword, lexical, and vector retrieval with RRF fusion; GraphRAG owns entity relationships and graph queries.
+
+### Compose defines the repeatable runtime boundary
+
+Database migration, initialization, service health checks, and loopback-only local ports live in Compose and its scripts, separating code presence from environment validation.
+
+<section id="validation" class="project-validation">
+  <h2>Current validation status</h2>
+  <table>
+    <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Web, unified API, Agent Gateway, and three knowledge paths</td><td>Implemented</td><td><a href="https://github.com/ShaySha-PRa/my-company-brain/tree/main/apps">Application directories</a> and <a href="https://github.com/ShaySha-PRa/my-company-brain/blob/main/docs/ARCHITECTURE.md">architecture documentation</a></td></tr>
+      <tr><td>Automated checks</td><td>Automatically verified</td><td>88 Bun + 15 Python tests, plus TypeScript and Python type checks</td></tr>
+      <tr><td>Local Compose orchestration</td><td>Locally verified</td><td>9 orchestrated services, 8 long-running services healthy, and migration exited with code 0</td></tr>
+      <tr><td>Real-material end-to-end validation across all three paths</td><td>Pending</td><td><a href="https://github.com/ShaySha-PRa/my-company-brain/blob/main/docs/CURRENT_STATUS.md">Current product status</a></td></tr>
+      <tr><td>Production deployment and load behavior</td><td>Not claimed</td><td>Outside the current project conclusions</td></tr>
+    </tbody>
+  </table>
+</section>
+
+## Limitations and next steps
+
+The most important remaining gap is end-to-end validation of the three knowledge paths, browser routes, and authorization matrix with real team material. Production deployment, load behavior, and long-running stability are outside the current claims.
