@@ -141,7 +141,7 @@ test('writing routes and RSS respond successfully', async ({
   expect(await rss.text()).toContain('<rss');
 });
 
-test('bilingual about and resume routes expose private-safe empty states', async ({
+test('bilingual about routes expose private-safe empty states', async ({
   page,
 }) => {
   await page.goto('/about/');
@@ -161,17 +161,31 @@ test('bilingual about and resume routes expose private-safe empty states', async
   await expect(page.getByRole('status')).toContainText(
     'Biography is being prepared',
   );
+});
 
+test('bilingual resume routes publish the supplied experience', async ({
+  page,
+}) => {
   await page.goto('/resume/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('简历');
-  await expect(page.getByRole('status')).toContainText('履历正在整理中');
+  await expect(
+    page.getByRole('heading', { level: 3, name: /毕马威上海分所/ }),
+  ).toBeVisible();
+  await expect(
+    page.getByText('My Company Brain——企业多知识库 RAG 与 Agent 平台'),
+  ).toBeVisible();
+  await expect(page.getByText(/1,960,000/)).toBeVisible();
   await expect(page.getByRole('link', { name: /PDF/i })).toHaveCount(0);
 
   await page.goto('/en/resume/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Résumé');
-  await expect(page.getByRole('status')).toContainText(
-    'Résumé is being prepared',
-  );
+  await expect(
+    page.getByRole('heading', { level: 3, name: /KPMG Shanghai/ }),
+  ).toBeVisible();
+  await expect(
+    page.getByText('AI Mathematical Animation Workbench'),
+  ).toBeVisible();
+  await expect(page.getByText(/519 Python tests/)).toBeVisible();
   await expect(page.getByRole('link', { name: /PDF/i })).toHaveCount(0);
 });
 

@@ -75,7 +75,12 @@ const profile = defineCollection({
 });
 
 const resume = defineCollection({
-  loader: glob({ base: './src/content/resume', pattern: '**/*.md' }),
+  loader: glob({
+    base: './src/content/resume',
+    pattern: '**/*.md',
+    generateId: ({ data }) =>
+      `${String(data.locale ?? 'und')}-${String(data.slug ?? '')}`,
+  }),
   schema: localizedBase.extend({
     pdfPath: z.string().optional(),
     order: z.number().default(1),
