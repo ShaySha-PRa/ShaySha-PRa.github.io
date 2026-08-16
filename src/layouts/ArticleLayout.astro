@@ -2,7 +2,7 @@
 import { render, type CollectionEntry } from 'astro:content';
 import BaseLayout from './BaseLayout.astro';
 import ArticleCard from '../components/cards/ArticleCard.astro';
-import type { Locale } from '../lib/i18n';
+import type { Locale, LocalizedSelection } from '../lib/i18n';
 import { readingTime } from '../lib/reading-time';
 import '../styles/prose.css';
 
@@ -11,14 +11,23 @@ type ArticleRecord = CollectionEntry<'articles'>['data'] & {
   entry: CollectionEntry<'articles'>;
 };
 
+type ArticleSelection = LocalizedSelection<ArticleRecord>;
+
 interface Props {
   locale: Locale;
   article: CollectionEntry<'articles'>;
-  related?: ArticleRecord[];
+  related?: ArticleSelection[];
+  translationPath?: string;
   fallback?: boolean;
 }
 
-const { locale, article, related = [], fallback = false } = Astro.props;
+const {
+  locale,
+  article,
+  related = [],
+  translationPath,
+  fallback = false,
+} = Astro.props;
 const { Content } = await render(article);
 const articlePath = `${locale === 'en' ? '/en' : ''}/writing/${article.data.slug}/`;
 const date = article.data.published.toISOString().slice(0, 10);
@@ -49,6 +58,7 @@ const labels =
   title={`${article.data.title} · Junshu Sha`}
   description={article.data.summary}
   canonicalPath={articlePath}
+  translationPath={translationPath}
   fallback={fallback}
   type="article"
 >
@@ -111,9 +121,9 @@ const labels =
           <div class="article-detail__related-grid">
             {related.map((item) => (
               <ArticleCard
-                article={item}
-                requestedLocale={locale}
-                fallback={false}
+                article={item.entry}
+                requestedLocale={item.requestedLocale}
+                fallback={item.isFallback}
               />
             ))}
           </div>

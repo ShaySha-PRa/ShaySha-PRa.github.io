@@ -1,7 +1,8 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import ArticleLayout from '../../../layouts/ArticleLayout.astro';
 import { getLocalizedCollection } from '../../../lib/content';
+import { articleTranslationPath } from '../../../lib/article-routes';
 
 type ArticleSelection = Awaited<
   ReturnType<typeof getLocalizedCollection<'articles'>>
@@ -17,20 +18,26 @@ export async function getStaticPaths() {
 
 const selection = Astro.props as ArticleSelection;
 const articles = await getLocalizedCollection('articles', 'en');
+const allArticles = await getCollection('articles', ({ data }) => !data.draft);
 const related = articles
   .filter((item) => item.entry.id !== selection.entry.id)
   .filter((item) =>
     item.entry.tags.some((tag) => selection.entry.tags.includes(tag)),
   )
-  .slice(0, 3)
-  .map((item) => item.entry);
+  .slice(0, 3);
 
 const article = selection.entry.entry as CollectionEntry<'articles'>;
+const translationPath = articleTranslationPath(
+  'en',
+  selection.entry,
+  allArticles.map(({ data }) => data),
+);
 ---
 
 <ArticleLayout
   locale="en"
   article={article}
   related={related}
+  translationPath={translationPath}
   fallback={selection.isFallback}
 />
