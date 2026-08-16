@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '../../lib/i18n';
 import type { getLocalizedCollection } from '../../lib/content';
+import { latestByDate } from '../../lib/dates';
 
 type JournalSelection = Awaited<
   ReturnType<typeof getLocalizedCollection<'journal'>>
@@ -12,7 +13,10 @@ interface Props {
 }
 
 const { entries, locale } = Astro.props;
-const latest = entries[0];
+const latest = latestByDate(
+  entries,
+  (entry) => entry.entry.date ?? entry.entry.published,
+);
 const journalPath = `${locale === 'en' ? '/en' : ''}/journal/`;
 ---
 
@@ -42,9 +46,7 @@ const journalPath = `${locale === 'en' ? '/en' : ''}/journal/`;
         </article>
       ) : (
         <p class="home-empty" role="status">
-          {locale === 'zh'
-            ? '影像记录正在整理中。 / Journal entries are being prepared.'
-            : 'Journal entries are being prepared. / 影像记录正在整理中。'}
+          影像记录正在整理中。 / Journal entries are being prepared.
         </p>
       )
     }

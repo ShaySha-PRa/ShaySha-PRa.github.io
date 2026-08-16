@@ -1,6 +1,7 @@
 ---
 import type { Locale } from '../../lib/i18n';
 import type { getLocalizedCollection } from '../../lib/content';
+import { latestByDate } from '../../lib/dates';
 
 type ArticleSelection = Awaited<
   ReturnType<typeof getLocalizedCollection<'articles'>>
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const { articles, locale } = Astro.props;
-const latest = articles[0];
+const latest = latestByDate(articles, (article) => article.entry.published);
 const writingPath = `${locale === 'en' ? '/en' : ''}/writing/`;
 ---
 
@@ -42,9 +43,7 @@ const writingPath = `${locale === 'en' ? '/en' : ''}/writing/`;
         </article>
       ) : (
         <p class="home-empty" role="status">
-          {locale === 'zh'
-            ? '文章正在整理中。 / Writing is being prepared.'
-            : 'Writing is being prepared. / 文章正在整理中。'}
+          文章正在整理中。 / Writing is being prepared.
         </p>
       )
     }

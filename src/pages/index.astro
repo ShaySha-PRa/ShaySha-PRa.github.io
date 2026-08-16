@@ -32,7 +32,9 @@ const selected = projects
       <NowPanel locale="zh" />
     </div>
     <ProjectSelection projects={selected} locale="zh" />
-    <LatestWriting articles={articles} locale="zh" />
-    <LatestJournal entries={journal} locale="zh" />
+    <div class="home-closing-row shell">
+      <LatestWriting articles={articles} locale="zh" />
+      <LatestJournal entries={journal} locale="zh" />
+    </div>
   </div>
 </BaseLayout>

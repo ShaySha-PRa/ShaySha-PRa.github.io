@@ -68,6 +68,12 @@ test('homepage follows the approved curated-cover hierarchy', async ({
   ).toHaveCount(5);
   await expect(page.locator('[data-section="latest-writing"]')).toBeVisible();
   await expect(page.locator('[data-section="latest-journal"]')).toBeVisible();
+  await expect(page.locator('[data-section="latest-writing"]')).toContainText(
+    '文章正在整理中。 / Writing is being prepared.',
+  );
+  await expect(page.locator('[data-section="latest-journal"]')).toContainText(
+    '影像记录正在整理中。 / Journal entries are being prepared.',
+  );
 });
 
 test('mobile homepage is a single readable column', async ({
@@ -75,10 +81,41 @@ test('mobile homepage is a single readable column', async ({
 }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium');
   await page.goto('/');
-  const boxes = await page
-    .locator('main > section')
-    .evaluateAll((sections) =>
-      sections.map((section) => section.getBoundingClientRect().width),
-    );
-  expect(boxes.every((width) => width <= 420)).toBe(true);
+  const sections = page.locator('[data-section]');
+  await expect(sections).toHaveCount(6);
+  const viewportWidth = page.viewportSize()?.width ?? 420;
+  const boxes = await sections.evaluateAll((items) =>
+    items.map((section) => {
+      const box = section.getBoundingClientRect();
+      return { width: box.width, x: box.x, y: box.y, bottom: box.bottom };
+    }),
+  );
+  expect(boxes.every((box) => box.width <= Math.min(viewportWidth, 420))).toBe(
+    true,
+  );
+  const closingBoxes = boxes.slice(-2);
+  expect(Math.abs(closingBoxes[0].x - closingBoxes[1].x)).toBeLessThan(1);
+  expect(closingBoxes[1].y).toBeGreaterThanOrEqual(closingBoxes[0].bottom);
+});
+
+test('English homepage keeps the approved bilingual empty states', async ({
+  page,
+}) => {
+  await page.goto('/en/');
+  await expect(page.locator('[data-section]')).toHaveCount(6);
+  await expect(page.locator('[data-section="featured-project"]')).toContainText(
+    'My Company Brain',
+  );
+  await expect(
+    page.locator('[data-section="selected-projects"] [data-project-card]'),
+  ).toHaveCount(5);
+  await expect(page.locator('[data-section="now"]')).toContainText(
+    'Building My Company Brain and organizing project and technical notes.',
+  );
+  await expect(page.locator('[data-section="latest-writing"]')).toContainText(
+    '文章正在整理中。 / Writing is being prepared.',
+  );
+  await expect(page.locator('[data-section="latest-journal"]')).toContainText(
+    '影像记录正在整理中。 / Journal entries are being prepared.',
+  );
 });

@@ -364,6 +364,18 @@ main {
   color: var(--muted);
 }
 
+.home-closing-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3rem;
+}
+
+.home-closing-row > section {
+  width: auto;
+  margin-inline: 0;
+  padding-block: 4.5rem;
+}
+
 @media (max-width: 48rem) {
   .home-page > section {
     padding-block: 3rem;
@@ -406,6 +418,14 @@ main {
 
   .home-selected__grid {
     grid-template-columns: 1fr;
+  }
+
+  .home-closing-row {
+    display: block;
+  }
+
+  .home-closing-row > section {
+    padding-block: 3rem;
   }
 
   .home-section-heading > p:last-child {
