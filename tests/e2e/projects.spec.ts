@@ -114,6 +114,15 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
     'src',
     '/projects/my-company-brain-architecture.svg',
   );
+  const intrinsicSize = await architecture.evaluate((element) => {
+    const image = element as HTMLImageElement;
+    return {
+      complete: image.complete,
+      width: image.naturalWidth,
+      height: image.naturalHeight,
+    };
+  });
+  expect(intrinsicSize).toEqual({ complete: true, width: 1400, height: 820 });
 
   const validation = page.locator('#validation');
   await expect(validation).toBeVisible();
