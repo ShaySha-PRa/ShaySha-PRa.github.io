@@ -9,50 +9,63 @@ type JournalPhoto = CollectionEntry<'journal'>['data']['photos'][number];
 interface Props {
   photos: JournalPhoto[];
   locale: Locale;
+  instanceId: string;
 }
 
-const { photos, locale } = Astro.props;
+const { photos, locale, instanceId } = Astro.props;
+const rootId = `journal-photo-${instanceId}`;
+const headingId = `${rootId}-heading`;
+const dialogId = `${rootId}-dialog`;
 ---
 
-<section class="photo-gallery" aria-labelledby="photo-gallery-heading">
-  <h2 id="photo-gallery-heading">
-    {locale === 'zh' ? '照片' : 'Photographs'}
-  </h2>
-  <div class="photo-grid" data-photo-grid>
-    {
-      photos.map((photo, index) => (
-        <figure class="photo-grid__item">
-          <button
-            class="photo-grid__button"
-            type="button"
-            data-photo-trigger
-            data-photo-index={index}
-            aria-label={
-              locale === 'zh'
-                ? `在大图查看器中查看第 ${index + 1} 张照片`
-                : `View photo ${index + 1} in the lightbox`
-            }
-          >
-            <Image
-              src={photo.src}
-              alt={photo.alt}
-              width={photo.src.width}
-              height={photo.src.height}
-              widths={[480, 960, 1440]}
-              formats={['avif', 'webp']}
-              sizes="(max-width: 48rem) 100vw, 50vw"
-              loading={index === 0 ? 'eager' : 'lazy'}
-              decoding="async"
-            />
-          </button>
-          {photo.caption && <figcaption>{photo.caption}</figcaption>}
-        </figure>
-      ))
-    }
-  </div>
-</section>
+<div
+  id={rootId}
+  class="photo-instance"
+  data-lightbox-root
+  data-photo-instance={instanceId}
+>
+  <section class="photo-gallery" aria-labelledby={headingId}>
+    <h2 id={headingId}>
+      {locale === 'zh' ? '照片' : 'Photographs'}
+    </h2>
+    <div class="photo-grid" data-photo-grid>
+      {
+        photos.map((photo, index) => (
+          <figure class="photo-grid__item">
+            <button
+              class="photo-grid__button"
+              type="button"
+              data-photo-trigger
+              data-photo-index={index}
+              aria-controls={dialogId}
+              aria-haspopup="dialog"
+              aria-label={
+                locale === 'zh'
+                  ? `在大图查看器中查看第 ${index + 1} 张照片`
+                  : `View photo ${index + 1} in the lightbox`
+              }
+            >
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.src.width}
+                height={photo.src.height}
+                widths={[480, 960, 1440]}
+                formats={['avif', 'webp']}
+                sizes="(max-width: 48rem) 100vw, 50vw"
+                loading={index === 0 ? 'eager' : 'lazy'}
+                decoding="async"
+              />
+            </button>
+            {photo.caption && <figcaption>{photo.caption}</figcaption>}
+          </figure>
+        ))
+      }
+    </div>
+  </section>
 
-<Lightbox photos={photos} locale={locale} />
+  <Lightbox photos={photos} locale={locale} instanceId={instanceId} />
+</div>
 
 <style>
   .photo-gallery {
