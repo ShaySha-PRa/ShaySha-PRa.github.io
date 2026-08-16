@@ -78,6 +78,10 @@ test('mobile menu hides desktop navigation and exposes all routes', async ({
 
   const mobileNavigation = menu.locator('nav');
   await expect(mobileNavigation).toBeVisible();
+  await expect(page.locator('[aria-current="page"]')).toHaveCount(1);
+  await expect(
+    mobileNavigation.getByRole('link', { name: '首页' }),
+  ).toHaveAttribute('aria-current', 'page');
   const routeLinks = mobileNavigation.locator('a:not(.locale-switch)');
   await expect(routeLinks).toHaveCount(7);
   for (const href of [
@@ -103,7 +107,7 @@ test('desktop navigation exposes one current page and never marks contact curren
     'aria-current',
     'page',
   );
-  await expect(navigation.locator('[aria-current="page"]')).toHaveCount(1);
+  await expect(page.locator('[aria-current="page"]')).toHaveCount(1);
   await expect(
     navigation.getByRole('link', { name: '联系' }),
   ).not.toHaveAttribute('aria-current', 'page');
