@@ -145,6 +145,23 @@ test('mobile menu traps focus and restores it when closed', async ({
   await expect(summary).toBeFocused();
 });
 
+test('open mobile menu releases inert state when crossing the desktop breakpoint', async ({
+  page,
+}, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-chromium');
+
+  await page.goto('/');
+  const menu = page.locator('details.mobile-nav');
+  await menu.locator('summary').click();
+  await expect(page.locator('main')).toHaveAttribute('inert', '');
+
+  await page.setViewportSize({ width: 1200, height: 800 });
+  await expect(menu).not.toHaveAttribute('open', '');
+  await expect(page.locator('main')).not.toHaveAttribute('inert', '');
+  await expect(page.locator('footer')).not.toHaveAttribute('inert', '');
+  await expect(page.locator('[aria-current="page"]')).toHaveCount(1);
+});
+
 test('homepage follows the approved recruiter-oriented curated hierarchy', async ({
   page,
 }) => {

@@ -127,7 +127,12 @@ linkItems.push({
   };
 
   syncCurrentPage();
-  mobileViewport.addEventListener('change', syncCurrentPage);
+  mobileViewport.addEventListener('change', () => {
+    syncCurrentPage();
+    if (!mobileViewport.matches && mobileNav?.open) {
+      mobileNav.open = false;
+    }
+  });
 
   if (mobileNav && summary && panel) {
     const focusableSelector =

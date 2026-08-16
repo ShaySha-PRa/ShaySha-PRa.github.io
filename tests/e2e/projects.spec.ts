@@ -118,6 +118,7 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
   const validation = page.locator('#validation');
   await expect(validation).toBeVisible();
   await expect(validation.locator('tbody tr')).toHaveCount(5);
+  await expect(validation.getByRole('rowheader')).toHaveCount(5);
   await expect(validation).toContainText('88 项 Bun + 15 项 Python');
   await expect(validation).toContainText('8 个常驻服务健康');
   await expect(validation).toContainText('待完成');
