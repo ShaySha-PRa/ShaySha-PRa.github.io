@@ -1,0 +1,36 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import ArticleLayout from '../../layouts/ArticleLayout.astro';
+import { getLocalizedCollection } from '../../lib/content';
+
+type ArticleSelection = Awaited<
+  ReturnType<typeof getLocalizedCollection<'articles'>>
+>[number];
+
+export async function getStaticPaths() {
+  const articles = await getLocalizedCollection('articles', 'zh');
+  return articles.map((selection) => ({
+    params: { slug: selection.entry.slug },
+    props: selection,
+  }));
+}
+
+const selection = Astro.props as ArticleSelection;
+const articles = await getLocalizedCollection('articles', 'zh');
+const related = articles
+  .filter((item) => item.entry.id !== selection.entry.id)
+  .filter((item) =>
+    item.entry.tags.some((tag) => selection.entry.tags.includes(tag)),
+  )
+  .slice(0, 3)
+  .map((item) => item.entry);
+
+const article = selection.entry.entry as CollectionEntry<'articles'>;
+---
+
+<ArticleLayout
+  locale="zh"
+  article={article}
+  related={related}
+  fallback={selection.isFallback}
+/>

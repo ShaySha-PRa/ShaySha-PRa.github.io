@@ -1,0 +1,239 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import ArticleCard from '../components/cards/ArticleCard.astro';
+import type { Locale } from '../lib/i18n';
+import { readingTime } from '../lib/reading-time';
+import '../styles/prose.css';
+
+type ArticleRecord = CollectionEntry<'articles'>['data'] & {
+  id: string;
+  entry: CollectionEntry<'articles'>;
+};
+
+interface Props {
+  locale: Locale;
+  article: CollectionEntry<'articles'>;
+  related?: ArticleRecord[];
+  fallback?: boolean;
+}
+
+const { locale, article, related = [], fallback = false } = Astro.props;
+const { Content } = await render(article);
+const articlePath = `${locale === 'en' ? '/en' : ''}/writing/${article.data.slug}/`;
+const date = article.data.published.toISOString().slice(0, 10);
+const updatedDate = article.data.updated.toISOString().slice(0, 10);
+const minutes = readingTime(article.body ?? article.data.summary).minutes;
+const labels =
+  locale === 'zh'
+    ? {
+        back: '返回文章列表',
+        published: '发布于',
+        updated: '更新于',
+        reading: '阅读时长',
+        tags: '标签',
+        related: '相关文章',
+      }
+    : {
+        back: 'Back to writing',
+        published: 'Published',
+        updated: 'Updated',
+        reading: 'Reading time',
+        tags: 'Tags',
+        related: 'Related writing',
+      };
+---
+
+<BaseLayout
+  locale={locale}
+  title={`${article.data.title} · Junshu Sha`}
+  description={article.data.summary}
+  canonicalPath={articlePath}
+  fallback={fallback}
+  type="article"
+>
+  <article class="article-detail shell">
+    <a
+      class="article-detail__back"
+      href={`${locale === 'en' ? '/en' : ''}/writing/`}
+    >
+      ← {labels.back}
+    </a>
+    <header class="article-detail__header">
+      <p class="article-detail__eyebrow">Technical writing</p>
+      <h1>{article.data.title}</h1>
+      <p class="article-detail__summary">{article.data.summary}</p>
+      <dl class="article-detail__meta">
+        <div>
+          <dt>{labels.published}</dt>
+          <dd>
+            <time datetime={article.data.published.toISOString()}>{date}</time>
+          </dd>
+        </div>
+        <div>
+          <dt>{labels.updated}</dt>
+          <dd>
+            <time datetime={article.data.updated.toISOString()}
+              >{updatedDate}</time
+            >
+          </dd>
+        </div>
+        <div>
+          <dt>{labels.reading}</dt>
+          <dd>{minutes} {locale === 'zh' ? '分钟' : 'minutes'}</dd>
+        </div>
+      </dl>
+      {
+        article.data.tags.length > 0 && (
+          <div class="article-detail__tag-group">
+            <span>{labels.tags}</span>
+            <ul class="article-detail__tags" aria-label={labels.tags}>
+              {article.data.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </header>
+
+    <div class="article-detail__body prose">
+      <Content />
+    </div>
+
+    {
+      related.length > 0 && (
+        <section
+          class="article-detail__related"
+          aria-labelledby="related-heading"
+        >
+          <h2 id="related-heading">{labels.related}</h2>
+          <div class="article-detail__related-grid">
+            {related.map((item) => (
+              <ArticleCard
+                article={item}
+                requestedLocale={locale}
+                fallback={false}
+              />
+            ))}
+          </div>
+        </section>
+      )
+    }
+  </article>
+</BaseLayout>
+
+<style>
+  .article-detail {
+    padding-block: 3rem 1rem;
+  }
+
+  .article-detail__back {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .article-detail__header {
+    max-width: 60rem;
+    margin-top: 2rem;
+  }
+
+  .article-detail__eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .article-detail h1 {
+    max-width: 50rem;
+    margin: 0;
+    font-size: clamp(2.8rem, 7vw, 6rem);
+  }
+
+  .article-detail__summary {
+    max-width: 46rem;
+    margin: 1.25rem 0 2rem;
+    color: var(--muted);
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+  }
+
+  .article-detail__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 2rem;
+    margin: 0;
+    padding-block: 1rem;
+    border-block: 1px solid var(--sand);
+  }
+
+  .article-detail__meta dt,
+  .article-detail__tag-group > span {
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .article-detail__meta dd {
+    margin: 0.35rem 0 0;
+  }
+
+  .article-detail__tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .article-detail__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .article-detail__tags li {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--sand);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .article-detail__body {
+    margin-top: 4rem;
+  }
+
+  .article-detail__related {
+    max-width: 60rem;
+    margin-top: 5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--sand);
+  }
+
+  .article-detail__related h2 {
+    margin-top: 0;
+  }
+
+  .article-detail__related-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 48rem) {
+    .article-detail {
+      padding-block-start: 2rem;
+    }
+
+    .article-detail__related-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

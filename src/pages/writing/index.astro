@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/cards/ArticleCard.astro';
+import { getLocalizedCollection } from '../../lib/content';
+
+const articles = await getLocalizedCollection('articles', 'zh');
+---
+
+<BaseLayout
+  locale="zh"
+  title="文章 · Junshu Sha"
+  description="Junshu Sha 的技术文章与工程记录。"
+  canonicalPath="/writing/"
+  translationPath="/en/writing/"
+>
+  <section class="shell writing-index">
+    <header class="writing-index__header">
+      <p class="writing-index__eyebrow">Technical writing</p>
+      <h1>文章</h1>
+      <p>记录软件工程、检索系统与持续学习中的问题、取舍和验证。</p>
+    </header>
+    {
+      articles.length > 0 ? (
+        <div class="writing-grid" data-writing-list>
+          {articles.map((selection) => (
+            <ArticleCard
+              article={selection.entry}
+              requestedLocale={selection.requestedLocale}
+              fallback={selection.isFallback}
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="writing-empty" data-writing-empty role="status">
+          文章正在整理中，正式发布后会在这里出现。
+        </p>
+      )
+    }
+  </section>
+</BaseLayout>
+
+<style>
+  .writing-index {
+    padding-block: 3rem 1rem;
+  }
+
+  .writing-index__header {
+    max-width: 44rem;
+    margin-bottom: 3rem;
+  }
+
+  .writing-index__eyebrow {
+    margin: 0 0 1rem;
+    color: var(--vermilion);
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .writing-index h1 {
+    margin: 0;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+  }
+
+  .writing-index__header > p:last-child {
+    max-width: 38rem;
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 1.15rem;
+  }
+
+  .writing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .writing-empty {
+    max-width: 42rem;
+    margin: 0;
+    padding: 2rem 1.25rem;
+    border-block: 1px solid var(--sand);
+    color: var(--muted);
+  }
+
+  @media (max-width: 48rem) {
+    .writing-index {
+      padding-block-start: 2rem;
+    }
+
+    .writing-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

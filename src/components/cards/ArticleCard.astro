@@ -1,0 +1,135 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import type { Locale } from '../../lib/i18n';
+import { readingTime } from '../../lib/reading-time';
+
+type ArticleRecord = CollectionEntry<'articles'>['data'] & {
+  id: string;
+  entry: CollectionEntry<'articles'>;
+};
+
+interface Props {
+  article: ArticleRecord;
+  requestedLocale: Locale;
+  fallback: boolean;
+}
+
+const { article, requestedLocale, fallback } = Astro.props;
+const detailPath = `${requestedLocale === 'en' ? '/en' : ''}/writing/${article.slug}/`;
+const date = article.published.toISOString().slice(0, 10);
+const minutes = readingTime(article.entry.body ?? article.summary).minutes;
+const labels =
+  requestedLocale === 'zh'
+    ? { minutes: '分钟阅读', tags: '标签' }
+    : { minutes: 'min read', tags: 'Tags' };
+---
+
+<article class="article-card" data-article-card>
+  {
+    article.cover && (
+      <a
+        class="article-card__cover"
+        href={detailPath}
+        tabindex="-1"
+        aria-hidden="true"
+      >
+        <Image
+          src={article.cover}
+          alt=""
+          sizes="(max-width: 48rem) 100vw, 33vw"
+        />
+      </a>
+    )
+  }
+  <div class="article-card__body">
+    <p class="article-card__meta">
+      <time datetime={article.published.toISOString()}>{date}</time>
+      <span aria-hidden="true"> · </span>
+      <span>{minutes} {labels.minutes}</span>
+    </p>
+    <h2><a href={detailPath}>{article.title}</a></h2>
+    <p class="article-card__summary">{article.summary}</p>
+    {
+      article.tags.length > 0 && (
+        <ul class="article-card__tags" aria-label={labels.tags}>
+          {article.tags.map((tag) => (
+            <li>{tag}</li>
+          ))}
+        </ul>
+      )
+    }
+    {
+      fallback && (
+        <p class="article-card__fallback" data-translation-fallback>
+          {requestedLocale === 'en'
+            ? 'English version in preparation · 中文内容暂代'
+            : '英文版准备中 · English version in preparation'}
+        </p>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .article-card {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--sand);
+    background: color-mix(in srgb, var(--paper) 78%, white);
+  }
+
+  .article-card__cover {
+    display: block;
+    overflow: hidden;
+    border-bottom: 1px solid var(--sand);
+    background: var(--paper);
+  }
+
+  .article-card__cover :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .article-card__body {
+    padding: 1.25rem;
+  }
+
+  .article-card__meta {
+    margin: 0 0 0.65rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+
+  .article-card h2 {
+    margin: 0;
+    font-size: clamp(1.45rem, 2.3vw, 2rem);
+  }
+
+  .article-card__summary {
+    color: var(--muted);
+  }
+
+  .article-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .article-card__tags li {
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--sand);
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+
+  .article-card__fallback {
+    margin-bottom: 0;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>
