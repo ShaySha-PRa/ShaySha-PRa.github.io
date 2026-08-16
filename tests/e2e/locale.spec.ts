@@ -9,6 +9,9 @@ test('locale switch preserves equivalent project content', async ({ page }) => {
     await page.locator('.mobile-nav .locale-switch').click();
   }
   await expect(page).toHaveURL('/en/projects/graphrag-agent/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'GraphRAGAgent',
+  );
 });
 
 test('empty English writing state is deterministic and has no translation fallback', async ({

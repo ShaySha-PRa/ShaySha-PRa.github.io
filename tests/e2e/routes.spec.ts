@@ -46,8 +46,9 @@ test('robots and 404 include the required public guidance', async ({
   request,
 }) => {
   const robots = await request.get('/robots.txt');
-  expect(await robots.text()).toContain(
-    'User-agent: *\nAllow: /\nSitemap: https://shaysha-pra.github.io/sitemap-index.xml',
+  expect(robots.headers()['content-type']).toBe('text/plain');
+  expect(await robots.text()).toBe(
+    'User-agent: *\nAllow: /\nSitemap: https://shaysha-pra.github.io/sitemap-index.xml\n',
   );
 
   const notFound = await request.get('/404.html');
@@ -60,26 +61,39 @@ test('robots and 404 include the required public guidance', async ({
 });
 
 test('structured data is scoped to confirmed page types', async ({ page }) => {
+  async function readJsonLd() {
+    const scripts = page.locator('script[type="application/ld+json"]');
+    await expect(scripts).toHaveCount(1);
+    const raw = await scripts.evaluate((node) => node.textContent ?? '');
+    return JSON.parse(raw) as Record<string, unknown>;
+  }
+
   await page.goto('/');
-  const person = page.locator('script[type="application/ld+json"]');
-  await expect(person).toHaveCount(1);
-  expect(await person.evaluate((node) => node.textContent)).toContain(
-    '"@type":"Person"',
-  );
+  expect(await readJsonLd()).toEqual({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Junshu Sha',
+    url: 'https://shaysha-pra.github.io',
+    sameAs: ['https://github.com/ShaySha-PRa'],
+  });
 
   await page.goto('/about/');
-  expect(
-    await page
-      .locator('script[type="application/ld+json"]')
-      .evaluate((node) => node.textContent),
-  ).toContain('"@type":"Person"');
+  expect(await readJsonLd()).toEqual({
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Junshu Sha',
+    url: 'https://shaysha-pra.github.io',
+    sameAs: ['https://github.com/ShaySha-PRa'],
+  });
 
   await page.goto('/projects/graphrag-agent/');
-  expect(
-    await page
-      .locator('script[type="application/ld+json"]')
-      .evaluate((node) => node.textContent),
-  ).toContain('"@type":"CreativeWork"');
+  expect(await readJsonLd()).toEqual({
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: 'GraphRAGAgent',
+    description: '结合知识图谱、向量检索、D3 可视化和多轮问答的知识探索应用。',
+    url: 'https://shaysha-pra.github.io/projects/graphrag-agent/',
+  });
 
   await page.goto('/writing/');
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(

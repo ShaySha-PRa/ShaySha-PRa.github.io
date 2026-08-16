@@ -33,6 +33,16 @@ export interface ArticleStructuredData extends SchemaContext {
 export type StructuredData =
   PersonStructuredData | CreativeWorkStructuredData | ArticleStructuredData;
 
+export function buildArticleStructuredData(
+  fields: Omit<ArticleStructuredData, '@context' | '@type'>,
+): ArticleStructuredData {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    ...fields,
+  };
+}
+
 /** Keep JSON-LD inside a script element without allowing HTML to terminate it. */
 export function serializeStructuredData(data: StructuredData): string {
   return JSON.stringify(data)

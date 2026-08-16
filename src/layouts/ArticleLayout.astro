@@ -1,6 +1,7 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import { SITE } from '../config/site';
+import { buildArticleStructuredData } from '../lib/seo';
 import BaseLayout from './BaseLayout.astro';
 import ArticleCard from '../components/cards/ArticleCard.astro';
 import type { Locale, LocalizedSelection } from '../lib/i18n';
@@ -62,15 +63,13 @@ const labels =
   translationPath={translationPath}
   fallback={fallback}
   type="article"
-  structuredData={{
-    '@context': 'https://schema.org',
-    '@type': 'Article',
+  structuredData={buildArticleStructuredData({
     headline: article.data.title,
     description: article.data.summary,
     url: new URL(articlePath, SITE.url).href,
     datePublished: article.data.published.toISOString(),
     dateModified: article.data.updated.toISOString(),
-  }}
+  })}
 >
   <article class="article-detail shell">
     <a
