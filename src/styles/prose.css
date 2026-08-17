@@ -51,6 +51,21 @@
   background: transparent;
 }
 
+.prose .project-capabilities {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.prose .project-capabilities li {
+  min-width: 0;
+  padding: 1rem;
+  border: 1px solid var(--sand);
+  background: color-mix(in srgb, var(--sand) 12%, transparent);
+}
+
 .prose .project-flow {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -138,6 +153,10 @@
 }
 
 @media (max-width: 48rem) {
+  .prose .project-capabilities {
+    grid-template-columns: 1fr;
+  }
+
   .prose .project-flow {
     grid-template-columns: 1fr;
   }

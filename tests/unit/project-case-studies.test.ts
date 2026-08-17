@@ -6,6 +6,45 @@ import { expect, it } from 'vitest';
 
 const root = resolve(import.meta.dirname, '../..');
 
+const storyHeadings = {
+  zh: [
+    '项目解决什么',
+    '核心功能',
+    '使用流程',
+    '项目亮点',
+    '系统架构',
+    '项目边界',
+  ],
+  en: [
+    'What it solves',
+    'Core capabilities',
+    'How it works',
+    'Project highlights',
+    'System architecture',
+    'Project scope',
+  ],
+} as const;
+
+function getLevelTwoHeadings(content: string) {
+  return [...content.matchAll(/^## (.+)$/gm)].map((match) => match[1]);
+}
+
+function getCapabilityItems(content: string) {
+  const list = content.match(
+    /<ul class="project-capabilities" data-project-capabilities>([\s\S]*?)<\/ul>/,
+  )?.[1];
+  return list?.match(/<li>[\s\S]*?<\/li>/g) ?? [];
+}
+
+function getHighlightHeadings(content: string, locale: 'zh' | 'en') {
+  const start = locale === 'zh' ? '项目亮点' : 'Project highlights';
+  const end = locale === 'zh' ? '系统架构' : 'System architecture';
+  const block = content.match(
+    new RegExp(`## ${start}([\\s\\S]*?)## ${end}`),
+  )?.[1];
+  return [...(block ?? '').matchAll(/^### (.+)$/gm)].map((match) => match[1]);
+}
+
 const localizedProjectCases = [
   {
     slug: 'my-company-brain',
@@ -173,7 +212,9 @@ for (const project of projectCases) {
       ['en', en],
     ] as const) {
       expect(document.content.match(/data-project-flow/g)).toHaveLength(1);
-      expect(document.content.match(/<li>[^<]+<\/li>/g)).toHaveLength(4);
+      expect(document.content.match(/<li>[^<]+<\/li>/g)).toHaveLength(
+        project.slug === 'my-company-brain' ? 10 : 4,
+      );
       expect(document.content.match(/class="project-evidence"/g)).toHaveLength(
         2,
       );
@@ -315,6 +356,36 @@ for (const project of projectCases) {
   });
 }
 
+it('My Company Brain leads with the bilingual product-story contract', () => {
+  const zh = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/zh/my-company-brain.md'),
+      'utf8',
+    ),
+  );
+  const en = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/en/my-company-brain.md'),
+      'utf8',
+    ),
+  );
+
+  expect(getLevelTwoHeadings(zh.content)).toEqual(storyHeadings.zh);
+  expect(getLevelTwoHeadings(en.content)).toEqual(storyHeadings.en);
+  expect(getCapabilityItems(zh.content)).toHaveLength(6);
+  expect(getCapabilityItems(en.content)).toHaveLength(6);
+  expect(getHighlightHeadings(zh.content, 'zh')).toEqual([
+    '让不同资料走适合自己的知识路径',
+    '在一次问答中组合知识并保留来源',
+    '把权限判断带到实际检索中',
+  ]);
+  expect(getHighlightHeadings(en.content, 'en')).toEqual([
+    'Match each knowledge type to the right path',
+    'Combine knowledge while preserving sources',
+    'Enforce access rules inside retrieval',
+  ]);
+});
+
 for (const project of localizedProjectCases) {
   it(`${project.slug} has no validation presentation in both locales`, () => {
     for (const [locale, document] of [
@@ -346,7 +417,13 @@ for (const project of localizedProjectCases) {
         /查看验证证据|View validation evidence/,
       );
       expect(document.content).toContain(
-        locale === 'zh' ? '限制与下一步' : project.enLimitationsHeading,
+        project.slug === 'my-company-brain'
+          ? locale === 'zh'
+            ? '项目边界'
+            : 'Project scope'
+          : locale === 'zh'
+            ? '限制与下一步'
+            : project.enLimitationsHeading,
       );
       expect(document.data.repoUrl).toBe(project.repoUrl);
       expect(document.data.locale).toBe(locale);

@@ -23,7 +23,22 @@ caseStudy:
   scope: 3 knowledge paths
 ---
 
-## How someone uses it
+## What it solves
+
+My Company Brain gives enterprise teams one governable workspace for knowledge sources, business scenarios, and traceable answers. Team members can choose a path that matches the material, ask follow-up questions, and inspect sources while public, private, and team authorization scopes constrain each retrieval.
+
+## Core capabilities
+
+<ul class="project-capabilities" data-project-capabilities>
+  <li>Manage knowledge sources and visibility</li>
+  <li>Import documents, tables, and knowledge pages</li>
+  <li>Create business scenarios and follow-up tasks</li>
+  <li>Ask follow-up questions across knowledge paths</li>
+  <li>Inspect passage, page, table, and image sources</li>
+  <li>Govern users, knowledge assets, and system state</li>
+</ul>
+
+## How it works
 
 <ol class="project-flow" data-project-flow>
   <li>Create a knowledge source</li>
@@ -32,7 +47,21 @@ caseStudy:
   <li>Inspect the answer and sources</li>
 </ol>
 
-Team members enter the knowledge paths through one workspace. The shared entry point governs knowledge sources and authorization, while each module keeps the parsing, retrieval, and citation behavior suited to its material.
+Members first create a knowledge source and set its visibility, then import material or knowledge pages. They choose a business scenario, ask a question across the suitable paths, and open passage, page, table, and image sources behind the answer.
+
+## Project highlights
+
+### Match each knowledge type to the right path
+
+The repository's Agent Gateway routes requests by material type: Nano Brain handles pages, facts, and links; Traditional RAG handles document and table retrieval; and GraphRAG handles entities and relationships. The product result is one reusable workspace without forcing every knowledge type into one index.
+
+### Combine knowledge while preserving sources
+
+Global Q&A can merge multiple knowledge paths in one answer while returning passage/page/table/image sources, so a user can move from a conclusion back to the material behind it. The repository's cross-module orchestration and shared source model provide that traceability instead of concatenating uncited text.
+
+### Enforce access rules inside retrieval
+
+public/private/team authorization is rechecked at module query boundaries rather than only hidden in the UI. The unified API and Agent Gateway establish the entry boundary, but each knowledge query carries visibility filtering again so a caller cannot bypass the interface and read unauthorized material.
 
 ## System architecture
 
@@ -45,20 +74,6 @@ Team members enter the knowledge paths through one workspace. The shared entry p
 
 The Web layer enters only through the unified API, while the Agent Gateway orchestrates Nano Brain, Traditional RAG, and GraphRAG. Identity, platform, Agent, and the three knowledge paths use six logical PostgreSQL databases, with Neo4j dedicated to GraphRAG data.
 
-## Three key technical decisions
+## Project scope
 
-### The unified API is the governance boundary
-
-The frontend does not connect directly to individual knowledge services. The unified API applies identity and knowledge-source access boundaries, while the Agent Gateway invokes modules only through protected HTTP Tools and MCP adapters.
-
-### The three knowledge paths remain independent
-
-Nano Brain, Traditional RAG, and GraphRAG serve different material and retrieval goals. Traditional RAG combines keyword, lexical, and vector retrieval with RRF fusion; GraphRAG owns entity relationships and graph queries.
-
-### Compose defines the repeatable runtime boundary
-
-Database migration, initialization, service health checks, and loopback-only local ports live in Compose and its scripts, separating code presence from environment validation.
-
-## Limitations and next steps
-
-The most important remaining gap is end-to-end validation of the three knowledge paths, browser routes, and authorization matrix with real team material. Production deployment, load behavior, and long-running stability are outside the current claims.
+The current scope is a self-hosted team knowledge workspace, with claims grounded in the repository code, Compose definitions, and local runtime boundary. It does not claim production HA, enterprise SSO, or large-scale load capability; those scenarios require separate deployment, identity, and load-test validation.

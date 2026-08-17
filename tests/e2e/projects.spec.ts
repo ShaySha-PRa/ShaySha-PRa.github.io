@@ -9,6 +9,20 @@ const projectNames = [
   '本地数据脱敏工作台',
 ];
 
+type ProductStoryExpectation = {
+  headings: string[];
+  highlights: string[];
+};
+
+async function expectProductStory(
+  page: Page,
+  expected: ProductStoryExpectation,
+) {
+  await expect(page.locator('.prose > h2')).toHaveText(expected.headings);
+  await expect(page.locator('[data-project-capabilities] > li')).toHaveCount(6);
+  await expect(page.locator('.prose > h3')).toHaveText(expected.highlights);
+}
+
 async function expectArchitectureImage(
   page: Page,
   accessibleName: string,
@@ -63,9 +77,7 @@ test('Chinese project index lists exactly six ordered projects', async ({
 test('My Company Brain is explicitly active', async ({ page }) => {
   await page.goto('/projects/my-company-brain/');
   await expect(page.getByText('持续开发中')).toBeVisible();
-  await expect(
-    page.getByRole('heading', { name: '限制与下一步' }),
-  ).toBeVisible();
+  await expect(page.getByRole('heading', { name: '项目边界' })).toBeVisible();
 });
 
 test('My Company Brain uses a loaded product preview', async ({ page }) => {
@@ -96,6 +108,56 @@ test('My Company Brain uses a loaded product preview', async ({ page }) => {
   }
 });
 
+test('My Company Brain leads with the localized product story', async ({
+  page,
+}) => {
+  for (const route of [
+    {
+      path: '/projects/my-company-brain/',
+      headings: [
+        '项目解决什么',
+        '核心功能',
+        '使用流程',
+        '项目亮点',
+        '系统架构',
+        '项目边界',
+      ],
+      highlights: [
+        '让不同资料走适合自己的知识路径',
+        '在一次问答中组合知识并保留来源',
+        '把权限判断带到实际检索中',
+      ],
+    },
+    {
+      path: '/en/projects/my-company-brain/',
+      headings: [
+        'What it solves',
+        'Core capabilities',
+        'How it works',
+        'Project highlights',
+        'System architecture',
+        'Project scope',
+      ],
+      highlights: [
+        'Match each knowledge type to the right path',
+        'Combine knowledge while preserving sources',
+        'Enforce access rules inside retrieval',
+      ],
+    },
+  ]) {
+    await page.goto(route.path);
+    await expectProductStory(page, {
+      headings: route.headings,
+      highlights: route.highlights,
+    });
+    await expect(
+      page.getByRole('heading', {
+        name: /统一 API 是治理边界|Unified API is the governance boundary/,
+      }),
+    ).toHaveCount(0);
+  }
+});
+
 test('My Company Brain presents scope, actions, product evidence, and technology in recruiter order', async ({
   page,
 }) => {
@@ -116,7 +178,7 @@ test('My Company Brain presents scope, actions, product evidence, and technology
   await expectValidationPresentationRemoved(
     page,
     'https://github.com/ShaySha-PRa/my-company-brain',
-    '限制与下一步',
+    '项目边界',
   );
 
   const sequence = await page
@@ -137,10 +199,12 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
 }) => {
   await page.goto('/projects/my-company-brain/');
   await expect(page.getByRole('heading', { level: 2 })).toHaveText([
-    '用户如何使用它',
+    '项目解决什么',
+    '核心功能',
+    '使用流程',
+    '项目亮点',
     '系统架构',
-    '三个关键技术决策',
-    '限制与下一步',
+    '项目边界',
   ]);
   await expect(page.locator('[data-project-flow] li')).toHaveText([
     '创建知识源',
@@ -159,7 +223,7 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
   await expectValidationPresentationRemoved(
     page,
     'https://github.com/ShaySha-PRa/my-company-brain',
-    '限制与下一步',
+    '项目边界',
   );
 });
 
@@ -176,7 +240,7 @@ test('English My Company Brain case study loads the approved architecture SVG', 
   await expectValidationPresentationRemoved(
     page,
     'https://github.com/ShaySha-PRa/my-company-brain',
-    'Limitations and next steps',
+    'Project scope',
   );
 });
 
