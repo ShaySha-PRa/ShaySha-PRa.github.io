@@ -4,7 +4,7 @@ const projectNames = [
   'My Company Brain',
   'GraphRAG 知识探索工作台',
   '合同审核多智能体工作流',
-  'Manim Project',
+  'AI 数学动画生成工作台',
   'SQLAgent',
   'ITA-Maskit',
 ];
@@ -255,6 +255,56 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
       page,
       route.alt,
       '/projects/agent-teams-project-architecture.svg',
+      { width: 1400, height: 760 },
+    );
+  }
+});
+
+test('Manim Project case study exposes bilingual workflow and evidence', async ({
+  page,
+}) => {
+  const routes = [
+    {
+      path: '/projects/manim-project/',
+      title: 'AI 数学动画生成工作台',
+      category: '应用型 AI',
+      scope: '安全媒体生成流水线',
+      flow: ['输入教学需求', '生成结构化计划', '预览与检查', '交付最终产物'],
+      alt: 'AI 数学动画生成工作台系统架构：Next.js 工作台通过 FastAPI 和 Redis 调度隔离 Manim 渲染与质量报告',
+    },
+    {
+      path: '/en/projects/manim-project/',
+      title: 'Manim Project',
+      category: 'Applied AI',
+      scope: 'Secure media generation pipeline',
+      flow: [
+        'Enter a teaching request',
+        'Generate a structured plan',
+        'Preview and inspect',
+        'Deliver the final artifact',
+      ],
+      alt: 'Manim Project architecture: the Next.js workbench uses FastAPI and Redis to schedule isolated Manim rendering and quality reports',
+    },
+  ];
+
+  for (const route of routes) {
+    await page.goto(route.path);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      route.title,
+    );
+    await expect(page.locator('.project-detail__category')).toHaveText(
+      route.category,
+    );
+    await expect(page.locator('.project-detail__overview')).toContainText(
+      route.scope,
+    );
+    await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expect(page.locator('.project-evidence')).toHaveCount(2);
+    await expect(page.locator('#validation')).toBeVisible();
+    await expectArchitectureImage(
+      page,
+      route.alt,
+      '/projects/manim-project-architecture.svg',
       { width: 1400, height: 760 },
     );
   }

@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Manim Project system architecture</title>
+  <desc id="desc">Four-band view of the Manim Project workbench, API control plane, queued host runner, untrusted isolated execution, and inspected preview and final artifacts.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2e2a25" />
+    </marker>
+    <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b64a35" />
+    </marker>
+    <style>
+      .canvas { fill: #f8f4ec; }
+      .band { fill: #eee7da; stroke: #d8ccba; stroke-width: 2; }
+      .band-label { fill: #756b5d; font: 700 16px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 2px; }
+      .band-note { fill: #897d6e; font: 400 14px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .node { fill: #fffdf8; stroke: #2e2a25; stroke-width: 2; }
+      .node-accent { fill: #fff5ef; stroke: #b64a35; stroke-width: 2; }
+      .node-state { fill: #f1f5f4; stroke: #3b6464; stroke-width: 2; }
+      .node-title { fill: #2e2a25; font: 700 18px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .35px; }
+      .node-sub { fill: #756b5d; font: 400 13px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .flow { fill: none; stroke: #2e2a25; stroke-width: 3; marker-end: url(#arrow); }
+      .flow-accent { fill: none; stroke: #b64a35; stroke-width: 3; marker-end: url(#arrowAccent); }
+      .flow-gray { fill: none; stroke: #81776a; stroke-width: 2.5; marker-end: url(#arrow); }
+      .boundary { fill: #f7ede4; stroke: #b64a35; stroke-width: 2.5; stroke-dasharray: 9 8; }
+      .legend { fill: #756b5d; font: 400 13px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .legend-line { stroke: #b64a35; stroke-width: 2.5; stroke-dasharray: 9 8; }
+    </style>
+  </defs>
+
+  <rect class="canvas" width="1400" height="760" />
+  <text x="52" y="42" fill="#2e2a25" font-family="Georgia, serif" font-size="28" font-weight="700">Manim Project / secure media generation pipeline</text>
+  <text x="52" y="68" class="band-note">A compact implementation map: every render carries a version, job identity, and inspectable artifact boundary.</text>
+
+  <rect class="band" x="32" y="92" width="1336" height="126" rx="14" />
+  <text class="band-label" x="58" y="124">01 EXPERIENCE</text>
+  <text class="band-note" x="58" y="148">browser-facing authoring and delivery</text>
+  <rect class="node" x="280" y="116" width="250" height="72" rx="10" />
+  <text class="node-title" x="405" y="148" text-anchor="middle">BROWSER</text>
+  <text class="node-sub" x="405" y="172" text-anchor="middle">prompt · plan · preview</text>
+  <rect class="node-accent" x="780" y="116" width="340" height="72" rx="10" />
+  <text class="node-title" x="950" y="148" text-anchor="middle">NEXT.JS WORKBENCH</text>
+  <text class="node-sub" x="950" y="172" text-anchor="middle">immutable versions · artifact view</text>
+  <path class="flow-accent" d="M 530 152 H 780" />
+
+  <rect class="band" x="32" y="234" width="1336" height="126" rx="14" />
+  <text class="band-label" x="58" y="266">02 CONTROL PLANE</text>
+  <text class="band-note" x="58" y="290">persist intent, issue job IDs, and coordinate rendering</text>
+  <rect class="node-accent" x="280" y="258" width="330" height="72" rx="10" />
+  <text class="node-title" x="445" y="290" text-anchor="middle">FASTAPI + SQLITE</text>
+  <text class="node-sub" x="445" y="314" text-anchor="middle">plans · versions · job state</text>
+  <rect class="node" x="780" y="258" width="300" height="72" rx="10" />
+  <text class="node-title" x="930" y="290" text-anchor="middle">REDIS JOB QUEUE</text>
+  <text class="node-sub" x="930" y="314" text-anchor="middle">job-ID scheduling</text>
+  <path class="flow" d="M 950 188 V 258" />
+  <path class="flow" d="M 610 294 H 780" />
+
+  <rect class="band" x="32" y="376" width="1336" height="158" rx="14" />
+  <text class="band-label" x="58" y="408">03 EXECUTION</text>
+  <text class="band-note" x="58" y="432">host coordination hands untrusted code to an isolated renderer</text>
+  <rect class="node" x="280" y="456" width="300" height="58" rx="10" />
+  <text class="node-title" x="430" y="490" text-anchor="middle">HOST RUNNER</text>
+  <rect class="boundary" data-boundary="untrusted-execution" x="684" y="424" width="520" height="96" rx="12" />
+  <text class="legend" x="710" y="446">UNTRUSTED EXECUTION · default-deny</text>
+  <rect class="node-accent" x="740" y="458" width="380" height="48" rx="9" />
+  <text class="node-title" x="930" y="488" text-anchor="middle">ISOLATED MANIM CONTAINER</text>
+  <path class="flow" d="M 930 330 V 456 H 580" />
+  <path class="flow-accent" d="M 580 485 H 740" />
+  <text class="legend" x="1218" y="476">AST + API allowlist</text>
+  <text class="legend" x="1218" y="497">no network · bounded resources</text>
+
+  <rect class="band" x="32" y="550" width="1336" height="160" rx="14" />
+  <text class="band-label" x="58" y="582">04 ARTIFACTS</text>
+  <text class="band-note" x="58" y="606">separate preview/final outputs and deterministic quality evidence</text>
+  <rect class="node-state" x="280" y="632" width="350" height="58" rx="10" />
+  <text class="node-title" x="455" y="657" text-anchor="middle">PREVIEW / FINAL ARTIFACTS</text>
+  <text class="node-sub" x="455" y="678" text-anchor="middle">video · thumbnail · metadata</text>
+  <rect class="node-accent" x="780" y="632" width="300" height="58" rx="10" />
+  <text class="node-title" x="930" y="657" text-anchor="middle">QUALITY REPORT</text>
+  <text class="node-sub" x="930" y="678" text-anchor="middle">duration · frames · diagnostics</text>
+  <path class="flow-gray" d="M 430 514 V 632" />
+  <path class="flow-gray" d="M 630 661 H 780" />
+  <path class="flow-accent" d="M 1080 661 H 1270 V 152 H 1120" />
+</svg>

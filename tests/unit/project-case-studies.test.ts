@@ -41,6 +41,24 @@ const projectCases = [
     ],
     screenshots: ['contracts.png', 'upload.png'],
   },
+  {
+    slug: 'manim-project',
+    zhTitle: 'AI 数学动画生成工作台',
+    enTitle: 'Manim Project',
+    category: '应用型 AI',
+    scope: '安全媒体生成流水线',
+    architecture: 'manim-project-architecture.svg',
+    architectureLabels: [
+      'NEXT.JS WORKBENCH',
+      'FASTAPI + SQLITE',
+      'REDIS JOB QUEUE',
+      'HOST RUNNER',
+      'ISOLATED MANIM CONTAINER',
+      'PREVIEW / FINAL ARTIFACTS',
+      'QUALITY REPORT',
+    ],
+    screenshots: ['formula-derivation-demo.jpg', 'quality-result.png'],
+  },
 ] as const;
 
 for (const project of projectCases) {
@@ -61,11 +79,15 @@ for (const project of projectCases) {
       category:
         project.slug === 'agent-teams-project'
           ? 'AI Workflow'
-          : 'AI Knowledge Systems',
+          : project.slug === 'manim-project'
+            ? 'Applied AI'
+            : 'AI Knowledge Systems',
       scope:
         project.slug === 'agent-teams-project'
           ? 'Contract-review MVP'
-          : 'Full-stack GraphRAG workspace',
+          : project.slug === 'manim-project'
+            ? 'Secure media generation pipeline'
+            : 'Full-stack GraphRAG workspace',
       evidenceTarget: '#validation',
     });
 
@@ -130,7 +152,7 @@ for (const project of projectCases) {
       expect(
         (architecture.match(/class="retrieval"/g) ?? []).length,
       ).toBeGreaterThanOrEqual(2);
-    } else {
+    } else if (project.slug === 'agent-teams-project') {
       expect(architecture).toContain('01 EXPERIENCE');
       expect(architecture).toContain('02 APPLICATION');
       expect(architecture).toContain('03 REVIEW WORKFLOW');
@@ -143,6 +165,13 @@ for (const project of projectCases) {
       expect(architecture).not.toMatch(
         /\b(?:OCR service|JWT|legal accuracy)\b/i,
       );
+    } else {
+      expect(architecture).toContain('01 EXPERIENCE');
+      expect(architecture).toContain('02 CONTROL PLANE');
+      expect(architecture).toContain('03 EXECUTION');
+      expect(architecture).toContain('04 ARTIFACTS');
+      expect(architecture).toContain('default-deny');
+      expect(architecture).toContain('data-boundary="untrusted-execution"');
     }
     expect(architecture).not.toMatch(
       /\b(?:DeepSeek|MiniMax|MinerU|\d{2,5}\s*ports?)\b/i,
