@@ -69,6 +69,6 @@ The FastAPI streaming endpoint can send agent steps, query data, chart configura
   <figcaption>The API documentation screen shows FastAPI endpoints for chat, training data, database, and query operations; the image comes from the repository demo.</figcaption>
 </figure>
 
-## Limitations and next steps
+## Known limitations and next steps
 
 This page follows the repository's Vanna/LangChain principal track, with demo or synthetic data in the screenshots. Development CORS is permissive; the direct SQL endpoint executes the supplied statement, so the page does not describe it as a completed SQL sandbox. Runtime state still includes global client objects, CSV QA remains a separate prototype path, and component composition does not imply generalized NL2SQL accuracy. The next step is to provide isolated dependencies, services, and model configuration, then record one repeatable retrieval, generation, validation, execution, and SSE acceptance flow with sanitized synthetic data.

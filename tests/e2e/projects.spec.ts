@@ -29,6 +29,28 @@ async function expectArchitectureImage(
   expect(intrinsicSize).toEqual({ complete: true, ...expectedSize });
 }
 
+async function expectValidationPresentationRemoved(
+  page: Page,
+  repositoryUrl: string,
+  limitationsHeading: string,
+) {
+  await expect(page.locator('#validation')).toHaveCount(0);
+  await expect(
+    page.getByRole('heading', {
+      name: /当前验证状态|Current validation status/,
+    }),
+  ).toHaveCount(0);
+  await expect(
+    page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
+  ).toHaveCount(0);
+  const actions = page.locator('.project-detail__actions a');
+  await expect(actions).toHaveCount(1);
+  await expect(actions).toHaveAttribute('href', repositoryUrl);
+  await expect(
+    page.getByRole('heading', { name: limitationsHeading }),
+  ).toBeVisible();
+}
+
 test('Chinese project index lists exactly six ordered projects', async ({
   page,
 }) => {
@@ -91,10 +113,11 @@ test('My Company Brain presents scope, actions, product evidence, and technology
     'href',
     'https://github.com/ShaySha-PRa/my-company-brain',
   );
-  await expect(actions.getByRole('link', { name: '查看验证证据' })).toHaveCount(
-    0,
+  await expectValidationPresentationRemoved(
+    page,
+    'https://github.com/ShaySha-PRa/my-company-brain',
+    '限制与下一步',
   );
-  await expect(actions.locator('a')).toHaveCount(1);
 
   const sequence = await page
     .locator(
@@ -133,11 +156,11 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
     { width: 1400, height: 820 },
   );
 
-  await expect(page.locator('#validation')).toHaveCount(0);
-  await expect(page.getByRole('link', { name: '查看验证证据' })).toHaveCount(0);
-  await expect(
-    page.getByRole('heading', { name: '限制与下一步' }),
-  ).toBeVisible();
+  await expectValidationPresentationRemoved(
+    page,
+    'https://github.com/ShaySha-PRa/my-company-brain',
+    '限制与下一步',
+  );
 });
 
 test('English My Company Brain case study loads the approved architecture SVG', async ({
@@ -150,6 +173,11 @@ test('English My Company Brain case study loads the approved architecture SVG', 
     '/projects/my-company-brain-architecture.svg',
     { width: 1400, height: 820 },
   );
+  await expectValidationPresentationRemoved(
+    page,
+    'https://github.com/ShaySha-PRa/my-company-brain',
+    'Limitations and next steps',
+  );
 });
 
 test('GraphRAGAgent case study exposes bilingual workflow and evidence', async ({
@@ -161,6 +189,8 @@ test('GraphRAGAgent case study exposes bilingual workflow and evidence', async (
       title: 'GraphRAG 知识探索工作台',
       category: 'AI 知识系统',
       scope: '全栈 GraphRAG 工作台',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/GraphRAGAgent',
+      limitationsHeading: '限制与下一步',
       flow: [
         '上传文档',
         '解析并建立索引',
@@ -173,6 +203,8 @@ test('GraphRAGAgent case study exposes bilingual workflow and evidence', async (
       title: 'GraphRAGAgent',
       category: 'AI Knowledge Systems',
       scope: 'Full-stack GraphRAG workspace',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/GraphRAGAgent',
+      limitationsHeading: 'Limitations and next steps',
       flow: [
         'Upload a document',
         'Parse and index it',
@@ -195,16 +227,11 @@ test('GraphRAGAgent case study exposes bilingual workflow and evidence', async (
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toHaveCount(0);
-    await expect(
-      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
-    ).toHaveCount(0);
-    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
-    await expect(
-      page.getByRole('heading', {
-        name: /限制与下一步|Limitations and next steps/,
-      }),
-    ).toBeVisible();
+    await expectValidationPresentationRemoved(
+      page,
+      route.repositoryUrl,
+      route.limitationsHeading,
+    );
     await expectArchitectureImage(
       page,
       route.path.startsWith('/en/')
@@ -225,6 +252,8 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
       title: '合同审核多智能体工作流',
       category: 'AI 工作流',
       scope: '合同审核 MVP',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/Agent_Teams_Project',
+      limitationsHeading: '限制与下一步',
       flow: ['上传合同', '核验字段', '人工处理风险', '查看 JSON 报告'],
       alt: '合同审核多智能体工作流系统架构：React 工作台通过 FastAPI 连接字段提取、风险路由、人工决策和报告流',
     },
@@ -233,6 +262,8 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
       title: 'Agent Teams Project',
       category: 'AI Workflow',
       scope: 'Contract-review MVP',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/Agent_Teams_Project',
+      limitationsHeading: 'Limitations and next steps',
       flow: [
         'Upload a contract',
         'Review extracted fields',
@@ -256,16 +287,11 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toHaveCount(0);
-    await expect(
-      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
-    ).toHaveCount(0);
-    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
-    await expect(
-      page.getByRole('heading', {
-        name: /限制与下一步|Limitations and next steps/,
-      }),
-    ).toBeVisible();
+    await expectValidationPresentationRemoved(
+      page,
+      route.repositoryUrl,
+      route.limitationsHeading,
+    );
     await expectArchitectureImage(
       page,
       route.alt,
@@ -284,6 +310,8 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
       title: 'AI 数学动画生成工作台',
       category: '应用型 AI',
       scope: '安全媒体生成流水线',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/Manim_project',
+      limitationsHeading: '限制与下一步',
       flow: ['输入教学需求', '生成结构化计划', '预览与检查', '交付最终产物'],
       alt: 'AI 数学动画生成工作台系统架构：Next.js 工作台通过 FastAPI 和 Redis 调度隔离 Manim 渲染与质量报告',
     },
@@ -292,6 +320,8 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
       title: 'Manim Project',
       category: 'Applied AI',
       scope: 'Secure media generation pipeline',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/Manim_project',
+      limitationsHeading: 'Limitations and next steps',
       flow: [
         'Enter a teaching request',
         'Generate a structured plan',
@@ -315,16 +345,11 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toHaveCount(0);
-    await expect(
-      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
-    ).toHaveCount(0);
-    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
-    await expect(
-      page.getByRole('heading', {
-        name: /限制与下一步|Limitations and next steps/,
-      }),
-    ).toBeVisible();
+    await expectValidationPresentationRemoved(
+      page,
+      route.repositoryUrl,
+      route.limitationsHeading,
+    );
     await expectArchitectureImage(
       page,
       route.alt,
@@ -343,6 +368,8 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
       title: 'NL2SQL 数据分析工作台',
       category: '数据平台',
       scope: '全栈 NL2SQL 助手',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/SQLAgent',
+      limitationsHeading: '限制与下一步',
       flow: [
         '输入自然语言问题',
         '检索上下文并生成 SQL',
@@ -356,6 +383,8 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
       title: 'SQLAgent',
       category: 'Data Platform',
       scope: 'Full-stack NL2SQL assistant',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/SQLAgent',
+      limitationsHeading: 'Known limitations and next steps',
       flow: [
         'Enter a natural-language question',
         'Retrieve context and generate SQL',
@@ -379,16 +408,11 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toHaveCount(0);
-    await expect(
-      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
-    ).toHaveCount(0);
-    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
-    await expect(
-      page.getByRole('heading', {
-        name: /限制与下一步|Limitations and next steps/,
-      }),
-    ).toBeVisible();
+    await expectValidationPresentationRemoved(
+      page,
+      route.repositoryUrl,
+      route.limitationsHeading,
+    );
     await expectArchitectureImage(
       page,
       route.alt,
@@ -407,6 +431,8 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
       title: '本地数据脱敏工作台',
       category: '数据隐私',
       scope: 'CLI + Windows 桌面应用',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/ITA-Maskit',
+      limitationsHeading: '限制与下一步',
       flow: [
         '选择文件、规则集和可选人员数据',
         '预验证命中而不写出结果',
@@ -420,6 +446,8 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
       title: 'ITA-Maskit',
       category: 'Data Privacy',
       scope: 'CLI + Windows desktop app',
+      repositoryUrl: 'https://github.com/ShaySha-PRa/ITA-Maskit',
+      limitationsHeading: 'Known limitations and next steps',
       flow: [
         'Select files, a rule set, and optional personnel data',
         'Preview matches without writing output',
@@ -443,16 +471,11 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toHaveCount(0);
-    await expect(
-      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
-    ).toHaveCount(0);
-    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
-    await expect(
-      page.getByRole('heading', {
-        name: /限制与下一步|Limitations and next steps/,
-      }),
-    ).toBeVisible();
+    await expectValidationPresentationRemoved(
+      page,
+      route.repositoryUrl,
+      route.limitationsHeading,
+    );
     await expectArchitectureImage(
       page,
       route.alt,

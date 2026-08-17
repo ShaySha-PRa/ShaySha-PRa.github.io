@@ -69,7 +69,7 @@ Preview reports field hits before output is written, and formal processing reuse
   <figcaption>The rule-management screen shows field strategies and the rule-set entry point; the image comes from the repository and uses scripted demonstration data.</figcaption>
 </figure>
 
-## Limitations and next steps
+## Known limitations and next steps
 
 Deterministic pseudonymization is not encryption and cannot replace key management or encrypted storage. The default PDF text-extraction/reflow path and image OCR cropping remain beta capabilities that can change layout or image dimensions; original-layout PDF masking is also an explicitly enabled beta path. An optional rule-generation service receives only rule descriptions or policy documents that the user provides; masking data is kept out of that call, but the service boundary still needs review for the deployment environment.
 

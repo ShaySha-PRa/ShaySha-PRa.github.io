@@ -6,6 +6,39 @@ import { expect, it } from 'vitest';
 
 const root = resolve(import.meta.dirname, '../..');
 
+const localizedProjectCases = [
+  {
+    slug: 'my-company-brain',
+    repoUrl: 'https://github.com/ShaySha-PRa/my-company-brain',
+    enLimitationsHeading: 'Limitations and next steps',
+  },
+  {
+    slug: 'graphrag-agent',
+    repoUrl: 'https://github.com/ShaySha-PRa/GraphRAGAgent',
+    enLimitationsHeading: 'Limitations and next steps',
+  },
+  {
+    slug: 'agent-teams-project',
+    repoUrl: 'https://github.com/ShaySha-PRa/Agent_Teams_Project',
+    enLimitationsHeading: 'Limitations and next steps',
+  },
+  {
+    slug: 'manim-project',
+    repoUrl: 'https://github.com/ShaySha-PRa/Manim_project',
+    enLimitationsHeading: 'Limitations and next steps',
+  },
+  {
+    slug: 'sql-agent',
+    repoUrl: 'https://github.com/ShaySha-PRa/SQLAgent',
+    enLimitationsHeading: 'Known limitations and next steps',
+  },
+  {
+    slug: 'ita-maskit',
+    repoUrl: 'https://github.com/ShaySha-PRa/ITA-Maskit',
+    enLimitationsHeading: 'Known limitations and next steps',
+  },
+] as const;
+
 const projectCases = [
   {
     slug: 'graphrag-agent',
@@ -159,7 +192,11 @@ for (const project of projectCases) {
         /当前验证状态|Current validation status/,
       );
       expect(document.content).toContain(
-        locale === 'zh' ? '限制与下一步' : 'Limitations and next steps',
+        locale === 'zh'
+          ? '限制与下一步'
+          : project.slug === 'sql-agent' || project.slug === 'ita-maskit'
+            ? 'Known limitations and next steps'
+            : 'Limitations and next steps',
       );
       expect(document.data.locale).toBe(locale);
     }
@@ -275,6 +312,45 @@ for (const project of projectCases) {
     expect(architecture).not.toMatch(
       /\b(?:DeepSeek|MiniMax|MinerU|\d{2,5}\s*ports?)\b/i,
     );
+  });
+}
+
+for (const project of localizedProjectCases) {
+  it(`${project.slug} has no validation presentation in both locales`, () => {
+    for (const [locale, document] of [
+      [
+        'zh',
+        matter(
+          readFileSync(
+            resolve(root, `src/content/projects/zh/${project.slug}.md`),
+            'utf8',
+          ),
+        ),
+      ],
+      [
+        'en',
+        matter(
+          readFileSync(
+            resolve(root, `src/content/projects/en/${project.slug}.md`),
+            'utf8',
+          ),
+        ),
+      ],
+    ] as const) {
+      expect(document.data.caseStudy).not.toHaveProperty('evidenceTarget');
+      expect(document.content).not.toContain('id="validation"');
+      expect(document.content).not.toMatch(
+        /当前验证状态|Current validation status/,
+      );
+      expect(document.content).not.toMatch(
+        /查看验证证据|View validation evidence/,
+      );
+      expect(document.content).toContain(
+        locale === 'zh' ? '限制与下一步' : project.enLimitationsHeading,
+      );
+      expect(document.data.repoUrl).toBe(project.repoUrl);
+      expect(document.data.locale).toBe(locale);
+    }
   });
 }
 
