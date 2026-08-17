@@ -86,4 +86,4 @@ The Next.js workbench uses FastAPI + SQLite for Prompt, ContentPlan, CodeVersion
 
 ## Project scope
 
-This is a human-review creative tool, not a one-click service for arbitrary mathematics. Its mathematical scope is bounded by ContentPlan and formula-validation rules; generated code is not guaranteed to render on every attempt or to produce a deliverable result in one shot for arbitrary mathematics. Model repair, deterministic fallback, and local quality checks are not substitutes for human teaching judgment. This run completed the deterministic code path and local demo-artifact inspection, but not a compatible-model-driven end-to-end Preview → Final render or any market or production validation.
+This local workbench is for teacher-reviewed formula derivation and function visualization. Mathematical content and visual expression require human review, and arbitrary topics are not guaranteed to produce a final video in one attempt.

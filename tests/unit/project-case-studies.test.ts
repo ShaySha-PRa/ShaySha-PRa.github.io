@@ -51,6 +51,13 @@ function getHighlightHeadings(content: string, locale: 'zh' | 'en') {
   return [...(block ?? '').matchAll(/^### (.+)$/gm)].map((match) => match[1]);
 }
 
+function getScope(content: string, locale: 'zh' | 'en') {
+  const heading = locale === 'zh' ? '项目边界' : 'Project scope';
+  return content
+    .match(new RegExp(`## ${heading}\\n\\n([\\s\\S]*?)(?=\\n\\n## |$)`))?.[1]
+    .trim();
+}
+
 const localizedProjectCases = [
   {
     slug: 'my-company-brain',
@@ -494,6 +501,37 @@ it('Manim leads with the bilingual teaching-to-video product story', () => {
     expect(document.data.repoUrl).toBe(
       'https://github.com/ShaySha-PRa/Manim_project',
     );
+  }
+});
+
+it('GraphRAG and Manim scopes stay concise and free of reproduction history', () => {
+  const scopes = {
+    'graphrag-agent': {
+      zh: '这是一个结合图谱构建、关系检索和多轮问答的本地文档知识探索工作台。它不提供多用户协作、租户隔离或企业知识治理。',
+      en: 'This project is a local-document knowledge exploration workbench combining graph construction, relationship search, and multi-turn Q&A. It does not provide multi-user collaboration, tenant isolation, or enterprise knowledge governance.',
+    },
+    'manim-project': {
+      zh: '这是一个用于教师审阅公式推导和函数可视化的本地工作台。数学内容和视觉表达需要人工审核，任意主题不保证一次生成最终视频。',
+      en: 'This local workbench is for teacher-reviewed formula derivation and function visualization. Mathematical content and visual expression require human review, and arbitrary topics are not guaranteed to produce a final video in one attempt.',
+    },
+  } as const;
+
+  for (const [slug, expected] of Object.entries(scopes)) {
+    for (const locale of ['zh', 'en'] as const) {
+      const document = matter(
+        readFileSync(
+          resolve(root, `src/content/projects/${locale}/${slug}.md`),
+          'utf8',
+        ),
+      );
+      const scope = getScope(document.content, locale);
+      expect(scope).toBe(expected[locale]);
+      expect(scope).not.toMatch(
+        locale === 'zh'
+          ? /本轮|复现|依赖|配置|环境|端到端|预览|验证矩阵/u
+          : /this run|reproduction|dependencies|configuration|environment|end-to-end|preview|validation matrix/iu,
+      );
+    }
   }
 });
 

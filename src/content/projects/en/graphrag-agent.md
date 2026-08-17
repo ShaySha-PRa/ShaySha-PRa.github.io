@@ -86,4 +86,4 @@ The React workspace sends document, graph, and question requests through FastAPI
 
 ## Project scope
 
-The current scope is a local knowledge-exploration workspace: document upload, indexing, graph browsing, retrieval, and Q&amp;A stay within one local workflow. It does not claim multi-user collaboration, tenant governance, or production operations; end-to-end reproduction with real material still requires the project's dependencies and a compatible model configuration.
+This project is a local-document knowledge exploration workbench combining graph construction, relationship search, and multi-turn Q&A. It does not provide multi-user collaboration, tenant isolation, or enterprise knowledge governance.

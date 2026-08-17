@@ -850,6 +850,32 @@ test('mobile case study contains wide architecture within its own scroller', asy
   }
 });
 
+test('GraphRAG detail pages do not overflow a 390px viewport', async ({
+  browser,
+}) => {
+  const context = await browser.newContext({
+    viewport: { width: 390, height: 844 },
+  });
+  const page = await context.newPage();
+
+  for (const route of [
+    '/projects/graphrag-agent/',
+    '/en/projects/graphrag-agent/',
+  ]) {
+    await page.goto(route);
+    const dimensions = await page.evaluate(() => {
+      const root = document.documentElement;
+      return {
+        scrollWidth: root.scrollWidth,
+        clientWidth: root.clientWidth,
+      };
+    });
+    expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
+  }
+
+  await context.close();
+});
+
 test('English project route is available', async ({ page }) => {
   await page.goto('/en/projects/graphrag-agent/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
