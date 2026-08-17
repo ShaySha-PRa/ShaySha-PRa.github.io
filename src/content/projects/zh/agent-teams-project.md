@@ -23,16 +23,55 @@ caseStudy:
   scope: 合同审核 MVP
 ---
 
-## 用户如何使用它
+## 项目解决什么
+
+合同审核常常把事实核对、风险判断和人工责任混在一次操作里。这个 MVP 将 PDF/DOCX 合同解析、字段核验、风险分级路由和人工审核连接成一条可追踪的决策支持流程，让审阅者清楚知道每个决定为什么进入当前路径，以及如何继续或撤回。
+
+## 核心功能
+
+<ul class="project-capabilities" data-project-capabilities>
+  <li>上传并解析 PDF/DOCX 合同</li>
+  <li>抽取并核验合同双方、金额、日期和管辖法律</li>
+  <li>扫描风险条款并显示依据与建议</li>
+  <li>按高中低风险进入不同审核路径</li>
+  <li>确认、编辑、驳回、撤销并恢复人工审核</li>
+  <li>汇总决定并导出审核报告</li>
+</ul>
+
+## 使用流程
 
 <ol class="project-flow" data-project-flow>
-  <li>上传合同</li>
-  <li>核验字段</li>
-  <li>人工处理风险</li>
-  <li>查看 JSON 报告</li>
+  <li>上传并解析合同</li>
+  <li>核验合同字段</li>
+  <li>扫描风险并按等级分流</li>
+  <li>审核决定并导出报告</li>
 </ol>
 
-使用者先上传一份 PDF 或 DOCX 合同，等待本地解析器将文件转成文本，再由模型从文本中提取合同双方、金额、日期等结构化字段。风险扫描完成后，工作流按风险等级进入人工决策节点，最后汇总为 JSON 报告，并通过 SSE 把进度推回工作台。
+使用者先上传 PDF 或 DOCX 合同，由本地解析器生成文本；系统抽取合同双方、金额、日期和管辖法律，并把这些事实放到可见的核验节点。只有字段核验完成后才开始风险扫描，扫描结果再按高中低风险路由到不同审核路径，最后汇总决定并通过 SSE 将进度推回工作台。
+
+## 项目亮点
+
+### 让风险等级直接改变审核路径
+
+风险扫描不会把所有条款送进同一个队列：高风险条款逐条审批，中风险条款批量确认，低风险条款自动通过。每项风险都保留依据与建议，审阅者可以从路由结果进入对应的审核路径，并在需要时转回人工处理。
+
+<figure class="project-evidence">
+  <img src="/projects/agent-teams-project/contracts.png" alt="合同审核工作流合同列表界面" width="1400" height="900" loading="lazy" />
+  <figcaption>合同列表展示审核会话入口；图像来自仓库演示截图，使用演示数据。</figcaption>
+</figure>
+
+### 在扫描风险前先核验合同事实
+
+本地 PDF/DOCX 解析器先生成文本，模型再抽取合同双方、金额、日期和管辖法律。字段核验是风险扫描前的明确检查点，审阅者可以先修正事实，再让后续扫描依据已确认的合同信息给出风险依据与建议。
+
+### 把人工决策做成可恢复的流程节点
+
+人工决定必须带备注，并以备注门控（note-gated）的幂等决定（idempotent decision）写入审核状态；重复提交不会重复生效。确认、编辑和驳回都可以撤销（undo），流程从中断点恢复（resume）后继续，SQLite 保存审核决定、审计记录和报告状态。
+
+<figure class="project-evidence">
+  <img src="/projects/agent-teams-project/upload.png" alt="合同审核工作流上传合同界面" width="1400" height="900" loading="lazy" />
+  <figcaption>上传界面展示文件进入审核会话的入口；图像来自仓库演示截图，使用演示数据。</figcaption>
+</figure>
 
 ## 系统架构
 
@@ -40,35 +79,11 @@ caseStudy:
   <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/agent-teams-project-architecture.svg" alt="合同审核多智能体工作流系统架构：React 工作台通过 FastAPI 连接字段提取、风险路由、人工决策和报告流" width="1400" height="760" />
   </div>
-  <figcaption>架构图强调字段提取先于风险路由、人工决策的中断边界，以及 SQLite 作为审核状态的权威来源。</figcaption>
+  <figcaption>架构图展示合同进入字段核验、风险分级路由、人工决策和报告输出的路径；SQLite 保存权威审核状态。</figcaption>
 </figure>
 
-React 工作台通过 FastAPI 进入合同、会话、字段、事件和报告接口。本地 PDF/DOCX 解析器先生成文本，模型再完成结构化字段提取；之后 LangGraph 风险路由决定是进入逐条人工审核、批量处理还是自动通过。SQLite 持久化合同审核状态，SSE 负责把进行中的事件传回页面。
+React 工作台通过 FastAPI 进入合同、会话、字段、事件和报告接口。本地 PDF/DOCX 解析器先生成文本，字段核验完成后才由 LangGraph 扫描并路由风险；SQLite 持久化合同审核状态，SSE 将进行中的事件传回页面。
 
-<figure class="project-evidence">
-  <img src="/projects/agent-teams-project/contracts.png" alt="合同审核工作流合同列表界面" width="1400" height="900" loading="lazy" />
-  <figcaption>合同列表展示审核会话入口；图像来自仓库演示截图，使用演示数据。</figcaption>
-</figure>
+## 项目边界
 
-## 三个关键技术决策
-
-### 先本地解析，再由模型提取字段
-
-把本地 PDF/DOCX 文本解析和模型结构化字段提取放在 LangGraph 风险路由之前，让人工先看到合同双方、金额、生效日期等可核验信息，也避免把文件读取、模型提取和风险决策混成一个不可定位的步骤。
-
-### 用 interrupt / resume 固定人工决策边界
-
-高风险条款会在工作流中断，等待人工确认、编辑或驳回，再沿 resume 路径继续。合法的人类备注是决策写入的门槛；这让自动扫描和最终判断之间保持可见的责任边界。
-
-### 让 SQLite 保留权威审核状态
-
-合同、会话、条款、字段、审计记录和报告都落在 SQLite 模型中。LangGraph 的 InMemorySaver 只承担开发期的图检查点，不能替代业务状态的持久化。
-
-<figure class="project-evidence">
-  <img src="/projects/agent-teams-project/upload.png" alt="合同审核工作流上传合同界面" width="1400" height="900" loading="lazy" />
-  <figcaption>上传界面展示文件进入审核会话的入口；图像来自仓库演示截图，使用演示数据。</figcaption>
-</figure>
-
-## 限制与下一步
-
-这是一个合同审核 MVP：认证仍是模拟的请求头，文本提取依赖本地 PDF/DOCX 解析，图检查点使用进程内 InMemorySaver，模型不可用时存在 mock-risk fallback，报告边界是 JSON 而不是生产文档系统。它不提供法律意见或合规认证，也不声明真实合同上的风险识别准确率。下一步是补齐可复现的模型配置、保存脱敏运行产物，并完成从扫描到 HITL 决策再到报告的端到端验收。
+这是一个以人工审核为核心的合同决策支持 MVP：认证仍是模拟请求头，文本解析和模型扫描依赖本地运行配置，报告输出为 JSON。它是决策支持工作流，不提供法律意见，也不对风险识别准确率作任何保证。

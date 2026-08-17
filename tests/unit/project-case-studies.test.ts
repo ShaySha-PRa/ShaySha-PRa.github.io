@@ -59,7 +59,7 @@ const localizedProjectCases = [
   {
     slug: 'agent-teams-project',
     repoUrl: 'https://github.com/ShaySha-PRa/Agent_Teams_Project',
-    enLimitationsHeading: 'Limitations and next steps',
+    enLimitationsHeading: 'Project scope',
   },
   {
     slug: 'manim-project',
@@ -213,7 +213,9 @@ for (const project of projectCases) {
     ] as const) {
       expect(document.content.match(/data-project-flow/g)).toHaveLength(1);
       expect(document.content.match(/<li>[^<]+<\/li>/g)).toHaveLength(
-        project.slug === 'my-company-brain' || project.slug === 'graphrag-agent'
+        project.slug === 'my-company-brain' ||
+          project.slug === 'graphrag-agent' ||
+          project.slug === 'agent-teams-project'
           ? 10
           : 4,
       );
@@ -235,7 +237,8 @@ for (const project of projectCases) {
         /当前验证状态|Current validation status/,
       );
       expect(document.content).toContain(
-        project.slug === 'graphrag-agent'
+        project.slug === 'graphrag-agent' ||
+          project.slug === 'agent-teams-project'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'
@@ -424,6 +427,44 @@ it('GraphRAGAgent leads with the bilingual knowledge-exploration story', () => {
   expect(en.content).not.toContain('Use FastAPI as the frontend boundary');
 });
 
+it('Agent Teams leads with the bilingual risk-routed human-review story', () => {
+  const zh = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/zh/agent-teams-project.md'),
+      'utf8',
+    ),
+  );
+  const en = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/en/agent-teams-project.md'),
+      'utf8',
+    ),
+  );
+
+  expect(getLevelTwoHeadings(zh.content)).toEqual(storyHeadings.zh);
+  expect(getLevelTwoHeadings(en.content)).toEqual(storyHeadings.en);
+  expect(getCapabilityItems(zh.content)).toHaveLength(6);
+  expect(getCapabilityItems(en.content)).toHaveLength(6);
+  expect(getHighlightHeadings(zh.content, 'zh')).toEqual([
+    '让风险等级直接改变审核路径',
+    '在扫描风险前先核验合同事实',
+    '把人工决策做成可恢复的流程节点',
+  ]);
+  expect(getHighlightHeadings(en.content, 'en')).toEqual([
+    'Let risk level change the review path',
+    'Verify contract facts before risk scanning',
+    'Make human decisions recoverable workflow nodes',
+  ]);
+  expect(zh.content.match(/class="project-evidence"/g)).toHaveLength(2);
+  expect(en.content.match(/class="project-evidence"/g)).toHaveLength(2);
+  expect(zh.data.repoUrl).toBe(
+    'https://github.com/ShaySha-PRa/Agent_Teams_Project',
+  );
+  expect(en.data.repoUrl).toBe(
+    'https://github.com/ShaySha-PRa/Agent_Teams_Project',
+  );
+});
+
 for (const project of localizedProjectCases) {
   it(`${project.slug} has no validation presentation in both locales`, () => {
     for (const [locale, document] of [
@@ -455,7 +496,9 @@ for (const project of localizedProjectCases) {
         /查看验证证据|View validation evidence/,
       );
       expect(document.content).toContain(
-        project.slug === 'my-company-brain' || project.slug === 'graphrag-agent'
+        project.slug === 'my-company-brain' ||
+          project.slug === 'graphrag-agent' ||
+          project.slug === 'agent-teams-project'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'

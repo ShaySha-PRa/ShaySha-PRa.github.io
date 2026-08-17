@@ -367,8 +367,26 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
       category: 'AI 工作流',
       scope: '合同审核 MVP',
       repositoryUrl: 'https://github.com/ShaySha-PRa/Agent_Teams_Project',
-      limitationsHeading: '限制与下一步',
-      flow: ['上传合同', '核验字段', '人工处理风险', '查看 JSON 报告'],
+      limitationsHeading: '项目边界',
+      flow: [
+        '上传并解析合同',
+        '核验合同字段',
+        '扫描风险并按等级分流',
+        '审核决定并导出报告',
+      ],
+      headings: [
+        '项目解决什么',
+        '核心功能',
+        '使用流程',
+        '项目亮点',
+        '系统架构',
+        '项目边界',
+      ],
+      highlights: [
+        '让风险等级直接改变审核路径',
+        '在扫描风险前先核验合同事实',
+        '把人工决策做成可恢复的流程节点',
+      ],
       alt: '合同审核多智能体工作流系统架构：React 工作台通过 FastAPI 连接字段提取、风险路由、人工决策和报告流',
     },
     {
@@ -377,12 +395,25 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
       category: 'AI Workflow',
       scope: 'Contract-review MVP',
       repositoryUrl: 'https://github.com/ShaySha-PRa/Agent_Teams_Project',
-      limitationsHeading: 'Limitations and next steps',
+      limitationsHeading: 'Project scope',
       flow: [
-        'Upload a contract',
-        'Review extracted fields',
-        'Handle routed risks',
-        'Inspect the JSON report',
+        'Upload and parse a contract',
+        'Verify contract fields',
+        'Scan and route risks by level',
+        'Review decisions and export the report',
+      ],
+      headings: [
+        'What it solves',
+        'Core capabilities',
+        'How it works',
+        'Project highlights',
+        'System architecture',
+        'Project scope',
+      ],
+      highlights: [
+        'Let risk level change the review path',
+        'Verify contract facts before risk scanning',
+        'Make human decisions recoverable workflow nodes',
       ],
       alt: 'Agent Teams Project architecture: the React workspace uses FastAPI for field extraction, risk routing, human decisions, and report streaming',
     },
@@ -400,6 +431,10 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
       route.scope,
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expectProductStory(page, {
+      headings: route.headings,
+      highlights: route.highlights,
+    });
     await expect(page.locator('.project-evidence')).toHaveCount(2);
     await expectValidationPresentationRemoved(
       page,

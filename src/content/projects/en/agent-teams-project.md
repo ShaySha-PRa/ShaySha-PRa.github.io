@@ -23,16 +23,55 @@ caseStudy:
   scope: Contract-review MVP
 ---
 
-## How someone uses it
+## What it solves
+
+Contract review often mixes fact checking, risk judgment, and human accountability into one opaque operation. This MVP connects PDF/DOCX parsing, field verification, risk-level routing, and human review into a traceable decision-support workflow, so reviewers can see why each decision took its path and how to continue or undo it.
+
+## Core capabilities
+
+<ul class="project-capabilities" data-project-capabilities>
+  <li>Upload and parse PDF/DOCX contracts</li>
+  <li>Extract and verify parties, value, dates, and governing law</li>
+  <li>Scan clauses and show rationale and suggestions</li>
+  <li>Route high, medium, and low risks differently</li>
+  <li>Confirm, edit, reject, undo, and resume human review</li>
+  <li>Aggregate decisions into an exportable report</li>
+</ul>
+
+## How it works
 
 <ol class="project-flow" data-project-flow>
-  <li>Upload a contract</li>
-  <li>Review extracted fields</li>
-  <li>Handle routed risks</li>
-  <li>Inspect the JSON report</li>
+  <li>Upload and parse a contract</li>
+  <li>Verify contract fields</li>
+  <li>Scan and route risks by level</li>
+  <li>Review decisions and export the report</li>
 </ol>
 
-Someone uploads a PDF or DOCX contract, waits for a local parser to turn the file into text, and then has a model extract parties, amount, dates, and other structured fields. Once risk scanning completes, the workflow routes by risk level to human decisions, then assembles a JSON report and streams progress back to the workspace with SSE.
+Someone uploads a PDF or DOCX contract, and a local parser turns it into text. The workflow extracts and verifies parties, value, dates, and governing law at a visible checkpoint; only after field verification does risk scanning begin. Results then route by high, medium, or low risk into different review paths before decisions are aggregated and progress is streamed back with SSE.
+
+## Project highlights
+
+### Let risk level change the review path
+
+Risk scanning does not send every clause to one queue: high-risk items use itemized approval, medium-risk items use batch confirmation, and low-risk items auto-pass. Each risk keeps its rationale and suggestions so a reviewer can enter the appropriate path and return to human review when needed.
+
+<figure class="project-evidence">
+  <img src="/projects/agent-teams-project/contracts.png" alt="Agent Teams contract-review contracts list" width="1400" height="900" loading="lazy" />
+  <figcaption>The contracts list is the entry point for review sessions; the image is an authentic repository screenshot using demo data.</figcaption>
+</figure>
+
+### Verify contract facts before risk scanning
+
+The local PDF/DOCX parser produces text first, then a model extracts parties, value, dates, and governing law. Field verification is an explicit check before risk scanning, letting a reviewer correct facts before the scanner uses confirmed contract information to produce rationale and suggestions.
+
+### Make human decisions recoverable workflow nodes
+
+Human decisions are note-gated and idempotent: a decision write requires a reviewer note, and a repeated submission cannot apply the same decision twice. Confirm, edit, and reject actions support undo, while interrupt/resume lets the workflow continue from the saved human-review node; SQLite keeps the decision, audit record, and report state authoritative.
+
+<figure class="project-evidence">
+  <img src="/projects/agent-teams-project/upload.png" alt="Agent Teams contract-review upload screen" width="1400" height="900" loading="lazy" />
+  <figcaption>The upload screen is the entry point into a review session; the image is an authentic repository screenshot using demo data.</figcaption>
+</figure>
 
 ## System architecture
 
@@ -40,35 +79,11 @@ Someone uploads a PDF or DOCX contract, waits for a local parser to turn the fil
   <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/agent-teams-project-architecture.svg" alt="Agent Teams Project architecture: the React workspace uses FastAPI for field extraction, risk routing, human decisions, and report streaming" width="1400" height="760" />
   </div>
-  <figcaption>The diagram emphasizes extraction before risk routing, the human decision interrupt boundary, and SQLite as the authoritative review state.</figcaption>
+  <figcaption>The diagram shows contracts moving through field verification, risk-level routing, human decisions, and report output; SQLite stores the authoritative review state.</figcaption>
 </figure>
 
-The React workspace enters contract, session, field, event, and report interfaces through FastAPI. A local PDF/DOCX parser first produces text; a model then performs structured field extraction before LangGraph risk routing chooses itemized human review, batch handling, or auto-pass. SQLite persists the review state while SSE sends in-progress events back to the page.
+The React workspace enters contract, session, field, event, and report interfaces through FastAPI. A local PDF/DOCX parser produces text first; after field verification, LangGraph scans and routes risks. SQLite persists the review state while SSE sends in-progress events back to the page.
 
-<figure class="project-evidence">
-  <img src="/projects/agent-teams-project/contracts.png" alt="Agent Teams contract-review contracts list" width="1400" height="900" loading="lazy" />
-  <figcaption>The contracts list is the entry point for review sessions; the image is an authentic repository screenshot using demo data.</figcaption>
-</figure>
+## Project scope
 
-## Three key technical decisions
-
-### Parse locally, then extract fields with a model
-
-Local PDF/DOCX parsing and model-based structured field extraction happen before the LangGraph risk route. That gives reviewers a visible checkpoint for parties, amount, and effective dates, and keeps file reading, model extraction, and risk decisions separately locatable.
-
-### Use interrupt / resume for human decisions
-
-High-risk items interrupt the workflow until a reviewer confirms, edits, or rejects them, then continue through the resume path. A valid human note gates the decision write, keeping a visible responsibility boundary between automated scanning and the final decision.
-
-### Keep SQLite authoritative for review state
-
-Contracts, sessions, items, fields, audit records, and reports are modeled in SQLite. LangGraph's InMemorySaver is only a development-time graph checkpoint and is not the business-state store.
-
-<figure class="project-evidence">
-  <img src="/projects/agent-teams-project/upload.png" alt="Agent Teams contract-review upload screen" width="1400" height="900" loading="lazy" />
-  <figcaption>The upload screen is the entry point into a review session; the image is an authentic repository screenshot using demo data.</figcaption>
-</figure>
-
-## Limitations and next steps
-
-This is a contract-review MVP: authentication is simulated through request headers, text extraction uses local PDF/DOCX parsers, graph checkpoints use the in-process InMemorySaver, the unavailable-model path has a mock-risk fallback, and the report boundary is JSON rather than a production document system. It provides no legal advice or compliance certification and makes no real-contract risk-accuracy claim. Next, add a reproducible model configuration, retain redacted run artifacts, and complete end-to-end acceptance from scanning through HITL decisions to report generation.
+This is a human-review-centered contract decision-support MVP: authentication is simulated through request headers, text parsing and model scanning depend on local runtime configuration, and reports are JSON. It is a decision-support workflow, not legal advice, and it provides no accuracy guarantees.
