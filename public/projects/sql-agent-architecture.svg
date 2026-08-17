@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
   <title id="title">SQLAgent application architecture</title>
-  <desc id="desc">A four-band view of the SQLAgent workspace, orchestration boundary, parallel retrieval and query paths, and streamed results.</desc>
+  <desc id="desc">A four-band view of the SQLAgent workspace, orchestration boundary, vector context returned to the NL2SQL agent, a separate SQL validation and execution path, and streamed results.</desc>
   <defs>
     <marker id="arrow-vermilion" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0 0L10 5L0 10Z" fill="#C6442B" />
@@ -69,13 +69,11 @@
     <text x="1259" y="538" class="node-label" text-anchor="middle">MYSQL</text>
     <text x="1259" y="560" class="node-note" text-anchor="middle">data</text>
     <path d="M404 542H480" class="ownership" />
-    <path d="M750 526C800 490 860 490 910 506" class="retrieval" />
-    <path d="M750 558C800 592 860 592 910 578" class="retrieval" />
     <path d="M1130 542H1190" class="ownership" />
-    <text x="820" y="493" class="call-label" text-anchor="middle">RAG CONTEXT</text>
-    <text x="820" y="617" class="call-label" text-anchor="middle">GENERATED SQL</text>
-    <path d="M1004 392C1004 440 615 440 615 506" class="retrieval" />
-    <path d="M1110 392C1110 440 980 440 980 506" class="retrieval" />
+    <text x="702" y="430" class="call-label" text-anchor="middle">RETRIEVED CONTEXT</text>
+    <text x="1110" y="430" class="call-label" text-anchor="middle">GENERATED SQL</text>
+    <path data-flow="vector-to-agent" d="M615 506C615 438 780 420 900 392" class="retrieval" />
+    <path data-flow="agent-to-sql" d="M1110 392C1110 440 980 440 980 506" class="retrieval" />
   </g>
 
   <g>

@@ -198,6 +198,11 @@ for (const project of projectCases) {
       expect(architecture).toContain('DDL / DOCS / SQL EXAMPLES');
       expect(architecture).toContain('SQL VALIDATION + EXECUTION');
       expect(architecture).toContain('SSE RESULTS');
+      expect(architecture).toContain('RETRIEVED CONTEXT');
+      expect(architecture).toContain('GENERATED SQL');
+      expect(architecture).toContain('data-flow="vector-to-agent"');
+      expect(architecture).toContain('data-flow="agent-to-sql"');
+      expect(architecture).not.toContain('data-flow="vector-to-sql"');
       expect(architecture).not.toMatch(
         /\b(?:MiniMax|MinerU|DeepSeek|\d{2,5}\s*ports?)\b/i,
       );

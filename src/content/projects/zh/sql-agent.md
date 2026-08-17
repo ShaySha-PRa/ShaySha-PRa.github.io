@@ -47,8 +47,8 @@ caseStudy:
 NL2SQL Agent 位于 FastAPI 之后，统一调度检索工具和数据库工具。DDL、业务文档和历史 SQL 示例进入向量存储，用于补充 schema 与业务语境；生成的 SQL 经过校验后执行，结果通过 SSE 回到 React 工作台。
 
 <figure class="project-evidence">
-  <img src="/projects/sql-agent/query-result.png" alt="SQLAgent 自然语言查询结果界面" width="1500" height="940" loading="lazy" />
-  <figcaption>查询结果界面展示自然语言问题、生成 SQL、结果表格、图表与分析回答；画面来自仓库演示截图。</figcaption>
+  <img src="/projects/sql-agent/query-result.png" alt="SQLAgent 查询结果工作台界面" width="1500" height="940" loading="lazy" />
+  <figcaption>查询结果界面可见 SQL 编辑器、结果表格、图表和输入区域；画面来自仓库演示截图。</figcaption>
 </figure>
 
 ## 三个关键技术决策

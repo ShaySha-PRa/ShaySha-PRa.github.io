@@ -47,8 +47,8 @@ The user enters a question in the React workspace, and FastAPI hands it to the N
 The NL2SQL Agent sits behind FastAPI and coordinates retrieval and database tools. DDL, business documentation, and historical SQL examples enter the vector store to supply schema and business context; generated SQL is validated and executed, then streamed back to the React workspace.
 
 <figure class="project-evidence">
-  <img src="/projects/sql-agent/query-result.png" alt="SQLAgent natural-language query result interface" width="1500" height="940" loading="lazy" />
-  <figcaption>The query screen shows the natural-language question, generated SQL, result table, chart, and analysis answer; the image comes from the repository demo.</figcaption>
+  <img src="/projects/sql-agent/query-result.png" alt="SQLAgent query result workspace" width="1500" height="940" loading="lazy" />
+  <figcaption>The query screen visibly includes the SQL editor, result table, chart, and input area; the image comes from the repository demo.</figcaption>
 </figure>
 
 ## Three key technical decisions
