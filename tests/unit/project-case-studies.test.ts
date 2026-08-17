@@ -60,6 +60,25 @@ const projectCases = [
     ],
     screenshots: ['formula-derivation-demo.jpg', 'quality-result.png'],
   },
+  {
+    slug: 'sql-agent',
+    zhTitle: 'NL2SQL 数据分析工作台',
+    enTitle: 'SQLAgent',
+    category: '数据平台',
+    scope: '全栈 NL2SQL 助手',
+    architecture: 'sql-agent-architecture.svg',
+    architectureLabels: [
+      'REACT WORKSPACE',
+      'FASTAPI',
+      'NL2SQL AGENT',
+      'DDL / DOCS / SQL EXAMPLES',
+      'VECTOR STORE',
+      'SQL VALIDATION + EXECUTION',
+      'MYSQL',
+      'SSE RESULTS',
+    ],
+    screenshots: ['query-result.png', 'api-docs.png'],
+  },
 ] as const;
 
 for (const project of projectCases) {
@@ -82,13 +101,17 @@ for (const project of projectCases) {
           ? 'AI Workflow'
           : project.slug === 'manim-project'
             ? 'Applied AI'
-            : 'AI Knowledge Systems',
+            : project.slug === 'sql-agent'
+              ? 'Data Platform'
+              : 'AI Knowledge Systems',
       scope:
         project.slug === 'agent-teams-project'
           ? 'Contract-review MVP'
           : project.slug === 'manim-project'
             ? 'Secure media generation pipeline'
-            : 'Full-stack GraphRAG workspace',
+            : project.slug === 'sql-agent'
+              ? 'Full-stack NL2SQL assistant'
+              : 'Full-stack GraphRAG workspace',
       evidenceTarget: '#validation',
     });
 
@@ -165,6 +188,18 @@ for (const project of projectCases) {
       expect(architecture).toContain('data-flow="react-fastapi-fields"');
       expect(architecture).not.toMatch(
         /\b(?:OCR service|JWT|legal accuracy)\b/i,
+      );
+    } else if (project.slug === 'sql-agent') {
+      expect(architecture).toContain('01 EXPERIENCE');
+      expect(architecture).toContain('02 ORCHESTRATION');
+      expect(architecture).toContain('03 RETRIEVAL/QUERY');
+      expect(architecture).toContain('04 RESULTS');
+      expect(architecture).toContain('REACT WORKSPACE');
+      expect(architecture).toContain('DDL / DOCS / SQL EXAMPLES');
+      expect(architecture).toContain('SQL VALIDATION + EXECUTION');
+      expect(architecture).toContain('SSE RESULTS');
+      expect(architecture).not.toMatch(
+        /\b(?:MiniMax|MinerU|DeepSeek|\d{2,5}\s*ports?)\b/i,
       );
     } else {
       expect(architecture).toContain('01 EXPERIENCE');

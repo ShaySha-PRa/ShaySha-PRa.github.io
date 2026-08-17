@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">SQLAgent application architecture</title>
+  <desc id="desc">A four-band view of the SQLAgent workspace, orchestration boundary, parallel retrieval and query paths, and streamed results.</desc>
+  <defs>
+    <marker id="arrow-vermilion" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#C6442B" />
+    </marker>
+    <marker id="arrow-gray" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#7B746A" />
+    </marker>
+    <style>
+      .band-label { font: 700 15px Arial, sans-serif; letter-spacing: 2.4px; fill: #C6442B; }
+      .band-caption { font: 400 13px Arial, sans-serif; fill: #7B746A; }
+      .node-label { font: 700 16px Arial, sans-serif; letter-spacing: 0.8px; fill: #171717; }
+      .node-note { font: 400 13px Arial, sans-serif; fill: #7B746A; }
+      .call-label { font: 700 11px Arial, sans-serif; letter-spacing: 1.2px; fill: #C6442B; }
+      .node { fill: #FFFDF8; stroke: #171717; stroke-width: 2; }
+      .knowledge { fill: #F1ECE3; stroke: #7B746A; stroke-width: 2; }
+      .output { fill: #FFFDF8; stroke: #C6442B; stroke-width: 2; }
+      .request { fill: none; stroke: #C6442B; stroke-width: 3; marker-end: url(#arrow-vermilion); }
+      .retrieval { fill: none; stroke: #C6442B; stroke-width: 2.5; stroke-dasharray: 8 7; marker-end: url(#arrow-vermilion); }
+      .ownership { fill: none; stroke: #7B746A; stroke-width: 2; marker-end: url(#arrow-gray); }
+    </style>
+  </defs>
+
+  <rect width="1400" height="760" fill="#F4F0E8" />
+  <path d="M72 82H1328" stroke="#C9BDA8" stroke-width="2" />
+  <text x="72" y="53" class="band-label">NL2SQL / SYSTEM ARCHITECTURE</text>
+  <text x="1328" y="53" class="band-caption" text-anchor="end">from question to inspectable results</text>
+
+  <g>
+    <text x="72" y="112" class="band-label">01 EXPERIENCE</text>
+    <text x="72" y="132" class="band-caption">A question enters one workspace</text>
+    <rect x="72" y="158" width="220" height="58" rx="9" class="output" />
+    <text x="182" y="193" class="node-label" text-anchor="middle">BROWSER</text>
+    <rect x="360" y="158" width="300" height="58" rx="9" class="output" />
+    <text x="510" y="193" class="node-label" text-anchor="middle">USER QUESTION</text>
+    <rect x="740" y="158" width="588" height="58" rx="9" class="node" />
+    <text x="1034" y="193" class="node-label" text-anchor="middle">REACT WORKSPACE</text>
+    <path d="M292 187H360" class="request" />
+    <path d="M660 187H740" class="request" />
+  </g>
+
+  <g>
+    <text x="72" y="282" class="band-label">02 ORCHESTRATION</text>
+    <text x="72" y="302" class="band-caption">One API coordinates retrieval, tools, and response events</text>
+    <rect x="72" y="330" width="520" height="62" rx="9" class="node" />
+    <text x="332" y="367" class="node-label" text-anchor="middle">FASTAPI</text>
+    <rect x="680" y="330" width="648" height="62" rx="9" class="node" />
+    <text x="1004" y="360" class="node-label" text-anchor="middle">NL2SQL AGENT</text>
+    <text x="1004" y="380" class="node-note" text-anchor="middle">plan · call tools · return events</text>
+    <path d="M1034 216C1034 270 332 270 332 330" class="request" />
+    <path d="M592 361H680" class="request" />
+  </g>
+
+  <g>
+    <text x="72" y="458" class="band-label">03 RETRIEVAL/QUERY</text>
+    <text x="72" y="478" class="band-caption">Context retrieval and database execution stay distinct</text>
+    <rect x="72" y="506" width="332" height="72" rx="9" class="knowledge" />
+    <text x="238" y="538" class="node-label" text-anchor="middle">DDL / DOCS / SQL EXAMPLES</text>
+    <text x="238" y="560" class="node-note" text-anchor="middle">schema · business context · examples</text>
+    <rect x="480" y="506" width="270" height="72" rx="9" class="knowledge" />
+    <text x="615" y="538" class="node-label" text-anchor="middle">VECTOR STORE</text>
+    <text x="615" y="560" class="node-note" text-anchor="middle">retrieve context</text>
+    <rect x="830" y="506" width="300" height="72" rx="9" class="knowledge" />
+    <text x="980" y="538" class="node-label" text-anchor="middle">SQL VALIDATION + EXECUTION</text>
+    <text x="980" y="560" class="node-note" text-anchor="middle">check · run generated SQL</text>
+    <rect x="1190" y="506" width="138" height="72" rx="9" class="knowledge" />
+    <text x="1259" y="538" class="node-label" text-anchor="middle">MYSQL</text>
+    <text x="1259" y="560" class="node-note" text-anchor="middle">data</text>
+    <path d="M404 542H480" class="ownership" />
+    <path d="M750 526C800 490 860 490 910 506" class="retrieval" />
+    <path d="M750 558C800 592 860 592 910 578" class="retrieval" />
+    <path d="M1130 542H1190" class="ownership" />
+    <text x="820" y="493" class="call-label" text-anchor="middle">RAG CONTEXT</text>
+    <text x="820" y="617" class="call-label" text-anchor="middle">GENERATED SQL</text>
+    <path d="M1004 392C1004 440 615 440 615 506" class="retrieval" />
+    <path d="M1110 392C1110 440 980 440 980 506" class="retrieval" />
+  </g>
+
+  <g>
+    <text x="72" y="636" class="band-label">04 RESULTS</text>
+    <text x="72" y="654" class="band-caption">Stream the evidence back to the workspace</text>
+    <rect x="72" y="676" width="320" height="48" rx="9" class="output" />
+    <text x="232" y="706" class="node-label" text-anchor="middle">SSE RESULTS</text>
+    <rect x="490" y="676" width="838" height="48" rx="9" class="output" />
+    <text x="909" y="706" class="node-label" text-anchor="middle">TABLE / CHART / ANSWER</text>
+    <path d="M1004 392C1004 640 232 640 232 676" class="request" />
+    <path d="M392 700H490" class="request" />
+  </g>
+</svg>
