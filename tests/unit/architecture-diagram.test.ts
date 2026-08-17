@@ -37,13 +37,35 @@ it('describes the approved four-layer My Company Brain architecture', () => {
   ]) {
     expect(svg).toContain(label);
   }
+
+  for (const database of [
+    'identity',
+    'core',
+    'agent',
+    'nano',
+    'traditional',
+    'graph',
+  ]) {
+    expect(svg).toMatch(new RegExp(`\\b${database}\\b`));
+  }
 });
 
 it('omits deployment and model implementation detail', () => {
   expect(svg).not.toMatch(
-    /\b(?:3000|3001|5432|7474|7687|8000|8001|8002|8003)\b/,
+    /(?:localhost|127\.0\.0\.1|[a-z0-9][a-z0-9.-]*):(?:\d{2,5})\b/i,
   );
-  expect(svg).not.toMatch(
-    /external model boundary|minimax|embedding|fallback/i,
-  );
+
+  for (const detail of [
+    /\b(?:model\s+)?provider\b/i,
+    /\bmodel[-\s]+boundary\b/i,
+    /\bminimax\b/i,
+    /\bembeddings?\b/i,
+    /\bfallback\b/i,
+    /\b(?:test\s+counts?|(?:\d+\s+)?tests?)\b/i,
+    /\bhealth(?:check|y)?\b/i,
+    /\bcapacity\b/i,
+    /\bproduction(?:[-\s]+ready)?\b/i,
+  ]) {
+    expect(svg).not.toMatch(detail);
+  }
 });

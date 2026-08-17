@@ -357,4 +357,3 @@ Confirm the new diagram is served, the intrinsic asset is `1400 × 820`, the mob
 - [ ] SVG title/description and localized page alt/caption remain meaningful.
 - [ ] Desktop and 390 px visual checks pass.
 - [ ] `npm run validate` and production CI/deployment checks pass.
-

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 
 const projectNames = [
   'My Company Brain',
@@ -8,6 +8,24 @@ const projectNames = [
   'SQLAgent',
   'ITA-Maskit',
 ];
+
+async function expectArchitectureImage(page: Page, accessibleName: string) {
+  const architecture = page.getByRole('img', { name: accessibleName });
+  await expect(architecture).toBeVisible();
+  await expect(architecture).toHaveAttribute(
+    'src',
+    '/projects/my-company-brain-architecture.svg',
+  );
+  const intrinsicSize = await architecture.evaluate((element) => {
+    const image = element as HTMLImageElement;
+    return {
+      complete: image.complete,
+      width: image.naturalWidth,
+      height: image.naturalHeight,
+    };
+  });
+  expect(intrinsicSize).toEqual({ complete: true, width: 1400, height: 820 });
+}
 
 test('Chinese project index lists exactly six ordered projects', async ({
   page,
@@ -106,23 +124,10 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
     '查看回答与来源',
   ]);
 
-  const architecture = page.getByRole('img', {
-    name: 'My Company Brain 系统架构：Web 经统一 API 进入 Agent Gateway，并连接三条知识路径',
-  });
-  await expect(architecture).toBeVisible();
-  await expect(architecture).toHaveAttribute(
-    'src',
-    '/projects/my-company-brain-architecture.svg',
+  await expectArchitectureImage(
+    page,
+    'My Company Brain 系统架构：Web 经统一 API 进入 Agent Gateway，并连接三条知识路径',
   );
-  const intrinsicSize = await architecture.evaluate((element) => {
-    const image = element as HTMLImageElement;
-    return {
-      complete: image.complete,
-      width: image.naturalWidth,
-      height: image.naturalHeight,
-    };
-  });
-  expect(intrinsicSize).toEqual({ complete: true, width: 1400, height: 820 });
 
   const validation = page.locator('#validation');
   await expect(validation).toBeVisible();
@@ -132,6 +137,16 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
   await expect(validation).toContainText('8 个常驻服务健康');
   await expect(validation).toContainText('待完成');
   await expect(validation).toContainText('未声明');
+});
+
+test('English My Company Brain case study loads the approved architecture SVG', async ({
+  page,
+}) => {
+  await page.goto('/en/projects/my-company-brain/');
+  await expectArchitectureImage(
+    page,
+    'My Company Brain architecture: Web enters the Agent Gateway through a unified API and connects to three knowledge paths',
+  );
 });
 
 test('standard project pages keep the existing metadata layout', async ({
