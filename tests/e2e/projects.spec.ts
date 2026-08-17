@@ -20,7 +20,11 @@ async function expectProductStory(
 ) {
   await expect(page.locator('.prose > h2')).toHaveText(expected.headings);
   await expect(page.locator('[data-project-capabilities] > li')).toHaveCount(6);
+  await expect(page.locator('.prose > h3')).toHaveCount(3);
   await expect(page.locator('.prose > h3')).toHaveText(expected.highlights);
+  await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
+  await expect(page.locator('.project-architecture img')).toBeVisible();
+  await expect(page.locator('#validation')).toHaveCount(0);
 }
 
 async function expectArchitectureImage(
@@ -244,7 +248,7 @@ test('GraphRAGAgent leads with the localized knowledge-exploration story', async
   }
 });
 
-test('My Company Brain case study exposes the approved workflow, architecture, and limitations', async ({
+test('My Company Brain case study exposes the approved workflow, architecture, and scope', async ({
   page,
 }) => {
   await page.goto('/projects/my-company-brain/');
@@ -839,6 +843,10 @@ test('mobile case study contains wide architecture within its own scroller', asy
     expect(dimensions?.left).toBe(0);
     expect(dimensions?.right).toBe(dimensions?.maxScrollLeft);
     expect(dimensions?.right).toBeGreaterThan(0);
+    const columns = await page
+      .locator('[data-project-capabilities]')
+      .evaluate((element) => getComputedStyle(element).gridTemplateColumns);
+    expect(columns.trim().split(/\s+/)).toHaveLength(1);
   }
 });
 

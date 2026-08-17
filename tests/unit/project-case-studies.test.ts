@@ -55,12 +55,12 @@ const localizedProjectCases = [
   {
     slug: 'my-company-brain',
     repoUrl: 'https://github.com/ShaySha-PRa/my-company-brain',
-    enLimitationsHeading: 'Limitations and next steps',
+    enLimitationsHeading: 'Project scope',
   },
   {
     slug: 'graphrag-agent',
     repoUrl: 'https://github.com/ShaySha-PRa/GraphRAGAgent',
-    enLimitationsHeading: 'Limitations and next steps',
+    enLimitationsHeading: 'Project scope',
   },
   {
     slug: 'agent-teams-project',
@@ -218,16 +218,7 @@ for (const project of projectCases) {
       ['en', en],
     ] as const) {
       expect(document.content.match(/data-project-flow/g)).toHaveLength(1);
-      expect(document.content.match(/<li>[^<]+<\/li>/g)).toHaveLength(
-        project.slug === 'my-company-brain' ||
-          project.slug === 'graphrag-agent' ||
-          project.slug === 'agent-teams-project' ||
-          project.slug === 'manim-project' ||
-          project.slug === 'sql-agent' ||
-          project.slug === 'ita-maskit'
-          ? 10
-          : 4,
-      );
+      expect(document.content.match(/<li>[^<]+<\/li>/g)).toHaveLength(10);
       expect(document.content.match(/class="project-evidence"/g)).toHaveLength(
         2,
       );
@@ -246,19 +237,7 @@ for (const project of projectCases) {
         /当前验证状态|Current validation status/,
       );
       expect(document.content).toContain(
-        project.slug === 'graphrag-agent' ||
-          project.slug === 'agent-teams-project' ||
-          project.slug === 'manim-project' ||
-          project.slug === 'sql-agent' ||
-          project.slug === 'ita-maskit'
-          ? locale === 'zh'
-            ? '项目边界'
-            : 'Project scope'
-          : locale === 'zh'
-            ? '限制与下一步'
-            : project.slug === 'sql-agent'
-              ? 'Known limitations and next steps'
-              : 'Limitations and next steps',
+        locale === 'zh' ? '项目边界' : 'Project scope',
       );
       expect(document.data.locale).toBe(locale);
     }
@@ -628,27 +607,20 @@ for (const project of localizedProjectCases) {
         ),
       ],
     ] as const) {
+      expect(getLevelTwoHeadings(document.content)).toEqual(
+        storyHeadings[locale],
+      );
+      expect(getCapabilityItems(document.content)).toHaveLength(6);
+      expect(getHighlightHeadings(document.content, locale)).toHaveLength(3);
+      expect(document.content).not.toMatch(
+        /三个关键技术决策|Three key technical decisions|关键技术决策|用 FastAPI 固定前后端边界|Use FastAPI as the frontend boundary|限制与下一步|Limitations and next steps|Known limitations and next steps/,
+      );
+      expect(document.content).not.toMatch(
+        /当前验证状态|Current validation status|查看验证证据|View validation evidence|id="validation"|#validation/,
+      );
       expect(document.data.caseStudy).not.toHaveProperty('evidenceTarget');
-      expect(document.content).not.toContain('id="validation"');
-      expect(document.content).not.toMatch(
-        /当前验证状态|Current validation status/,
-      );
-      expect(document.content).not.toMatch(
-        /查看验证证据|View validation evidence/,
-      );
       expect(document.content).toContain(
-        project.slug === 'my-company-brain' ||
-          project.slug === 'graphrag-agent' ||
-          project.slug === 'agent-teams-project' ||
-          project.slug === 'manim-project' ||
-          project.slug === 'sql-agent' ||
-          project.slug === 'ita-maskit'
-          ? locale === 'zh'
-            ? '项目边界'
-            : 'Project scope'
-          : locale === 'zh'
-            ? '限制与下一步'
-            : project.enLimitationsHeading,
+        locale === 'zh' ? '项目边界' : 'Project scope',
       );
       expect(document.data.repoUrl).toBe(project.repoUrl);
       expect(document.data.locale).toBe(locale);
