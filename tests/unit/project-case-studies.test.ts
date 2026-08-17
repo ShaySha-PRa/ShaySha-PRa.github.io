@@ -10,6 +10,8 @@ const projectCases = [
     slug: 'graphrag-agent',
     zhTitle: 'GraphRAG 知识探索工作台',
     enTitle: 'GraphRAGAgent',
+    category: 'AI 知识系统',
+    scope: '全栈 GraphRAG 工作台',
     architecture: 'graphrag-agent-architecture.svg',
     architectureLabels: [
       'REACT WORKSPACE',
@@ -20,6 +22,24 @@ const projectCases = [
       'QA AGENT',
     ],
     screenshots: ['graph.png', 'chat.png'],
+  },
+  {
+    slug: 'agent-teams-project',
+    zhTitle: '合同审核多智能体工作流',
+    enTitle: 'Agent Teams Project',
+    category: 'AI 工作流',
+    scope: '合同审核 MVP',
+    architecture: 'agent-teams-project-architecture.svg',
+    architectureLabels: [
+      'REACT WORKSPACE',
+      'FASTAPI',
+      'FIELD EXTRACTION',
+      'LANGGRAPH RISK ROUTING',
+      'SQLITE REVIEW STATE',
+      'HUMAN DECISION',
+      'REPORT + SSE',
+    ],
+    screenshots: ['contracts.png', 'upload.png'],
   },
 ] as const;
 
@@ -33,13 +53,19 @@ for (const project of projectCases) {
     expect(zh.data.title).toBe(project.zhTitle);
     expect(en.data.title).toBe(project.enTitle);
     expect(zh.data.caseStudy).toMatchObject({
-      category: 'AI 知识系统',
-      scope: '全栈 GraphRAG 工作台',
+      category: project.category,
+      scope: project.scope,
       evidenceTarget: '#validation',
     });
     expect(en.data.caseStudy).toMatchObject({
-      category: 'AI Knowledge Systems',
-      scope: 'Full-stack GraphRAG workspace',
+      category:
+        project.slug === 'agent-teams-project'
+          ? 'AI Workflow'
+          : 'AI Knowledge Systems',
+      scope:
+        project.slug === 'agent-teams-project'
+          ? 'Contract-review MVP'
+          : 'Full-stack GraphRAG workspace',
       evidenceTarget: '#validation',
     });
 
@@ -96,13 +122,24 @@ for (const project of projectCases) {
     for (const label of project.architectureLabels) {
       expect(architecture).toContain(label);
     }
-    expect(architecture).toContain('04 OUTPUT');
-    expect(architecture).toContain('GRAPH VIEW + ANSWER / CITED ENTITIES');
-    expect(architecture).toContain('GRAPH RETRIEVAL');
-    expect(architecture).toContain('VECTOR RETRIEVAL');
-    expect(
-      (architecture.match(/class="retrieval"/g) ?? []).length,
-    ).toBeGreaterThanOrEqual(2);
+    if (project.slug === 'graphrag-agent') {
+      expect(architecture).toContain('04 OUTPUT');
+      expect(architecture).toContain('GRAPH VIEW + ANSWER / CITED ENTITIES');
+      expect(architecture).toContain('GRAPH RETRIEVAL');
+      expect(architecture).toContain('VECTOR RETRIEVAL');
+      expect(
+        (architecture.match(/class="retrieval"/g) ?? []).length,
+      ).toBeGreaterThanOrEqual(2);
+    } else {
+      expect(architecture).toContain('01 EXPERIENCE');
+      expect(architecture).toContain('02 APPLICATION');
+      expect(architecture).toContain('03 REVIEW WORKFLOW');
+      expect(architecture).toContain('04 STATE &amp; OUTPUT');
+      expect(architecture).toContain('interrupt / resume');
+      expect(architecture).not.toMatch(
+        /\b(?:OCR service|JWT|legal accuracy)\b/i,
+      );
+    }
     expect(architecture).not.toMatch(
       /\b(?:DeepSeek|MiniMax|MinerU|\d{2,5}\s*ports?)\b/i,
     );

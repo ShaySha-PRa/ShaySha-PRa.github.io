@@ -3,7 +3,7 @@ import { expect, type Page, test } from '@playwright/test';
 const projectNames = [
   'My Company Brain',
   'GraphRAG 知识探索工作台',
-  'Agent Teams Project',
+  '合同审核多智能体工作流',
   'Manim Project',
   'SQLAgent',
   'ITA-Maskit',
@@ -205,6 +205,56 @@ test('GraphRAGAgent case study exposes bilingual workflow and evidence', async (
         ? 'GraphRAGAgent architecture: the React workspace uses FastAPI to connect indexing, graph, vector retrieval, and Q&A paths'
         : 'GraphRAG 知识探索工作台系统架构：React 工作台通过 FastAPI 连接索引、图谱、向量检索和问答路径',
       '/projects/graphrag-agent-architecture.svg',
+      { width: 1400, height: 760 },
+    );
+  }
+});
+
+test('Agent Teams case study exposes bilingual workflow and evidence', async ({
+  page,
+}) => {
+  const routes = [
+    {
+      path: '/projects/agent-teams-project/',
+      title: '合同审核多智能体工作流',
+      category: 'AI 工作流',
+      scope: '合同审核 MVP',
+      flow: ['上传合同', '核验字段', '人工处理风险', '查看 JSON 报告'],
+      alt: '合同审核多智能体工作流系统架构：React 工作台通过 FastAPI 连接字段提取、风险路由、人工决策和报告流',
+    },
+    {
+      path: '/en/projects/agent-teams-project/',
+      title: 'Agent Teams Project',
+      category: 'AI Workflow',
+      scope: 'Contract-review MVP',
+      flow: [
+        'Upload a contract',
+        'Review extracted fields',
+        'Handle routed risks',
+        'Inspect the JSON report',
+      ],
+      alt: 'Agent Teams Project architecture: the React workspace uses FastAPI for field extraction, risk routing, human decisions, and report streaming',
+    },
+  ];
+
+  for (const route of routes) {
+    await page.goto(route.path);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      route.title,
+    );
+    await expect(page.locator('.project-detail__category')).toHaveText(
+      route.category,
+    );
+    await expect(page.locator('.project-detail__overview')).toContainText(
+      route.scope,
+    );
+    await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expect(page.locator('.project-evidence')).toHaveCount(2);
+    await expect(page.locator('#validation')).toBeVisible();
+    await expectArchitectureImage(
+      page,
+      route.alt,
+      '/projects/agent-teams-project-architecture.svg',
       { width: 1400, height: 760 },
     );
   }

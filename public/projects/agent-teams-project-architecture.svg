@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Teams Project system architecture</title>
+  <desc id="desc">Four-layer view of a contract-review workflow: a React workspace calls FastAPI, fields are extracted before LangGraph risk routing, human decisions interrupt and resume the flow, and SQLite remains authoritative for review state before JSON and SSE output.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2e2a25" />
+    </marker>
+    <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b64a35" />
+    </marker>
+    <style>
+      .canvas { fill: #f8f4ec; }
+      .band { fill: #eee7da; stroke: #d8ccba; stroke-width: 2; }
+      .band-label { fill: #756b5d; font: 700 16px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 2px; }
+      .band-note { fill: #897d6e; font: 400 14px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .node { fill: #fffdf8; stroke: #2e2a25; stroke-width: 2; }
+      .node-accent { fill: #fff5ef; stroke: #b64a35; stroke-width: 2; }
+      .node-state { fill: #f1f5f4; stroke: #3b6464; stroke-width: 2; }
+      .node-title { fill: #2e2a25; font: 700 19px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .5px; }
+      .node-sub { fill: #756b5d; font: 400 14px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .flow { fill: none; stroke: #2e2a25; stroke-width: 3; marker-end: url(#arrow); }
+      .flow-accent { fill: none; stroke: #b64a35; stroke-width: 3; marker-end: url(#arrowAccent); }
+      .flow-dashed { fill: none; stroke: #b64a35; stroke-width: 2.5; stroke-dasharray: 9 8; marker-end: url(#arrowAccent); }
+      .legend { fill: #756b5d; font: 400 14px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .legend-line { stroke: #b64a35; stroke-width: 2.5; stroke-dasharray: 9 8; }
+    </style>
+  </defs>
+
+  <rect class="canvas" width="1400" height="760" />
+  <text x="52" y="42" fill="#2e2a25" font-family="Georgia, serif" font-size="28" font-weight="700">Agent Teams Project / Contract-review workflow</text>
+  <text x="52" y="68" class="band-note">A compact implementation map: extraction precedes routing; review state is durable in SQLite.</text>
+
+  <rect class="band" x="32" y="92" width="1336" height="126" rx="14" />
+  <text class="band-label" x="58" y="124">01 EXPERIENCE</text>
+  <text class="band-note" x="58" y="148">browser-facing interaction</text>
+  <rect class="node" x="320" y="116" width="270" height="72" rx="10" />
+  <text class="node-title" x="350" y="148">BROWSER</text>
+  <text class="node-sub" x="350" y="172">upload · review · report</text>
+  <rect class="node-accent" x="790" y="116" width="300" height="72" rx="10" />
+  <text class="node-title" x="820" y="148">REACT WORKSPACE</text>
+  <text class="node-sub" x="820" y="172">routes + SSE event view</text>
+  <path class="flow" d="M 590 152 H 790" />
+
+  <rect class="band" x="32" y="234" width="1336" height="126" rx="14" />
+  <text class="band-label" x="58" y="266">02 APPLICATION</text>
+  <text class="band-note" x="58" y="290">request boundary and deterministic parsing</text>
+  <rect class="node" x="320" y="258" width="270" height="72" rx="10" />
+  <text class="node-title" x="350" y="290">FASTAPI</text>
+  <text class="node-sub" x="350" y="314">contracts · sessions · events</text>
+  <rect class="node-accent" x="790" y="258" width="300" height="72" rx="10" />
+  <text class="node-title" x="820" y="290">FIELD EXTRACTION</text>
+  <text class="node-sub" x="820" y="314">parties · amount · dates</text>
+  <path class="flow" d="M 940 188 V 258" />
+  <path class="flow" d="M 590 294 H 790" />
+
+  <rect class="band" x="32" y="376" width="1336" height="152" rx="14" />
+  <text class="band-label" x="58" y="408">03 REVIEW WORKFLOW</text>
+  <text class="band-note" x="58" y="432">risk routing with a human decision boundary</text>
+  <rect class="node-accent" x="320" y="449" width="310" height="56" rx="10" />
+  <text class="node-title" x="350" y="482">LANGGRAPH RISK ROUTING</text>
+  <rect class="node" x="790" y="449" width="260" height="56" rx="10" />
+  <text class="node-title" x="820" y="482">HUMAN DECISION</text>
+  <path class="flow" d="M 940 330 V 416 H 475 V 449" />
+  <path class="flow-dashed" d="M 630 477 H 790" />
+  <path class="flow-dashed" d="M 920 505 V 518 H 670 V 505" />
+  <text class="legend" x="1070" y="466">interrupt / resume</text>
+  <line class="legend-line" x1="1070" y1="486" x2="1148" y2="486" />
+
+  <rect class="band" x="32" y="544" width="1336" height="166" rx="14" />
+  <text class="band-label" x="58" y="576">04 STATE &amp; OUTPUT</text>
+  <text class="band-note" x="58" y="600">authoritative review state and client-facing result</text>
+  <rect class="node-state" x="320" y="622" width="310" height="62" rx="10" />
+  <text class="node-title" x="350" y="657">SQLITE REVIEW STATE</text>
+  <text class="node-sub" x="350" y="677">sessions · items · fields · audit</text>
+  <rect class="node-accent" x="790" y="622" width="300" height="62" rx="10" />
+  <text class="node-title" x="820" y="657">REPORT + SSE</text>
+  <text class="node-sub" x="820" y="677">JSON report · progress events</text>
+  <path class="flow" d="M 475 505 V 584 H 475 V 622" />
+  <path class="flow" d="M 920 505 V 584 H 630 V 653" />
+  <path class="flow" d="M 630 653 H 790" />
+  <path class="flow-accent" d="M 1090 653 H 1190 V 152 H 1090" />
+  <text class="band-note" x="1120" y="640">stateful result</text>
+</svg>
