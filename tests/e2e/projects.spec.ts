@@ -6,7 +6,7 @@ const projectNames = [
   '合同审核多智能体工作流',
   'AI 数学动画生成工作台',
   'NL2SQL 数据分析工作台',
-  'ITA-Maskit',
+  '本地数据脱敏工作台',
 ];
 
 async function expectArchitectureImage(
@@ -360,6 +360,61 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
       page,
       route.alt,
       '/projects/sql-agent-architecture.svg',
+      { width: 1400, height: 760 },
+    );
+  }
+});
+
+test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
+  page,
+}) => {
+  const routes = [
+    {
+      path: '/projects/ita-maskit/',
+      title: '本地数据脱敏工作台',
+      category: '数据隐私',
+      scope: 'CLI + Windows 桌面应用',
+      flow: [
+        '选择文件、规则集和可选人员数据',
+        '预验证命中而不写出结果',
+        '在本地执行遮盖或确定性伪名化',
+        '查看统计、输出路径和审计日志',
+      ],
+      alt: '本地数据脱敏工作台系统架构：CLI 与 Windows GUI 通过规则校验进入表格和文本引擎，经过遮盖或伪名化后输出统计与审计日志',
+    },
+    {
+      path: '/en/projects/ita-maskit/',
+      title: 'ITA-Maskit',
+      category: 'Data Privacy',
+      scope: 'CLI + Windows desktop app',
+      flow: [
+        'Select files, a rule set, and optional personnel data',
+        'Preview matches without writing output',
+        'Execute masking or deterministic pseudonymization locally',
+        'Inspect statistics, output paths, and the audit log',
+      ],
+      alt: 'ITA-Maskit architecture: the CLI and Windows GUI validate rules, route files through table and text engines, mask or pseudonymize values, and emit statistics and audit logs',
+    },
+  ];
+
+  for (const route of routes) {
+    await page.goto(route.path);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      route.title,
+    );
+    await expect(page.locator('.project-detail__category')).toHaveText(
+      route.category,
+    );
+    await expect(page.locator('.project-detail__overview')).toContainText(
+      route.scope,
+    );
+    await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expect(page.locator('.project-evidence')).toHaveCount(2);
+    await expect(page.locator('#validation')).toBeVisible();
+    await expectArchitectureImage(
+      page,
+      route.alt,
+      '/projects/ita-maskit-architecture.svg',
       { width: 1400, height: 760 },
     );
   }

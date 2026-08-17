@@ -79,6 +79,24 @@ const projectCases = [
     ],
     screenshots: ['query-result.png', 'api-docs.png'],
   },
+  {
+    slug: 'ita-maskit',
+    zhTitle: '本地数据脱敏工作台',
+    enTitle: 'ITA-Maskit',
+    category: '数据隐私',
+    scope: 'CLI + Windows 桌面应用',
+    architecture: 'ita-maskit-architecture.svg',
+    architectureLabels: [
+      'CLI / WINDOWS GUI',
+      'RULE LOADING + VALIDATION',
+      'TABLE ENGINE',
+      'TEXT ENGINE',
+      'MASK / PSEUDONYMIZE',
+      'OUTPUT + STATISTICS',
+      'AUDIT LOG',
+    ],
+    screenshots: ['preview.png', 'rules.png'],
+  },
 ] as const;
 
 for (const project of projectCases) {
@@ -103,7 +121,9 @@ for (const project of projectCases) {
             ? 'Applied AI'
             : project.slug === 'sql-agent'
               ? 'Data Platform'
-              : 'AI Knowledge Systems',
+              : project.slug === 'ita-maskit'
+                ? 'Data Privacy'
+                : 'AI Knowledge Systems',
       scope:
         project.slug === 'agent-teams-project'
           ? 'Contract-review MVP'
@@ -111,7 +131,9 @@ for (const project of projectCases) {
             ? 'Secure media generation pipeline'
             : project.slug === 'sql-agent'
               ? 'Full-stack NL2SQL assistant'
-              : 'Full-stack GraphRAG workspace',
+              : project.slug === 'ita-maskit'
+                ? 'CLI + Windows desktop app'
+                : 'Full-stack GraphRAG workspace',
       evidenceTarget: '#validation',
     });
 
@@ -206,7 +228,7 @@ for (const project of projectCases) {
       expect(architecture).not.toMatch(
         /\b(?:MiniMax|MinerU|DeepSeek|\d{2,5}\s*ports?)\b/i,
       );
-    } else {
+    } else if (project.slug === 'manim-project') {
       expect(architecture).toContain('01 EXPERIENCE');
       expect(architecture).toContain('02 CONTROL PLANE');
       expect(architecture).toContain('03 EXECUTION');
@@ -214,6 +236,16 @@ for (const project of projectCases) {
       expect(architecture).toContain('default-deny');
       expect(architecture).toContain('data-boundary="untrusted-execution"');
       expect(architecture).toContain('data-flow="workbench-control-queue"');
+    } else {
+      expect(architecture).toContain('01 EXPERIENCE');
+      expect(architecture).toContain('02 CONTROL');
+      expect(architecture).toContain('03 PROCESSING');
+      expect(architecture).toContain('04 OUTPUT');
+      expect(architecture).toContain('PREVIEW');
+      expect(architecture).toContain('pepper');
+      expect(architecture).not.toMatch(
+        /\b(?:encryption|compliance|LLM rule generation)\b/i,
+      );
     }
     expect(architecture).not.toMatch(
       /\b(?:DeepSeek|MiniMax|MinerU|\d{2,5}\s*ports?)\b/i,

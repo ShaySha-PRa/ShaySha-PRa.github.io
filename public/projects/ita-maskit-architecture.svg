@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
+  <title id="title">ITA-Maskit local masking architecture</title>
+  <desc id="desc">Four-layer local processing flow from the CLI and Windows desktop GUI through validated rules, table and text engines, deterministic masking or pseudonymization, and auditable output.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#a63d2f" />
+    </marker>
+    <marker id="arrow-muted" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0 0L10 5L0 10Z" fill="#80786e" />
+    </marker>
+    <style>
+      .bg { fill: #f7f2e9; }
+      .band { fill: #fbf8f1; stroke: #d8cfc1; stroke-width: 1; }
+      .rule { stroke: #d8cfc1; stroke-width: 1; }
+      .index { fill: #a63d2f; font: 700 15px 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace; letter-spacing: .11em; }
+      .band-title { fill: #302d2a; font: 700 20px Georgia, 'Times New Roman', serif; }
+      .node { fill: #fffdf8; stroke: #302d2a; stroke-width: 1.5; }
+      .node-accent { fill: #fff7f3; stroke: #a63d2f; stroke-width: 1.5; }
+      .node-muted { fill: #f4efe7; stroke: #80786e; stroke-width: 1.2; }
+      .label { fill: #302d2a; font: 700 16px 'IBM Plex Sans', Arial, sans-serif; letter-spacing: .035em; }
+      .small { fill: #6b6259; font: 13px 'IBM Plex Sans', Arial, sans-serif; }
+      .mono { fill: #6b6259; font: 13px 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace; }
+      .path { fill: none; stroke: #a63d2f; stroke-width: 2.4; marker-end: url(#arrow); }
+      .path-muted { fill: none; stroke: #80786e; stroke-width: 1.6; marker-end: url(#arrow-muted); }
+      .config { fill: none; stroke: #80786e; stroke-width: 1.5; stroke-dasharray: 6 5; marker-end: url(#arrow-muted); }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1400" height="760" />
+  <text x="70" y="48" class="band-title" font-size="27">ITA-Maskit / local masking workflow</text>
+  <text x="1330" y="48" class="mono" text-anchor="end">RULES → DATA → EVIDENCE</text>
+  <line x1="70" y1="66" x2="1330" y2="66" class="rule" />
+
+  <rect x="70" y="88" width="1260" height="124" rx="2" class="band" />
+  <text x="100" y="121" class="index">01 EXPERIENCE</text>
+  <text x="100" y="151" class="band-title">Local entry points</text>
+  <rect x="370" y="111" width="330" height="68" rx="2" class="node" />
+  <text x="535" y="140" class="label" text-anchor="middle">CLI / WINDOWS GUI</text>
+  <text x="535" y="162" class="small" text-anchor="middle">select files, rule set, optional personnel data</text>
+  <rect x="805" y="111" width="320" height="68" rx="2" class="node-muted" />
+  <text x="965" y="140" class="label" text-anchor="middle">LOCAL FILES</text>
+  <text x="965" y="162" class="small" text-anchor="middle">tabular and text inputs stay on the machine</text>
+  <path d="M700 145H805" class="path" />
+
+  <rect x="70" y="228" width="1260" height="124" rx="2" class="band" />
+  <text x="100" y="261" class="index">02 CONTROL</text>
+  <text x="100" y="291" class="band-title">Rules decide before data is written</text>
+  <rect x="370" y="251" width="360" height="68" rx="2" class="node" />
+  <text x="550" y="280" class="label" text-anchor="middle">RULE LOADING + VALIDATION</text>
+  <text x="550" y="302" class="small" text-anchor="middle">versioned YAML definitions and column mapping</text>
+  <rect x="845" y="251" width="280" height="68" rx="2" class="node-accent" />
+  <text x="985" y="280" class="label" text-anchor="middle">PREFLIGHT PREVIEW</text>
+  <text x="985" y="302" class="small" text-anchor="middle">counts hits without writing output</text>
+  <path d="M730 285H845" class="path" />
+  <path d="M535 179V251" class="path-muted" />
+
+  <rect x="70" y="368" width="1260" height="156" rx="2" class="band" />
+  <text x="100" y="401" class="index">03 PROCESSING</text>
+  <text x="100" y="431" class="band-title">Format-aware masking decisions</text>
+  <rect x="370" y="391" width="220" height="86" rx="2" class="node" />
+  <text x="480" y="427" class="label" text-anchor="middle">TABLE ENGINE</text>
+  <text x="480" y="450" class="small" text-anchor="middle">CSV / Excel / JSON</text>
+  <rect x="640" y="391" width="220" height="86" rx="2" class="node" />
+  <text x="750" y="427" class="label" text-anchor="middle">TEXT ENGINE</text>
+  <text x="750" y="450" class="small" text-anchor="middle">email / PDF / Word / MSG</text>
+  <rect x="930" y="391" width="310" height="86" rx="2" class="node-accent" />
+  <text x="1085" y="427" class="label" text-anchor="middle">MASK / PSEUDONYMIZE</text>
+  <text x="1085" y="450" class="small" text-anchor="middle">domain-separated HMAC for pseudo values</text>
+  <path d="M480 319V391" class="path-muted" />
+  <path d="M590 434H610V490H900V434H930" class="path" />
+  <path d="M860 434H930" class="path" />
+  <rect x="930" y="490" width="310" height="22" rx="2" class="node-muted" />
+  <text x="1085" y="506" class="mono" text-anchor="middle">user-supplied pepper · configuration only</text>
+  <path d="M1085 490V477" class="config" />
+
+  <rect x="70" y="540" width="1260" height="156" rx="2" class="band" />
+  <text x="100" y="573" class="index">04 OUTPUT</text>
+  <text x="100" y="603" class="band-title">Inspectable evidence</text>
+  <rect x="370" y="563" width="300" height="86" rx="2" class="node" />
+  <text x="520" y="599" class="label" text-anchor="middle">OUTPUT + STATISTICS</text>
+  <text x="520" y="622" class="small" text-anchor="middle">masked files, row counts, hit summaries</text>
+  <rect x="785" y="563" width="290" height="86" rx="2" class="node-accent" />
+  <text x="930" y="599" class="label" text-anchor="middle">AUDIT LOG</text>
+  <text x="930" y="622" class="small" text-anchor="middle">rule version, paths, row and field totals</text>
+  <rect x="1160" y="563" width="120" height="86" rx="2" class="node-muted" />
+  <text x="1220" y="599" class="label" text-anchor="middle" font-size="14">REVIEW</text>
+  <text x="1220" y="622" class="small" text-anchor="middle">inspect</text>
+  <path d="M1085 477V563H520" class="path" />
+  <path d="M670 606H785" class="path" />
+  <path d="M1075 606H1160" class="path-muted" />
+
+  <text x="70" y="728" class="small">The same validated rule decision is used for preflight preview and formal execution.</text>
+  <text x="1330" y="728" class="mono" text-anchor="end">LOCAL PROCESSING BOUNDARY</text>
+</svg>
