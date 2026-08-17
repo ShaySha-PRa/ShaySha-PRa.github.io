@@ -213,7 +213,9 @@ for (const project of projectCases) {
     ] as const) {
       expect(document.content.match(/data-project-flow/g)).toHaveLength(1);
       expect(document.content.match(/<li>[^<]+<\/li>/g)).toHaveLength(
-        project.slug === 'my-company-brain' ? 10 : 4,
+        project.slug === 'my-company-brain' || project.slug === 'graphrag-agent'
+          ? 10
+          : 4,
       );
       expect(document.content.match(/class="project-evidence"/g)).toHaveLength(
         2,
@@ -233,11 +235,15 @@ for (const project of projectCases) {
         /当前验证状态|Current validation status/,
       );
       expect(document.content).toContain(
-        locale === 'zh'
-          ? '限制与下一步'
-          : project.slug === 'sql-agent' || project.slug === 'ita-maskit'
-            ? 'Known limitations and next steps'
-            : 'Limitations and next steps',
+        project.slug === 'graphrag-agent'
+          ? locale === 'zh'
+            ? '项目边界'
+            : 'Project scope'
+          : locale === 'zh'
+            ? '限制与下一步'
+            : project.slug === 'sql-agent' || project.slug === 'ita-maskit'
+              ? 'Known limitations and next steps'
+              : 'Limitations and next steps',
       );
       expect(document.data.locale).toBe(locale);
     }
@@ -386,6 +392,38 @@ it('My Company Brain leads with the bilingual product-story contract', () => {
   ]);
 });
 
+it('GraphRAGAgent leads with the bilingual knowledge-exploration story', () => {
+  const zh = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/zh/graphrag-agent.md'),
+      'utf8',
+    ),
+  );
+  const en = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/en/graphrag-agent.md'),
+      'utf8',
+    ),
+  );
+
+  expect(getLevelTwoHeadings(zh.content)).toEqual(storyHeadings.zh);
+  expect(getLevelTwoHeadings(en.content)).toEqual(storyHeadings.en);
+  expect(getCapabilityItems(zh.content)).toHaveLength(6);
+  expect(getCapabilityItems(en.content)).toHaveLength(6);
+  expect(getHighlightHeadings(zh.content, 'zh')).toEqual([
+    '从文档自动建立可探索图谱',
+    '让关系检索与原文语义共同回答',
+    '在图谱探索与多轮问答之间连续切换',
+  ]);
+  expect(getHighlightHeadings(en.content, 'en')).toEqual([
+    'Turn documents into an explorable graph',
+    'Answer with relationships and source semantics',
+    'Move continuously between graph exploration and chat',
+  ]);
+  expect(zh.content).not.toContain('用 FastAPI 固定前后端边界');
+  expect(en.content).not.toContain('Use FastAPI as the frontend boundary');
+});
+
 for (const project of localizedProjectCases) {
   it(`${project.slug} has no validation presentation in both locales`, () => {
     for (const [locale, document] of [
@@ -417,7 +455,7 @@ for (const project of localizedProjectCases) {
         /查看验证证据|View validation evidence/,
       );
       expect(document.content).toContain(
-        project.slug === 'my-company-brain'
+        project.slug === 'my-company-brain' || project.slug === 'graphrag-agent'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'

@@ -194,6 +194,56 @@ test('My Company Brain presents scope, actions, product evidence, and technology
   ]);
 });
 
+test('GraphRAGAgent leads with the localized knowledge-exploration story', async ({
+  page,
+}) => {
+  for (const route of [
+    {
+      path: '/projects/graphrag-agent/',
+      headings: [
+        '项目解决什么',
+        '核心功能',
+        '使用流程',
+        '项目亮点',
+        '系统架构',
+        '项目边界',
+      ],
+      highlights: [
+        '从文档自动建立可探索图谱',
+        '让关系检索与原文语义共同回答',
+        '在图谱探索与多轮问答之间连续切换',
+      ],
+    },
+    {
+      path: '/en/projects/graphrag-agent/',
+      headings: [
+        'What it solves',
+        'Core capabilities',
+        'How it works',
+        'Project highlights',
+        'System architecture',
+        'Project scope',
+      ],
+      highlights: [
+        'Turn documents into an explorable graph',
+        'Answer with relationships and source semantics',
+        'Move continuously between graph exploration and chat',
+      ],
+    },
+  ]) {
+    await page.goto(route.path);
+    await expectProductStory(page, {
+      headings: route.headings,
+      highlights: route.highlights,
+    });
+    await expect(
+      page.getByRole('heading', {
+        name: /用 FastAPI 固定前后端边界|Use FastAPI as the frontend boundary/,
+      }),
+    ).toHaveCount(0);
+  }
+});
+
 test('My Company Brain case study exposes the approved workflow, architecture, and limitations', async ({
   page,
 }) => {
@@ -254,12 +304,12 @@ test('GraphRAGAgent case study exposes bilingual workflow and evidence', async (
       category: 'AI 知识系统',
       scope: '全栈 GraphRAG 工作台',
       repositoryUrl: 'https://github.com/ShaySha-PRa/GraphRAGAgent',
-      limitationsHeading: '限制与下一步',
+      limitationsHeading: '项目边界',
       flow: [
-        '上传文档',
-        '解析并建立索引',
-        '探索知识图谱',
-        '发起追问并查看回答',
+        '上传文档并整理页面',
+        '抽取实体并建立索引',
+        '浏览图谱并查询关系',
+        '发起问答并回到引用节点',
       ],
     },
     {
@@ -268,12 +318,12 @@ test('GraphRAGAgent case study exposes bilingual workflow and evidence', async (
       category: 'AI Knowledge Systems',
       scope: 'Full-stack GraphRAG workspace',
       repositoryUrl: 'https://github.com/ShaySha-PRa/GraphRAGAgent',
-      limitationsHeading: 'Limitations and next steps',
+      limitationsHeading: 'Project scope',
       flow: [
-        'Upload a document',
-        'Parse and index it',
-        'Explore the knowledge graph',
-        'Ask a follow-up and inspect the answer',
+        'Upload documents and assemble pages',
+        'Extract entities and build indexes',
+        'Browse the graph and query relationships',
+        'Ask questions and return to cited nodes',
       ],
     },
   ];

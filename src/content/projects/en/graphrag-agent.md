@@ -23,16 +23,55 @@ caseStudy:
   scope: Full-stack GraphRAG workspace
 ---
 
-## How someone uses it
+## What it solves
+
+GraphRAGAgent is a local knowledge-exploration workspace for working with source documents. It assembles documents into traceable pages, extracts entities and relationships, and lets someone move between a graph, relationship paths, local subgraphs, and cited answers instead of starting every search from a text chunk.
+
+## Core capabilities
+
+<ul class="project-capabilities" data-project-capabilities>
+  <li>Upload documents and track indexing</li>
+  <li>Browse the entity graph and node details</li>
+  <li>Search entities by name and type</li>
+  <li>Find relationship paths between entities</li>
+  <li>Search keyword-related subgraphs</li>
+  <li>Keep multi-turn sessions and return from cited nodes to the graph</li>
+</ul>
+
+## How it works
 
 <ol class="project-flow" data-project-flow>
-  <li>Upload a document</li>
-  <li>Parse and index it</li>
-  <li>Explore the knowledge graph</li>
-  <li>Ask a follow-up and inspect the answer</li>
+  <li>Upload documents and assemble pages</li>
+  <li>Extract entities and build indexes</li>
+  <li>Browse the graph and query relationships</li>
+  <li>Ask questions and return to cited nodes</li>
 </ol>
 
-Someone uploads a document in the workspace, waits for parsing and indexing, explores the resulting entity graph, and then asks a follow-up question. The graph and vector paths keep structural relationships and semantic context distinct before the answer is assembled in the same workflow.
+The workspace first assembles page content from uploaded documents, then uses LangExtract to extract entities and relationships; the indexing flow merges those results into a global NetworkX graph while writing a Chroma vector index. Someone can then browse nodes in the D3 graph, query relationships or local subgraphs, and use the QA tools to add source semantics and inspect citations.
+
+## Project highlights
+
+### Turn documents into an explorable graph
+
+The repository's page assembly turns uploaded documents into processable content, and LangExtract extracts entities and relationships; the indexing stage merges each page's results into a global NetworkX graph while also writing a Chroma vector index. One upload therefore creates an exploration path from pages to entities, relationships, and semantic retrieval.
+
+<figure class="project-evidence">
+  <img src="/projects/graphrag-agent/graph.png" alt="GraphRAGAgent D3 knowledge graph exploration interface" width="1600" height="1000" loading="lazy" />
+  <figcaption>The graph view exposes entities, relationships, and neighbor exploration from the project demo data.</figcaption>
+</figure>
+
+### Answer with relationships and source semantics
+
+The QA tools retrieve entities, neighbors, paths, and vectors for a question: they locate relevant entities, add structural context through neighbors and relationship paths, and use vector retrieval to supply source semantics. The answer is therefore organized from relationship context and source meaning instead of relying on one text fragment.
+
+### Move continuously between graph exploration and chat
+
+The D3 exploration, Ask AI, and cited entities in chat share the same nodes, so someone can open a question from a graph node and return from a cited node to inspect its neighbors and paths. Multi-turn sessions preserve that transition, keeping graph exploration and chat as connected entry points.
+
+<figure class="project-evidence">
+  <img src="/projects/graphrag-agent/chat.png" alt="GraphRAGAgent multi-turn Q&amp;A interface" width="1440" height="900" loading="lazy" />
+  <figcaption>The Q&amp;A view shows multi-turn conversation and knowledge answers from the project demo data.</figcaption>
+</figure>
 
 ## System architecture
 
@@ -45,30 +84,6 @@ Someone uploads a document in the workspace, waits for parsing and indexing, exp
 
 The React workspace sends document, graph, and question requests through FastAPI. The indexing pipeline turns material into a NetworkX graph and a Chroma vector index; the QA Agent then organizes both retrieval paths into answer and graph outputs.
 
-<figure class="project-evidence">
-  <img src="/projects/graphrag-agent/graph.png" alt="GraphRAGAgent D3 knowledge graph exploration interface" width="1600" height="1000" loading="lazy" />
-  <figcaption>The graph view exposes entities, relationships, and neighbor exploration from the project demo data.</figcaption>
-</figure>
+## Project scope
 
-## Three key technical decisions
-
-### Keep graph and vector retrieval on one knowledge path
-
-The vector index supplies semantic context while the NetworkX graph preserves entities and relationships. Each path has a clear responsibility, and the QA path composes the retrieval it needs for a question.
-
-### Use FastAPI as the frontend boundary
-
-React does not operate on files, graph state, or vector storage directly. FastAPI receives upload, indexing status, graph query, and Q&amp;A requests, keeping interface behavior replaceable from knowledge processing.
-
-### Make graph exploration a first-class interaction
-
-The D3 graph is an exploration entry point, not decoration around an answer. Someone can establish context from relationships first and return to the Q&amp;A path for a follow-up.
-
-<figure class="project-evidence">
-  <img src="/projects/graphrag-agent/chat.png" alt="GraphRAGAgent multi-turn Q&amp;A interface" width="1440" height="900" loading="lazy" />
-  <figcaption>The Q&amp;A view shows multi-turn conversation and knowledge answers from the project demo data.</figcaption>
-</figure>
-
-## Limitations and next steps
-
-This page does not claim authentication, multi-tenancy, mobile adaptation, or retrieval-quality metrics. The real-material parsing, indexing, graph retrieval, and follow-up flow still need to be reproduced in an environment with the project dependencies and a compatible model configuration; the next step is to retain auditable, non-sensitive run artifacts before adding end-to-end conclusions.
+The current scope is a local knowledge-exploration workspace: document upload, indexing, graph browsing, retrieval, and Q&amp;A stay within one local workflow. It does not claim multi-user collaboration, tenant governance, or production operations; end-to-end reproduction with real material still requires the project's dependencies and a compatible model configuration.

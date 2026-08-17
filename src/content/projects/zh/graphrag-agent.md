@@ -23,16 +23,55 @@ caseStudy:
   scope: 全栈 GraphRAG 工作台
 ---
 
-## 用户如何使用它
+## 项目解决什么
+
+GraphRAGAgent 是一个面向本地资料的知识探索工作台。它先把文档整理成可追踪的页面，再自动抽取实体和关系，让用户可以在图谱、关系路径、局部子图与带来源的问答之间连续探索，而不必只从一段文本开始检索。
+
+## 核心功能
+
+<ul class="project-capabilities" data-project-capabilities>
+  <li>上传文档并跟踪索引进度</li>
+  <li>浏览实体关系图与节点详情</li>
+  <li>按名称和类型搜索实体</li>
+  <li>查询两个实体之间的关系路径</li>
+  <li>搜索关键词相关的局部子图</li>
+  <li>保存多轮问答并从引用节点返回图谱</li>
+</ul>
+
+## 使用流程
 
 <ol class="project-flow" data-project-flow>
-  <li>上传文档</li>
-  <li>解析并建立索引</li>
-  <li>探索知识图谱</li>
-  <li>发起追问并查看回答</li>
+  <li>上传文档并整理页面</li>
+  <li>抽取实体并建立索引</li>
+  <li>浏览图谱并查询关系</li>
+  <li>发起问答并回到引用节点</li>
 </ol>
 
-用户从工作台上传一份资料，等待解析和索引完成后进入图谱视图，沿实体关系探索上下文，再通过问答入口发起追问。图谱与向量检索分别保留结构关系和语义上下文，最终在同一个工作流里呈现。
+工作台先组装上传文档的页面内容，再由 LangExtract 抽取实体和关系；索引流程把结果合并进全局 NetworkX 图谱，同时写入 Chroma 向量索引。用户随后在 D3 图谱中浏览节点、查询关系或局部子图，再通过问答工具补充原文语义并查看引用。
+
+## 项目亮点
+
+### 从文档自动建立可探索图谱
+
+仓库的页面组装先把上传文档整理成可处理内容，LangExtract 再抽取实体与关系；索引阶段把各页结果合并到全局 NetworkX 图谱，并同步写入 Chroma 向量索引。这样一次上传会留下可从页面走向实体、关系和语义检索的探索入口。
+
+<figure class="project-evidence">
+  <img src="/projects/graphrag-agent/graph.png" alt="GraphRAGAgent D3 知识图谱探索界面" width="1600" height="1000" loading="lazy" />
+  <figcaption>图谱视图展示实体、关系和邻居探索；画面来自项目演示数据。</figcaption>
+</figure>
+
+### 让关系检索与原文语义共同回答
+
+QA 工具围绕问题提供实体、邻居、路径和向量检索：先定位相关实体，再按邻居与关系路径补足结构上下文，并用向量检索补充原文语义。回答因此不只依赖单一文本片段，而是把关系上下文与来源语义一起组织出来。
+
+### 在图谱探索与多轮问答之间连续切换
+
+D3 探索、Ask AI 与聊天中的引用实体使用同一批节点，用户可以从图谱节点打开问答，再从引用节点返回图谱继续查看邻居和路径。多轮会话保留这条切换路径，让图谱探索和聊天不是两条分离的入口。
+
+<figure class="project-evidence">
+  <img src="/projects/graphrag-agent/chat.png" alt="GraphRAGAgent 多轮问答界面" width="1440" height="900" loading="lazy" />
+  <figcaption>问答界面展示多轮对话和知识回答；画面来自项目演示数据。</figcaption>
+</figure>
 
 ## 系统架构
 
@@ -45,30 +84,6 @@ caseStudy:
 
 React 工作台通过 FastAPI 接收文档、图谱浏览和问答请求。索引流水线把资料整理为 NetworkX 图谱和 Chroma 向量索引，QA Agent 再把两类检索结果组织成回答与图谱输出。
 
-<figure class="project-evidence">
-  <img src="/projects/graphrag-agent/graph.png" alt="GraphRAGAgent D3 知识图谱探索界面" width="1600" height="1000" loading="lazy" />
-  <figcaption>图谱视图展示实体、关系和邻居探索；画面来自项目演示数据。</figcaption>
-</figure>
+## 项目边界
 
-## 三个关键技术决策
-
-### 把图谱和向量索引放在同一条知识路径中
-
-向量索引负责补充语义上下文，NetworkX 图谱负责保留实体与关系。两者各自承担清晰职责，问答路径再按问题组织所需的检索结果。
-
-### 用 FastAPI 固定前后端边界
-
-React 不直接操作文件、图谱或向量存储。FastAPI 统一承接上传、索引状态、图谱查询和问答请求，让页面交互与知识处理保持可替换的边界。
-
-### 把图谱浏览作为一等交互
-
-D3 图谱不是问答结果的装饰，而是独立的探索入口。用户可以先从实体关系建立上下文，再回到问答路径继续追问。
-
-<figure class="project-evidence">
-  <img src="/projects/graphrag-agent/chat.png" alt="GraphRAGAgent 多轮问答界面" width="1440" height="900" loading="lazy" />
-  <figcaption>问答界面展示多轮对话和知识回答；画面来自项目演示数据。</figcaption>
-</figure>
-
-## 限制与下一步
-
-当前页面不声明身份认证、多人租户隔离、移动端适配或召回质量指标。真实资料驱动的解析、索引、图谱检索与追问流程仍需在具备项目依赖和兼容模型配置的环境中复现；下一步应保存可审计的非敏感运行产物，再补充端到端验收结论。
+当前范围是面向本地资料的知识探索工作台：资料上传、索引、图谱浏览、检索与问答围绕单个本地工作流展开。它不宣称多人协作、租户治理或生产级运行能力，真实资料端到端复现仍需在具备项目依赖和兼容模型配置的环境中完成。
