@@ -92,18 +92,19 @@ test('structured data is scoped to confirmed page types', async ({ page }) => {
   expect(await readJsonLd()).toEqual({
     '@context': 'https://schema.org',
     '@type': 'SoftwareSourceCode',
-    name: 'GraphRAGAgent',
-    description: '结合知识图谱、向量检索、D3 可视化和多轮问答的知识探索应用。',
+    name: 'GraphRAG 知识探索工作台',
+    description:
+      '将文档解析、实体关系、向量检索和可视化问答组织在同一套 GraphRAG 工作台中。',
     url: 'https://shaysha-pra.github.io/projects/graphrag-agent/',
     codeRepository: 'https://github.com/ShaySha-PRa/GraphRAGAgent',
     datePublished: '2026-08-16T00:00:00.000Z',
-    dateModified: '2026-08-16T00:00:00.000Z',
+    dateModified: '2026-08-17T00:00:00.000Z',
     author: {
       '@type': 'Person',
       name: 'Junshu Sha',
       url: 'https://shaysha-pra.github.io',
     },
-    keywords: ['GraphRAG', 'REST API', 'D3.js', '向量检索'],
+    keywords: ['React', 'FastAPI', 'LangGraph', 'NetworkX', 'Chroma', 'D3.js'],
     creativeWorkStatus: 'completed',
   });
 

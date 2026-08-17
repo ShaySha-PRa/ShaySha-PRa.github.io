@@ -38,7 +38,7 @@ caseStudy:
 ## 系统架构
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/graphrag-agent-architecture.svg" alt="GraphRAG 知识探索工作台系统架构：React 工作台通过 FastAPI 连接索引、图谱、向量检索和问答路径" width="1400" height="760" />
   </div>
   <figcaption>架构图只展示应用边界、知识构建路径与输出关系；运行结果以验证矩阵为准。</figcaption>
@@ -70,7 +70,7 @@ D3 图谱不是问答结果的装饰，而是独立的探索入口。用户可�
   <figcaption>问答界面展示多轮对话和知识回答；画面来自项目演示数据。</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>当前验证状态</h2>
   <table>
     <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>

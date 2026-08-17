@@ -43,7 +43,7 @@ Users can choose files and YAML rules through the CLI or Windows GUI. Rules ente
 ## System architecture
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/ita-maskit-architecture.svg" alt="ITA-Maskit architecture: the CLI and Windows GUI validate rules, route files through table and text engines, mask or pseudonymize values, and emit statistics and audit logs" width="1400" height="760" />
   </div>
   <figcaption>The diagram separates rule decisions, format engines, pseudonymization configuration, and output records; the user-supplied pepper enters pseudonymization as configuration rather than stored data.</figcaption>
@@ -70,7 +70,7 @@ Preview reports field hits before output is written, and formal processing reuse
   <figcaption>The rule-management screen shows field strategies and the rule-set entry point; the image comes from the repository and uses scripted demonstration data.</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>Current validation status</h2>
   <table>
     <thead><tr><th>Capability</th><th>Status</th><th>Evidence we can verify</th></tr></thead>

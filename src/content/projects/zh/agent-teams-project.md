@@ -38,7 +38,7 @@ caseStudy:
 ## 系统架构
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/agent-teams-project-architecture.svg" alt="合同审核多智能体工作流系统架构：React 工作台通过 FastAPI 连接字段提取、风险路由、人工决策和报告流" width="1400" height="760" />
   </div>
   <figcaption>架构图强调字段提取先于风险路由、人工决策的中断边界，以及 SQLite 作为审核状态的权威来源。</figcaption>
@@ -70,7 +70,7 @@ React 工作台通过 FastAPI 进入合同、会话、字段、事件和报告�
   <figcaption>上传界面展示文件进入审核会话的入口；图像来自仓库演示截图，使用演示数据。</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>当前验证状态</h2>
   <table>
     <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>

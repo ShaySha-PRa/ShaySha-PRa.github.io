@@ -38,7 +38,7 @@ caseStudy:
 ## 系统架构
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/manim-project-architecture.svg" alt="AI 数学动画生成工作台系统架构：Next.js 工作台通过 FastAPI 和 Redis 调度隔离 Manim 渲染与质量报告" width="1400" height="760" />
   </div>
   <figcaption>架构图只保留工作台、控制平面、执行边界和产物检查四层；不把模型提供方、端口或生产部署写进实现证据。</figcaption>
@@ -70,7 +70,7 @@ FastAPI 负责创建任务并持久化状态，Redis 负责排队，Runner 负�
   <figcaption>这是从同一仓库演示视频 50.0 秒位置提取的真实动画帧；旁边的质量结论来自本地 PyAV 检查，不把静态帧伪装成产品质量面板。</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>当前验证状态</h2>
   <table>
     <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>

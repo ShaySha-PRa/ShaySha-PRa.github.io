@@ -420,25 +420,122 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
   }
 });
 
+test('all five bilingual case studies load real cover and evidence images', async ({
+  page,
+}) => {
+  const routes = [
+    '/projects/graphrag-agent/',
+    '/projects/agent-teams-project/',
+    '/projects/manim-project/',
+    '/projects/sql-agent/',
+    '/projects/ita-maskit/',
+    '/en/projects/graphrag-agent/',
+    '/en/projects/agent-teams-project/',
+    '/en/projects/manim-project/',
+    '/en/projects/sql-agent/',
+    '/en/projects/ita-maskit/',
+  ];
+
+  for (const route of routes) {
+    await page.goto(route);
+    const cover = page.locator('.project-detail__cover img');
+    await expect(cover).toBeVisible();
+    await expect(cover).not.toHaveAttribute('src', /\.svg(?:$|\?)/);
+    await expect
+      .poll(() =>
+        cover.evaluate((element) => {
+          const image = element as HTMLImageElement;
+          return image.complete && image.naturalWidth > 0;
+        }),
+      )
+      .toBe(true);
+
+    const evidence = page.locator('.project-evidence img');
+    await expect(evidence).toHaveCount(2);
+    for (const image of await evidence.all()) {
+      await image.scrollIntoViewIfNeeded();
+      await expect
+        .poll(() =>
+          image.evaluate((element) => {
+            const image = element as HTMLImageElement;
+            return image.complete && image.naturalWidth > 0;
+          }),
+        )
+        .toBe(true);
+    }
+    const evidenceState = await evidence.evaluateAll((elements) =>
+      elements.map((element) => {
+        const image = element as HTMLImageElement;
+        return {
+          complete: image.complete,
+          width: image.naturalWidth,
+          height: image.naturalHeight,
+          src: image.currentSrc,
+        };
+      }),
+    );
+    expect(evidenceState).toHaveLength(2);
+    for (const image of evidenceState) {
+      expect(image.complete).toBe(true);
+      expect(image.width).toBeGreaterThan(0);
+      expect(image.height).toBeGreaterThan(0);
+      expect(image.src).not.toMatch(/\.svg(?:$|\?)/);
+    }
+  }
+});
+
 test('mobile case study contains wide architecture within its own scroller', async ({
   page,
 }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium');
-  await page.goto('/projects/my-company-brain/');
-  const dimensions = await page.evaluate(() => {
-    const root = document.documentElement;
-    const scroller = document.querySelector<HTMLElement>(
-      '[data-project-architecture-scroller]',
+  const routes = [
+    '/projects/graphrag-agent/',
+    '/projects/agent-teams-project/',
+    '/projects/manim-project/',
+    '/projects/sql-agent/',
+    '/projects/ita-maskit/',
+    '/en/projects/graphrag-agent/',
+    '/en/projects/agent-teams-project/',
+    '/en/projects/manim-project/',
+    '/en/projects/sql-agent/',
+    '/en/projects/ita-maskit/',
+  ];
+
+  for (const route of routes) {
+    await page.goto(route);
+    const dimensions = await page.evaluate(() => {
+      const root = document.documentElement;
+      const scroller = document.querySelector<HTMLElement>(
+        '[data-project-architecture-scroller]',
+      );
+      if (!scroller) {
+        return null;
+      }
+      scroller.scrollLeft = 0;
+      const left = scroller.scrollLeft;
+      scroller.scrollLeft = scroller.scrollWidth;
+      const right = scroller.scrollLeft;
+      return {
+        pageWidth: root.scrollWidth,
+        viewportWidth: root.clientWidth,
+        scrollerWidth: scroller.scrollWidth,
+        scrollerViewport: scroller.clientWidth,
+        left,
+        right,
+        maxScrollLeft: scroller.scrollWidth - scroller.clientWidth,
+      };
+    });
+    expect(dimensions).not.toBeNull();
+    expect(dimensions?.pageWidth).toBeLessThanOrEqual(
+      dimensions?.viewportWidth ?? 0,
     );
-    return {
-      pageWidth: root.scrollWidth,
-      viewportWidth: root.clientWidth,
-      scrollerWidth: scroller?.scrollWidth ?? 0,
-      scrollerViewport: scroller?.clientWidth ?? 0,
-    };
-  });
-  expect(dimensions.pageWidth).toBeLessThanOrEqual(dimensions.viewportWidth);
-  expect(dimensions.scrollerWidth).toBeGreaterThan(dimensions.scrollerViewport);
+    expect(dimensions?.scrollerWidth).toBeGreaterThan(
+      dimensions?.scrollerViewport ?? 0,
+    );
+    expect(dimensions?.left).toBe(0);
+    expect(dimensions?.right).toBe(dimensions?.maxScrollLeft);
+    expect(dimensions?.right).toBeGreaterThan(0);
+  }
 });
 
 test('English project route is available', async ({ page }) => {

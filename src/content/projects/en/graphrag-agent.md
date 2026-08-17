@@ -38,7 +38,7 @@ Someone uploads a document in the workspace, waits for parsing and indexing, exp
 ## System architecture
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/graphrag-agent-architecture.svg" alt="GraphRAGAgent architecture: the React workspace uses FastAPI to connect indexing, graph, vector retrieval, and Q&amp;A paths" width="1400" height="760" />
   </div>
   <figcaption>The diagram shows application boundaries, the knowledge-building path, and outputs; runtime results remain in the validation matrix.</figcaption>
@@ -70,7 +70,7 @@ The D3 graph is an exploration entry point, not decoration around an answer. Som
   <figcaption>The Q&amp;A view shows multi-turn conversation and knowledge answers from the project demo data.</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>Current validation status</h2>
   <table>
     <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>

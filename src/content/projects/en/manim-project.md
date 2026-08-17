@@ -38,7 +38,7 @@ A teacher describes a formula derivation or function-visualization task. The wor
 ## System architecture
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/manim-project-architecture.svg" alt="Manim Project architecture: the Next.js workbench uses FastAPI and Redis to schedule isolated Manim rendering and quality reports" width="1400" height="760" />
   </div>
   <figcaption>The diagram keeps only the workbench, control plane, execution boundary, and artifact inspection layers; providers, ports, and production deployment are intentionally outside the evidence.</figcaption>
@@ -70,7 +70,7 @@ Code passes AST and Manim API allowlists, compilation, and Scene preflight befor
   <figcaption>This is a real animation frame extracted from the same repository demo video at 50.0 seconds; the quality conclusion comes from local PyAV inspection, and the still is not presented as a product quality panel.</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>Current validation status</h2>
   <table>
     <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>

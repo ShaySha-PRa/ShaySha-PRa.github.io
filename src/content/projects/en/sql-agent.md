@@ -38,7 +38,7 @@ The user enters a question in the React workspace, and FastAPI hands it to the N
 ## System architecture
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/sql-agent-architecture.svg" alt="SQLAgent architecture: the React workspace uses FastAPI to orchestrate an NL2SQL agent, vector retrieval, MySQL queries, and SSE results" width="1400" height="760" />
   </div>
   <figcaption>The diagram keeps the Vanna/LangChain principal track visible and separates context retrieval from database querying; it does not extend the raw SQL endpoint into a security claim.</figcaption>
@@ -70,7 +70,7 @@ The FastAPI streaming endpoint can send agent steps, query data, chart configura
   <figcaption>The API documentation screen shows FastAPI endpoints for chat, training data, database, and query operations; the image comes from the repository demo.</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>Current validation status</h2>
   <table>
     <thead><tr><th>Capability</th><th>Status</th><th>Evidence we can verify</th></tr></thead>

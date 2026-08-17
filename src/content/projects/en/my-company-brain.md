@@ -38,7 +38,7 @@ Team members enter the knowledge paths through one workspace. The shared entry p
 ## System architecture
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/my-company-brain-architecture.svg" alt="My Company Brain architecture: Web enters the Agent Gateway through a unified API and connects to three knowledge paths" />
   </div>
   <figcaption>The diagram establishes the code boundaries between Web, the unified API, the Agent Gateway, and the three knowledge paths; runtime claims remain in the validation matrix.</figcaption>
@@ -60,7 +60,7 @@ Nano Brain, Traditional RAG, and GraphRAG serve different material and retrieval
 
 Database migration, initialization, service health checks, and loopback-only local ports live in Compose and its scripts, separating code presence from environment validation.
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>Current validation status</h2>
   <table>
     <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>

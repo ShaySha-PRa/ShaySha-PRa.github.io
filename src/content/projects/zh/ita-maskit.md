@@ -43,7 +43,7 @@ caseStudy:
 ## 系统架构
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/ita-maskit-architecture.svg" alt="本地数据脱敏工作台系统架构：CLI 与 Windows GUI 通过规则校验进入表格和文本引擎，经过遮盖或伪名化后输出统计与审计日志" width="1400" height="760" />
   </div>
   <figcaption>架构图把规则决策、格式引擎、伪名化配置与输出留痕分开；用户提供的 pepper 只作为配置进入伪名化，不作为存储数据。</figcaption>
@@ -70,7 +70,7 @@ caseStudy:
   <figcaption>规则管理界面展示字段策略和规则集入口；图像来自仓库，使用脚本演示数据。</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>当前验证状态</h2>
   <table>
     <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>

@@ -38,7 +38,7 @@ Someone uploads a PDF or DOCX contract, waits for a local parser to turn the fil
 ## System architecture
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/agent-teams-project-architecture.svg" alt="Agent Teams Project architecture: the React workspace uses FastAPI for field extraction, risk routing, human decisions, and report streaming" width="1400" height="760" />
   </div>
   <figcaption>The diagram emphasizes extraction before risk routing, the human decision interrupt boundary, and SQLite as the authoritative review state.</figcaption>
@@ -70,7 +70,7 @@ Contracts, sessions, items, fields, audit records, and reports are modeled in SQ
   <figcaption>The upload screen is the entry point into a review session; the image is an authentic repository screenshot using demo data.</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>Current validation status</h2>
   <table>
     <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>

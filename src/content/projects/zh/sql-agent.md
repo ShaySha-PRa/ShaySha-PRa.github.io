@@ -38,7 +38,7 @@ caseStudy:
 ## 系统架构
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/sql-agent-architecture.svg" alt="NL2SQL 数据分析工作台系统架构：React 工作台通过 FastAPI 调度 NL2SQL Agent、向量检索、MySQL 查询和 SSE 结果" width="1400" height="760" />
   </div>
   <figcaption>架构图保留 Vanna/LangChain 主链路，把上下文检索与数据库查询分开；原始 SQL 执行接口的安全边界不在图中扩展。</figcaption>
@@ -70,7 +70,7 @@ FastAPI 的流式接口可向 React 推送 Agent 步骤、查询数据、图表�
   <figcaption>API 文档界面展示 FastAPI 服务的对话、训练数据、数据库与查询接口；画面来自仓库演示截图。</figcaption>
 </figure>
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>当前验证状态</h2>
   <table>
     <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>

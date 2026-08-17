@@ -38,7 +38,7 @@ caseStudy:
 ## 系统架构
 
 <figure class="project-architecture">
-  <div class="project-architecture__scroller" data-project-architecture-scroller>
+  <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
     <img src="/projects/my-company-brain-architecture.svg" alt="My Company Brain 系统架构：Web 经统一 API 进入 Agent Gateway，并连接三条知识路径" />
   </div>
   <figcaption>架构图证明 Web、统一 API、Agent Gateway 与三条知识路径的代码边界；运行结论以验证矩阵为准。</figcaption>
@@ -60,7 +60,7 @@ Nano Brain、Traditional RAG 与 GraphRAG 面向不同资料形态和检索目�
 
 数据库迁移、初始化、服务健康检查与本机端口约束都进入 Compose 和启动脚本，避免把“代码存在”误写成“环境已验证”。
 
-<section id="validation" class="project-validation">
+<section id="validation" class="project-validation" tabindex="0">
   <h2>当前验证状态</h2>
   <table>
     <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>
