@@ -33,7 +33,7 @@ caseStudy:
   <li>Inspect the JSON report</li>
 </ol>
 
-Someone uploads a PDF or DOCX contract, waits for local text parsing and field extraction, and reviews parties, amount, dates, and other structured fields. Once risk scanning completes, the workflow routes by risk level to human decisions, then assembles a JSON report and streams progress back to the workspace with SSE.
+Someone uploads a PDF or DOCX contract, waits for a local parser to turn the file into text, and then has a model extract parties, amount, dates, and other structured fields. Once risk scanning completes, the workflow routes by risk level to human decisions, then assembles a JSON report and streams progress back to the workspace with SSE.
 
 ## System architecture
 
@@ -44,7 +44,7 @@ Someone uploads a PDF or DOCX contract, waits for local text parsing and field e
   <figcaption>The diagram emphasizes extraction before risk routing, the human decision interrupt boundary, and SQLite as the authoritative review state.</figcaption>
 </figure>
 
-The React workspace enters contract, session, field, event, and report interfaces through FastAPI. After field extraction, LangGraph risk routing chooses itemized human review, batch handling, or auto-pass; SQLite persists the review state while SSE sends in-progress events back to the page.
+The React workspace enters contract, session, field, event, and report interfaces through FastAPI. A local PDF/DOCX parser first produces text; a model then performs structured field extraction before LangGraph risk routing chooses itemized human review, batch handling, or auto-pass. SQLite persists the review state while SSE sends in-progress events back to the page.
 
 <figure class="project-evidence">
   <img src="/projects/agent-teams-project/contracts.png" alt="Agent Teams contract-review contracts list" width="1400" height="900" loading="lazy" />
@@ -53,9 +53,9 @@ The React workspace enters contract, session, field, event, and report interface
 
 ## Three key technical decisions
 
-### Extract fields before risk routing
+### Parse locally, then extract fields with a model
 
-Contract parsing and structured field extraction happen before the LangGraph risk route. That gives reviewers a visible checkpoint for parties, amount, and effective dates, and keeps file reading separate from risk decisions.
+Local PDF/DOCX parsing and model-based structured field extraction happen before the LangGraph risk route. That gives reviewers a visible checkpoint for parties, amount, and effective dates, and keeps file reading, model extraction, and risk decisions separately locatable.
 
 ### Use interrupt / resume for human decisions
 

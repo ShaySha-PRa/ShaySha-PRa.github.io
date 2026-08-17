@@ -136,6 +136,10 @@ for (const project of projectCases) {
       expect(architecture).toContain('03 REVIEW WORKFLOW');
       expect(architecture).toContain('04 STATE &amp; OUTPUT');
       expect(architecture).toContain('interrupt / resume');
+      expect(architecture).toContain(
+        'React Workspace → FastAPI → Field Extraction',
+      );
+      expect(architecture).toContain('data-flow="react-fastapi-fields"');
       expect(architecture).not.toMatch(
         /\b(?:OCR service|JWT|legal accuracy)\b/i,
       );

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
   <title id="title">Agent Teams Project system architecture</title>
-  <desc id="desc">Four-layer view of a contract-review workflow: a React workspace calls FastAPI, fields are extracted before LangGraph risk routing, human decisions interrupt and resume the flow, and SQLite remains authoritative for review state before JSON and SSE output.</desc>
+  <desc id="desc">Four-layer view of a contract-review workflow. Primary request path: React Workspace → FastAPI → Field Extraction. Local text parsing feeds model-based structured field extraction before LangGraph risk routing; human decisions interrupt and resume the flow, and SQLite remains authoritative for review state before JSON and SSE output.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#2e2a25" />
@@ -43,15 +43,17 @@
 
   <rect class="band" x="32" y="234" width="1336" height="126" rx="14" />
   <text class="band-label" x="58" y="266">02 APPLICATION</text>
-  <text class="band-note" x="58" y="290">request boundary and deterministic parsing</text>
-  <rect class="node" x="320" y="258" width="270" height="72" rx="10" />
-  <text class="node-title" x="350" y="290">FASTAPI</text>
-  <text class="node-sub" x="350" y="314">contracts · sessions · events</text>
-  <rect class="node-accent" x="790" y="258" width="300" height="72" rx="10" />
-  <text class="node-title" x="820" y="290">FIELD EXTRACTION</text>
-  <text class="node-sub" x="820" y="314">parties · amount · dates</text>
-  <path class="flow" d="M 940 188 V 258" />
-  <path class="flow" d="M 590 294 H 790" />
+  <text class="band-note" x="58" y="290">local text parsing → model-based field extraction</text>
+  <rect class="node-accent" x="320" y="258" width="300" height="72" rx="10" />
+  <text class="node-title" x="350" y="290">FIELD EXTRACTION</text>
+  <text class="node-sub" x="350" y="314">model-based structured fields</text>
+  <rect class="node" x="790" y="258" width="270" height="72" rx="10" />
+  <text class="node-title" x="820" y="290">FASTAPI</text>
+  <text class="node-sub" x="820" y="314">contracts · sessions · events</text>
+  <g id="primary-request-path" data-flow="react-fastapi-fields" aria-label="React Workspace → FastAPI → Field Extraction">
+    <path class="flow" d="M 940 188 V 258" />
+    <path class="flow" d="M 790 294 H 620" />
+  </g>
 
   <rect class="band" x="32" y="376" width="1336" height="152" rx="14" />
   <text class="band-label" x="58" y="408">03 REVIEW WORKFLOW</text>
@@ -60,7 +62,7 @@
   <text class="node-title" x="350" y="482">LANGGRAPH RISK ROUTING</text>
   <rect class="node" x="790" y="449" width="260" height="56" rx="10" />
   <text class="node-title" x="820" y="482">HUMAN DECISION</text>
-  <path class="flow" d="M 940 330 V 416 H 475 V 449" />
+  <path class="flow" d="M 470 330 V 449" />
   <path class="flow-dashed" d="M 630 477 H 790" />
   <path class="flow-dashed" d="M 920 505 V 518 H 670 V 505" />
   <text class="legend" x="1070" y="466">interrupt / resume</text>
