@@ -460,8 +460,21 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
       category: '应用型 AI',
       scope: '安全媒体生成流水线',
       repositoryUrl: 'https://github.com/ShaySha-PRa/Manim_project',
-      limitationsHeading: '限制与下一步',
+      limitationsHeading: '项目边界',
       flow: ['输入教学需求', '生成结构化计划', '预览与检查', '交付最终产物'],
+      headings: [
+        '项目解决什么',
+        '核心功能',
+        '使用流程',
+        '项目亮点',
+        '系统架构',
+        '项目边界',
+      ],
+      highlights: [
+        '先把教学意图变成可审阅计划',
+        '用版本链连接每次修改与产物',
+        '在隔离执行前拒绝不可信代码',
+      ],
       alt: 'AI 数学动画生成工作台系统架构：Next.js 工作台通过 FastAPI 和 Redis 调度隔离 Manim 渲染与质量报告',
     },
     {
@@ -470,12 +483,25 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
       category: 'Applied AI',
       scope: 'Secure media generation pipeline',
       repositoryUrl: 'https://github.com/ShaySha-PRa/Manim_project',
-      limitationsHeading: 'Limitations and next steps',
+      limitationsHeading: 'Project scope',
       flow: [
         'Enter a teaching request',
         'Generate a structured plan',
         'Preview and inspect',
         'Deliver the final artifact',
+      ],
+      headings: [
+        'What it solves',
+        'Core capabilities',
+        'How it works',
+        'Project highlights',
+        'System architecture',
+        'Project scope',
+      ],
+      highlights: [
+        'Turn teaching intent into a reviewable plan first',
+        'Connect every revision to its artifact',
+        'Reject untrusted code before isolated execution',
       ],
       alt: 'Manim Project architecture: the Next.js workbench uses FastAPI and Redis to schedule isolated Manim rendering and quality reports',
     },
@@ -493,6 +519,10 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
       route.scope,
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expectProductStory(page, {
+      headings: route.headings,
+      highlights: route.highlights,
+    });
     await expect(page.locator('.project-evidence')).toHaveCount(2);
     await expectValidationPresentationRemoved(
       page,

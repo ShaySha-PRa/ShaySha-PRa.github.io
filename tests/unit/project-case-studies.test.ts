@@ -64,7 +64,7 @@ const localizedProjectCases = [
   {
     slug: 'manim-project',
     repoUrl: 'https://github.com/ShaySha-PRa/Manim_project',
-    enLimitationsHeading: 'Limitations and next steps',
+    enLimitationsHeading: 'Project scope',
   },
   {
     slug: 'sql-agent',
@@ -215,7 +215,8 @@ for (const project of projectCases) {
       expect(document.content.match(/<li>[^<]+<\/li>/g)).toHaveLength(
         project.slug === 'my-company-brain' ||
           project.slug === 'graphrag-agent' ||
-          project.slug === 'agent-teams-project'
+          project.slug === 'agent-teams-project' ||
+          project.slug === 'manim-project'
           ? 10
           : 4,
       );
@@ -238,7 +239,8 @@ for (const project of projectCases) {
       );
       expect(document.content).toContain(
         project.slug === 'graphrag-agent' ||
-          project.slug === 'agent-teams-project'
+          project.slug === 'agent-teams-project' ||
+          project.slug === 'manim-project'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'
@@ -465,6 +467,47 @@ it('Agent Teams leads with the bilingual risk-routed human-review story', () => 
   );
 });
 
+it('Manim leads with the bilingual teaching-to-video product story', () => {
+  const zh = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/zh/manim-project.md'),
+      'utf8',
+    ),
+  );
+  const en = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/en/manim-project.md'),
+      'utf8',
+    ),
+  );
+
+  expect(getLevelTwoHeadings(zh.content)).toEqual(storyHeadings.zh);
+  expect(getLevelTwoHeadings(en.content)).toEqual(storyHeadings.en);
+  expect(getCapabilityItems(zh.content)).toHaveLength(6);
+  expect(getCapabilityItems(en.content)).toHaveLength(6);
+  expect(getHighlightHeadings(zh.content, 'zh')).toEqual([
+    '先把教学意图变成可审阅计划',
+    '用版本链连接每次修改与产物',
+    '在隔离执行前拒绝不可信代码',
+  ]);
+  expect(getHighlightHeadings(en.content, 'en')).toEqual([
+    'Turn teaching intent into a reviewable plan first',
+    'Connect every revision to its artifact',
+    'Reject untrusted code before isolated execution',
+  ]);
+  for (const document of [zh, en]) {
+    expect(document.content).toContain(
+      'src="/projects/manim-project/formula-derivation-demo.jpg"',
+    );
+    expect(document.content).toContain(
+      'src="/projects/manim-project/quality-result.png"',
+    );
+    expect(document.data.repoUrl).toBe(
+      'https://github.com/ShaySha-PRa/Manim_project',
+    );
+  }
+});
+
 for (const project of localizedProjectCases) {
   it(`${project.slug} has no validation presentation in both locales`, () => {
     for (const [locale, document] of [
@@ -498,7 +541,8 @@ for (const project of localizedProjectCases) {
       expect(document.content).toContain(
         project.slug === 'my-company-brain' ||
           project.slug === 'graphrag-agent' ||
-          project.slug === 'agent-teams-project'
+          project.slug === 'agent-teams-project' ||
+          project.slug === 'manim-project'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'
