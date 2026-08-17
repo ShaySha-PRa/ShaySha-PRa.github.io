@@ -51,8 +51,10 @@
   <rect class="node" x="780" y="258" width="300" height="72" rx="10" />
   <text class="node-title" x="930" y="290" text-anchor="middle">REDIS JOB QUEUE</text>
   <text class="node-sub" x="930" y="314" text-anchor="middle">job-ID scheduling</text>
-  <path class="flow" d="M 950 188 V 258" />
-  <path class="flow" d="M 610 294 H 780" />
+  <g id="control-plane-request-path" data-flow="workbench-control-queue" aria-label="NEXT.JS WORKBENCH → FASTAPI + SQLITE → REDIS JOB QUEUE">
+    <path class="flow" d="M 950 188 C 950 218 445 218 445 258" />
+    <path class="flow" d="M 610 294 H 780" />
+  </g>
 
   <rect class="band" x="32" y="376" width="1336" height="158" rx="14" />
   <text class="band-label" x="58" y="408">03 EXECUTION</text>

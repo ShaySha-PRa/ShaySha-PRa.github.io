@@ -16,7 +16,7 @@ gallery: []
 featured: false
 order: 4
 evidence:
-  - The cover is the repository's docs/assets/workbench-demo.png; the formula image is docs/assets/formula-derivation-demo.jpg, both authentic project demo assets.
+  - The cover is the repository's docs/assets/workbench-demo.png; both contextual images are frames extracted from docs/assets/formula-derivation-demo.mp4 at 30.0 and 50.0 seconds.
   - This run completed all 519 repository tests in WSL Python 3.10, used the deterministic template for one structured formula task, and ran local quality inspection against the repository demo video without claiming model or production metrics.
 caseStudy:
   category: Applied AI
@@ -48,7 +48,7 @@ The Next.js workbench uses FastAPI + SQLite for Prompt, ContentPlan, CodeVersion
 
 <figure class="project-evidence">
   <img src="/projects/manim-project/formula-derivation-demo.jpg" alt="Formula derivation animation demo frame" width="1920" height="1080" loading="lazy" />
-  <figcaption>The formula-derivation image is the repository's docs/assets/formula-derivation-demo.jpg; it is project context, not a newly generated model result from this run.</figcaption>
+  <figcaption>This formula-derivation frame is extracted from the repository's docs/assets/formula-derivation-demo.mp4 at 30.0 seconds; it is project context, not a newly generated model result from this run.</figcaption>
 </figure>
 
 ## Three key technical decisions
@@ -67,7 +67,7 @@ Code passes AST and Manim API allowlists, compilation, and Scene preflight befor
 
 <figure class="project-evidence">
   <img src="/projects/manim-project/quality-result.png" alt="Manim workbench local quality report and preview artifact inspection" width="1600" height="1000" loading="lazy" />
-  <figcaption>This representative verification screen comes from a local redacted run and quality inspection of the repository demo video: 90 seconds, 60 FPS, 5,400 frames, and no severe diagnostics. It is not a full golden-set or production metric.</figcaption>
+  <figcaption>This is a real animation frame extracted from the same repository demo video at 50.0 seconds; the quality conclusion comes from local PyAV inspection, and the still is not presented as a product quality panel.</figcaption>
 </figure>
 
 <section id="validation" class="project-validation">
@@ -77,7 +77,7 @@ Code passes AST and Manim API allowlists, compilation, and Scene preflight befor
     <tbody>
       <tr><th scope="row">Executable repository tests</th><td>Reproduced locally</td><td>In WSL Python 3.10, <code>uv run pytest -s -q</code> completed with 519 passed.</td></tr>
       <tr><th scope="row">Prompt → ContentPlan → code</th><td>Partially reproduced</td><td>Without a usable compatible model credential, the repository deterministic template completed one formula task; the ContentPlan and static security checks passed.</td></tr>
-      <tr><th scope="row">Preview / Final rendering and quality inspection</th><td>Partially reproduced</td><td>Manim rendering runtime was not installed in this run. PyAV inspected the repository demo video deterministically; 12 sampled frames produced no diagnostics, and the screenshot shows only that inspection.</td></tr>
+      <tr><th scope="row">Preview / Final rendering and quality inspection</th><td>Partially reproduced</td><td>Manim rendering runtime was not installed in this run. PyAV inspected the repository demo video deterministically; 12 sampled frames produced no diagnostics, and the page image is the real 50.0-second frame.</td></tr>
       <tr><th scope="row">Full model success rate, market, or production capability</th><td>Not claimed</td><td>This run made no model call and did not execute the full golden set, so it makes no success-rate, throughput, market-feedback, or production-deployment claim.</td></tr>
     </tbody>
   </table>

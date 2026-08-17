@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import matter from 'gray-matter';
+import sharp from 'sharp';
 import { expect, it } from 'vitest';
 
 const root = resolve(import.meta.dirname, '../..');
@@ -172,9 +173,26 @@ for (const project of projectCases) {
       expect(architecture).toContain('04 ARTIFACTS');
       expect(architecture).toContain('default-deny');
       expect(architecture).toContain('data-boundary="untrusted-execution"');
+      expect(architecture).toContain('data-flow="workbench-control-queue"');
     }
     expect(architecture).not.toMatch(
       /\b(?:DeepSeek|MiniMax|MinerU|\d{2,5}\s*ports?)\b/i,
     );
   });
 }
+
+it('Manim contextual images contain visible visual variation', async () => {
+  for (const filename of [
+    'formula-derivation-demo.jpg',
+    'quality-result.png',
+  ]) {
+    const image = await sharp(
+      readFileSync(resolve(root, `public/projects/manim-project/${filename}`)),
+    )
+      .resize({ width: 160, height: 120, fit: 'inside' })
+      .stats();
+    expect(
+      Math.max(...image.channels.map((channel) => channel.stdev)),
+    ).toBeGreaterThan(5);
+  }
+});
