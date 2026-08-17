@@ -96,6 +96,24 @@
   font-size: 0.88rem;
 }
 
+.prose .project-evidence {
+  margin-inline: 0;
+}
+
+.prose .project-evidence img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--sand);
+  background: var(--paper);
+}
+
+.prose .project-evidence figcaption {
+  margin-top: 0.75rem;
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
 .prose .project-validation {
   max-width: 100%;
   overflow-x: auto;

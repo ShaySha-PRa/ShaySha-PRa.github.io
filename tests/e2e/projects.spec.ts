@@ -9,13 +9,15 @@ const projectNames = [
   'ITA-Maskit',
 ];
 
-async function expectArchitectureImage(page: Page, accessibleName: string) {
+async function expectArchitectureImage(
+  page: Page,
+  accessibleName: string,
+  src: string,
+  expectedSize: { width: number; height: number },
+) {
   const architecture = page.getByRole('img', { name: accessibleName });
   await expect(architecture).toBeVisible();
-  await expect(architecture).toHaveAttribute(
-    'src',
-    '/projects/my-company-brain-architecture.svg',
-  );
+  await expect(architecture).toHaveAttribute('src', src);
   const intrinsicSize = await architecture.evaluate((element) => {
     const image = element as HTMLImageElement;
     return {
@@ -24,7 +26,7 @@ async function expectArchitectureImage(page: Page, accessibleName: string) {
       height: image.naturalHeight,
     };
   });
-  expect(intrinsicSize).toEqual({ complete: true, width: 1400, height: 820 });
+  expect(intrinsicSize).toEqual({ complete: true, ...expectedSize });
 }
 
 test('Chinese project index lists exactly six ordered projects', async ({
@@ -127,6 +129,8 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
   await expectArchitectureImage(
     page,
     'My Company Brain 系统架构：Web 经统一 API 进入 Agent Gateway，并连接三条知识路径',
+    '/projects/my-company-brain-architecture.svg',
+    { width: 1400, height: 820 },
   );
 
   const validation = page.locator('#validation');
@@ -146,6 +150,8 @@ test('English My Company Brain case study loads the approved architecture SVG', 
   await expectArchitectureImage(
     page,
     'My Company Brain architecture: Web enters the Agent Gateway through a unified API and connects to three knowledge paths',
+    '/projects/my-company-brain-architecture.svg',
+    { width: 1400, height: 820 },
   );
 });
 
