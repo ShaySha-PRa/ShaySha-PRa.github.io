@@ -96,9 +96,9 @@
   <g>
     <path class="main-flow" d="M280 206H390" />
     <path class="main-flow" d="M510 247V282H265V320" />
-    <text class="mono" x="282" y="275">/api/platform/*</text>
+    <text class="mono" x="282" y="260">/api/platform/*</text>
     <path class="main-flow" d="M630 247V282H700V320" />
-    <text class="mono" x="714" y="275">/api/agent/*</text>
+    <text class="mono" x="714" y="260">/api/agent/*</text>
     <path class="main-flow" d="M440 368H478V304H920V368H960" />
   </g>
 
