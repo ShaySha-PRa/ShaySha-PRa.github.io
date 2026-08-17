@@ -36,6 +36,12 @@ function getCapabilityItems(content: string) {
   return list?.match(/<li>[\s\S]*?<\/li>/g) ?? [];
 }
 
+function getCapabilityTexts(content: string) {
+  return getCapabilityItems(content).map((item) =>
+    item.replace(/^<li>|<\/li>$/g, '').trim(),
+  );
+}
+
 function getHighlightHeadings(content: string, locale: 'zh' | 'en') {
   const start = locale === 'zh' ? '项目亮点' : 'Project highlights';
   const end = locale === 'zh' ? '系统架构' : 'System architecture';
@@ -74,7 +80,7 @@ const localizedProjectCases = [
   {
     slug: 'ita-maskit',
     repoUrl: 'https://github.com/ShaySha-PRa/ITA-Maskit',
-    enLimitationsHeading: 'Known limitations and next steps',
+    enLimitationsHeading: 'Project scope',
   },
 ] as const;
 
@@ -217,7 +223,8 @@ for (const project of projectCases) {
           project.slug === 'graphrag-agent' ||
           project.slug === 'agent-teams-project' ||
           project.slug === 'manim-project' ||
-          project.slug === 'sql-agent'
+          project.slug === 'sql-agent' ||
+          project.slug === 'ita-maskit'
           ? 10
           : 4,
       );
@@ -242,13 +249,14 @@ for (const project of projectCases) {
         project.slug === 'graphrag-agent' ||
           project.slug === 'agent-teams-project' ||
           project.slug === 'manim-project' ||
-          project.slug === 'sql-agent'
+          project.slug === 'sql-agent' ||
+          project.slug === 'ita-maskit'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'
           : locale === 'zh'
             ? '限制与下一步'
-            : project.slug === 'sql-agent' || project.slug === 'ita-maskit'
+            : project.slug === 'sql-agent'
               ? 'Known limitations and next steps'
               : 'Limitations and next steps',
       );
@@ -545,6 +553,59 @@ it('SQLAgent leads with the bilingual analysis-delivery product story', () => {
   }
 });
 
+it('ITA-Maskit leads with the bilingual local audit-data protection story', () => {
+  const zh = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/zh/ita-maskit.md'),
+      'utf8',
+    ),
+  );
+  const en = matter(
+    readFileSync(
+      resolve(root, 'src/content/projects/en/ita-maskit.md'),
+      'utf8',
+    ),
+  );
+
+  expect(getLevelTwoHeadings(zh.content)).toEqual(storyHeadings.zh);
+  expect(getLevelTwoHeadings(en.content)).toEqual(storyHeadings.en);
+  expect(getCapabilityTexts(zh.content)).toEqual([
+    '通过 CLI 或 Windows GUI 选择规则并批量处理',
+    '在本地处理表格、JSON、邮件、PDF 和 Word',
+    '正式写出前预览规则命中与样例变化',
+    '选择遮盖或确定性伪名化',
+    '使用人员清单补足姓名与员工标识匹配',
+    '查看统计、输出位置和版本化审计日志',
+  ]);
+  expect(getCapabilityTexts(en.content)).toEqual([
+    'Select rules and batch-process files through the CLI or Windows GUI',
+    'Process tables, JSON, email, PDF, and Word locally',
+    'Preview rule matches and sample changes before writing output',
+    'Choose masking or deterministic pseudonymization',
+    'Use personnel lists to improve name and employee-ID matching',
+    'Inspect statistics, output locations, and versioned audit logs',
+  ]);
+  expect(getHighlightHeadings(zh.content, 'zh')).toEqual([
+    '用双引擎覆盖表格与文档',
+    '把脱敏规则变成可维护的数据',
+    '保留跨文件关联而不暴露原值',
+  ]);
+  expect(getHighlightHeadings(en.content, 'en')).toEqual([
+    'Cover tables and documents with two processing engines',
+    'Turn masking policy into maintainable data',
+    'Preserve cross-file joins without exposing source values',
+  ]);
+  for (const document of [zh, en]) {
+    expect(document.content).toContain(
+      'src="/projects/ita-maskit/preview.png"',
+    );
+    expect(document.content).toContain('src="/projects/ita-maskit/rules.png"');
+    expect(document.data.repoUrl).toBe(
+      'https://github.com/ShaySha-PRa/ITA-Maskit',
+    );
+  }
+});
+
 for (const project of localizedProjectCases) {
   it(`${project.slug} has no validation presentation in both locales`, () => {
     for (const [locale, document] of [
@@ -580,7 +641,8 @@ for (const project of localizedProjectCases) {
           project.slug === 'graphrag-agent' ||
           project.slug === 'agent-teams-project' ||
           project.slug === 'manim-project' ||
-          project.slug === 'sql-agent'
+          project.slug === 'sql-agent' ||
+          project.slug === 'ita-maskit'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'

@@ -641,12 +641,25 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
       category: '数据隐私',
       scope: 'CLI + Windows 桌面应用',
       repositoryUrl: 'https://github.com/ShaySha-PRa/ITA-Maskit',
-      limitationsHeading: '限制与下一步',
+      limitationsHeading: '项目边界',
       flow: [
         '选择文件、规则集和可选人员数据',
         '预验证命中而不写出结果',
         '在本地执行遮盖或确定性伪名化',
         '查看统计、输出路径和审计日志',
+      ],
+      headings: [
+        '项目解决什么',
+        '核心功能',
+        '使用流程',
+        '项目亮点',
+        '系统架构',
+        '项目边界',
+      ],
+      highlights: [
+        '用双引擎覆盖表格与文档',
+        '把脱敏规则变成可维护的数据',
+        '保留跨文件关联而不暴露原值',
       ],
       alt: '本地数据脱敏工作台系统架构：CLI 与 Windows GUI 通过规则校验进入表格和文本引擎，经过遮盖或伪名化后输出统计与审计日志',
     },
@@ -656,12 +669,25 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
       category: 'Data Privacy',
       scope: 'CLI + Windows desktop app',
       repositoryUrl: 'https://github.com/ShaySha-PRa/ITA-Maskit',
-      limitationsHeading: 'Known limitations and next steps',
+      limitationsHeading: 'Project scope',
       flow: [
         'Select files, a rule set, and optional personnel data',
         'Preview matches without writing output',
         'Execute masking or deterministic pseudonymization locally',
         'Inspect statistics, output paths, and the audit log',
+      ],
+      headings: [
+        'What it solves',
+        'Core capabilities',
+        'How it works',
+        'Project highlights',
+        'System architecture',
+        'Project scope',
+      ],
+      highlights: [
+        'Cover tables and documents with two processing engines',
+        'Turn masking policy into maintainable data',
+        'Preserve cross-file joins without exposing source values',
       ],
       alt: 'ITA-Maskit architecture: the CLI and Windows GUI validate rules, route files through table and text engines, mask or pseudonymize values, and emit statistics and audit logs',
     },
@@ -679,6 +705,10 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
       route.scope,
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expectProductStory(page, {
+      headings: route.headings,
+      highlights: route.highlights,
+    });
     await expect(page.locator('.project-evidence')).toHaveCount(2);
     await expectValidationPresentationRemoved(
       page,
