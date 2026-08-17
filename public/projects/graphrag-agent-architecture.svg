@@ -60,6 +60,10 @@
     <path d="M600 388H650" class="request" />
     <path d="M600 399H910" class="request" />
     <path d="M600 410H1170" class="request" />
+    <g id="document-indexing-flow" data-flow="documents-upload-to-indexing" aria-label="Documents upload to Indexing Pipeline">
+      <path d="M650 428C620 452 52 452 52 536C52 548 60 555 72 555" class="request" />
+      <text x="360" y="446" class="call-label" text-anchor="middle">DOCUMENT UPLOAD → INDEX</text>
+    </g>
   </g>
 
   <g>

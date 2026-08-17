@@ -195,6 +195,10 @@ for (const project of projectCases) {
       expect(architecture).toContain('GRAPH VIEW + ANSWER / CITED ENTITIES');
       expect(architecture).toContain('GRAPH RETRIEVAL');
       expect(architecture).toContain('VECTOR RETRIEVAL');
+      expect(architecture).toContain(
+        'data-flow="documents-upload-to-indexing"',
+      );
+      expect(architecture).toContain('DOCUMENT UPLOAD → INDEX');
       expect(
         (architecture.match(/class="retrieval"/g) ?? []).length,
       ).toBeGreaterThanOrEqual(2);
