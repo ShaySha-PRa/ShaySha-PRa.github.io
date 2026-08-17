@@ -491,4 +491,3 @@ After deployment:
 ## Acceptance Summary
 
 The redesign is complete when every project presents a consistent recruiter-first Case Study, uses authentic product evidence, communicates its own architecture and technical decisions, and distinguishes independently reproduced results from limitations without relying on README claims as verification.
-
