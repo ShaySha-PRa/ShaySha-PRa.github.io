@@ -66,7 +66,7 @@ FastAPI 负责创建任务并持久化状态，Redis 负责排队，Runner 负�
 代码先经过 AST 与 Manim API 白名单、编译和 Scene 预检，再进入无网络、非 root、资源受限的隔离容器。质量层以 PyAV 检查时长、FPS、帧数和严重视觉异常；诊断文本经过脱敏，不把任意生成代码直接暴露给工作台。
 
 <figure class="project-evidence">
-  <img src="/projects/manim-project/quality-result.png" alt="数学动画工作台本地质量报告与预览产物检查画面" width="1600" height="1000" loading="lazy" />
+  <img src="/projects/manim-project/quality-result.png" alt="仓库演示视频 50 秒处的数学动画帧" width="1920" height="1080" loading="lazy" />
   <figcaption>这是从同一仓库演示视频 50.0 秒位置提取的真实动画帧；旁边的质量结论来自本地 PyAV 检查，不把静态帧伪装成产品质量面板。</figcaption>
 </figure>
 

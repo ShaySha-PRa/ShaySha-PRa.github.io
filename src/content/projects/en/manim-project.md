@@ -66,7 +66,7 @@ FastAPI creates jobs and persists state, Redis queues them, and the Runner claim
 Code passes AST and Manim API allowlists, compilation, and Scene preflight before entering a network-disabled, non-root, resource-constrained container. The quality layer uses PyAV to check duration, FPS, frame count, and severe visual anomalies; diagnostic text is redacted before it reaches the workbench.
 
 <figure class="project-evidence">
-  <img src="/projects/manim-project/quality-result.png" alt="Manim workbench local quality report and preview artifact inspection" width="1600" height="1000" loading="lazy" />
+  <img src="/projects/manim-project/quality-result.png" alt="Manim formula animation frame at 50 seconds from the repository demo video" width="1920" height="1080" loading="lazy" />
   <figcaption>This is a real animation frame extracted from the same repository demo video at 50.0 seconds; the quality conclusion comes from local PyAV inspection, and the still is not presented as a product quality panel.</figcaption>
 </figure>
 
