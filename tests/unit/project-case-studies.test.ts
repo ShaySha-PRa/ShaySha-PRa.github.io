@@ -96,6 +96,13 @@ for (const project of projectCases) {
     for (const label of project.architectureLabels) {
       expect(architecture).toContain(label);
     }
+    expect(architecture).toContain('04 OUTPUT');
+    expect(architecture).toContain('GRAPH VIEW + ANSWER / CITED ENTITIES');
+    expect(architecture).toContain('GRAPH RETRIEVAL');
+    expect(architecture).toContain('VECTOR RETRIEVAL');
+    expect(
+      (architecture.match(/class="retrieval"/g) ?? []).length,
+    ).toBeGreaterThanOrEqual(2);
     expect(architecture).not.toMatch(
       /\b(?:DeepSeek|MiniMax|MinerU|\d{2,5}\s*ports?)\b/i,
     );

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
   <title id="title">GraphRAGAgent application architecture</title>
-  <desc id="desc">A four-band view of the GraphRAGAgent workspace, API, indexing and retrieval paths, and answer outputs.</desc>
+  <desc id="desc">A four-band view of the GraphRAGAgent workspace, API boundary, parallel knowledge stores, QA retrieval calls, and cited outputs.</desc>
   <defs>
     <marker id="arrow-vermilion" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
       <path d="M0 0L10 5L0 10Z" fill="#C6442B" />
@@ -9,10 +9,11 @@
       <path d="M0 0L10 5L0 10Z" fill="#7B746A" />
     </marker>
     <style>
-      .band-label { font: 700 16px Arial, sans-serif; letter-spacing: 2.6px; fill: #C6442B; }
-      .band-caption { font: 400 14px Arial, sans-serif; fill: #7B746A; }
-      .node-label { font: 700 18px Arial, sans-serif; letter-spacing: 1.1px; fill: #171717; }
-      .node-note { font: 400 14px Arial, sans-serif; fill: #7B746A; }
+      .band-label { font: 700 15px Arial, sans-serif; letter-spacing: 2.4px; fill: #C6442B; }
+      .band-caption { font: 400 13px Arial, sans-serif; fill: #7B746A; }
+      .node-label { font: 700 16px Arial, sans-serif; letter-spacing: 0.8px; fill: #171717; }
+      .node-note { font: 400 13px Arial, sans-serif; fill: #7B746A; }
+      .call-label { font: 700 11px Arial, sans-serif; letter-spacing: 1.2px; fill: #C6442B; }
       .node { fill: #FFFDF8; stroke: #171717; stroke-width: 2; }
       .knowledge { fill: #F1ECE3; stroke: #7B746A; stroke-width: 2; }
       .output { fill: #FFFDF8; stroke: #C6442B; stroke-width: 2; }
@@ -23,70 +24,75 @@
   </defs>
 
   <rect width="1400" height="760" fill="#F4F0E8" />
-  <path d="M72 112H1328" stroke="#C9BDA8" stroke-width="2" />
-  <text x="72" y="74" class="band-label">GRAPHRAG / SYSTEM ARCHITECTURE</text>
-  <text x="1328" y="74" class="band-caption" text-anchor="end">retrieval paths made visible</text>
+  <path d="M72 82H1328" stroke="#C9BDA8" stroke-width="2" />
+  <text x="72" y="53" class="band-label">GRAPHRAG / SYSTEM ARCHITECTURE</text>
+  <text x="1328" y="53" class="band-caption" text-anchor="end">retrieval paths made visible</text>
 
   <g>
-    <text x="72" y="158" class="band-label">01 EXPERIENCE</text>
-    <text x="72" y="182" class="band-caption">A single workspace for documents, graph exploration, and Q&amp;A</text>
-    <rect x="72" y="208" width="1256" height="96" rx="12" class="node" />
-    <rect x="104" y="231" width="260" height="50" rx="8" class="output" />
-    <text x="234" y="262" class="node-label" text-anchor="middle">BROWSER</text>
-    <path d="M364 256H520" class="request" />
-    <rect x="520" y="231" width="350" height="50" rx="8" class="node" />
-    <text x="695" y="262" class="node-label" text-anchor="middle">REACT WORKSPACE</text>
-    <path d="M870 256H1024" class="request" />
-    <rect x="1024" y="231" width="272" height="50" rx="8" class="node" />
-    <text x="1160" y="262" class="node-label" text-anchor="middle">USER REQUEST</text>
+    <text x="72" y="112" class="band-label">01 EXPERIENCE</text>
+    <text x="72" y="132" class="band-caption">Browser requests enter one workspace</text>
+    <rect x="72" y="158" width="240" height="54" rx="9" class="output" />
+    <text x="192" y="191" class="node-label" text-anchor="middle">BROWSER</text>
+    <rect x="360" y="158" width="240" height="54" rx="9" class="output" />
+    <text x="480" y="191" class="node-label" text-anchor="middle">USER REQUEST</text>
+    <rect x="72" y="228" width="528" height="56" rx="9" class="node" />
+    <text x="336" y="262" class="node-label" text-anchor="middle">REACT WORKSPACE</text>
+    <path d="M192 212V228" class="request" />
+    <path d="M480 212L430 228" class="request" />
   </g>
 
   <g>
-    <text x="72" y="358" class="band-label">02 APPLICATION</text>
-    <text x="72" y="382" class="band-caption">HTTP boundary routes uploads, graph views, and questions</text>
-    <rect x="72" y="408" width="220" height="96" rx="10" class="node" />
-    <text x="182" y="449" class="node-label" text-anchor="middle">FASTAPI</text>
-    <text x="182" y="476" class="node-note" text-anchor="middle">request boundary</text>
-    <path d="M292 456H382" class="request" />
-    <rect x="382" y="408" width="300" height="96" rx="10" class="node" />
-    <text x="532" y="449" class="node-label" text-anchor="middle">DOCUMENTS</text>
-    <text x="532" y="476" class="node-note" text-anchor="middle">upload and status</text>
-    <path d="M682 456H742" class="request" />
-    <rect x="742" y="408" width="278" height="96" rx="10" class="node" />
-    <text x="881" y="449" class="node-label" text-anchor="middle">GRAPH EXPLORER</text>
-    <text x="881" y="476" class="node-note" text-anchor="middle">D3 view and search</text>
-    <path d="M1020 456H1080" class="request" />
-    <rect x="1080" y="408" width="248" height="96" rx="10" class="node" />
-    <text x="1204" y="449" class="node-label" text-anchor="middle">Q&amp;A</text>
-    <text x="1204" y="476" class="node-note" text-anchor="middle">multi-turn answers</text>
+    <text x="72" y="324" class="band-label">02 APPLICATION</text>
+    <text x="72" y="344" class="band-caption">API routes documents, graph exploration, and questions</text>
+    <rect x="72" y="370" width="528" height="58" rx="9" class="node" />
+    <text x="336" y="405" class="node-label" text-anchor="middle">FASTAPI</text>
+    <path d="M336 284V370" class="request" />
+
+    <rect x="650" y="370" width="220" height="58" rx="9" class="node" />
+    <text x="760" y="396" class="node-label" text-anchor="middle">DOCUMENTS</text>
+    <text x="760" y="416" class="node-note" text-anchor="middle">upload + status</text>
+    <rect x="910" y="370" width="220" height="58" rx="9" class="node" />
+    <text x="1020" y="396" class="node-label" text-anchor="middle">GRAPH EXPLORER</text>
+    <text x="1020" y="416" class="node-note" text-anchor="middle">D3 view + search</text>
+    <rect x="1170" y="370" width="158" height="58" rx="9" class="node" />
+    <text x="1249" y="396" class="node-label" text-anchor="middle">Q&amp;A ROUTER</text>
+    <text x="1249" y="416" class="node-note" text-anchor="middle">questions</text>
+    <path d="M600 388H650" class="request" />
+    <path d="M600 399H910" class="request" />
+    <path d="M600 410H1170" class="request" />
   </g>
 
   <g>
-    <text x="72" y="558" class="band-label">03 KNOWLEDGE</text>
-    <text x="72" y="582" class="band-caption">One indexing path feeds graph and vector retrieval into the QA agent</text>
-    <rect x="72" y="608" width="248" height="82" rx="10" class="knowledge" />
-    <text x="196" y="644" class="node-label" text-anchor="middle">INDEXING PIPELINE</text>
-    <text x="196" y="668" class="node-note" text-anchor="middle">parse · extract · index</text>
-    <path d="M320 649H398" class="ownership" />
-    <rect x="398" y="608" width="210" height="82" rx="10" class="knowledge" />
-    <text x="503" y="644" class="node-label" text-anchor="middle">NETWORKX GRAPH</text>
-    <text x="503" y="668" class="node-note" text-anchor="middle">entities and relations</text>
-    <path d="M608 649H650" class="ownership" />
-    <rect x="650" y="608" width="256" height="82" rx="10" class="knowledge" />
-    <text x="778" y="644" class="node-label" text-anchor="middle">CHROMA VECTOR INDEX</text>
-    <text x="778" y="668" class="node-note" text-anchor="middle">semantic context</text>
-    <path d="M906 649H954" class="retrieval" />
-    <rect x="954" y="608" width="190" height="82" rx="10" class="node" />
-    <text x="1049" y="644" class="node-label" text-anchor="middle">QA AGENT</text>
-    <text x="1049" y="668" class="node-note" text-anchor="middle">tools + synthesis</text>
-    <path d="M1144 649H1190" class="retrieval" />
-    <rect x="1190" y="608" width="138" height="82" rx="10" class="output" />
-    <text x="1259" y="644" class="node-label" text-anchor="middle">OUTPUT</text>
-    <text x="1259" y="668" class="node-note" text-anchor="middle">answer + graph</text>
+    <text x="72" y="472" class="band-label">03 KNOWLEDGE</text>
+    <text x="72" y="492" class="band-caption">Index once; keep graph and vector retrieval stores parallel</text>
+    <rect x="72" y="518" width="270" height="74" rx="9" class="knowledge" />
+    <text x="207" y="550" class="node-label" text-anchor="middle">INDEXING PIPELINE</text>
+    <text x="207" y="572" class="node-note" text-anchor="middle">parse · extract · index</text>
+    <rect x="420" y="518" width="250" height="74" rx="9" class="knowledge" />
+    <text x="545" y="550" class="node-label" text-anchor="middle">NETWORKX GRAPH</text>
+    <text x="545" y="572" class="node-note" text-anchor="middle">entities + relations</text>
+    <rect x="720" y="518" width="280" height="74" rx="9" class="knowledge" />
+    <text x="860" y="550" class="node-label" text-anchor="middle">CHROMA VECTOR INDEX</text>
+    <text x="860" y="572" class="node-note" text-anchor="middle">semantic context</text>
+    <rect x="1080" y="518" width="248" height="74" rx="9" class="node" />
+    <text x="1204" y="550" class="node-label" text-anchor="middle">QA AGENT</text>
+    <text x="1204" y="572" class="node-note" text-anchor="middle">tools + synthesis</text>
+
+    <path d="M342 548H420" class="ownership" />
+    <path d="M342 565H720" class="ownership" />
+    <path d="M670 537C820 505 950 505 1080 537" class="retrieval" />
+    <path d="M1000 574C1030 595 1050 595 1080 574" class="retrieval" />
+    <text x="825" y="505" class="call-label" text-anchor="middle">GRAPH RETRIEVAL</text>
+    <text x="1038" y="614" class="call-label" text-anchor="middle">VECTOR RETRIEVAL</text>
+    <path d="M1249 428V518" class="retrieval" />
   </g>
 
-  <path d="M881 504V608" class="retrieval" />
-  <path d="M1204 504V608" class="retrieval" />
-  <path d="M532 504V608" class="ownership" />
-  <path d="M1049 608V528" class="retrieval" />
+  <g>
+    <text x="72" y="636" class="band-label">04 OUTPUT</text>
+    <text x="72" y="654" class="band-caption">Make the answer and its visible graph context inspectable</text>
+    <rect x="420" y="664" width="908" height="58" rx="9" class="output" />
+    <text x="874" y="699" class="node-label" text-anchor="middle">GRAPH VIEW + ANSWER / CITED ENTITIES</text>
+    <path d="M1020 428C1020 620 874 620 874 664" class="request" />
+    <path d="M1204 592V664" class="request" />
+  </g>
 </svg>
