@@ -458,7 +458,7 @@ docs/assets/formula-derivation-demo.jpg → public/projects/manim-project/formul
 independent representative flow screen  → public/projects/manim-project/quality-result.png
 ```
 
-The third asset must show a real locally reproduced preview, artifact, or quality screen and must contain no key, local username, absolute path, or sensitive log.
+The third asset should show a real locally reproduced preview, artifact, or quality screen and must contain no key, local username, absolute path, or sensitive log. Approved fallback for this task: because the Manim rendering runtime and a real product quality UI were unavailable, use two authentic, nonblank frames extracted locally with PyAV from `docs/assets/formula-derivation-demo.mp4` for the two contextual assets. Captions must name the source and timestamp and state that these are contextual repository frames, not newly rendered product results; the validation matrix must leave Preview / Final rendering partial or unclaimed.
 
 - [ ] **Step 4: Create architecture SVG**
 
@@ -475,7 +475,7 @@ Use a dashed boundary around untrusted execution and solid/gray arrows for job a
 
 - [ ] **Step 5: Rewrite bilingual content**
 
-Explain immutable versions, job-ID queue, default-deny execution, and deterministic quality checks. The validation matrix uses only this run. Limitations cover bounded math domains, local acceptance environment, no market/production validation, and non-guaranteed generation success.
+Explain immutable versions, job-ID queue, default-deny execution, and deterministic quality checks. The validation matrix uses only this run. When the approved frame fallback is used, captions identify the PyAV source frames and Preview / Final rendering remains partial or unclaimed. Limitations cover bounded math domains, local acceptance environment, no market/production validation, and non-guaranteed generation success.
 
 - [ ] **Step 6: Verify and commit**
 

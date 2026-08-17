@@ -95,7 +95,7 @@ Repository screenshots that use synthetic or scripted demonstration data receive
 
 - Cover: `docs/assets/workbench-demo.png`
 - Context: `docs/assets/formula-derivation-demo.jpg`
-- Context: a locally captured quality, preview, or artifact screen from the independently reproduced representative flow
+- Context: a locally captured quality, preview, or artifact screen from the independently reproduced representative flow. Approved fallback for this task: when the Manim rendering runtime or product quality UI is unavailable, use two authentic, nonblank frames extracted locally with PyAV from the repository demo video. Captions must identify the source and timestamp, and state that the frames are contextual repository evidence rather than newly rendered product results.
 
 #### SQLAgent
 
@@ -471,6 +471,8 @@ Cover Chinese and English routes for:
 
 Run `npm run validate`, then manually inspect all ten project pages at desktop and 390 px.
 
+For Manim, the approved evidence fallback is two authentic, nonblank frames extracted locally with PyAV from `docs/assets/formula-derivation-demo.mp4` when the rendering runtime or a real product quality screen cannot be captured. The localized captions must name the source and timestamp, and the validation matrix must explicitly leave Preview / Final rendering unclaimed or partial; a repository frame is not presented as a newly rendered product screen.
+
 After deployment:
 
 - confirm GitHub Validate, Pages Deploy, and production Lighthouse succeed;
@@ -490,4 +492,4 @@ After deployment:
 
 ## Acceptance Summary
 
-The redesign is complete when every project presents a consistent recruiter-first Case Study, uses authentic product evidence, communicates its own architecture and technical decisions, and distinguishes independently reproduced results from limitations without relying on README claims as verification.
+The redesign is complete when every project presents a consistent recruiter-first Case Study, uses authentic product evidence or the explicitly approved repository-artifact fallback, communicates its own architecture and technical decisions, and distinguishes independently reproduced results from limitations without relying on README claims as verification.

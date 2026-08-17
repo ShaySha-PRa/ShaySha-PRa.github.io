@@ -240,6 +240,12 @@ for (const project of projectCases) {
       expect(architecture).toContain('default-deny');
       expect(architecture).toContain('data-boundary="untrusted-execution"');
       expect(architecture).toContain('data-flow="workbench-control-queue"');
+      expect(architecture).toContain('data-flow="runner-to-container"');
+      expect(architecture).toContain('data-flow="container-to-artifacts"');
+      expect(architecture).toContain('data-source="isolated-manim-container"');
+      expect(architecture).toContain('data-target="preview-final-artifacts"');
+      expect(architecture).toContain('data-flow="artifacts-to-quality"');
+      expect(architecture).not.toContain('data-flow="runner-to-artifacts"');
     } else {
       expect(architecture).toContain('01 EXPERIENCE');
       expect(architecture).toContain('02 CONTROL');
