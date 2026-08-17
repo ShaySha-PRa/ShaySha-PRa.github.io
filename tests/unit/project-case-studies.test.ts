@@ -243,6 +243,14 @@ for (const project of projectCases) {
       expect(architecture).toContain('04 OUTPUT');
       expect(architecture).toContain('PREVIEW');
       expect(architecture).toContain('pepper');
+      for (const flow of [
+        'local-files-to-table-engine',
+        'local-files-to-text-engine',
+        'pepper-to-pseudonymize',
+        'pseudonymize-to-output',
+      ]) {
+        expect(architecture).toContain(`data-flow="${flow}"`);
+      }
       expect(architecture).not.toMatch(
         /\b(?:encryption|compliance|LLM rule generation)\b/i,
       );

@@ -40,7 +40,7 @@
   <rect x="805" y="111" width="320" height="68" rx="2" class="node-muted" />
   <text x="965" y="140" class="label" text-anchor="middle">LOCAL FILES</text>
   <text x="965" y="162" class="small" text-anchor="middle">tabular and text inputs stay on the machine</text>
-  <path d="M700 145H805" class="path" />
+  <path d="M700 145H805" class="path" data-flow="cli-to-local-files" />
 
   <rect x="70" y="228" width="1260" height="124" rx="2" class="band" />
   <text x="100" y="261" class="index">02 CONTROL</text>
@@ -51,8 +51,8 @@
   <rect x="845" y="251" width="280" height="68" rx="2" class="node-accent" />
   <text x="985" y="280" class="label" text-anchor="middle">PREFLIGHT PREVIEW</text>
   <text x="985" y="302" class="small" text-anchor="middle">counts hits without writing output</text>
-  <path d="M730 285H845" class="path" />
-  <path d="M535 179V251" class="path-muted" />
+  <path d="M730 285H845" class="path" data-flow="rules-to-preview" />
+  <path d="M535 179V251" class="path-muted" data-flow="cli-to-rule-validation" />
 
   <rect x="70" y="368" width="1260" height="156" rx="2" class="band" />
   <text x="100" y="401" class="index">03 PROCESSING</text>
@@ -66,12 +66,14 @@
   <rect x="930" y="391" width="310" height="86" rx="2" class="node-accent" />
   <text x="1085" y="427" class="label" text-anchor="middle">MASK / PSEUDONYMIZE</text>
   <text x="1085" y="450" class="small" text-anchor="middle">domain-separated HMAC for pseudo values</text>
-  <path d="M480 319V391" class="path-muted" />
-  <path d="M590 434H610V490H900V434H930" class="path" />
-  <path d="M860 434H930" class="path" />
+  <path d="M480 319V391" class="path-muted" data-flow="preview-to-table-engine" />
+  <path d="M1125 179H1160V340H480V391" class="path-muted" data-flow="local-files-to-table-engine" />
+  <path d="M1160 340H750V391" class="path-muted" data-flow="local-files-to-text-engine" />
+  <path d="M590 434H610V490H900V434H930" class="path" data-flow="table-engine-to-pseudonymize" />
+  <path d="M860 434H930" class="path" data-flow="text-engine-to-pseudonymize" />
   <rect x="930" y="490" width="310" height="22" rx="2" class="node-muted" />
   <text x="1085" y="506" class="mono" text-anchor="middle">user-supplied pepper · configuration only</text>
-  <path d="M1085 490V477" class="config" />
+  <path d="M1085 490V477" class="config" data-flow="pepper-to-pseudonymize" />
 
   <rect x="70" y="540" width="1260" height="156" rx="2" class="band" />
   <text x="100" y="573" class="index">04 OUTPUT</text>
@@ -85,9 +87,9 @@
   <rect x="1160" y="563" width="120" height="86" rx="2" class="node-muted" />
   <text x="1220" y="599" class="label" text-anchor="middle" font-size="14">REVIEW</text>
   <text x="1220" y="622" class="small" text-anchor="middle">inspect</text>
-  <path d="M1085 477V563H520" class="path" />
-  <path d="M670 606H785" class="path" />
-  <path d="M1075 606H1160" class="path-muted" />
+  <path d="M1240 434H1280V530H520V563" class="path" data-flow="pseudonymize-to-output" />
+  <path d="M670 606H785" class="path" data-flow="output-to-audit" />
+  <path d="M1075 606H1160" class="path-muted" data-flow="audit-to-review" />
 
   <text x="70" y="728" class="small">The same validated rule decision is used for preflight preview and formal execution.</text>
   <text x="1330" y="728" class="mono" text-anchor="end">LOCAL PROCESSING BOUNDARY</text>
