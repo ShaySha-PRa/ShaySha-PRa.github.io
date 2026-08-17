@@ -2,7 +2,7 @@ import { expect, type Page, test } from '@playwright/test';
 
 const projectNames = [
   'My Company Brain',
-  'GraphRAGAgent',
+  'GraphRAG 知识探索工作台',
   'Agent Teams Project',
   'Manim Project',
   'SQLAgent',
@@ -155,13 +155,59 @@ test('English My Company Brain case study loads the approved architecture SVG', 
   );
 });
 
-test('standard project pages keep the existing metadata layout', async ({
+test('GraphRAGAgent case study exposes bilingual workflow and evidence', async ({
   page,
 }) => {
-  await page.goto('/projects/graphrag-agent/');
-  await expect(page.locator('.project-detail__category')).toHaveCount(0);
-  await expect(page.locator('[data-project-meta]')).toBeVisible();
-  await expect(page.locator('.project-detail__technology')).toHaveCount(0);
+  const routes = [
+    {
+      path: '/projects/graphrag-agent/',
+      title: 'GraphRAG 知识探索工作台',
+      category: 'AI 知识系统',
+      scope: '全栈 GraphRAG 工作台',
+      flow: [
+        '上传文档',
+        '解析并建立索引',
+        '探索知识图谱',
+        '发起追问并查看回答',
+      ],
+    },
+    {
+      path: '/en/projects/graphrag-agent/',
+      title: 'GraphRAGAgent',
+      category: 'AI Knowledge Systems',
+      scope: 'Full-stack GraphRAG workspace',
+      flow: [
+        'Upload a document',
+        'Parse and index it',
+        'Explore the knowledge graph',
+        'Ask a follow-up and inspect the answer',
+      ],
+    },
+  ];
+
+  for (const route of routes) {
+    await page.goto(route.path);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+      route.title,
+    );
+    await expect(page.locator('.project-detail__category')).toHaveText(
+      route.category,
+    );
+    await expect(page.locator('.project-detail__overview')).toContainText(
+      route.scope,
+    );
+    await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expect(page.locator('.project-evidence')).toHaveCount(2);
+    await expect(page.locator('#validation')).toBeVisible();
+    await expectArchitectureImage(
+      page,
+      route.path.startsWith('/en/')
+        ? 'GraphRAGAgent architecture: the React workspace uses FastAPI to connect indexing, graph, vector retrieval, and Q&A paths'
+        : 'GraphRAG 知识探索工作台系统架构：React 工作台通过 FastAPI 连接索引、图谱、向量检索和问答路径',
+      '/projects/graphrag-agent-architecture.svg',
+      { width: 1400, height: 760 },
+    );
+  }
 });
 
 test('mobile case study contains wide architecture within its own scroller', async ({
