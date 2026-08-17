@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: Applied AI
   scope: Secure media generation pipeline
-  evidenceTarget: '#validation'
 ---
 
 ## How someone uses it
@@ -69,19 +68,6 @@ Code passes AST and Manim API allowlists, compilation, and Scene preflight befor
   <img src="/projects/manim-project/quality-result.png" alt="Manim formula animation frame at 50 seconds from the repository demo video" width="1920" height="1080" loading="lazy" />
   <figcaption>This is a real animation frame extracted from the same repository demo video at 50.0 seconds; the quality conclusion comes from local PyAV inspection, and the still is not presented as a product quality panel.</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>Current validation status</h2>
-  <table>
-    <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">Executable repository tests</th><td>Reproduced locally</td><td>In WSL Python 3.10, <code>uv run pytest -s -q</code> completed with 519 passed.</td></tr>
-      <tr><th scope="row">Prompt → ContentPlan → code</th><td>Partially reproduced</td><td>Without a usable compatible model credential, the repository deterministic template completed one formula task; the ContentPlan and static security checks passed.</td></tr>
-      <tr><th scope="row">Preview / Final rendering and quality inspection</th><td>Partially reproduced</td><td>Manim rendering runtime was not installed in this run. PyAV inspected the repository demo video deterministically; 12 sampled frames produced no diagnostics, and the page image is the real 50.0-second frame.</td></tr>
-      <tr><th scope="row">Full model success rate, market, or production capability</th><td>Not claimed</td><td>This run made no model call and did not execute the full golden set, so it makes no success-rate, throughput, market-feedback, or production-deployment claim.</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## Limitations and next steps
 

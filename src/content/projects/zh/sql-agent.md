@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: 数据平台
   scope: 全栈 NL2SQL 助手
-  evidenceTarget: '#validation'
 ---
 
 ## 用户如何使用它
@@ -69,20 +68,6 @@ FastAPI 的流式接口可向 React 推送 Agent 步骤、查询数据、图表�
   <img src="/projects/sql-agent/api-docs.png" alt="SQLAgent FastAPI API 文档界面" width="1400" height="900" loading="lazy" />
   <figcaption>API 文档界面展示 FastAPI 服务的对话、训练数据、数据库与查询接口；画面来自仓库演示截图。</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>当前验证状态</h2>
-  <table>
-    <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">React 工作台、FastAPI、NL2SQL Agent 与主链路组件</th><td>已确认代码边界</td><td>仓库目录、API 服务入口、Agent 工具定义与本页架构图；不写成端到端运行成功。</td></tr>
-      <tr><th scope="row">Vanna 测试与 Python 依赖</th><td>未复现</td><td>本轮执行仓库测试时环境缺少 <code>vanna</code> 依赖，测试在收集阶段停止；不声明测试通过数量。</td></tr>
-      <tr><th scope="row">本地 MySQL、Milvus、Embedding 与 MiniMax 驱动的合成数据查询</th><td>未复现</td><td>本轮环境未提供所需服务与可用模型凭据，未完成“导入资料 → 检索 → 生成/校验/执行 SQL → 结果”闭环。</td></tr>
-      <tr><th scope="row">查询结果表格、图表与回答的 SSE 展示</th><td>代码路径已确认</td><td>API 服务包含流式事件处理与结果序列化逻辑；未把演示截图写成实时运行证据。</td></tr>
-      <tr><th scope="row">NL2SQL 准确率、延迟或生产负载</th><td>未声明</td><td>本轮没有独立评测或压测结果。</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## 限制与下一步
 

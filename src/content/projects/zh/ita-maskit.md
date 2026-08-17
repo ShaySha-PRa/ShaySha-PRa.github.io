@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: 数据隐私
   scope: CLI + Windows 桌面应用
-  evidenceTarget: '#validation'
 ---
 
 ## 用户如何使用它
@@ -69,18 +68,6 @@ caseStudy:
   <img src="/projects/ita-maskit/rules.png" alt="本地数据脱敏工作台规则管理界面，展示 YAML 规则集和字段策略" width="820" height="560" loading="lazy" />
   <figcaption>规则管理界面展示字段策略和规则集入口；图像来自仓库，使用脚本演示数据。</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>当前验证状态</h2>
-  <table>
-    <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">完整 Python 测试套件</th><td>已通过</td><td>WSL Ubuntu 中实际运行：211 passed、1 skipped、1 xfailed，未启用可选规则生成服务。</td></tr>
-      <tr><th scope="row">预验证 → 脱敏/伪名化 → 输出 → 审计日志</th><td>已复现</td><td>3 行合成混合 PII CSV 实际完成；预验证命中 12 次，重复 email 与 phone 伪名一致，输入文件未改变，审计记录 rows 为 3。</td></tr>
-      <tr><th scope="row">遮盖列与伪名化列</th><td>已观察</td><td>本次输出中 name 采用遮盖，email、phone、notes 采用确定性伪名化；输出由仓库 CLI 生成。</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## 限制与下一步
 

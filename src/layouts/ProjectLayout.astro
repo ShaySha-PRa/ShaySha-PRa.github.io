@@ -50,7 +50,6 @@ const labels =
         status: '当前状态',
         role: '我的角色',
         technology: '技术栈',
-        evidence: '查看验证证据',
       }
     : {
         back: 'Back to projects',
@@ -63,7 +62,6 @@ const labels =
         status: 'Current status',
         role: 'My role',
         technology: 'Technology',
-        evidence: 'View validation evidence',
       };
 ---
 
@@ -132,7 +130,6 @@ const labels =
               <a href={project.data.repoUrl} rel="external noopener">
                 {labels.repository} ↗
               </a>
-              <a href={caseStudy.evidenceTarget}>{labels.evidence} ↓</a>
             </nav>
             <div class="project-detail__cover">
               <Image

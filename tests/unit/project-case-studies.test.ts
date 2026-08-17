@@ -111,7 +111,6 @@ for (const project of projectCases) {
     expect(zh.data.caseStudy).toMatchObject({
       category: project.category,
       scope: project.scope,
-      evidenceTarget: '#validation',
     });
     expect(en.data.caseStudy).toMatchObject({
       category:
@@ -134,7 +133,6 @@ for (const project of projectCases) {
               : project.slug === 'ita-maskit'
                 ? 'CLI + Windows desktop app'
                 : 'Full-stack GraphRAG workspace',
-      evidenceTarget: '#validation',
     });
 
     for (const [locale, document] of [
@@ -155,7 +153,14 @@ for (const project of projectCases) {
       expect(document.content).toContain(
         `src="/projects/${project.architecture}"`,
       );
-      expect(document.content).toContain('id="validation"');
+      expect(document.data.caseStudy).not.toHaveProperty('evidenceTarget');
+      expect(document.content).not.toContain('id="validation"');
+      expect(document.content).not.toMatch(
+        /当前验证状态|Current validation status/,
+      );
+      expect(document.content).toContain(
+        locale === 'zh' ? '限制与下一步' : 'Limitations and next steps',
+      );
       expect(document.data.locale).toBe(locale);
     }
 

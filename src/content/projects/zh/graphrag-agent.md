@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: AI 知识系统
   scope: 全栈 GraphRAG 工作台
-  evidenceTarget: '#validation'
 ---
 
 ## 用户如何使用它
@@ -69,19 +68,6 @@ D3 图谱不是问答结果的装饰，而是独立的探索入口。用户可�
   <img src="/projects/graphrag-agent/chat.png" alt="GraphRAGAgent 多轮问答界面" width="1440" height="900" loading="lazy" />
   <figcaption>问答界面展示多轮对话和知识回答；画面来自项目演示数据。</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>当前验证状态</h2>
-  <table>
-    <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">React 工作台、FastAPI 与知识路径</th><td>已确认代码边界</td><td>源码目录与本页架构图；未写成运行成功结论</td></tr>
-      <tr><th scope="row">后端可执行测试</th><td>未复现</td><td>本轮环境未提供可用的依赖与凭据，不声明测试通过数量</td></tr>
-      <tr><th scope="row">非敏感 PDF → 解析 → 索引 → 图谱检索</th><td>未复现</td><td>代表性流程未完成，不声明端到端成功</td></tr>
-      <tr><th scope="row">追问与回答生成</th><td>未复现</td><td>本轮未完成与兼容模型的真实调用，不声明回答质量</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## 限制与下一步
 

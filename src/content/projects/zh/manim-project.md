@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: 应用型 AI
   scope: 安全媒体生成流水线
-  evidenceTarget: '#validation'
 ---
 
 ## 用户如何使用它
@@ -69,19 +68,6 @@ FastAPI 负责创建任务并持久化状态，Redis 负责排队，Runner 负�
   <img src="/projects/manim-project/quality-result.png" alt="仓库演示视频 50 秒处的数学动画帧" width="1920" height="1080" loading="lazy" />
   <figcaption>这是从同一仓库演示视频 50.0 秒位置提取的真实动画帧；旁边的质量结论来自本地 PyAV 检查，不把静态帧伪装成产品质量面板。</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>当前验证状态</h2>
-  <table>
-    <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">仓库可执行测试</th><td>已本机复现</td><td>在 WSL Python 3.10 环境执行 <code>uv run pytest -s -q</code>，结果为 519 passed。</td></tr>
-      <tr><th scope="row">Prompt → ContentPlan → code</th><td>部分复现</td><td>无可用兼容模型凭据时，使用仓库确定性模板完成一条公式任务；ContentPlan 校验通过，生成代码通过静态安全检查。</td></tr>
-      <tr><th scope="row">Preview / Final 渲染与质量检查</th><td>部分复现</td><td>本轮未安装 Manim 渲染运行时；对仓库演示视频运行 PyAV 确定性检查，12 个抽样帧无诊断项，页面图像是其中 50.0 秒的真实帧。</td></tr>
-      <tr><th scope="row">完整模型生成成功率、市场或生产能力</th><td>未声明</td><td>本轮没有调用模型或运行完整黄金集，不据此推断成功率、吞吐、市场反馈或生产部署能力。</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## 限制与下一步
 

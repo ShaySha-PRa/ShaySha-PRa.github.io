@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: Data Platform
   scope: Full-stack NL2SQL assistant
-  evidenceTarget: '#validation'
 ---
 
 ## How a user works with it
@@ -70,20 +69,6 @@ The FastAPI streaming endpoint can send agent steps, query data, chart configura
   <figcaption>The API documentation screen shows FastAPI endpoints for chat, training data, database, and query operations; the image comes from the repository demo.</figcaption>
 </figure>
 
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>Current validation status</h2>
-  <table>
-    <thead><tr><th>Capability</th><th>Status</th><th>Evidence we can verify</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">React workspace, FastAPI, NL2SQL Agent, and principal track components</th><td>Code boundary confirmed</td><td>Repository layout, API entry point, agent tool definitions, and this architecture; not written as an end-to-end success claim.</td></tr>
-      <tr><th scope="row">Vanna tests and Python dependencies</th><td>Not reproduced</td><td>Repository tests stopped during collection because the validation environment lacked the <code>vanna</code> dependency; no passing-test count is claimed.</td></tr>
-      <tr><th scope="row">Synthetic-data query with local MySQL, Milvus, embeddings, and MiniMax</th><td>Not reproduced</td><td>The validation environment did not provide the required services or usable model credentials, so the import → retrieval → SQL generation/validation/execution → result loop was not completed.</td></tr>
-      <tr><th scope="row">SSE presentation of query tables, charts, and answers</th><td>Code path confirmed</td><td>The API contains streaming-event handling and result serialization; the demo screenshots are not presented as live runtime evidence.</td></tr>
-      <tr><th scope="row">NL2SQL accuracy, latency, or production load</th><td>Not claimed</td><td>No independent evaluation or load-test result was available in this round.</td></tr>
-    </tbody>
-  </table>
-</section>
-
-## Known limitations and next steps
+## Limitations and next steps
 
 This page follows the repository's Vanna/LangChain principal track, with demo or synthetic data in the screenshots. Development CORS is permissive; the direct SQL endpoint executes the supplied statement, so the page does not describe it as a completed SQL sandbox. Runtime state still includes global client objects, CSV QA remains a separate prototype path, and component composition does not imply generalized NL2SQL accuracy. The next step is to provide isolated dependencies, services, and model configuration, then record one repeatable retrieval, generation, validation, execution, and SSE acceptance flow with sanitized synthetic data.

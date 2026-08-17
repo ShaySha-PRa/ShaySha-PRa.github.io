@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: Enterprise Knowledge Platform / RAG + Agent
   scope: 3 knowledge paths
-  evidenceTarget: '#validation'
 ---
 
 ## How someone uses it
@@ -59,20 +58,6 @@ Nano Brain, Traditional RAG, and GraphRAG serve different material and retrieval
 ### Compose defines the repeatable runtime boundary
 
 Database migration, initialization, service health checks, and loopback-only local ports live in Compose and its scripts, separating code presence from environment validation.
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>Current validation status</h2>
-  <table>
-    <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">Web, unified API, Agent Gateway, and three knowledge paths</th><td>Implemented</td><td><a href="https://github.com/ShaySha-PRa/my-company-brain/tree/main/apps">Application directories</a> and <a href="https://github.com/ShaySha-PRa/my-company-brain/blob/main/docs/ARCHITECTURE.md">architecture documentation</a></td></tr>
-      <tr><th scope="row">Automated checks</th><td>Automatically verified</td><td>88 Bun + 15 Python tests, plus TypeScript and Python type checks</td></tr>
-      <tr><th scope="row">Local Compose orchestration</th><td>Locally verified</td><td>9 orchestrated services, 8 long-running services healthy, and migration exited with code 0</td></tr>
-      <tr><th scope="row">Real-material end-to-end validation across all three paths</th><td>Pending</td><td><a href="https://github.com/ShaySha-PRa/my-company-brain/blob/main/docs/CURRENT_STATUS.md">Current product status</a></td></tr>
-      <tr><th scope="row">Production deployment and load behavior</th><td>Not claimed</td><td>Outside the current project conclusions</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## Limitations and next steps
 

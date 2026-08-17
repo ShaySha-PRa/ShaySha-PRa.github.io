@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: AI Workflow
   scope: Contract-review MVP
-  evidenceTarget: '#validation'
 ---
 
 ## How someone uses it
@@ -69,19 +68,6 @@ Contracts, sessions, items, fields, audit records, and reports are modeled in SQ
   <img src="/projects/agent-teams-project/upload.png" alt="Agent Teams contract-review upload screen" width="1400" height="900" loading="lazy" />
   <figcaption>The upload screen is the entry point into a review session; the image is an authentic repository screenshot using demo data.</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>Current validation status</h2>
-  <table>
-    <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">FastAPI startup and health check</th><td>Reproduced locally</td><td>After a local Uvicorn start, <code>/health</code> returned 200 with <code>status: ok</code>.</td></tr>
-      <tr><th scope="row">Upload → session → field query</th><td>Partially reproduced</td><td>The repository MVP script completed upload, session, contract-list, and field-query steps; the fields endpoint returned 5 items.</td></tr>
-      <tr><th scope="row">Risk routing → human decision → JSON report</th><td>Not reproduced</td><td>Without usable model credentials the session stayed in scanning for 120 seconds, never reached HITL, and the report endpoint returned 404; the mock-risk fallback is not counted as model validation.</td></tr>
-      <tr><th scope="row">Contract-review accuracy or legal conclusions</th><td>Not claimed</td><td>No reproducible accuracy evaluation was available in this run; the page does not present model output as legal advice.</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## Limitations and next steps
 

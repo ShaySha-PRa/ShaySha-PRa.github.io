@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: AI Knowledge Systems
   scope: Full-stack GraphRAG workspace
-  evidenceTarget: '#validation'
 ---
 
 ## How someone uses it
@@ -69,19 +68,6 @@ The D3 graph is an exploration entry point, not decoration around an answer. Som
   <img src="/projects/graphrag-agent/chat.png" alt="GraphRAGAgent multi-turn Q&amp;A interface" width="1440" height="900" loading="lazy" />
   <figcaption>The Q&amp;A view shows multi-turn conversation and knowledge answers from the project demo data.</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>Current validation status</h2>
-  <table>
-    <thead><tr><th>Capability</th><th>Status</th><th>Verifiable evidence</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">React workspace, FastAPI, and knowledge paths</th><td>Code boundary confirmed</td><td>Source directories and the architecture diagram; not presented as a runtime result</td></tr>
-      <tr><th scope="row">Executable backend tests</th><td>Not reproduced</td><td>This run lacked usable dependencies and credentials; no passing-test count is claimed</td></tr>
-      <tr><th scope="row">Non-sensitive PDF → parse → index → graph retrieval</th><td>Not reproduced</td><td>The representative flow was not completed, so no end-to-end success is claimed</td></tr>
-      <tr><th scope="row">Follow-up question and answer generation</th><td>Not reproduced</td><td>No live compatible-model call was completed in this run, so answer quality is not claimed</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## Limitations and next steps
 

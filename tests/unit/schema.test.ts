@@ -11,19 +11,18 @@ it('accepts valid HTTPS URLs and rejects insecure URL fields', () => {
   expect(httpsUrl.safeParse('/local/path/').success).toBe(false);
 });
 
-it('accepts a complete case study summary and rejects non-fragment evidence targets', () => {
+it('accepts a complete case study summary without a validation target', () => {
   expect(
     caseStudySchema.safeParse({
       category: 'Enterprise Knowledge Platform / RAG + Agent',
       scope: '3 knowledge paths',
-      evidenceTarget: '#validation',
     }).success,
   ).toBe(true);
   expect(
     caseStudySchema.safeParse({
       category: 'Enterprise Knowledge Platform / RAG + Agent',
       scope: '3 knowledge paths',
-      evidenceTarget: '/validation',
+      evidenceTarget: '#validation',
     }).success,
   ).toBe(false);
 });

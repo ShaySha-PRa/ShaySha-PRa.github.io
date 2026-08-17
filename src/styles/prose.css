@@ -118,12 +118,6 @@
   font-size: 0.88rem;
 }
 
-.prose .project-validation {
-  max-width: 100%;
-  overflow-x: auto;
-  scroll-margin-top: 2rem;
-}
-
 .prose table {
   min-width: 42rem;
   width: 100%;

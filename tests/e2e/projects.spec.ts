@@ -91,9 +91,10 @@ test('My Company Brain presents scope, actions, product evidence, and technology
     'href',
     'https://github.com/ShaySha-PRa/my-company-brain',
   );
-  await expect(
-    actions.getByRole('link', { name: '查看验证证据' }),
-  ).toHaveAttribute('href', '#validation');
+  await expect(actions.getByRole('link', { name: '查看验证证据' })).toHaveCount(
+    0,
+  );
+  await expect(actions.locator('a')).toHaveCount(1);
 
   const sequence = await page
     .locator(
@@ -108,7 +109,7 @@ test('My Company Brain presents scope, actions, product evidence, and technology
   ]);
 });
 
-test('My Company Brain case study exposes the approved workflow, architecture, and validation matrix', async ({
+test('My Company Brain case study exposes the approved workflow, architecture, and limitations', async ({
   page,
 }) => {
   await page.goto('/projects/my-company-brain/');
@@ -116,7 +117,6 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
     '用户如何使用它',
     '系统架构',
     '三个关键技术决策',
-    '当前验证状态',
     '限制与下一步',
   ]);
   await expect(page.locator('[data-project-flow] li')).toHaveText([
@@ -133,14 +133,11 @@ test('My Company Brain case study exposes the approved workflow, architecture, a
     { width: 1400, height: 820 },
   );
 
-  const validation = page.locator('#validation');
-  await expect(validation).toBeVisible();
-  await expect(validation.locator('tbody tr')).toHaveCount(5);
-  await expect(validation.getByRole('rowheader')).toHaveCount(5);
-  await expect(validation).toContainText('88 项 Bun + 15 项 Python');
-  await expect(validation).toContainText('8 个常驻服务健康');
-  await expect(validation).toContainText('待完成');
-  await expect(validation).toContainText('未声明');
+  await expect(page.locator('#validation')).toHaveCount(0);
+  await expect(page.getByRole('link', { name: '查看验证证据' })).toHaveCount(0);
+  await expect(
+    page.getByRole('heading', { name: '限制与下一步' }),
+  ).toBeVisible();
 });
 
 test('English My Company Brain case study loads the approved architecture SVG', async ({
@@ -198,7 +195,16 @@ test('GraphRAGAgent case study exposes bilingual workflow and evidence', async (
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toBeVisible();
+    await expect(page.locator('#validation')).toHaveCount(0);
+    await expect(
+      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
+    ).toHaveCount(0);
+    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
+    await expect(
+      page.getByRole('heading', {
+        name: /限制与下一步|Limitations and next steps/,
+      }),
+    ).toBeVisible();
     await expectArchitectureImage(
       page,
       route.path.startsWith('/en/')
@@ -250,7 +256,16 @@ test('Agent Teams case study exposes bilingual workflow and evidence', async ({
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toBeVisible();
+    await expect(page.locator('#validation')).toHaveCount(0);
+    await expect(
+      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
+    ).toHaveCount(0);
+    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
+    await expect(
+      page.getByRole('heading', {
+        name: /限制与下一步|Limitations and next steps/,
+      }),
+    ).toBeVisible();
     await expectArchitectureImage(
       page,
       route.alt,
@@ -300,7 +315,16 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toBeVisible();
+    await expect(page.locator('#validation')).toHaveCount(0);
+    await expect(
+      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
+    ).toHaveCount(0);
+    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
+    await expect(
+      page.getByRole('heading', {
+        name: /限制与下一步|Limitations and next steps/,
+      }),
+    ).toBeVisible();
     await expectArchitectureImage(
       page,
       route.alt,
@@ -355,7 +379,16 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toBeVisible();
+    await expect(page.locator('#validation')).toHaveCount(0);
+    await expect(
+      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
+    ).toHaveCount(0);
+    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
+    await expect(
+      page.getByRole('heading', {
+        name: /限制与下一步|Limitations and next steps/,
+      }),
+    ).toBeVisible();
     await expectArchitectureImage(
       page,
       route.alt,
@@ -410,7 +443,16 @@ test('ITA-Maskit case study exposes bilingual workflow and evidence', async ({
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
     await expect(page.locator('.project-evidence')).toHaveCount(2);
-    await expect(page.locator('#validation')).toBeVisible();
+    await expect(page.locator('#validation')).toHaveCount(0);
+    await expect(
+      page.getByRole('link', { name: /查看验证证据|View validation evidence/ }),
+    ).toHaveCount(0);
+    await expect(page.locator('.project-detail__actions a')).toHaveCount(1);
+    await expect(
+      page.getByRole('heading', {
+        name: /限制与下一步|Limitations and next steps/,
+      }),
+    ).toBeVisible();
     await expectArchitectureImage(
       page,
       route.alt,

@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: AI 工作流
   scope: 合同审核 MVP
-  evidenceTarget: '#validation'
 ---
 
 ## 用户如何使用它
@@ -69,19 +68,6 @@ React 工作台通过 FastAPI 进入合同、会话、字段、事件和报告�
   <img src="/projects/agent-teams-project/upload.png" alt="合同审核工作流上传合同界面" width="1400" height="900" loading="lazy" />
   <figcaption>上传界面展示文件进入审核会话的入口；图像来自仓库演示截图，使用演示数据。</figcaption>
 </figure>
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>当前验证状态</h2>
-  <table>
-    <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">FastAPI 启动与健康检查</th><td>已本机复现</td><td>本地启动 Uvicorn 后，<code>/health</code> 返回 200 和 <code>status: ok</code>。</td></tr>
-      <tr><th scope="row">上传合同 → 会话 → 字段查询</th><td>部分复现</td><td>使用仓库提供的 MVP 脚本完成上传、会话查询、合同列表和字段查询；字段接口返回 5 项。</td></tr>
-      <tr><th scope="row">风险路由 → 人工决策 → JSON 报告</th><td>未复现</td><td>无可用模型凭据时会话在扫描阶段等待 120 秒，未进入 HITL，报告接口返回 404；mock-risk fallback 不计为模型验证。</td></tr>
-      <tr><th scope="row">合同审核准确率或法律结论</th><td>未声明</td><td>本项目没有在本轮提供可复现的准确率评测；页面不把模型输出写成法律意见。</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## 限制与下一步
 

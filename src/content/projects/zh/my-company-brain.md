@@ -21,7 +21,6 @@ evidence:
 caseStudy:
   category: 企业知识平台 / RAG + Agent
   scope: 3 条知识路径
-  evidenceTarget: '#validation'
 ---
 
 ## 用户如何使用它
@@ -59,20 +58,6 @@ Nano Brain、Traditional RAG 与 GraphRAG 面向不同资料形态和检索目�
 ### Compose 是可重复运行边界
 
 数据库迁移、初始化、服务健康检查与本机端口约束都进入 Compose 和启动脚本，避免把“代码存在”误写成“环境已验证”。
-
-<section id="validation" class="project-validation" tabindex="0">
-  <h2>当前验证状态</h2>
-  <table>
-    <thead><tr><th>能力</th><th>状态</th><th>可核验证据</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">Web、统一 API、Agent Gateway 与三条知识路径</th><td>已实现</td><td><a href="https://github.com/ShaySha-PRa/my-company-brain/tree/main/apps">应用目录</a>与<a href="https://github.com/ShaySha-PRa/my-company-brain/blob/main/docs/ARCHITECTURE.md">架构说明</a></td></tr>
-      <tr><th scope="row">自动化检查</th><td>已自动验证</td><td>88 项 Bun + 15 项 Python，并通过 TypeScript / Python 类型检查</td></tr>
-      <tr><th scope="row">本机 Compose 编排</th><td>已本机验证</td><td>9 个服务完成编排，8 个常驻服务健康，迁移服务退出码为 0</td></tr>
-      <tr><th scope="row">真实资料驱动的三路径端到端验收</th><td>待完成</td><td><a href="https://github.com/ShaySha-PRa/my-company-brain/blob/main/docs/CURRENT_STATUS.md">当前产品状态</a></td></tr>
-      <tr><th scope="row">生产部署与负载能力</th><td>未声明</td><td>不作为当前项目结论</td></tr>
-    </tbody>
-  </table>
-</section>
 
 ## 限制与下一步
 
