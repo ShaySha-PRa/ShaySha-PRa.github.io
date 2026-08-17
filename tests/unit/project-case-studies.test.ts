@@ -244,6 +244,8 @@ for (const project of projectCases) {
       expect(architecture).toContain('PREVIEW');
       expect(architecture).toContain('pepper');
       for (const flow of [
+        'preview-to-table-engine',
+        'preview-to-text-engine',
         'local-files-to-table-engine',
         'local-files-to-text-engine',
         'pepper-to-pseudonymize',

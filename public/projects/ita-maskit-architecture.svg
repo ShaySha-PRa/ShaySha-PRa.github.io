@@ -66,9 +66,10 @@
   <rect x="930" y="391" width="310" height="86" rx="2" class="node-accent" />
   <text x="1085" y="427" class="label" text-anchor="middle">MASK / PSEUDONYMIZE</text>
   <text x="1085" y="450" class="small" text-anchor="middle">domain-separated HMAC for pseudo values</text>
-  <path d="M480 319V391" class="path-muted" data-flow="preview-to-table-engine" />
-  <path d="M1125 179H1160V340H480V391" class="path-muted" data-flow="local-files-to-table-engine" />
-  <path d="M1160 340H750V391" class="path-muted" data-flow="local-files-to-text-engine" />
+  <path d="M900 319V325H350V370H460V391" class="path-muted" data-flow="preview-to-table-engine" />
+  <path d="M1050 319V335H800V370H740V391" class="path-muted" data-flow="preview-to-text-engine" />
+  <path d="M805 179H760V340H390V370H520V391" class="path-muted" data-flow="local-files-to-table-engine" />
+  <path d="M760 340H700V370H820V391" class="path-muted" data-flow="local-files-to-text-engine" />
   <path d="M590 434H610V490H900V434H930" class="path" data-flow="table-engine-to-pseudonymize" />
   <path d="M860 434H930" class="path" data-flow="text-engine-to-pseudonymize" />
   <rect x="930" y="490" width="310" height="22" rx="2" class="node-muted" />
