@@ -548,12 +548,25 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
       category: '数据平台',
       scope: '全栈 NL2SQL 助手',
       repositoryUrl: 'https://github.com/ShaySha-PRa/SQLAgent',
-      limitationsHeading: '限制与下一步',
+      limitationsHeading: '项目边界',
       flow: [
         '输入自然语言问题',
         '检索上下文并生成 SQL',
         '验证并执行查询',
         '查看表格、图表与回答',
+      ],
+      headings: [
+        '项目解决什么',
+        '核心功能',
+        '使用流程',
+        '项目亮点',
+        '系统架构',
+        '项目边界',
+      ],
+      highlights: [
+        '用三类知识补足 SQL 语境',
+        '让查询过程可观察、可定位',
+        '一次交付 SQL、数据、图表与解读',
       ],
       alt: 'NL2SQL 数据分析工作台系统架构：React 工作台通过 FastAPI 调度 NL2SQL Agent、向量检索、MySQL 查询和 SSE 结果',
     },
@@ -563,12 +576,25 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
       category: 'Data Platform',
       scope: 'Full-stack NL2SQL assistant',
       repositoryUrl: 'https://github.com/ShaySha-PRa/SQLAgent',
-      limitationsHeading: 'Known limitations and next steps',
+      limitationsHeading: 'Project scope',
       flow: [
         'Enter a natural-language question',
         'Retrieve context and generate SQL',
         'Validate and execute the query',
         'Inspect the table, chart, and answer',
+      ],
+      headings: [
+        'What it solves',
+        'Core capabilities',
+        'How it works',
+        'Project highlights',
+        'System architecture',
+        'Project scope',
+      ],
+      highlights: [
+        'Ground SQL in three kinds of context',
+        'Make every query stage observable',
+        'Deliver SQL, data, charts, and interpretation together',
       ],
       alt: 'SQLAgent architecture: the React workspace uses FastAPI to orchestrate an NL2SQL agent, vector retrieval, MySQL queries, and SSE results',
     },
@@ -586,6 +612,10 @@ test('SQLAgent case study exposes bilingual workflow and evidence', async ({
       route.scope,
     );
     await expect(page.locator('[data-project-flow] li')).toHaveText(route.flow);
+    await expectProductStory(page, {
+      headings: route.headings,
+      highlights: route.highlights,
+    });
     await expect(page.locator('.project-evidence')).toHaveCount(2);
     await expectValidationPresentationRemoved(
       page,

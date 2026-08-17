@@ -69,7 +69,7 @@ const localizedProjectCases = [
   {
     slug: 'sql-agent',
     repoUrl: 'https://github.com/ShaySha-PRa/SQLAgent',
-    enLimitationsHeading: 'Known limitations and next steps',
+    enLimitationsHeading: 'Project scope',
   },
   {
     slug: 'ita-maskit',
@@ -216,7 +216,8 @@ for (const project of projectCases) {
         project.slug === 'my-company-brain' ||
           project.slug === 'graphrag-agent' ||
           project.slug === 'agent-teams-project' ||
-          project.slug === 'manim-project'
+          project.slug === 'manim-project' ||
+          project.slug === 'sql-agent'
           ? 10
           : 4,
       );
@@ -240,7 +241,8 @@ for (const project of projectCases) {
       expect(document.content).toContain(
         project.slug === 'graphrag-agent' ||
           project.slug === 'agent-teams-project' ||
-          project.slug === 'manim-project'
+          project.slug === 'manim-project' ||
+          project.slug === 'sql-agent'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'
@@ -508,6 +510,41 @@ it('Manim leads with the bilingual teaching-to-video product story', () => {
   }
 });
 
+it('SQLAgent leads with the bilingual analysis-delivery product story', () => {
+  const zh = matter(
+    readFileSync(resolve(root, 'src/content/projects/zh/sql-agent.md'), 'utf8'),
+  );
+  const en = matter(
+    readFileSync(resolve(root, 'src/content/projects/en/sql-agent.md'), 'utf8'),
+  );
+
+  expect(getLevelTwoHeadings(zh.content)).toEqual(storyHeadings.zh);
+  expect(getLevelTwoHeadings(en.content)).toEqual(storyHeadings.en);
+  expect(getCapabilityItems(zh.content)).toHaveLength(6);
+  expect(getCapabilityItems(en.content)).toHaveLength(6);
+  expect(getHighlightHeadings(zh.content, 'zh')).toEqual([
+    '用三类知识补足 SQL 语境',
+    '让查询过程可观察、可定位',
+    '一次交付 SQL、数据、图表与解读',
+  ]);
+  expect(getHighlightHeadings(en.content, 'en')).toEqual([
+    'Ground SQL in three kinds of context',
+    'Make every query stage observable',
+    'Deliver SQL, data, charts, and interpretation together',
+  ]);
+  for (const document of [zh, en]) {
+    expect(document.content).toContain(
+      'src="/projects/sql-agent/query-result.png"',
+    );
+    expect(document.content).toContain(
+      'src="/projects/sql-agent/api-docs.png"',
+    );
+    expect(document.data.repoUrl).toBe(
+      'https://github.com/ShaySha-PRa/SQLAgent',
+    );
+  }
+});
+
 for (const project of localizedProjectCases) {
   it(`${project.slug} has no validation presentation in both locales`, () => {
     for (const [locale, document] of [
@@ -542,7 +579,8 @@ for (const project of localizedProjectCases) {
         project.slug === 'my-company-brain' ||
           project.slug === 'graphrag-agent' ||
           project.slug === 'agent-teams-project' ||
-          project.slug === 'manim-project'
+          project.slug === 'manim-project' ||
+          project.slug === 'sql-agent'
           ? locale === 'zh'
             ? '项目边界'
             : 'Project scope'

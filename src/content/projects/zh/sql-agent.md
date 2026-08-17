@@ -3,7 +3,7 @@ title: NL2SQL 数据分析工作台
 slug: sql-agent
 locale: zh
 translationKey: sql-agent
-summary: 把自然语言问题、检索上下文、SQL 执行与表格图表结果串成一条可观察的数据分析工作流。
+summary: 把自然语言问题、业务语境、可观察的查询步骤与 SQL、数据、图表和解读串成一条分析交付工作流。
 published: 2026-08-16
 updated: 2026-08-17
 draft: false
@@ -23,7 +23,22 @@ caseStudy:
   scope: 全栈 NL2SQL 助手
 ---
 
-## 用户如何使用它
+## 项目解决什么
+
+业务数据分析的难点不只是把问题翻译成 SQL，而是让系统理解已知数据库里的表结构、业务命名和历史查询习惯，并让分析过程可以被检查、定位和复用。这个工作台把自然语言问题、三类检索上下文、SQL 查询和多格式结果放进同一条工作流，让使用者能从问题一路跟到 SQL、数据、图表与文字解读。
+
+## 核心功能
+
+<ul class="project-capabilities" data-project-capabilities>
+  <li>用自然语言查询业务数据库</li>
+  <li>管理 DDL、业务文档和历史 SQL 示例</li>
+  <li>保存多轮分析上下文</li>
+  <li>生成、查看、校验并执行 SQL</li>
+  <li>在结果表格中检查数据</li>
+  <li>自动生成图表与文字分析</li>
+</ul>
+
+## 使用流程
 
 <ol class="project-flow" data-project-flow>
   <li>输入自然语言问题</li>
@@ -32,7 +47,31 @@ caseStudy:
   <li>查看表格、图表与回答</li>
 </ol>
 
-用户在 React 工作台中输入问题，FastAPI 将请求交给 NL2SQL Agent。Agent 从 DDL、业务文档和 SQL 示例中检索上下文，生成 SQL 后交给验证与执行工具访问 MySQL，最后通过 SSE 把步骤、数据、图表配置和回答传回页面。
+使用者在 React 工作台中提出问题，系统先检索 DDL、业务文档和历史 SQL 示例，再生成面向已知数据库的查询。检索命中、SQL 草稿、校验反馈、执行状态和最终解读都作为可观察步骤回到工作台；多轮对话保留分析上下文，让后续问题可以接着同一份分析继续推进。
+
+## 项目亮点
+
+### 用三类知识补足 SQL 语境
+
+系统把 DDL、业务文档和历史 SQL 示例分别作为结构、业务语义和查询习惯的上下文来源。三类知识在生成 SQL 前共同补足问题文本，让 Agent 能依据表结构和业务命名组织查询，而不是只猜测字段；CSV 问答原型仍保持为独立实验路径。
+
+### 让查询过程可观察、可定位
+
+工作流把检索、生成、校验、执行和解读拆成可以回看的阶段。使用者能看到系统取到了什么上下文、生成了哪段 SQL、校验如何反馈、查询是否执行，以及结果如何被解释；当结果不符合预期时，可以把问题定位到具体阶段，而不是只面对一个不可解释的最终回答。
+
+<figure class="project-evidence">
+  <img src="/projects/sql-agent/api-docs.png" alt="SQLAgent 可用查询与训练接口文档界面" width="1400" height="900" loading="lazy" />
+  <figcaption>API 文档截图展示可用的对话、训练数据、数据库和查询操作面，作为查询与训练的可用界面证据；画面来自仓库演示截图。</figcaption>
+</figure>
+
+### 一次交付 SQL、数据、图表与解读
+
+查询完成后，工作台同时保留生成的 SQL、结果表格、图表配置和文字分析。使用者可以先检查数据，再结合图表和解读判断结论；SSE 把中间步骤和结果送回页面，让一次自然语言提问落成可检查的完整交付物。
+
+<figure class="project-evidence">
+  <img src="/projects/sql-agent/query-result.png" alt="SQLAgent 查询结果工作台界面" width="1500" height="940" loading="lazy" />
+  <figcaption>查询结果界面可见 SQL 编辑器、结果表格、图表和输入区域，展示 SQL、数据与分析交付如何汇合；画面来自仓库演示截图。</figcaption>
+</figure>
 
 ## 系统架构
 
@@ -43,32 +82,8 @@ caseStudy:
   <figcaption>架构图保留 Vanna/LangChain 主链路，把上下文检索与数据库查询分开；原始 SQL 执行接口的安全边界不在图中扩展。</figcaption>
 </figure>
 
-NL2SQL Agent 位于 FastAPI 之后，统一调度检索工具和数据库工具。DDL、业务文档和历史 SQL 示例进入向量存储，用于补充 schema 与业务语境；生成的 SQL 经过校验后执行，结果通过 SSE 回到 React 工作台。
+React 工作台通过 FastAPI 连接 NL2SQL Agent。Agent 从包含 DDL、业务文档和历史 SQL 示例的向量存储获取上下文，再调用 SQL 校验与执行工具访问 MySQL；结果和中间步骤通过 SSE 回到页面，汇合为 SQL、表格、图表与文字分析。数据库权限、SQL sandbox 和最终人工复核不由这条应用链路单独保证，仍是部署环境中的外部 safeguards。
 
-<figure class="project-evidence">
-  <img src="/projects/sql-agent/query-result.png" alt="SQLAgent 查询结果工作台界面" width="1500" height="940" loading="lazy" />
-  <figcaption>查询结果界面可见 SQL 编辑器、结果表格、图表和输入区域；画面来自仓库演示截图。</figcaption>
-</figure>
+## 项目边界
 
-## 三个关键技术决策
-
-### 把 schema、文档和 SQL 示例作为检索上下文
-
-NL2SQL 不只依赖问题文本。系统将 DDL、业务文档和历史 SQL 示例纳入向量检索，让 Agent 在生成语句前获得表结构和业务命名的上下文；CSV 问答原型保持为独立实验，不混入主架构叙述。
-
-### 让 Agent 通过工具分开检索与执行
-
-LangChain/LangGraph Agent 负责理解问题、组织步骤并调用工具；检索工具负责获取表结构上下文，数据库工具负责 SQL 校验、版本检查和执行。这样的边界使失败点能落在检索、生成或执行中的具体阶段。
-
-### 用 SSE 把中间步骤和结果送回工作台
-
-FastAPI 的流式接口可向 React 推送 Agent 步骤、查询数据、图表配置和最终回答。前端因此能同时呈现 SQL、表格、图表与文字解释，而不是只等待一个不可观察的最终响应。
-
-<figure class="project-evidence">
-  <img src="/projects/sql-agent/api-docs.png" alt="SQLAgent FastAPI API 文档界面" width="1400" height="900" loading="lazy" />
-  <figcaption>API 文档界面展示 FastAPI 服务的对话、训练数据、数据库与查询接口；画面来自仓库演示截图。</figcaption>
-</figure>
-
-## 限制与下一步
-
-当前展示以仓库的 Vanna/LangChain 主链路为准，截图使用演示或合成数据。开发配置允许宽泛 CORS；直接 SQL 查询接口会执行传入语句，页面不把它描述为已完成的 SQL sandbox。运行时仍存在全局客户端状态，CSV 问答是分离的原型路径，也不能从组件组成推导通用 NL2SQL 准确率。下一步是在隔离环境中补齐依赖、服务和模型配置，使用脱敏合成数据完成一条可重复的检索、生成、校验、执行与 SSE 验收记录。
+这是一个面向已知数据库的分析助手，不宣称对任意数据库或任意自然语言都具备通用 NL2SQL 能力。截图使用演示或合成数据，不能从组件组成推导准确率；CSV 问答也不属于主路径。数据库权限控制、执行隔离（sandboxing）和人工审阅仍是外部 safeguards，需要由部署环境和使用流程补足。
