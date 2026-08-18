@@ -7,10 +7,13 @@ import ProjectSelection from '../../components/home/ProjectSelection.astro';
 import LatestWriting from '../../components/home/LatestWriting.astro';
 import LatestJournal from '../../components/home/LatestJournal.astro';
 import { SITE } from '../../config/site';
-import { getLocalizedCollection } from '../../lib/content';
+import {
+  getLocalizedCollection,
+  getNativeLocalizedCollection,
+} from '../../lib/content';
 
 const projects = await getLocalizedCollection('projects', 'en');
-const articles = await getLocalizedCollection('articles', 'en');
+const articles = await getNativeLocalizedCollection('articles', 'en');
 const journal = await getLocalizedCollection('journal', 'en');
 const featured = projects.find(({ entry }) => entry.featured) ?? projects[0];
 const selected = projects

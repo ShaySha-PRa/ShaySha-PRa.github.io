@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleCard from '../../components/cards/ArticleCard.astro';
-import { getLocalizedCollection } from '../../lib/content';
+import { getNativeLocalizedCollection } from '../../lib/content';
 
-const articles = await getLocalizedCollection('articles', 'zh');
+const articles = await getNativeLocalizedCollection('articles', 'zh');
 ---
 
 <BaseLayout

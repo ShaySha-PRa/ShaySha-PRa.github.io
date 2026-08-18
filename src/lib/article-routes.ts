@@ -16,18 +16,14 @@ export function articleTranslationPath(
   records: readonly ArticleRouteRecord[],
 ): string {
   const targetLocale: Locale = currentLocale === 'zh' ? 'en' : 'zh';
-  const target =
-    records.find(
-      (record) =>
-        record.translationKey === current.translationKey &&
-        record.locale === targetLocale,
-    ) ??
-    records.find(
-      (record) =>
-        record.translationKey === current.translationKey &&
-        record.locale === 'zh',
-    ) ??
-    current;
+  const target = records.find(
+    (record) =>
+      record.translationKey === current.translationKey &&
+      record.locale === targetLocale &&
+      record.locale !== current.locale,
+  );
 
-  return articlePath(targetLocale, target.slug);
+  return target
+    ? articlePath(targetLocale, target.slug)
+    : `${targetLocale === 'en' ? '/en' : ''}/writing/`;
 }

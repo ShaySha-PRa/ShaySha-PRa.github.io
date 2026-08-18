@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { localizedPath, selectLocalizedRecords } from '../../src/lib/i18n';
+import {
+  localizedPath,
+  selectLocalizedRecords,
+  selectNativeLocalizedRecords,
+} from '../../src/lib/i18n';
 import { records } from '../fixtures/localized-records';
 
 describe('selectLocalizedRecords', () => {
@@ -20,4 +24,10 @@ describe('localizedPath', () => {
     expect(localizedPath('zh', 'home')).toBe('/');
     expect(localizedPath('en', 'home')).toBe('/en/');
   });
+});
+
+it('excludes Chinese fallbacks when native-only content is requested', () => {
+  expect(selectNativeLocalizedRecords(records, 'en')).toEqual([
+    { entry: records[1], requestedLocale: 'en', isFallback: false },
+  ]);
 });

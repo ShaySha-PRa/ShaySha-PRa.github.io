@@ -45,6 +45,15 @@ export function selectLocalizedRecords<T extends LocalizedRecord>(
     .sort((a, b) => (a.entry.order ?? 999) - (b.entry.order ?? 999));
 }
 
+export function selectNativeLocalizedRecords<T extends LocalizedRecord>(
+  records: T[],
+  requestedLocale: Locale,
+): LocalizedSelection<T>[] {
+  return selectLocalizedRecords(records, requestedLocale).filter(
+    ({ entry }) => entry.locale === requestedLocale,
+  );
+}
+
 export function localizedPath(
   locale: Locale,
   section: Section,

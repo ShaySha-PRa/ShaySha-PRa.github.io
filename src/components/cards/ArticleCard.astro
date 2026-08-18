@@ -44,8 +44,14 @@ const labels =
   }
   <div class="article-card__body">
     <p class="article-card__meta">
-      <time datetime={article.published.toISOString()}>{date}</time>
-      <span aria-hidden="true"> · </span>
+      {
+        !article.hideDate && (
+          <>
+            <time datetime={article.published.toISOString()}>{date}</time>
+            <span aria-hidden="true"> · </span>
+          </>
+        )
+      }
       <span>{minutes} {labels.minutes}</span>
     </p>
     <h2><a href={detailPath}>{article.title}</a></h2>

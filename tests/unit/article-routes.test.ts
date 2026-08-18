@@ -23,15 +23,13 @@ it('uses the counterpart slug for a translated article', () => {
   );
 });
 
-it('uses the source slug when the target locale is missing', () => {
+it('uses the writing index when the target locale is missing', () => {
   const records = [
     { locale: 'zh' as const, translationKey: 'only-zh', slug: 'only-zh' },
   ];
 
   expect(articleTranslationPath('zh', records[0], records)).toBe(
-    '/en/writing/only-zh/',
+    '/en/writing/',
   );
-  expect(articleTranslationPath('en', records[0], records)).toBe(
-    '/writing/only-zh/',
-  );
+  expect(articleTranslationPath('en', records[0], records)).toBe('/writing/');
 });

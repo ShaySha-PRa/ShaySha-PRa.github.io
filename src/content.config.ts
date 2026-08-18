@@ -43,6 +43,7 @@ const articles = defineCollection({
   schema: ({ image }) =>
     localizedBase.extend({
       tags: z.array(z.string()).default([]),
+      hideDate: z.boolean().default(false),
       cover: image().optional(),
       series: z.string().optional(),
       canonicalUrl: httpsUrl.optional(),
