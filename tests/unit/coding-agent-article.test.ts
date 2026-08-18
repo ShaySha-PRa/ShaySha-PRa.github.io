@@ -29,15 +29,33 @@ const requiredSources = {
     'https://hermes-agent.nousresearch.com/docs/developer-guide/architecture',
   hermesContextFiles:
     'https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files',
+  hermesDelegation:
+    'https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/delegation.md',
+  codexSkills: 'https://developers.openai.com/codex/skills/',
   codexLoop: 'https://openai.com/index/unrolling-the-codex-agent-loop/',
   codexCloudInternet: 'https://learn.chatgpt.com/codex/cloud/internet-access',
   codexSandbox: 'https://learn.chatgpt.com/codex/sandboxing',
+  mcpIntroduction: 'https://modelcontextprotocol.io/docs/getting-started/intro',
+  mcpRepository: 'https://github.com/modelcontextprotocol',
 };
 
 function sectionBlock(content: string, sectionNumber: number): string {
   const sectionId = `section-${String(sectionNumber).padStart(2, '0')}`;
   const start = content.indexOf(`<h2 id="${sectionId}"`);
   const next = content.indexOf('<h2 id="', start + 1);
+  return content.slice(
+    start,
+    next === -1 ? content.indexOf('## 参考资料') : next,
+  );
+}
+
+function subsectionBlock(
+  content: string,
+  heading: string,
+  nextHeading: string,
+): string {
+  const start = content.indexOf(heading);
+  const next = content.indexOf(nextHeading, start + heading.length);
   return content.slice(
     start,
     next === -1 ? content.indexOf('## 参考资料') : next,
@@ -159,6 +177,22 @@ describe('Coding Agent article integrity', () => {
     const hermesContext = sectionBlock(content, 26);
     expect(hermesContext).toContain(requiredSources.hermesContextFiles);
 
+    const skillsSection = subsectionBlock(
+      content,
+      '### 3.5 Procedural Memory：程序性记忆',
+      '### 3.6 External / Retrieval Memory',
+    );
+    expect(skillsSection).toContain(
+      `[Codex Skills 文档](${requiredSources.codexSkills})`,
+    );
+    expect(skillsSection).not.toContain(
+      '[Codex 记忆文档](https://learn.chatgpt.com/codex/memories)',
+    );
+
+    const hermesAgentLoop = sectionBlock(content, 23);
+    expect(hermesAgentLoop).toContain('delegate_task');
+    expect(hermesAgentLoop).toContain(requiredSources.hermesDelegation);
+
     const piContext = sectionBlock(content, 35);
     expect(piContext).toContain(
       'https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent',
@@ -206,5 +240,9 @@ describe('Coding Agent article integrity', () => {
     expect(networkComparison).toContain('[Codex cloud 网络访问文档]');
     expect(networkComparison).toContain(requiredSources.codexSandbox);
     expect(networkComparison).toContain(requiredSources.codexCloudInternet);
+
+    const mcpSection = sectionBlock(content, 42);
+    expect(mcpSection).toContain(requiredSources.mcpIntroduction);
+    expect(mcpSection).toContain(requiredSources.mcpRepository);
   });
 });

@@ -330,7 +330,7 @@ Agent 世界里：
 
 **Skills 非常接近程序性记忆。**
 
-Claude Code、Codex、Hermes、pi 目前都已经支持 Skills 或类似机制。Claude Code 和 Codex 的 Skills 都基于 Agent Skills 思路；pi 也支持 Skills，Hermes 更把 skill learning 做成了其长期学习体系的一部分。 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory) [Codex 记忆文档](https://learn.chatgpt.com/codex/memories) [Hermes Agent Skills 文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md) [pi Skills 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
+Claude Code、Codex、Hermes、pi 目前都已经支持 Skills 或类似机制。Claude Code 和 Codex 的 Skills 都基于 Agent Skills 思路；pi 也支持 Skills，Hermes 更把 skill learning 做成了其长期学习体系的一部分。 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory) [Codex Skills 文档](https://developers.openai.com/codex/skills/) [Hermes Agent Skills 文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md) [pi Skills 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
 
 ---
 
@@ -1284,6 +1284,8 @@ session_search
 delegate_task
 ```
 
+`delegate_task` 可参考 [Hermes Agent Delegation 文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/delegation.md)。
+
 以及一个中央 Tool Registry。
 
 当前官方架构文档描述为 70+ tools、约 28 个 toolsets，并支持根据 tool mix 进行 sequential / concurrent execution。 [Hermes Agent 架构文档](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture)
@@ -1962,7 +1964,7 @@ edit
 </table>
 </div>
 
-pi 不内置 MCP 并不意味着不能使用 MCP，而是强调： [Claude Code MCP 文档](https://code.claude.com/docs/en/mcp) [Codex MCP 文档](https://learn.chatgpt.com/docs/extend/mcp?surface=cli) [MCP 官方入门文档](https://modelcontextprotocol.io/docs/getting-started/intro)
+pi 不内置 MCP 并不意味着不能使用 MCP，而是强调： [Claude Code MCP 文档](https://code.claude.com/docs/en/mcp) [Codex MCP 文档](https://learn.chatgpt.com/docs/extend/mcp?surface=cli) [MCP 官方入门文档](https://modelcontextprotocol.io/docs/getting-started/intro) [MCP 官方仓库](https://github.com/modelcontextprotocol)
 
 <!-- prettier-ignore -->
 ```text
@@ -2347,6 +2349,7 @@ How can the system learn a reusable procedure?
 - [Codex CLI](https://learn.chatgpt.com/docs/codex/cli)
 - [Codex Agent Loop 工程文章](https://openai.com/index/unrolling-the-codex-agent-loop/)
 - [AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
+- [Skills](https://developers.openai.com/codex/skills/)
 - [Memory](https://learn.chatgpt.com/codex/memories)
 - [Sub-agents](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 - [Sandboxing](https://learn.chatgpt.com/codex/sandboxing)
