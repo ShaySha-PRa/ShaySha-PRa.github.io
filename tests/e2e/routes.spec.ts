@@ -171,9 +171,9 @@ test('Chinese article, feeds, and sitemap publish the approved public contracts'
   await expect(
     page.locator('details.article-toc a[href^="#section-"]'),
   ).toHaveCount(50);
-  await expect(page.locator('.article-detail__meta')).toHaveText(
-    /阅读时长\s+\d+ 分钟/,
-  );
+  const articleMeta = page.locator('.article-detail__meta');
+  await expect(articleMeta.locator('dt')).toHaveText('阅读时长');
+  await expect(articleMeta.locator('dd')).toHaveText(/\d+ 分钟/);
   await expect(page.locator('.article-detail__meta')).not.toContainText(
     '发布于',
   );
@@ -345,5 +345,6 @@ test('about pages request only local hosts', async ({ page }) => {
   const hosts = new Set<string>();
   page.on('request', (request) => hosts.add(new URL(request.url()).host));
   await page.goto('/about/');
-  expect([...hosts].every((host) => host === '127.0.0.1:4321')).toBe(true);
+  const localHost = new URL(page.url()).host;
+  expect([...hosts].every((host) => host === localHost)).toBe(true);
 });
