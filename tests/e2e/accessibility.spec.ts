@@ -7,6 +7,7 @@ for (const path of [
   '/writing/',
   '/journal/',
   '/journal/cloud-and-stone/',
+  '/writing/coding-agent-principles-and-differences/',
   '/about/',
   '/resume/',
   '/projects/graphrag-agent/',

@@ -37,6 +37,23 @@ test('homepage exposes representative project, resume, and contact calls to acti
   );
 });
 
+test('Chinese homepage publishes the latest writing entry', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const latestWriting = page.locator('[data-section="latest-writing"]');
+
+  await expect(latestWriting).toBeVisible();
+  await expect(
+    latestWriting.getByRole('link', {
+      name: 'Coding Agent 原理与差异：Claude Code、Codex、Hermes Agent、pi',
+    }),
+  ).toHaveAttribute(
+    'href',
+    '/writing/coding-agent-principles-and-differences/',
+  );
+});
+
 test('homepage exposes semantic navigation and locale switch', async ({
   page,
 }, testInfo) => {
@@ -172,14 +189,17 @@ test('homepage follows the approved recruiter-oriented curated hierarchy', async
   await expect(
     page.locator('[data-section="selected-projects"] [data-project-card]'),
   ).toHaveCount(5);
-  await expect(page.locator('[data-section="latest-writing"]')).toHaveCount(0);
+  await expect(page.locator('[data-section="latest-writing"]')).toHaveCount(1);
+  await expect(page.locator('[data-section="latest-writing"]')).toContainText(
+    'Coding Agent 原理与差异：Claude Code、Codex、Hermes Agent、pi',
+  );
   await expect(page.locator('[data-section="latest-journal"]')).toBeVisible();
   await expect(page.locator('[data-section="latest-journal"]')).toContainText(
     '云与石',
   );
 });
 
-test('homepage keeps the English brand signature and hides empty writing', async ({
+test('homepage keeps the English brand signature and publishes writing', async ({
   page,
 }) => {
   await page.goto('/');
@@ -189,7 +209,7 @@ test('homepage keeps the English brand signature and hides empty writing', async
   await expect(page.locator('.home-hero__lede[lang="zh-CN"]')).toHaveText(
     '将复杂知识、数据和业务流程构建为可验证、可部署的 AI 应用。',
   );
-  await expect(page.locator('[data-section="latest-writing"]')).toHaveCount(0);
+  await expect(page.locator('[data-section="latest-writing"]')).toHaveCount(1);
   await expect(page.locator('[data-section="latest-journal"] h3 a')).toHaveText(
     '云与石',
   );
@@ -201,7 +221,7 @@ test('mobile homepage is a single readable column', async ({
   test.skip(testInfo.project.name !== 'mobile-chromium');
   await page.goto('/');
   const sections = page.locator('[data-section]');
-  await expect(sections).toHaveCount(5);
+  await expect(sections).toHaveCount(6);
   const viewportWidth = page.viewportSize()?.width ?? 420;
   const boxes = await sections.evaluateAll((items) =>
     items.map((section) => {

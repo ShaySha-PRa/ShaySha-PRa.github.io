@@ -18,6 +18,7 @@ test('all public routes and generated files respond successfully', async ({
     '/projects/',
     '/en/projects/',
     '/writing/',
+    '/writing/coding-agent-principles-and-differences/',
     '/en/writing/',
     '/journal/',
     '/en/journal/',
@@ -152,6 +153,133 @@ test('writing routes and RSS respond successfully', async ({
   const rss = await request.get('/rss.xml');
   expect(rss.ok()).toBe(true);
   expect(await rss.text()).toContain('<rss');
+});
+
+test('Chinese article, feeds, and sitemap publish the approved public contracts', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/writing/coding-agent-principles-and-differences/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Coding Agent 原理与差异：Claude Code、Codex、Hermes Agent、pi',
+  );
+  await expect(page.locator('.article-detail__summary')).toContainText(
+    '系统比较 Claude Code、OpenAI Codex、Hermes Agent 与 pi',
+  );
+  await expect(page.locator('[data-article-section]')).toHaveCount(50);
+  await expect(page.locator('details.article-toc')).toHaveCount(1);
+  await expect(
+    page.locator('details.article-toc a[href^="#section-"]'),
+  ).toHaveCount(50);
+  await expect(page.locator('.article-detail__meta')).toHaveText(
+    /阅读时长\s+\d+ 分钟/,
+  );
+  await expect(page.locator('.article-detail__meta')).not.toContainText(
+    '发布于',
+  );
+  await expect(page.locator('.article-detail__meta')).not.toContainText(
+    '更新于',
+  );
+  await expect(page.locator('.article-detail__meta time')).toHaveCount(0);
+  await expect(page.locator('.article-detail__tags li')).toHaveCount(5);
+  await expect(page.locator('.article-table-scroller')).toHaveCount(4);
+
+  const externalLinks = await page
+    .locator('.prose a[href^="http"]')
+    .evaluateAll((links) =>
+      links.map((link) => link.getAttribute('href') ?? ''),
+    );
+  expect(externalLinks.length).toBeGreaterThan(0);
+  expect(externalLinks.every((href) => href.startsWith('https://'))).toBe(true);
+
+  const rss = await request.get('/rss.xml');
+  const rssText = await rss.text();
+  expect(rssText).toContain(
+    'Coding Agent 原理与差异：Claude Code、Codex、Hermes Agent、pi',
+  );
+  expect(rssText).toContain(
+    'https://shaysha-pra.github.io/writing/coding-agent-principles-and-differences/',
+  );
+  expect(rssText).toContain('<pubDate>Thu, 13 Aug 2026 00:00:00 GMT</pubDate>');
+
+  const sitemap = await request.get('/sitemap-0.xml');
+  const sitemapText = await sitemap.text();
+  expect(sitemapText).toContain(
+    'https://shaysha-pra.github.io/writing/coding-agent-principles-and-differences/',
+  );
+  expect(sitemapText).not.toContain(
+    'https://shaysha-pra.github.io/en/writing/coding-agent-principles-and-differences/',
+  );
+});
+
+test('article JSON-LD publishes concrete canonical and dates', async ({
+  page,
+}) => {
+  await page.goto('/writing/coding-agent-principles-and-differences/');
+  const jsonLd = page.locator('script[type="application/ld+json"]');
+  await expect(jsonLd).toHaveCount(1);
+  const data = JSON.parse((await jsonLd.textContent()) ?? '{}') as Record<
+    string,
+    unknown
+  >;
+  expect(data).toMatchObject({
+    '@type': 'Article',
+    headline: 'Coding Agent 原理与差异：Claude Code、Codex、Hermes Agent、pi',
+    url: 'https://shaysha-pra.github.io/writing/coding-agent-principles-and-differences/',
+    datePublished: '2026-08-13T00:00:00.000Z',
+    dateModified: '2026-08-18T00:00:00.000Z',
+  });
+});
+
+test('article TOC and tables remain keyboard and viewport safe at 390px', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/writing/coding-agent-principles-and-differences/');
+
+  const rootWidth = await page.evaluate(() => ({
+    scrollWidth: document.documentElement.scrollWidth,
+    clientWidth: document.documentElement.clientWidth,
+  }));
+  expect(rootWidth.scrollWidth).toBeLessThanOrEqual(rootWidth.clientWidth);
+
+  const tableOverflow = await page
+    .locator('.article-table-scroller')
+    .evaluateAll((scrollers) =>
+      scrollers.map((scroller) => ({
+        clientWidth: scroller.clientWidth,
+        scrollWidth: scroller.scrollWidth,
+      })),
+    );
+  expect(tableOverflow).toHaveLength(4);
+  expect(
+    tableOverflow.some(
+      ({ scrollWidth, clientWidth }) => scrollWidth > clientWidth,
+    ),
+  ).toBe(true);
+
+  const firstScroller = page.locator('.article-table-scroller').first();
+  const rootScrollLeft = await page.evaluate(
+    () => document.scrollingElement?.scrollLeft ?? 0,
+  );
+  await firstScroller.evaluate((element) => {
+    element.scrollLeft = element.scrollWidth;
+  });
+  expect(
+    await firstScroller.evaluate((element) => element.scrollLeft),
+  ).toBeGreaterThan(0);
+  expect(
+    await page.evaluate(() => document.scrollingElement?.scrollLeft ?? 0),
+  ).toBe(rootScrollLeft);
+
+  const toc = page.locator('details.article-toc');
+  const summary = toc.locator('summary');
+  await summary.focus();
+  await summary.press('Enter');
+  await expect(toc).toHaveAttribute('open', '');
+  await toc.locator('a[href="#section-01"]').click();
+  await expect(page).toHaveURL(/#section-01$/);
+  await expect(page.locator('#section-01')).toBeVisible();
 });
 
 test('bilingual about routes publish the confirmed profile and contact links', async ({
