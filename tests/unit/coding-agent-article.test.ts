@@ -22,6 +22,27 @@ const allowedOrigins = [
   'https://github.com/modelcontextprotocol/',
 ];
 
+const requiredSources = {
+  hermesCompression:
+    'https://hermes-agent.nousresearch.com/docs/developer-guide/context-compression-and-caching',
+  hermesArchitecture:
+    'https://hermes-agent.nousresearch.com/docs/developer-guide/architecture',
+  hermesContextFiles:
+    'https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files',
+  codexLoop: 'https://openai.com/index/unrolling-the-codex-agent-loop/',
+  codexCloudInternet: 'https://learn.chatgpt.com/codex/cloud/internet-access',
+};
+
+function sectionBlock(content: string, sectionNumber: number): string {
+  const sectionId = `section-${String(sectionNumber).padStart(2, '0')}`;
+  const start = content.indexOf(`<h2 id="${sectionId}"`);
+  const next = content.indexOf('<h2 id="', start + 1);
+  return content.slice(
+    start,
+    next === -1 ? content.indexOf('## 参考资料') : next,
+  );
+}
+
 describe('Coding Agent article integrity', () => {
   it('publishes the complete article with stable structure and metadata', () => {
     expect(fs.existsSync(articlePath)).toBe(true);
@@ -63,6 +84,7 @@ describe('Coding Agent article integrity', () => {
     expect(content).toContain('50. 最终总结');
     expect(content).not.toMatch(/cite|turn\d+(?:search|view|fetch)\d+/);
     expect(content).not.toMatch(/切换主题|Contents · 50 Sections|>复制</);
+    expect(content).not.toContain('[官方文档]');
   });
 
   it('uses only approved official HTTPS sources', () => {
@@ -104,5 +126,55 @@ describe('Coding Agent article integrity', () => {
     expect(
       uniqueLinks.some((link) => link.includes('modelcontextprotocol.io/')),
     ).toBe(true);
+  });
+
+  it('uses current primary sources for corrected claims', () => {
+    const { content } = matter(fs.readFileSync(articlePath, 'utf8'));
+
+    expect(content).toContain(requiredSources.hermesCompression);
+    expect(content).toContain(requiredSources.hermesArchitecture);
+    expect(content).toContain(requiredSources.hermesContextFiles);
+    expect(content).toContain(requiredSources.codexLoop);
+    expect(content).toContain(requiredSources.codexCloudInternet);
+
+    const hermesCompaction = sectionBlock(content, 28);
+    expect(hermesCompaction).toContain('compression.in_place: true');
+    expect(hermesCompaction).toContain('同一个 session id');
+    expect(hermesCompaction).toContain('in_place: false');
+    expect(hermesCompaction).toContain('parent_session_id');
+    expect(hermesCompaction).not.toMatch(/默认[\s\S]{0,80}session A\s*#2/);
+
+    const codexCompaction = sectionBlock(content, 17);
+    expect(codexCompaction).toContain('/responses/compact');
+    expect(codexCompaction).toContain('encrypted');
+    expect(codexCompaction).toContain(requiredSources.codexLoop);
+
+    const hermesTools = sectionBlock(content, 23);
+    expect(hermesTools).toContain('70+ tools');
+    expect(hermesTools).toContain('28 个 toolsets');
+    expect(hermesTools).toContain(requiredSources.hermesArchitecture);
+
+    const hermesContext = sectionBlock(content, 26);
+    expect(hermesContext).toContain(requiredSources.hermesContextFiles);
+
+    const piContext = sectionBlock(content, 35);
+    expect(piContext).toContain(
+      'https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent',
+    );
+    expect(piContext).not.toContain(
+      'https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md',
+    );
+
+    for (const sectionNumber of [36, 37, 38, 39, 40, 41]) {
+      const block = sectionBlock(content, sectionNumber);
+      expect(block).toMatch(/https:\/\/github\.com\/badlogic\/pi-mono\//);
+    }
+
+    expect(sectionBlock(content, 44)).toMatch(
+      /https:\/\/code\.claude\.com\/|https:\/\/learn\.chatgpt\.com\/|https:\/\/github\.com\/(?:NousResearch|badlogic)\//,
+    );
+    expect(sectionBlock(content, 45)).toMatch(
+      /https:\/\/code\.claude\.com\/|https:\/\/learn\.chatgpt\.com\/|https:\/\/github\.com\/(?:NousResearch|badlogic)\//,
+    );
   });
 });

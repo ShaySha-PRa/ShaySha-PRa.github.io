@@ -152,7 +152,7 @@ Claude Code、Codex、Hermes、pi 本质上都不是“一个模型”。
                              └──────→ LLM
 ```
 
-Claude Code 官方也明确将自己描述为 Claude 模型外部的 **agentic harness**：模型负责 reasoning，harness 提供工具、上下文管理和执行环境。Codex 官方对自己的描述也是类似的——Agent Loop 是连接用户、模型和工具的核心。pi 则甚至把 Agent Loop 单独做成了 `pi-agent` 层。 [官方文档](https://code.claude.com/docs/en/how-claude-code-works) [官方文档](https://learn.chatgpt.com/docs/codex/cli) [官方文档](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+Claude Code 官方也明确将自己描述为 Claude 模型外部的 **agentic harness**：模型负责 reasoning，harness 提供工具、上下文管理和执行环境。Codex 官方对自己的描述也是类似的——Agent Loop 是连接用户、模型和工具的核心。pi 则甚至把 Agent Loop 单独做成了 `pi-agent` 层。 [Claude Code 工作原理文档](https://code.claude.com/docs/en/how-claude-code-works) [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli) [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 所以：
 
@@ -330,7 +330,7 @@ Agent 世界里：
 
 **Skills 非常接近程序性记忆。**
 
-Claude Code、Codex、Hermes、pi 目前都已经支持 Skills 或类似机制。Claude Code 和 Codex 的 Skills 都基于 Agent Skills 思路；pi 也支持 Skills，Hermes 更把 skill learning 做成了其长期学习体系的一部分。 [官方文档](https://code.claude.com/docs/en/memory) [官方文档](https://learn.chatgpt.com/codex/memories) [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md) [官方文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
+Claude Code、Codex、Hermes、pi 目前都已经支持 Skills 或类似机制。Claude Code 和 Codex 的 Skills 都基于 Agent Skills 思路；pi 也支持 Skills，Hermes 更把 skill learning 做成了其长期学习体系的一部分。 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory) [Codex 记忆文档](https://learn.chatgpt.com/codex/memories) [Hermes Agent Skills 文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md) [pi Skills 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
 
 ---
 
@@ -433,7 +433,7 @@ Claude Code 是比较典型的：
 - 使用 Hooks
 - 管理 Sessions
 
-而且 CLI、Desktop、IDE、Web 等界面底层共享相同的 agentic loop。 [官方文档](https://code.claude.com/docs/en/features-overview)
+而且 CLI、Desktop、IDE、Web 等界面底层共享相同的 agentic loop。 [Claude Code 功能总览](https://code.claude.com/docs/en/features-overview)
 
 ---
 
@@ -477,7 +477,7 @@ run tests again
 verify
 ```
 
-每次 Tool Result 都重新成为下一轮 LLM inference 的输入。 [官方文档](https://code.claude.com/docs/en/how-claude-code-works)
+每次 Tool Result 都重新成为下一轮 LLM inference 的输入。 [Claude Code 工作原理文档](https://code.claude.com/docs/en/how-claude-code-works)
 
 ---
 
@@ -528,7 +528,7 @@ paths:
 
 只在操作相应文件时加载规则。
 
-Claude Code 官方明确说明 CLAUDE.md 和 Auto Memory 都会在新会话中加载；CLAUDE.md 是用户写的规则，而 Auto Memory 是 Claude 自己学习出来的信息。 [官方文档](https://code.claude.com/docs/en/memory)
+Claude Code 官方明确说明 CLAUDE.md 和 Auto Memory 都会在新会话中加载；CLAUDE.md 是用户写的规则，而 Auto Memory 是 Claude 自己学习出来的信息。 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory)
 
 一个有意思的细节：
 
@@ -541,7 +541,7 @@ Claude Code 官方明确说明 CLAUDE.md 和 Auto Memory 都会在新会话中�
 @AGENTS.md
 ```
 
-把它 import 进来。 [官方文档](https://code.claude.com/docs/en/memory)
+把它 import 进来。 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory)
 
 ---
 
@@ -593,7 +593,7 @@ MEMORY.md
 
 **前 200 行或 25 KB，以先达到者为准。**
 
-详细 topic 文件不会全部塞进 context，而是在需要时读取。Auto Memory 当前默认开启，并且同一个 Git repo 的多个 worktree 共享一套 repo memory。 [官方文档](https://code.claude.com/docs/en/memory)
+详细 topic 文件不会全部塞进 context，而是在需要时读取。Auto Memory 当前默认开启，并且同一个 Git repo 的多个 worktree 共享一套 repo memory。 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory)
 
 这是一个不错的设计：
 
@@ -643,7 +643,7 @@ branch
 rewind
 ```
 
-但一个全新的 session 默认仍然从 **新的 context window** 开始，并不会自动把旧 JSONL 全部装进 prompt；真正用于跨 session 学习的是 CLAUDE.md 和 Auto Memory。 [官方文档](https://code.claude.com/docs/en/memory) [官方文档](https://code.claude.com/docs/en/context-window)
+但一个全新的 session 默认仍然从 **新的 context window** 开始，并不会自动把旧 JSONL 全部装进 prompt；真正用于跨 session 学习的是 CLAUDE.md 和 Auto Memory。 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory) [Claude Code 上下文窗口文档](https://code.claude.com/docs/en/context-window)
 
 因此：
 
@@ -676,7 +676,7 @@ retain important/current information
 continue
 ```
 
-Auto-compaction 默认开启，并且可以配置触发窗口。项目根部的 CLAUDE.md 在 compaction 后会重新注入；path-scoped / nested 规则则会在后续相关文件重新被访问时加载。 [官方文档](https://code.claude.com/docs/en/context-window) [官方文档](https://code.claude.com/docs/en/memory)
+Auto-compaction 默认开启，并且可以配置触发窗口。项目根部的 CLAUDE.md 在 compaction 后会重新注入；path-scoped / nested 规则则会在后续相关文件重新被访问时加载。 [Claude Code 上下文窗口文档](https://code.claude.com/docs/en/context-window) [Claude Code 记忆文档](https://code.claude.com/docs/en/memory)
 
 所以 Claude Code 明确区分：
 
@@ -745,7 +745,7 @@ Finding B
 Finding C
 ```
 
-会大幅提高主 Agent 上下文质量。 [官方文档](https://code.claude.com/docs/en/sub-agents)
+会大幅提高主 Agent 上下文质量。 [Claude Code 子代理文档](https://code.claude.com/docs/en/sub-agents)
 
 ---
 
@@ -792,7 +792,7 @@ Hook
 deterministic lifecycle logic
 ```
 
-Hooks 可以运行 shell、HTTP、prompt 或 agent-based 检查，并挂在不同 lifecycle event 上。 [官方文档](https://code.claude.com/docs/en/hooks)
+Hooks 可以运行 shell、HTTP、prompt 或 agent-based 检查，并挂在不同 lifecycle event 上。 [Claude Code Hooks 文档](https://code.claude.com/docs/en/hooks)
 
 ---
 
@@ -825,7 +825,7 @@ filesystem boundary
 network boundary
 ```
 
-两者是互补关系。 [官方文档](https://code.claude.com/docs/en/security)
+两者是互补关系。 [Claude Code 安全文档](https://code.claude.com/docs/en/security)
 
 ---
 
@@ -896,7 +896,7 @@ tools
 input
 ```
 
-发送给模型。 [官方文档](https://learn.chatgpt.com/docs/codex/cli)
+发送给模型。 [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli)；这篇 [Codex Agent Loop 工程文章](https://openai.com/index/unrolling-the-codex-agent-loop/) 也展示了同一套 context → Responses API → tool result 循环。
 
 ---
 
@@ -943,7 +943,7 @@ current working directory
 AGENTS.override.md
 ```
 
-越靠近当前工作目录的规则优先级越高。 [官方文档](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
+越靠近当前工作目录的规则优先级越高。 [Codex AGENTS.md 文档](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
 
 因此 Claude Code 和 Codex 一个非常直观的区别就是：
 
@@ -985,7 +985,7 @@ supporting evidence
 ~/.codex/memories/
 ```
 
-Codex 不会在每个 session 一结束就立即生成 memory，而是会等待 session idle，并跳过过短或仍然活跃的 session；生成内容还会进行 secret redaction。 [官方文档](https://learn.chatgpt.com/codex/memories)
+Codex 不会在每个 session 一结束就立即生成 memory，而是会等待 session idle，并跳过过短或仍然活跃的 session；生成内容还会进行 secret redaction。 [Codex 记忆文档](https://learn.chatgpt.com/codex/memories)
 
 当前一个重要区别是：
 
@@ -1051,7 +1051,7 @@ summary becomes new context
 /responses/compact
 ```
 
-返回 compacted input，其中包含特殊的 compaction item，包括 opaque encrypted state，用来帮助后续模型继续保留原上下文中的理解，同时释放 context window。Codex 达到自动 compaction threshold 后会自动使用这套机制。 [官方文档](https://learn.chatgpt.com/docs/codex/cli)
+返回 compacted input，其中包含特殊的 compaction item，包括 opaque encrypted state，用来帮助后续模型继续保留原上下文中的理解，同时释放 context window。Codex 达到自动 compaction threshold 后会自动使用这套机制。 [Codex Agent Loop 工程文章](https://openai.com/index/unrolling-the-codex-agent-loop/)
 
 这与简单：
 
@@ -1084,7 +1084,7 @@ Main Codex Agent
 
 > Subagent 的一个主要价值就是把大量 exploration/log output 从主 context 中隔离出去。
 
-当前 Codex 文档提供 subagent workflow。 [官方文档](https://learn.chatgpt.com/docs/agent-configuration/subagents)
+当前 Codex 文档提供 subagent workflow。 [Codex 子代理文档](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 
 ---
 
@@ -1131,7 +1131,7 @@ Approval 决定：
 
 > 什么情况下需要问用户。
 
-Codex 默认还会限制 shell command 的网络访问。 [官方文档](https://learn.chatgpt.com/codex/sandboxing)
+Codex 默认还会限制 shell command 的网络访问；这里说的是本地 CLI/桌面环境由 sandbox 施加的命令边界。 [Codex 沙箱文档](https://learn.chatgpt.com/codex/sandboxing)
 
 ---
 
@@ -1182,7 +1182,7 @@ Codex 能 Web Search
 npm/curl/bash 暂时没有网络权限
 ```
 
-这是有意的安全边界设计。 [官方文档](https://learn.chatgpt.com/codex) [官方文档](https://learn.chatgpt.com/codex/sandboxing)
+这是有意的安全边界设计：本地 shell 是否能联网由 sandbox/approval 等边界决定，而 Codex cloud 的 agent internet access 是另一项按环境配置、默认关闭的能力。 [Codex 沙箱文档](https://learn.chatgpt.com/codex/sandboxing) [Codex cloud 网络访问文档](https://learn.chatgpt.com/codex/cloud/internet-access)
 
 ---
 
@@ -1212,7 +1212,7 @@ Ollama
 LM Studio
 ```
 
-而配置系统还支持自定义 provider / Responses-compatible endpoint。 [官方文档](https://learn.chatgpt.com/docs/codex/cli) [官方文档](https://github.com/openai/codex)
+而配置系统还支持自定义 provider / Responses-compatible endpoint。 [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli) [Codex 官方仓库](https://github.com/openai/codex)
 
 所以更准确的说法是：
 
@@ -1246,7 +1246,7 @@ Coding Agent
 Automation Agent
 ```
 
-官方称其在 CLI、TUI、Electron Desktop、Telegram、Discord、Slack 等大量 messaging platform 上运行同一套 Agent Core，还支持 Browser、Terminal、Cron、Memory、Subagents。 [官方文档](https://github.com/NousResearch/hermes-agent)
+官方称其在 CLI、TUI、Electron Desktop、Telegram、Discord、Slack 等大量 messaging platform 上运行同一套 Agent Core，还支持 Browser、Terminal、Cron、Memory、Subagents。 [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent)
 
 ---
 
@@ -1286,7 +1286,7 @@ delegate_task
 
 以及一个中央 Tool Registry。
 
-当前官方架构文档描述为 70+ tools、约 28 个 toolsets，并支持根据 tool mix 进行 sequential / concurrent execution。 [官方文档](https://github.com/NousResearch/hermes-agent)
+当前官方架构文档描述为 70+ tools、约 28 个 toolsets，并支持根据 tool mix 进行 sequential / concurrent execution。 [Hermes Agent 架构文档](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture)
 
 ---
 
@@ -1351,7 +1351,7 @@ consolidate
 replace stale information
 ```
 
-官方将两者描述为每个 session 都注入 System Prompt 的 curated memory。 [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)
+官方将两者描述为每个 session 都注入 System Prompt 的 curated memory。 [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)
 
 ---
 
@@ -1384,7 +1384,7 @@ session_search(...)
 
 去找几周前的对话。
 
-当前专门的 Memory 文档说明，FTS5 search 可以返回数据库中的真实 messages，并支持沿 session 前后滚动。 [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/sessions.md) [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)
+当前专门的 Memory 文档说明，FTS5 search 可以返回数据库中的真实 messages，并支持沿 session 前后滚动。 [Hermes Agent 会话文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/sessions.md) [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)
 
 因此：
 
@@ -1451,7 +1451,7 @@ CLAUDE.md
 .cursorrules
 ```
 
-提供项目 context。部分上下文还能在 Agent 进入子目录后渐进式发现，而不是一开始把所有规则都塞进 context。 [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/sessions.md)
+提供项目 context。部分上下文还能在 Agent 进入子目录后渐进式发现，而不是一开始把所有规则都塞进 context。 [Hermes Agent Context Files 文档](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files)
 
 ---
 
@@ -1492,7 +1492,7 @@ create / improve skill
 
 **closed learning loop**
 
-并明确强调 agent-curated memory、skill creation 和 skill improvement。 [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md)
+并明确强调 agent-curated memory、skill creation 和 skill improvement。 [Hermes Agent Skills 文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md)
 
 这也是为什么 Hermes 更像：
 
@@ -1521,18 +1521,18 @@ keep tool-call/result pairs together
 create continuation session
 ```
 
-默认会保护最近约 20 条消息，并形成：
+默认 `compression.in_place: true` 会在同一个 session id 上重写 live message list；它仍会保护最近约 20 条消息，并形成：
 
 <!-- prettier-ignore -->
 ```text
-session A
+session A (stable id)
    ↓
-session A #2
+in-place compaction
    ↓
-session A #3
+session A (same id)
 ```
 
-这样的 session lineage。 [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/sessions.md)
+默认不会产生 `session A → A#2 → A#3` 的轮换 lineage；只有显式设置 `in_place: false` 才恢复旧的 rotation path，并通过 `parent_session_id` 连接前后 session。 [Hermes Agent 上下文压缩与缓存文档](https://hermes-agent.nousresearch.com/docs/developer-guide/context-compression-and-caching)
 
 这个细节很重要：
 
@@ -1546,7 +1546,7 @@ Hermes 在四者中属于明显的：
 
 **Provider-agnostic Agent Harness**
 
-支持云模型以及本地/self-hosted endpoint，包括 OpenRouter、Anthropic、OpenAI 类接口以及 Ollama、vLLM 等方案，并提供 provider fallback。 [官方文档](https://github.com/NousResearch/hermes-agent)
+支持云模型以及本地/self-hosted endpoint，包括 OpenRouter、Anthropic、OpenAI 类接口以及 Ollama、vLLM 等方案，并提供 provider fallback。 [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent)
 
 因此：
 
@@ -1590,7 +1590,7 @@ manual
 off
 ```
 
-其中 smart 可以先让辅助模型进行风险判断；真正隔离则可以使用 Docker 等 terminal backend。 [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/security.md)
+其中 smart 可以先让辅助模型进行风险判断；真正隔离则可以使用 Docker 等 terminal backend。 [Hermes Agent 安全文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/security.md)
 
 因此 Hermes 的安全理念更接近：
 
@@ -1654,7 +1654,7 @@ another turn
 agent_end
 ```
 
-当前底层 Agent Core 还支持多 tool call 默认 parallel execution，并提供 `beforeToolCall`、`afterToolCall` 等 hook 点。 [官方文档](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+当前底层 Agent Core 还支持多 tool call 默认 parallel execution，并提供 `beforeToolCall`、`afterToolCall` 等 hook 点。 [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 因此从“学习 Agent 实现”这个角度：
 
@@ -1683,7 +1683,7 @@ find
 ls
 ```
 
-等内置只读工具可选择启用。 [官方文档](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+等内置只读工具可选择启用。 [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 对比 Hermes 的几十种 Toolsets：
 
@@ -1723,7 +1723,7 @@ Packages
 external tools
 ```
 
-实现。 [官方文档](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+实现。 [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 所以 pi 不是：
 
@@ -1774,7 +1774,7 @@ or
 CLAUDE.md
 ```
 
-用于项目 instruction。 [官方文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
+用于项目 instruction；这些 context-file 加载行为应以 [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent) 当前实现为准，而不是 Skills 文档。
 
 因此：
 
@@ -1807,7 +1807,7 @@ root
  └── alternate A
 ```
 
-这使 pi 可以在已有节点上继续、回到较早位置产生新分支，也可以恢复已有 session。Session 解决的是“把过去保存下来”，但它本身仍不等于自动长期记忆：新 session 是否知道旧 session，取决于显式加载、扩展或检索机制。
+这使 pi 可以在已有节点上继续、回到较早位置产生新分支，也可以恢复已有 session。Session 解决的是“把过去保存下来”，但它本身仍不等于自动长期记忆：新 session 是否知道旧 session，取决于显式加载、扩展或检索机制。 [pi Sessions 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/sessions.md)
 
 ---
 
@@ -1835,7 +1835,7 @@ pi 还允许 extension 介入 compaction 生命周期，自定义：
 - 哪些消息保留
 - 如何把额外状态写回 session
 
-所以 pi 的特点不是提供最复杂的默认记忆，而是把 context management 暴露为可编程接口。
+所以 pi 的特点不是提供最复杂的默认记忆，而是把 context management 暴露为可编程接口。 [pi Compaction 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/compaction.md)
 
 ---
 
@@ -1876,7 +1876,7 @@ Extension 还可以：
 
 > **可编程 Agent Runtime / Agent SDK**
 
-而 Claude Code、Codex 更接近已经替用户做出大量产品决策的完成品。
+而 Claude Code、Codex 更接近已经替用户做出大量产品决策的完成品。 [pi Extensions 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/extensions.md)
 
 ---
 
@@ -1899,7 +1899,7 @@ Package
 
 Skills 可以按需发现和加载，避免每次都把所有操作手册塞进 context。Package 则让一组扩展、skills、prompt templates 和主题一起安装与分享。
 
-所以 pi 的“程序性记忆”很强，但它更多是由人或 extension 明确构建，而不是核心自动从每次工作中提炼。
+所以 pi 的“程序性记忆”很强，但它更多是由人或 extension 明确构建，而不是核心自动从每次工作中提炼。 [pi Skills 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
 
 ---
 
@@ -1919,7 +1919,7 @@ Anthropic / OpenAI / Google / OpenRouter /
 compatible APIs / local or custom endpoints
 ```
 
-它对模型供应商的耦合显著低于 Claude Code，也低于默认配置下的 Codex。
+它对模型供应商的耦合显著低于 Claude Code，也低于默认配置下的 Codex。 [pi Providers 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/providers.md)
 
 ---
 
@@ -1948,7 +1948,7 @@ edit
 
 > **pi 的默认假设更接近“用户拥有并控制本机开发环境”。**
 
-这种设计对高级用户非常自由，但开箱即用的防护弱于 Codex 和 Claude Code。若用于不可信 repo 或无人值守自动化，最好放进容器、VM 或其他隔离环境。
+这种设计对高级用户非常自由，但开箱即用的防护弱于 Codex 和 Claude Code。若用于不可信 repo 或无人值守自动化，最好放进容器、VM 或其他隔离环境。 [pi 安全文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/security.md)
 
 ---
 
@@ -1960,7 +1960,7 @@ edit
 </table>
 </div>
 
-pi 不内置 MCP 并不意味着不能使用 MCP，而是强调： [官方文档](https://code.claude.com/docs/en/mcp) [官方文档](https://learn.chatgpt.com/docs/extend/mcp?surface=cli) [官方文档](https://modelcontextprotocol.io/docs/getting-started/intro)
+pi 不内置 MCP 并不意味着不能使用 MCP，而是强调： [Claude Code MCP 文档](https://code.claude.com/docs/en/mcp) [Codex MCP 文档](https://learn.chatgpt.com/docs/extend/mcp?surface=cli) [MCP 官方入门文档](https://modelcontextprotocol.io/docs/getting-started/intro)
 
 <!-- prettier-ignore -->
 ```text
@@ -1979,7 +1979,7 @@ MCP support
 </table>
 </div>
 
-因此判断“能否联网”至少要拆成： [官方文档](https://code.claude.com/docs/en/security) [官方文档](https://learn.chatgpt.com/codex) [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/security.md) [官方文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/security.md)
+因此判断“能否联网”至少要拆成： [Claude Code 安全文档](https://code.claude.com/docs/en/security) [Codex cloud 网络访问文档](https://learn.chatgpt.com/codex/cloud/internet-access) [Hermes Agent 安全文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/security.md) [pi 安全文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/security.md)
 
 <!-- prettier-ignore -->
 ```text
@@ -1998,8 +1998,10 @@ MCP server 是否可访问外部服务
 <div class="article-table-scroller" tabindex="0" role="region" aria-label="四家 Memory 总表">
 <table>
 <thead><tr><th scope="col">维度</th><th scope="col">Claude Code</th><th scope="col">Codex</th><th scope="col">Hermes Agent</th><th scope="col">pi</th></tr></thead><tbody><tr><td>Working Memory</td><td>当前 context window</td><td>当前 context window</td><td>当前 context window</td><td>当前 context window</td></tr><tr><td>项目规则</td><td>CLAUDE.md、.claude/rules</td><td>AGENTS.md、override</td><td>.hermes.md / HERMES.md / AGENTS.md 等</td><td>AGENTS.md / CLAUDE.md</td></tr><tr><td>自动语义记忆</td><td>Auto Memory，默认开启</td><td>Local Memories，默认关闭</td><td>Agent 主动维护 MEMORY.md / USER.md</td><td>核心无内置自动 learned memory</td></tr><tr><td>长期记忆位置</td><td>repo 对应 memory 目录</td><td>~/.codex/memories</td><td>~/.hermes/memories</td><td>由 extension / 用户文件决定</td></tr><tr><td>Session 存储</td><td>JSONL</td><td>本地 chat/session state</td><td>SQLite</td><td>树状 JSONL</td></tr><tr><td>Episodic Retrieval</td><td>resume / history；长期回忆主要靠 memory</td><td>thread/history + memories</td><td>FTS5 session_search</td><td>session tree / extension</td></tr><tr><td>Compaction</td><td>自动摘要与 context 管理</td><td>Responses compaction</td><td>memory flush + summary + continuation</td><td>tree-aware compaction，可扩展</td></tr><tr><td>Procedural Memory</td><td>Skills</td><td>Skills</td><td>Skills + skill learning</td><td>Skills / packages</td></tr><tr><td>用户画像</td><td>可写入 memory / CLAUDE.md</td><td>可进入 memories</td><td>独立 USER.md</td><td>由 AGENTS.md 或 extension 实现</td></tr><tr><td>Memory 哲学</td><td>自动学习 + 小索引按需读取</td><td>从历史会话提取、可控启用</td><td>bounded curated memory + episodic search</td><td>小核心，把策略交给用户</td></tr></tbody>
-</table>
-</div>
+ </table>
+ </div>
+
+表中的 Claude Code 记忆机制见 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory)，Codex 见 [Codex 记忆文档](https://learn.chatgpt.com/codex/memories)，Hermes 见 [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)，pi 的 session/树状历史见 [pi Sessions 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/sessions.md)。
 
 ---
 
@@ -2008,8 +2010,10 @@ MCP server 是否可访问外部服务
 <div class="article-table-scroller" tabindex="0" role="region" aria-label="四家 Agent Architecture 总表">
 <table>
 <thead><tr><th scope="col">维度</th><th scope="col">Claude Code</th><th scope="col">Codex</th><th scope="col">Hermes Agent</th><th scope="col">pi</th></tr></thead><tbody><tr><td>核心定位</td><td>集成式 Coding Agent</td><td>Software Engineering Agent</td><td>Personal General Agent</td><td>Minimal programmable agent</td></tr><tr><td>默认工具丰富度</td><td>高</td><td>高</td><td>很高</td><td>很低</td></tr><tr><td>默认工具</td><td>文件、shell、web、MCP 等</td><td>文件、shell、web、MCP 等</td><td>terminal、browser、memory、messaging、automation 等</td><td>read / write / edit / bash</td></tr><tr><td>Subagent</td><td>原生</td><td>原生</td><td>原生 delegate_task</td><td>核心不内置，可扩展</td></tr><tr><td>Hooks</td><td>原生生命周期 hooks</td><td>Skills / rules / tool orchestration 等</td><td>tool registry 与 Agent hooks</td><td>Extension lifecycle 非常开放</td></tr><tr><td>MCP</td><td>原生</td><td>原生</td><td>原生</td><td>扩展实现</td></tr><tr><td>模型耦合</td><td>Anthropic-native</td><td>OpenAI-native，也支持 OSS / 自定义 provider</td><td>provider-agnostic</td><td>provider-agnostic</td></tr><tr><td>默认 Sandbox</td><td>permission + sandbox</td><td>OS-enforced sandbox + approval</td><td>backend 可配置</td><td>无强制 sandbox</td></tr><tr><td>UI</td><td>CLI / IDE / Desktop / Web</td><td>CLI / IDE / Desktop / Cloud</td><td>CLI / TUI / Desktop / messaging</td><td>TUI / print / RPC / SDK</td></tr><tr><td>自动化倾向</td><td>工程工作流</td><td>工程任务、并行执行、云任务</td><td>cron、消息平台、长期运行</td><td>由 extension 自己搭</td></tr><tr><td>可定制哲学</td><td>配置丰富但产品 opinionated</td><td>强执行边界和工程编排</td><td>大而全的 personal agent</td><td>极小核心、最大可编程性</td></tr></tbody>
-</table>
-</div>
+ </table>
+ </div>
+
+表中的产品定位与默认工具边界分别依据 [Claude Code 功能总览](https://code.claude.com/docs/en/features-overview)、[Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli)、[Hermes Agent 架构文档](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture) 与 [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)。
 
 ---
 
@@ -2017,7 +2021,7 @@ MCP server 是否可访问外部服务
 
 ### Claude Code
 
-核心优势： [官方文档](https://code.claude.com/docs/en/features-overview) [官方文档](https://learn.chatgpt.com/docs/codex/cli) [官方文档](https://github.com/NousResearch/hermes-agent) [官方文档](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+核心优势： [Claude Code 功能总览](https://code.claude.com/docs/en/features-overview) [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli) [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent) [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 <!-- prettier-ignore -->
 ```text
@@ -2104,7 +2108,7 @@ small core
 
 ### 想要开箱即用的自动项目记忆
 
-优先看： [官方文档](https://code.claude.com/docs/en/memory) [官方文档](https://learn.chatgpt.com/codex/memories) [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md) [官方文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
+优先看： [Claude Code 记忆文档](https://code.claude.com/docs/en/memory) [Codex 记忆文档](https://learn.chatgpt.com/codex/memories) [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md) [pi Skills 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
 
 <!-- prettier-ignore -->
 ```text
@@ -2160,7 +2164,7 @@ pi
 
 <h2 id="section-48" data-article-section>48. 如果从 Agent 研究角度看</h2>
 
-建议阅读顺序： [官方文档](https://code.claude.com/docs/en/how-claude-code-works) [官方文档](https://learn.chatgpt.com/docs/codex/cli) [官方文档](https://github.com/NousResearch/hermes-agent) [官方文档](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+建议阅读顺序： [Claude Code 工作原理文档](https://code.claude.com/docs/en/how-claude-code-works) [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli) [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent) [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 <!-- prettier-ignore -->
 ```text
@@ -2189,7 +2193,7 @@ Hermes
 
 ### 误区 1：模型越强，Agent 一定越强
 
-不一定。 [官方文档](https://code.claude.com/docs/en/context-window) [官方文档](https://learn.chatgpt.com/docs/codex/cli) [官方文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/sessions.md) [官方文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/compaction.md)
+不一定。 [Claude Code 上下文窗口文档](https://code.claude.com/docs/en/context-window) [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli) [Hermes Agent 会话文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/sessions.md) [pi Compaction 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/compaction.md)
 
 <!-- prettier-ignore -->
 ```text
@@ -2265,7 +2269,7 @@ raw session storage
 
 <h2 id="section-50" data-article-section>50. 最终总结</h2>
 
-四家可以浓缩成四种不同的 Agent 哲学： [官方文档](https://code.claude.com/docs/en/features-overview) [官方文档](https://learn.chatgpt.com/docs/codex/cli) [官方文档](https://github.com/NousResearch/hermes-agent) [官方文档](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+四家可以浓缩成四种不同的 Agent 哲学： [Claude Code 功能总览](https://code.claude.com/docs/en/features-overview) [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli) [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent) [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 <!-- prettier-ignore -->
 ```text
@@ -2339,17 +2343,21 @@ How can the system learn a reusable procedure?
 ### OpenAI Codex
 
 - [Codex CLI](https://learn.chatgpt.com/docs/codex/cli)
+- [Codex Agent Loop 工程文章](https://openai.com/index/unrolling-the-codex-agent-loop/)
 - [AGENTS.md](https://learn.chatgpt.com/docs/agent-configuration/agents-md)
 - [Memory](https://learn.chatgpt.com/codex/memories)
 - [Sub-agents](https://learn.chatgpt.com/docs/agent-configuration/subagents)
 - [Sandboxing](https://learn.chatgpt.com/codex/sandboxing)
-- [Internet access](https://learn.chatgpt.com/codex)
+- [Codex cloud internet access](https://learn.chatgpt.com/codex/cloud/internet-access)
 - [MCP](https://learn.chatgpt.com/docs/extend/mcp?surface=cli)
 - [Official repository](https://github.com/openai/codex)
 
 ### Hermes Agent
 
 - [Official repository](https://github.com/NousResearch/hermes-agent)
+- [Architecture](https://hermes-agent.nousresearch.com/docs/developer-guide/architecture)
+- [Context compression and caching](https://hermes-agent.nousresearch.com/docs/developer-guide/context-compression-and-caching)
+- [Context Files](https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files)
 - [Memory](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)
 - [Skills](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/skills.md)
 - [Delegation](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/delegation.md)
