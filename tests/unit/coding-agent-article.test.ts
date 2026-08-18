@@ -31,6 +31,7 @@ const requiredSources = {
     'https://hermes-agent.nousresearch.com/docs/user-guide/features/context-files',
   codexLoop: 'https://openai.com/index/unrolling-the-codex-agent-loop/',
   codexCloudInternet: 'https://learn.chatgpt.com/codex/cloud/internet-access',
+  codexSandbox: 'https://learn.chatgpt.com/codex/sandboxing',
 };
 
 function sectionBlock(content: string, sectionNumber: number): string {
@@ -143,6 +144,7 @@ describe('Coding Agent article integrity', () => {
     expect(hermesCompaction).toContain('in_place: false');
     expect(hermesCompaction).toContain('parent_session_id');
     expect(hermesCompaction).not.toMatch(/默认[\s\S]{0,80}session A\s*#2/);
+    expect(hermesCompaction).not.toContain('create continuation session');
 
     const codexCompaction = sectionBlock(content, 17);
     expect(codexCompaction).toContain('/responses/compact');
@@ -176,5 +178,33 @@ describe('Coding Agent article integrity', () => {
     expect(sectionBlock(content, 45)).toMatch(
       /https:\/\/code\.claude\.com\/|https:\/\/learn\.chatgpt\.com\/|https:\/\/github\.com\/(?:NousResearch|badlogic)\//,
     );
+
+    const memoryTable = sectionBlock(content, 44);
+    expect(memoryTable).not.toContain('memory flush + summary + continuation');
+    expect(memoryTable).toMatch(/in-place|stable session id|archived/);
+
+    const architectureTable = sectionBlock(content, 45);
+    expect(architectureTable).toContain('Hermes Agent 架构文档');
+
+    const claudeCore = sectionBlock(content, 46);
+    const codexHeading = claudeCore.indexOf('### Codex');
+    const claudeCoreParagraph = claudeCore.slice(0, codexHeading);
+    expect(claudeCoreParagraph).toContain('Claude Code 功能总览');
+    expect(claudeCoreParagraph).not.toContain('Codex CLI 文档');
+    expect(claudeCoreParagraph).not.toContain('Hermes Agent 官方仓库');
+    expect(claudeCoreParagraph).not.toContain('pi Coding Agent 官方仓库');
+
+    const automaticMemory = sectionBlock(content, 47);
+    const configurableMemory =
+      automaticMemory.indexOf('### 想要可选择启用的本地历史提炼');
+    expect(automaticMemory.slice(0, configurableMemory)).not.toContain(
+      'pi Skills 文档',
+    );
+
+    const networkComparison = sectionBlock(content, 43);
+    expect(networkComparison).toContain('[Codex 沙箱文档]');
+    expect(networkComparison).toContain('[Codex cloud 网络访问文档]');
+    expect(networkComparison).toContain(requiredSources.codexSandbox);
+    expect(networkComparison).toContain(requiredSources.codexCloudInternet);
   });
 });

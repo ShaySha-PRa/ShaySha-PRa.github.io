@@ -1518,7 +1518,9 @@ keep last N messages intact
        ↓
 keep tool-call/result pairs together
        ↓
-create continuation session
+rewrite same-session message list
+       ↓
+archive compacted turns for search
 ```
 
 默认 `compression.in_place: true` 会在同一个 session id 上重写 live message list；它仍会保护最近约 20 条消息，并形成：
@@ -1979,7 +1981,7 @@ MCP support
 </table>
 </div>
 
-因此判断“能否联网”至少要拆成： [Claude Code 安全文档](https://code.claude.com/docs/en/security) [Codex cloud 网络访问文档](https://learn.chatgpt.com/codex/cloud/internet-access) [Hermes Agent 安全文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/security.md) [pi 安全文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/security.md)
+因此判断“能否联网”至少要拆成： [Claude Code 安全文档](https://code.claude.com/docs/en/security) [Codex 沙箱文档](https://learn.chatgpt.com/codex/sandboxing) [Codex cloud 网络访问文档](https://learn.chatgpt.com/codex/cloud/internet-access) [Hermes Agent 安全文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/security.md) [pi 安全文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/security.md)
 
 <!-- prettier-ignore -->
 ```text
@@ -1997,11 +1999,11 @@ MCP server 是否可访问外部服务
 
 <div class="article-table-scroller" tabindex="0" role="region" aria-label="四家 Memory 总表">
 <table>
-<thead><tr><th scope="col">维度</th><th scope="col">Claude Code</th><th scope="col">Codex</th><th scope="col">Hermes Agent</th><th scope="col">pi</th></tr></thead><tbody><tr><td>Working Memory</td><td>当前 context window</td><td>当前 context window</td><td>当前 context window</td><td>当前 context window</td></tr><tr><td>项目规则</td><td>CLAUDE.md、.claude/rules</td><td>AGENTS.md、override</td><td>.hermes.md / HERMES.md / AGENTS.md 等</td><td>AGENTS.md / CLAUDE.md</td></tr><tr><td>自动语义记忆</td><td>Auto Memory，默认开启</td><td>Local Memories，默认关闭</td><td>Agent 主动维护 MEMORY.md / USER.md</td><td>核心无内置自动 learned memory</td></tr><tr><td>长期记忆位置</td><td>repo 对应 memory 目录</td><td>~/.codex/memories</td><td>~/.hermes/memories</td><td>由 extension / 用户文件决定</td></tr><tr><td>Session 存储</td><td>JSONL</td><td>本地 chat/session state</td><td>SQLite</td><td>树状 JSONL</td></tr><tr><td>Episodic Retrieval</td><td>resume / history；长期回忆主要靠 memory</td><td>thread/history + memories</td><td>FTS5 session_search</td><td>session tree / extension</td></tr><tr><td>Compaction</td><td>自动摘要与 context 管理</td><td>Responses compaction</td><td>memory flush + summary + continuation</td><td>tree-aware compaction，可扩展</td></tr><tr><td>Procedural Memory</td><td>Skills</td><td>Skills</td><td>Skills + skill learning</td><td>Skills / packages</td></tr><tr><td>用户画像</td><td>可写入 memory / CLAUDE.md</td><td>可进入 memories</td><td>独立 USER.md</td><td>由 AGENTS.md 或 extension 实现</td></tr><tr><td>Memory 哲学</td><td>自动学习 + 小索引按需读取</td><td>从历史会话提取、可控启用</td><td>bounded curated memory + episodic search</td><td>小核心，把策略交给用户</td></tr></tbody>
+<thead><tr><th scope="col">维度</th><th scope="col">Claude Code</th><th scope="col">Codex</th><th scope="col">Hermes Agent</th><th scope="col">pi</th></tr></thead><tbody><tr><td>Working Memory</td><td>当前 context window</td><td>当前 context window</td><td>当前 context window</td><td>当前 context window</td></tr><tr><td>项目规则</td><td>CLAUDE.md、.claude/rules</td><td>AGENTS.md、override</td><td>.hermes.md / HERMES.md / AGENTS.md 等</td><td>AGENTS.md / CLAUDE.md</td></tr><tr><td>自动语义记忆</td><td>Auto Memory，默认开启</td><td>Local Memories，默认关闭</td><td>Agent 主动维护 MEMORY.md / USER.md</td><td>核心无内置自动 learned memory</td></tr><tr><td>长期记忆位置</td><td>repo 对应 memory 目录</td><td>~/.codex/memories</td><td>~/.hermes/memories</td><td>由 extension / 用户文件决定</td></tr><tr><td>Session 存储</td><td>JSONL</td><td>本地 chat/session state</td><td>SQLite</td><td>树状 JSONL</td></tr><tr><td>Episodic Retrieval</td><td>resume / history；长期回忆主要靠 memory</td><td>thread/history + memories</td><td>FTS5 session_search</td><td>session tree / extension</td></tr><tr><td>Compaction</td><td>自动摘要与 context 管理</td><td>Responses compaction</td><td>in-place summary + stable session id + archived searchable turns; rotation only with in_place:false</td><td>tree-aware compaction，可扩展</td></tr><tr><td>Procedural Memory</td><td>Skills</td><td>Skills</td><td>Skills + skill learning</td><td>Skills / packages</td></tr><tr><td>用户画像</td><td>可写入 memory / CLAUDE.md</td><td>可进入 memories</td><td>独立 USER.md</td><td>由 AGENTS.md 或 extension 实现</td></tr><tr><td>Memory 哲学</td><td>自动学习 + 小索引按需读取</td><td>从历史会话提取、可控启用</td><td>bounded curated memory + episodic search</td><td>小核心，把策略交给用户</td></tr></tbody>
  </table>
  </div>
 
-表中的 Claude Code 记忆机制见 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory)，Codex 见 [Codex 记忆文档](https://learn.chatgpt.com/codex/memories)，Hermes 见 [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)，pi 的 session/树状历史见 [pi Sessions 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/sessions.md)。
+表中的 Claude Code 记忆机制见 [Claude Code 记忆文档](https://code.claude.com/docs/en/memory)，Codex 见 [Codex 记忆文档](https://learn.chatgpt.com/codex/memories)，Hermes 见 [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)，pi 的 session/树状历史见 [pi Sessions 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/sessions.md)。Hermes 的默认 compaction 保持 stable session id；旧式 rotation 只在 `in_place:false` 时启用，详见 [Hermes Agent 上下文压缩与缓存文档](https://hermes-agent.nousresearch.com/docs/developer-guide/context-compression-and-caching)。
 
 ---
 
@@ -2021,7 +2023,7 @@ MCP server 是否可访问外部服务
 
 ### Claude Code
 
-核心优势： [Claude Code 功能总览](https://code.claude.com/docs/en/features-overview) [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli) [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent) [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
+核心优势：集成式 coding workflow、Auto Memory、Rules、Hooks、Subagents 与 MCP。 [Claude Code 功能总览](https://code.claude.com/docs/en/features-overview)
 
 <!-- prettier-ignore -->
 ```text
@@ -2042,7 +2044,7 @@ MCP server 是否可访问外部服务
 
 ### Codex
 
-核心优势：
+核心优势：sandbox / approval boundary、工程执行与并行编排。 [Codex CLI 文档](https://learn.chatgpt.com/docs/codex/cli)
 
 <!-- prettier-ignore -->
 ```text
@@ -2063,7 +2065,7 @@ strong coding model
 
 ### Hermes
 
-核心优势：
+核心优势：长期个人记忆、消息平台、自动化与多种执行后端。 [Hermes Agent 官方仓库](https://github.com/NousResearch/hermes-agent)
 
 <!-- prettier-ignore -->
 ```text
@@ -2086,7 +2088,7 @@ general agent
 
 ### pi
 
-核心优势：
+核心优势：小核心、透明 loop、session tree 与可编程扩展。 [pi Coding Agent 官方仓库](https://github.com/badlogic/pi-mono/tree/main/packages/coding-agent)
 
 <!-- prettier-ignore -->
 ```text
@@ -2108,7 +2110,7 @@ small core
 
 ### 想要开箱即用的自动项目记忆
 
-优先看： [Claude Code 记忆文档](https://code.claude.com/docs/en/memory) [Codex 记忆文档](https://learn.chatgpt.com/codex/memories) [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md) [pi Skills 文档](https://github.com/badlogic/pi-mono/blob/main/packages/coding-agent/docs/skills.md)
+优先看： [Claude Code 记忆文档](https://code.claude.com/docs/en/memory) [Codex 记忆文档](https://learn.chatgpt.com/codex/memories) [Hermes Agent 记忆文档](https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/memory.md)
 
 <!-- prettier-ignore -->
 ```text
