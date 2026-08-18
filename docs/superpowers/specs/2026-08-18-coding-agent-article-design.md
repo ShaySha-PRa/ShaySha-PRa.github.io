@@ -126,7 +126,11 @@ hideDate: z.boolean().default(false)
 - Modify: `src/content.config.ts`
 - Modify: `src/layouts/ArticleLayout.astro`
 - Modify: `src/components/cards/ArticleCard.astro`
+- Modify: `src/lib/content.ts`
 - Modify: `src/lib/article-routes.ts`
+- Modify: `src/pages/index.astro`
+- Modify: `src/pages/writing/index.astro`
+- Modify: `src/pages/writing/[slug].astro`
 - Modify: `src/pages/en/index.astro`
 - Modify: `src/pages/en/writing/index.astro`
 - Modify: `src/pages/en/writing/[slug].astro`
