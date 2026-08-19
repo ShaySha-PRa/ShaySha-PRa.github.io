@@ -1,89 +1,97 @@
 ---
-title: AI 数学动画生成工作台
+title: Manim Project · 科研动画工作台
 slug: manim-project
 locale: zh
 translationKey: manim-project
-summary: 将教学意图整理为可审阅的 ContentPlan，再沿着版本化代码链生成可检查的 Manim 视频产物。
+summary: 将一句科研描述与可选数据编译为可追溯的 AnimationIR、受控科学计算和可审阅视频，同时保留教学 ContentPlan 路径。
 published: 2026-08-16
-updated: 2026-08-17
+updated: 2026-08-19
 draft: false
 status: experiment
 role: 独立开发者
-tech: [Next.js, FastAPI, Python, Manim, SQLite, Redis, Docker]
+tech:
+  [Next.js, FastAPI, Python, AnimationIR, ManimCE, NumPy/SciPy, Redis, Docker]
 repoUrl: https://github.com/ShaySha-PRa/Manim_project
 cover: ../../../assets/projects/manim-project/cover.png
 gallery: []
 featured: false
 order: 4
 evidence:
-  - 封面来自仓库 docs/assets/workbench-demo.png；两张上下文图均从仓库 docs/assets/formula-derivation-demo.mp4 提取，分别取 30.0 秒和 50.0 秒帧。
-  - 本轮在 WSL Python 3.10 环境完成仓库 519 项测试；使用确定性模板完成一条结构化公式任务，并对仓库演示视频执行本地质量检查，未记录模型或生产指标。
+  - 封面来自仓库 2026-08-19 更新后的 docs/assets/workbench-demo.png；两张上下文图仍取自 docs/assets/formula-derivation-demo.mp4 的 30.0 秒与 50.0 秒帧，代表保留的教学路径。
+  - 最新 GitHub Actions Python job 完成 Ruff 与 580 passed、1 skipped；Web job 因 nanoid high-severity audit 在前置门禁停止，本机 WSL 的 lint、typecheck 与 production build 均通过。
+  - 本机重跑封闭验收：P0 7 例中 6 个可渲染切片首次出片、1 例正确进入 needs_confirmation；P1 76 例与 P2 130 例均通过各自内部门禁。P2 明确是实验室 harness，不是外部用户研究。
 caseStudy:
-  category: 应用型 AI
-  scope: 安全媒体生成流水线
+  category: 科学可视化 / Agent + Compiler
+  scope: 双路径 Animation Agent 工作台
 ---
 
 ## 项目解决什么
 
-数学动画的难点不只是生成一段 Manim 代码，而是把教学目标、受众、时长和公式假设变成可以共同审阅的制作计划。这个工作台先让教师确认结构化的 ContentPlan，再把计划变成带版本关系的代码与渲染任务，让每一次修改都能回到教学意图，并把最终视频、缩略图、日志和质量诊断交还给人检查。
+科研动画不能把“让模型写一段 Manim Python”当成科学正确性的来源：轨迹、场、残差和数据点需要可追溯的计算产物，动画表达也需要可验证的中间表示。这个工作台新增 Animation Agent V2，把一句科研描述与可选 CSV 先解析为 IntentSpec，再调用白名单科学工具生成 ToolRun，构建 AnimationIR 2.0，并由确定性 Compiler 输出可审阅的 Preview；原有教学 Prompt → ContentPlan → CodeVersion 路径继续保留，二者共用版本、队列、沙箱与交付层。
 
 ## 核心功能
 
 <ul class="project-capabilities" data-project-capabilities>
-  <li>输入教学目标、受众、时长与假设</li>
-  <li>生成并编辑结构化 ContentPlan</li>
-  <li>生成只读、版本化的 Manim CodeVersion</li>
-  <li>提交 Preview 和 Final 渲染</li>
-  <li>查看视频、缩略图与渲染日志</li>
-  <li>检查时长、帧率和严重视觉异常</li>
+  <li>用一句科研描述和可选 CSV 创建动画任务</li>
+  <li>将模型输出限制为结构化 IntentSpec JSON</li>
+  <li>通过白名单科学工具生成可追溯 ToolRun</li>
+  <li>将 AnimationIR 2.0 编译为 Manim 与 Web JSON</li>
+  <li>以表达 critic 检查并最多修复一次 IR</li>
+  <li>交付 Preview / Final、QualityReport 与教学 ContentPlan</li>
 </ul>
 
 ## 使用流程
 
 <ol class="project-flow" data-project-flow>
-  <li>输入教学需求</li>
-  <li>生成结构化计划</li>
-  <li>预览与检查</li>
-  <li>交付最终产物</li>
+  <li>输入科研目标与可选资产</li>
+  <li>解析 Intent 并运行科学工具</li>
+  <li>构建并检查 AnimationIR</li>
+  <li>编译并渲染 Preview</li>
 </ol>
 
-教师先描述一个公式推导或函数可视化任务，工作台将需求整理为包含受众、时长、场景、公式步骤和显式假设的 ContentPlan。计划由人审阅和编辑后，才会生成 Manim 代码；Preview 和 Final 任务通过 job ID 排队，在隔离执行边界内渲染，再把视频、缩略图、元数据和质量诊断返回工作台。
+用户从无需登录的本地工作台输入一句科研目标，并按需附上 CSV。系统将目标整理为可审阅的 domain、assumptions 和 tools_needed；未匹配封闭目录时返回 needs_confirmation，缺少必需数据时返回 asset_required，不自行补公式或伪造数据。匹配成功后，ToolRun 的输出进入 AnimationIR、critic 与 Compiler，再沿现有 Runner 和无网 Docker 渲染边界生成 Preview。
+
+在封闭 P0 验收中，6 个可渲染纵向切片全部通过科学断言、确定性编译和首次 Docker 出片，论文+CSV 未满足封闭目录条件的样例正确暂停确认；这些是内部验收结果，不是通用生成成功率。
 
 ## 项目亮点
 
-### 先把教学意图变成可审阅计划
+### 让模型规划意图，而不是编写自由 Scene
 
-ContentPlan 先于代码生成：它把教学目标、受众、时长、场景、公式步骤和假设整理成可编辑的制作对象。教师可以先审阅这份计划，再决定是否进入代码生成和 Preview 渲染，避免把不可读的生成代码当成教学设计本身。
+科研路径中，模型若启用也只能填写 IntentSpec JSON，不能输出 Scene Python、lambda 或自由 NumPy 表达式；没有模型配置时则回退到透明的关键词 Intent 目录。确定性 Compiler 负责把受限 IR lowering 为 Manim 代码，未知 capability 返回结构化错误与显式 fallback。教学路径仍允许受 AST/API 白名单约束的 CodeVersion，但不会与科研 Compiler 的证据口径混在一起。
 
 <figure class="project-evidence">
-  <img src="/projects/manim-project/formula-derivation-demo.jpg" alt="公式推导动画演示画面" width="1920" height="1080" loading="lazy" />
-  <figcaption>公式推导演示帧来自仓库 docs/assets/formula-derivation-demo.mp4 的 30.0 秒位置；它只作为项目上下文，不代表本轮重新生成的模型结果。</figcaption>
+  <img src="/projects/manim-project/formula-derivation-demo.jpg" alt="教学路径中的公式推导动画演示画面" width="1920" height="1080" loading="lazy" />
+  <figcaption>公式推导演示帧来自仓库教学路径的 docs/assets/formula-derivation-demo.mp4 30.0 秒位置；新版科研路径与这条教学 ContentPlan 路径并存。</figcaption>
 </figure>
 
-### 用版本链连接每次修改与产物
+### 把科学数值和来源锁进 ToolRun
 
-Prompt → Plan → Code → Artifact 是一条不可变、可追溯的版本链。Prompt、ContentPlan 和只读的 CodeVersion 都按版本追加，后续修改通过 parent version 关联；每个 Preview 或 Final 产物都能反查对应的计划和代码，不会覆盖旧的审阅对象。
+轨迹、场和时间序列来自注册式 NumPy/SciPy/pandas 工具，而不是 Scene 运行时临场计算。ToolRun 记录参数、输入与输出哈希；AssetVersion 保存不可变资产来源，AnimationIR 只引用 artifact_ref。论文+CSV 复现目前只接受封闭的 Lotka–Volterra 目录和完整系数，其他论文明确进入 needs_confirmation。
 
-### 在隔离执行前拒绝不可信代码
+P1 的 76 条内部黄金任务中有 58 条 ready；expected、science 与 provenance rate 均为 1.0，表达 critic 均值为 5.0，平均 IR repair 为 0。它证明的是封闭语料上的溯源与表达门禁，不是外部研究结论。
 
-生成代码先经过 AST 与 Manim API 白名单、编译和 Scene 预检；只有通过这些检查的任务才会进入无网络、非 root、资源受限的隔离 Manim 容器。产物随后接受确定性的媒体检查，以时长、帧率、帧数和严重视觉异常生成质量诊断，并在返回工作台前脱敏日志。
+### 用同一份 IR 连接双 Backend 与修复闭环
+
+AnimationIR 2.0 经过结构校验和 TIFA 风格表达 critic 后，最多执行一次 IR-level repair；同一份 IR 可以确定性 lowering 为 Manim Python 和 Web JSON，避免为不同预览端重新解释科学意图。Manim 结果进入现有无网 Render Sandbox，Web backend 只输出可检查的 JSON 预览，不冒充第二套视频渲染器。
+
+P2 的 130 条内部 benchmark 中有 100 条 ready，science、expected 与 cross-backend rate 均为 1.0，非预期 FAILED rate 为 0；协议同时明确 external_user_study=false。
 
 <figure class="project-evidence">
-  <img src="/projects/manim-project/quality-result.png" alt="仓库演示视频 50 秒处的数学动画帧" width="1920" height="1080" loading="lazy" />
-  <figcaption>这是从同一仓库演示视频 50.0 秒位置提取的真实动画帧；旁边的质量结论来自本地 PyAV 检查，不把静态帧伪装成产品质量面板。</figcaption>
+  <img src="/projects/manim-project/quality-result.png" alt="教学路径仓库演示视频 50 秒处的动画帧" width="1920" height="1080" loading="lazy" />
+  <figcaption>这是保留的教学路径演示视频 50.0 秒帧；Preview / Final、缩略图、脱敏日志与 QualityReport 仍由两条生成路径共用。</figcaption>
 </figure>
 
 ## 系统架构
 
 <figure class="project-architecture">
   <div class="project-architecture__scroller" data-project-architecture-scroller tabindex="0">
-    <img src="/projects/manim-project-architecture.svg" alt="AI 数学动画生成工作台系统架构：Next.js 工作台通过 FastAPI 和 Redis 调度隔离 Manim 渲染与质量报告" width="1400" height="760" />
+    <img src="/projects/manim-project-architecture.svg" alt="Animation Agent V2 系统架构：科研 Prompt 经 IntentSpec、白名单科学工具、AnimationIR 2.0 和确定性编译进入 Manim 与 Web 双 Backend" width="1400" height="760" />
   </div>
-  <figcaption>架构图只保留工作台、控制平面、执行边界和产物检查四层；不把模型提供方、端口或生产部署写进实现证据。</figcaption>
+  <figcaption>UML-like 组件与活动视图区分科研 Agent 路径、保留的教学路径、计算边界和渲染边界；不展示端口、模型供应商或生产拓扑。</figcaption>
 </figure>
 
-Next.js 工作台通过 FastAPI + SQLite 保存 Prompt、ContentPlan、CodeVersion 与任务状态；Redis 只负责传递带 job ID 的渲染任务。Host Runner 在提交执行前完成 AST/API 白名单、编译和 Scene 预检，再把不可信代码交给默认拒绝的隔离 Manim 容器。Preview 和 Final artifacts 分开落盘，确定性媒体检查把渲染结果、缩略图和脱敏日志汇成可审阅的 QualityReport。
+Next.js 工作台把科研 Prompt 送入 Intent Resolver 和白名单 Compute Sandbox，ToolRun 与来源哈希进入 AnimationIR、critic 和一次 IR repair，再由确定性 Compiler 分发到 Manim 与 Web JSON backend。教学 ContentPlan / CodeVersion 经过独立安全预检后汇入同一 Runner。只有 Manim backend 进入无网络、非 root、资源受限的 Render Sandbox；Preview / Final 和 QualityReport 返回同一工作台。
 
 ## 项目边界
 
-这是一个用于教师审阅公式推导和函数可视化的本地工作台。数学内容和视觉表达需要人工审核，任意主题不保证一次生成最终视频。
+这是一个本地开发与验收工作台：科研路径只覆盖封闭的 Intent/工具目录，教学 ContentPlan 路径继续保留。P0/P1/P2 数字来自内部黄金集与实验室 harness，不代表外部科研用户研究或生产部署能力。

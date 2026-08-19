@@ -1,91 +1,150 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1400" height="760" viewBox="0 0 1400 760" role="img" aria-labelledby="title desc">
-  <title id="title">Manim Project system architecture</title>
-  <desc id="desc">Four-band view of the Manim Project workbench, API control plane, queued host runner, untrusted isolated execution, and inspected preview and final artifacts.</desc>
+  <title id="title">Animation Agent V2 system architecture</title>
+  <desc id="desc">Four-band component and activity view. The research path turns a prompt and optional asset into IntentSpec, allowlisted scientific ToolRuns, AnimationIR 2.0, critic review, deterministic Manim and Web compilation, sandboxed rendering, and reviewable outputs. A retained teaching ContentPlan and CodeVersion path joins the render boundary through a separate security preflight.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
       <path d="M 0 0 L 10 5 L 0 10 z" fill="#2e2a25" />
     </marker>
-    <marker id="arrowAccent" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b64a35" />
+    <marker id="arrowBlue" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#2734d9" />
+    </marker>
+    <marker id="arrowOrange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#d94d28" />
     </marker>
     <style>
       .canvas { fill: #f8f4ec; }
       .band { fill: #eee7da; stroke: #d8ccba; stroke-width: 2; }
-      .band-label { fill: #756b5d; font: 700 16px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 2px; }
-      .band-note { fill: #897d6e; font: 400 14px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .band-label { fill: #756b5d; font: 700 15px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 2px; }
+      .band-note { fill: #756b5d; font: 400 13px ui-monospace, SFMono-Regular, Consolas, monospace; }
       .node { fill: #fffdf8; stroke: #2e2a25; stroke-width: 2; }
-      .node-accent { fill: #fff5ef; stroke: #b64a35; stroke-width: 2; }
-      .node-state { fill: #f1f5f4; stroke: #3b6464; stroke-width: 2; }
-      .node-title { fill: #2e2a25; font: 700 18px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .35px; }
-      .node-sub { fill: #756b5d; font: 400 13px ui-monospace, SFMono-Regular, Consolas, monospace; }
-      .flow { fill: none; stroke: #2e2a25; stroke-width: 3; marker-end: url(#arrow); }
-      .flow-accent { fill: none; stroke: #b64a35; stroke-width: 3; marker-end: url(#arrowAccent); }
-      .flow-gray { fill: none; stroke: #81776a; stroke-width: 2.5; marker-end: url(#arrow); }
-      .boundary { fill: #f7ede4; stroke: #b64a35; stroke-width: 2.5; stroke-dasharray: 9 8; }
-      .legend { fill: #756b5d; font: 400 13px ui-monospace, SFMono-Regular, Consolas, monospace; }
-      .legend-line { stroke: #b64a35; stroke-width: 2.5; stroke-dasharray: 9 8; }
+      .node-blue { fill: #f3f4ff; stroke: #2734d9; stroke-width: 2.5; }
+      .node-orange { fill: #fff4ec; stroke: #d94d28; stroke-width: 2.5; }
+      .node-teal { fill: #eef6f3; stroke: #356a63; stroke-width: 2; }
+      .node-title { fill: #2e2a25; font: 700 16px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .2px; }
+      .node-sub { fill: #756b5d; font: 400 12px ui-monospace, SFMono-Regular, Consolas, monospace; }
+      .lane-label { fill: #2734d9; font: 700 11px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: 1.2px; }
+      .flow { fill: none; stroke: #2e2a25; stroke-width: 2.5; marker-end: url(#arrow); }
+      .flow-blue { fill: none; stroke: #2734d9; stroke-width: 3; marker-end: url(#arrowBlue); }
+      .flow-orange { fill: none; stroke: #d94d28; stroke-width: 3; marker-end: url(#arrowOrange); }
+      .boundary-compute { fill: #f3f4ff; fill-opacity: .45; stroke: #2734d9; stroke-width: 2; stroke-dasharray: 8 7; }
+      .boundary-render { fill: #fff4ec; fill-opacity: .5; stroke: #d94d28; stroke-width: 2; stroke-dasharray: 8 7; }
+      .boundary-label { fill: #756b5d; font: 700 11px ui-monospace, SFMono-Regular, Consolas, monospace; letter-spacing: .8px; }
     </style>
   </defs>
 
   <rect class="canvas" width="1400" height="760" />
-  <text x="52" y="42" fill="#2e2a25" font-family="Georgia, serif" font-size="28" font-weight="700">Manim Project / secure media generation pipeline</text>
-  <text x="52" y="68" class="band-note">A compact implementation map: every render carries a version, job identity, and inspectable artifact boundary.</text>
+  <text x="50" y="40" fill="#2e2a25" font-family="Georgia, serif" font-size="28" font-weight="700">Animation Agent V2 / scientific animation compiler</text>
+  <text x="50" y="65" class="band-note">Two explicit paths share delivery: controlled research compilation and a retained teaching ContentPlan workflow.</text>
 
-  <rect class="band" x="32" y="92" width="1336" height="126" rx="14" />
-  <text class="band-label" x="58" y="124">01 EXPERIENCE</text>
-  <text class="band-note" x="58" y="148">browser-facing authoring and delivery</text>
-  <rect class="node" x="280" y="116" width="250" height="72" rx="10" />
-  <text class="node-title" x="405" y="148" text-anchor="middle">BROWSER</text>
-  <text class="node-sub" x="405" y="172" text-anchor="middle">prompt · plan · preview</text>
-  <rect class="node-accent" x="780" y="116" width="340" height="72" rx="10" />
-  <text class="node-title" x="950" y="148" text-anchor="middle">NEXT.JS WORKBENCH</text>
-  <text class="node-sub" x="950" y="172" text-anchor="middle">immutable versions · artifact view</text>
-  <path class="flow-accent" d="M 530 152 H 780" />
+  <rect class="band" x="30" y="86" width="1340" height="112" rx="14" />
+  <text class="band-label" x="54" y="116">01 EXPERIENCE</text>
+  <text class="band-note" x="54" y="138">one-sentence research entry plus the retained teaching authoring path</text>
 
-  <rect class="band" x="32" y="234" width="1336" height="126" rx="14" />
-  <text class="band-label" x="58" y="266">02 CONTROL PLANE</text>
-  <text class="band-note" x="58" y="290">persist intent, issue job IDs, and coordinate rendering</text>
-  <rect class="node-accent" x="280" y="258" width="330" height="72" rx="10" />
-  <text class="node-title" x="445" y="290" text-anchor="middle">FASTAPI + SQLITE</text>
-  <text class="node-sub" x="445" y="314" text-anchor="middle">plans · versions · job state</text>
-  <rect class="node" x="780" y="258" width="300" height="72" rx="10" />
-  <text class="node-title" x="930" y="290" text-anchor="middle">REDIS JOB QUEUE</text>
-  <text class="node-sub" x="930" y="314" text-anchor="middle">job-ID scheduling</text>
-  <g id="control-plane-request-path" data-flow="workbench-control-queue" aria-label="NEXT.JS WORKBENCH → FASTAPI + SQLITE → REDIS JOB QUEUE">
-    <path class="flow" d="M 950 188 C 950 218 445 218 445 258" />
-    <path class="flow" d="M 610 294 H 780" />
+  <rect class="node-blue" x="180" y="108" width="270" height="66" rx="10" />
+  <text class="node-title" x="315" y="136" text-anchor="middle">RESEARCH PROMPT</text>
+  <text class="node-sub" x="315" y="157" text-anchor="middle">one sentence · optional CSV</text>
+
+  <rect class="node-orange" x="550" y="108" width="300" height="66" rx="10" />
+  <text class="node-title" x="700" y="136" text-anchor="middle">NEXT.JS WORKBENCH</text>
+  <text class="node-sub" x="700" y="157" text-anchor="middle">author · review · deliver</text>
+
+  <rect class="node" x="950" y="108" width="270" height="66" rx="10" />
+  <text class="node-title" x="1085" y="136" text-anchor="middle">TEACHING CONTENTPLAN</text>
+  <text class="node-sub" x="1085" y="157" text-anchor="middle">plan · CodeVersion</text>
+
+  <path class="flow-blue" d="M 450 141 H 550" />
+  <path class="flow" d="M 950 141 H 850" />
+
+  <rect class="band" x="30" y="212" width="1340" height="148" rx="14" />
+  <text class="band-label" x="54" y="242">02 AGENT + COMPUTE</text>
+  <text class="band-note" x="54" y="264">the model may plan JSON; scientific values come from controlled tools</text>
+  <text class="lane-label" x="250" y="286">RESEARCH PATH</text>
+
+  <rect class="boundary-compute" data-boundary="scientific-compute" x="474" y="270" width="492" height="76" rx="12" />
+  <text class="boundary-label" x="490" y="292">SCIENTIFIC COMPUTE · allowlisted · traceable</text>
+
+  <rect class="node-blue" x="250" y="294" width="190" height="48" rx="9" />
+  <text class="node-title" x="345" y="323" text-anchor="middle">INTENTSPEC</text>
+
+  <rect class="node" x="500" y="298" width="210" height="42" rx="9" />
+  <text class="node-title" x="605" y="324" text-anchor="middle">ALLOWLISTED SCIENCE TOOLS</text>
+
+  <rect class="node-teal" x="738" y="298" width="200" height="42" rx="9" />
+  <text class="node-title" x="838" y="316" text-anchor="middle">TOOLRUN + PROVENANCE</text>
+  <text class="node-sub" x="838" y="333" text-anchor="middle">params · input · output hash</text>
+
+  <rect class="node-blue" x="1010" y="294" width="220" height="48" rx="9" />
+  <text class="node-title" x="1120" y="316" text-anchor="middle">ANIMATIONIR 2.0</text>
+  <text class="node-sub" x="1120" y="334" text-anchor="middle">artifact_ref · assertions</text>
+
+  <g data-flow="workbench-to-intent" aria-label="NEXT.JS WORKBENCH to INTENTSPEC">
+    <path class="flow-blue" d="M 640 174 V 202 H 345 V 294" />
+  </g>
+  <g data-flow="intent-to-tools" aria-label="INTENTSPEC to ALLOWLISTED SCIENCE TOOLS">
+    <path class="flow-blue" d="M 440 318 H 500" />
+  </g>
+  <path class="flow-blue" d="M 710 319 H 738" />
+  <g data-flow="tools-to-ir" aria-label="TOOLRUN + PROVENANCE to ANIMATIONIR 2.0">
+    <path class="flow-blue" d="M 938 319 H 1010" />
   </g>
 
-  <rect class="band" x="32" y="376" width="1336" height="158" rx="14" />
-  <text class="band-label" x="58" y="408">03 EXECUTION</text>
-  <text class="band-note" x="58" y="432">host coordination hands untrusted code to an isolated renderer</text>
-  <rect class="node" x="280" y="456" width="300" height="58" rx="10" />
-  <text class="node-title" x="430" y="490" text-anchor="middle">HOST RUNNER</text>
-  <rect class="boundary" data-boundary="untrusted-execution" x="684" y="424" width="520" height="96" rx="12" />
-  <text class="legend" x="710" y="446">UNTRUSTED EXECUTION · default-deny</text>
-  <rect class="node-accent" x="740" y="458" width="380" height="48" rx="9" />
-  <text class="node-title" x="930" y="488" text-anchor="middle">ISOLATED MANIM CONTAINER</text>
-  <path class="flow" d="M 930 330 V 456 H 580" />
-  <g id="runner-container-path" data-flow="runner-to-container" aria-label="HOST RUNNER → ISOLATED MANIM CONTAINER">
-    <path class="flow-accent" d="M 580 485 H 740" />
-  </g>
-  <text class="legend" x="1218" y="476">AST + API allowlist</text>
-  <text class="legend" x="1218" y="497">no network · bounded resources</text>
+  <rect class="band" x="30" y="374" width="1340" height="190" rx="14" />
+  <text class="band-label" x="54" y="404">03 COMPILE + EXECUTE</text>
+  <text class="band-note" x="54" y="426">research IR compiles deterministically; teaching code joins through a separate preflight</text>
 
-  <rect class="band" x="32" y="550" width="1336" height="160" rx="14" />
-  <text class="band-label" x="58" y="582">04 ARTIFACTS</text>
-  <text class="band-note" x="58" y="606">separate preview/final outputs and deterministic quality evidence</text>
-  <rect class="node-state" x="280" y="632" width="350" height="58" rx="10" />
-  <text class="node-title" x="455" y="657" text-anchor="middle">PREVIEW / FINAL ARTIFACTS</text>
-  <text class="node-sub" x="455" y="678" text-anchor="middle">video · thumbnail · metadata</text>
-  <rect class="node-accent" x="780" y="632" width="300" height="58" rx="10" />
-  <text class="node-title" x="930" y="657" text-anchor="middle">QUALITY REPORT</text>
-  <text class="node-sub" x="930" y="678" text-anchor="middle">duration · frames · diagnostics</text>
-  <g id="container-artifact-path" data-flow="container-to-artifacts" data-source="isolated-manim-container" data-target="preview-final-artifacts" aria-label="ISOLATED MANIM CONTAINER → PREVIEW / FINAL ARTIFACTS">
-    <path class="flow-gray" d="M 740 506 V 590 H 630 V 632" />
+  <rect class="node-blue" x="150" y="444" width="210" height="52" rx="9" />
+  <text class="node-title" x="255" y="466" text-anchor="middle">CRITIC + IR REPAIR</text>
+  <text class="node-sub" x="255" y="485" text-anchor="middle">at most one repair</text>
+
+  <rect class="node-blue" x="420" y="444" width="220" height="52" rx="9" />
+  <text class="node-title" x="530" y="466" text-anchor="middle">DETERMINISTIC COMPILER</text>
+  <text class="node-sub" x="530" y="485" text-anchor="middle">validated lowering</text>
+
+  <rect class="node" x="700" y="444" width="190" height="52" rx="9" />
+  <text class="node-title" x="795" y="466" text-anchor="middle">MANIM BACKEND</text>
+  <text class="node-sub" x="795" y="485" text-anchor="middle">ManimCE 0.21 source</text>
+
+  <rect class="node-teal" x="1040" y="510" width="260" height="40" rx="9" />
+  <text class="node-title" x="1170" y="535" text-anchor="middle">WEB JSON BACKEND</text>
+
+  <rect class="node" x="1040" y="444" width="270" height="52" rx="9" />
+  <text class="node-title" x="1175" y="466" text-anchor="middle">TEACHING SECURITY PREFLIGHT</text>
+  <text class="node-sub" x="1175" y="485" text-anchor="middle">AST · API allowlist</text>
+
+  <rect class="boundary-render" data-boundary="render-sandbox" x="680" y="504" width="260" height="50" rx="10" />
+  <text class="boundary-label" x="694" y="522">RENDER SANDBOX · no network</text>
+  <text class="node-title" x="810" y="544" text-anchor="middle">RUNNER + MANIMCE</text>
+
+  <g data-flow="ir-to-compiler" aria-label="ANIMATIONIR 2.0 through critic to deterministic compiler">
+    <path class="flow-blue" d="M 1120 342 C 1120 408 255 408 255 444" />
+    <path class="flow-blue" d="M 360 470 H 420" />
   </g>
-  <g id="artifact-quality-path" data-flow="artifacts-to-quality" aria-label="PREVIEW / FINAL ARTIFACTS → QUALITY REPORT">
-    <path class="flow-gray" d="M 630 661 H 780" />
+  <g data-flow="compiler-to-manim" aria-label="DETERMINISTIC COMPILER to MANIM BACKEND">
+    <path class="flow-blue" d="M 640 470 H 700" />
   </g>
-  <path class="flow-accent" d="M 1080 661 H 1270 V 152 H 1120" />
+  <g data-flow="compiler-to-web" aria-label="DETERMINISTIC COMPILER to WEB JSON BACKEND">
+    <path class="flow-blue" d="M 530 496 V 558 H 1170 V 550" />
+  </g>
+  <path class="flow-orange" d="M 795 496 V 504" />
+  <g data-flow="teaching-to-render" aria-label="TEACHING CONTENTPLAN through security preflight to render sandbox">
+    <path class="flow" d="M 780 174 V 202 H 1325 V 470 H 1310" />
+    <path class="flow" d="M 1040 470 H 970 V 529 H 940" />
+  </g>
+
+  <rect class="band" x="30" y="578" width="1340" height="132" rx="14" />
+  <text class="band-label" x="54" y="608">04 OUTPUT</text>
+  <text class="band-note" x="54" y="630">both paths return inspectable outputs to the same workbench</text>
+
+  <rect class="node-orange" x="320" y="626" width="430" height="58" rx="10" />
+  <text class="node-title" x="535" y="650" text-anchor="middle">PREVIEW / FINAL + QUALITYREPORT</text>
+  <text class="node-sub" x="535" y="672" text-anchor="middle">video · thumbnail · diagnostics · redacted log</text>
+
+  <rect class="node-teal" x="930" y="626" width="280" height="58" rx="10" />
+  <text class="node-title" x="1070" y="650" text-anchor="middle">WEB JSON PREVIEW</text>
+  <text class="node-sub" x="1070" y="672" text-anchor="middle">same IR · inspectable lowering</text>
+
+  <g data-flow="render-to-output" aria-label="RENDER SANDBOX to PREVIEW FINAL and QUALITYREPORT">
+    <path class="flow-orange" d="M 810 554 C 810 598 535 598 535 626" />
+  </g>
+  <path class="flow" d="M 1170 550 V 626" />
 </svg>

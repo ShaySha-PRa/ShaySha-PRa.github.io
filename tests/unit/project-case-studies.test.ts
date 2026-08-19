@@ -129,19 +129,23 @@ const projectCases = [
   },
   {
     slug: 'manim-project',
-    zhTitle: 'AI 数学动画生成工作台',
-    enTitle: 'Manim Project',
-    category: '应用型 AI',
-    scope: '安全媒体生成流水线',
+    zhTitle: 'Manim Project · 科研动画工作台',
+    enTitle: 'Manim Project · Animation Agent Workbench',
+    category: '科学可视化 / Agent + Compiler',
+    scope: '双路径 Animation Agent 工作台',
     architecture: 'manim-project-architecture.svg',
     architectureLabels: [
       'NEXT.JS WORKBENCH',
-      'FASTAPI + SQLITE',
-      'REDIS JOB QUEUE',
-      'HOST RUNNER',
-      'ISOLATED MANIM CONTAINER',
-      'PREVIEW / FINAL ARTIFACTS',
-      'QUALITY REPORT',
+      'INTENTSPEC',
+      'ALLOWLISTED SCIENCE TOOLS',
+      'TOOLRUN + PROVENANCE',
+      'ANIMATIONIR 2.0',
+      'CRITIC + IR REPAIR',
+      'DETERMINISTIC COMPILER',
+      'MANIM BACKEND',
+      'WEB JSON BACKEND',
+      'RENDER SANDBOX',
+      'PREVIEW / FINAL + QUALITYREPORT',
     ],
     screenshots: ['formula-derivation-demo.jpg', 'quality-result.png'],
   },
@@ -202,7 +206,7 @@ for (const project of projectCases) {
         project.slug === 'agent-teams-project'
           ? 'AI Workflow'
           : project.slug === 'manim-project'
-            ? 'Applied AI'
+            ? 'Scientific Visualization / Agent + Compiler'
             : project.slug === 'sql-agent'
               ? 'Data Platform'
               : project.slug === 'ita-maskit'
@@ -212,7 +216,7 @@ for (const project of projectCases) {
         project.slug === 'agent-teams-project'
           ? 'Contract-review MVP'
           : project.slug === 'manim-project'
-            ? 'Secure media generation pipeline'
+            ? 'Dual-track Animation Agent workbench'
             : project.slug === 'sql-agent'
               ? 'Full-stack NL2SQL assistant'
               : project.slug === 'ita-maskit'
@@ -324,18 +328,26 @@ for (const project of projectCases) {
       );
     } else if (project.slug === 'manim-project') {
       expect(architecture).toContain('01 EXPERIENCE');
-      expect(architecture).toContain('02 CONTROL PLANE');
-      expect(architecture).toContain('03 EXECUTION');
-      expect(architecture).toContain('04 ARTIFACTS');
-      expect(architecture).toContain('default-deny');
-      expect(architecture).toContain('data-boundary="untrusted-execution"');
-      expect(architecture).toContain('data-flow="workbench-control-queue"');
-      expect(architecture).toContain('data-flow="runner-to-container"');
-      expect(architecture).toContain('data-flow="container-to-artifacts"');
-      expect(architecture).toContain('data-source="isolated-manim-container"');
-      expect(architecture).toContain('data-target="preview-final-artifacts"');
-      expect(architecture).toContain('data-flow="artifacts-to-quality"');
-      expect(architecture).not.toContain('data-flow="runner-to-artifacts"');
+      expect(architecture).toContain('02 AGENT + COMPUTE');
+      expect(architecture).toContain('03 COMPILE + EXECUTE');
+      expect(architecture).toContain('04 OUTPUT');
+      expect(architecture).toContain('data-boundary="scientific-compute"');
+      expect(architecture).toContain('data-boundary="render-sandbox"');
+      for (const flow of [
+        'workbench-to-intent',
+        'intent-to-tools',
+        'tools-to-ir',
+        'ir-to-compiler',
+        'compiler-to-manim',
+        'compiler-to-web',
+        'teaching-to-render',
+        'render-to-output',
+      ]) {
+        expect(architecture).toContain(`data-flow="${flow}"`);
+      }
+      expect(architecture).not.toMatch(
+        /\b(?:DeepSeek|OpenAI|MiniMax|\d{2,5}\s*ports?)\b/i,
+      );
     } else {
       expect(architecture).toContain('01 EXPERIENCE');
       expect(architecture).toContain('02 CONTROL');
@@ -463,7 +475,7 @@ it('Agent Teams leads with the bilingual risk-routed human-review story', () => 
   );
 });
 
-it('Manim leads with the bilingual teaching-to-video product story', () => {
+it('Manim leads with the bilingual Animation Agent product story', () => {
   const zh = matter(
     readFileSync(
       resolve(root, 'src/content/projects/zh/manim-project.md'),
@@ -482,14 +494,14 @@ it('Manim leads with the bilingual teaching-to-video product story', () => {
   expect(getCapabilityItems(zh.content)).toHaveLength(6);
   expect(getCapabilityItems(en.content)).toHaveLength(6);
   expect(getHighlightHeadings(zh.content, 'zh')).toEqual([
-    '先把教学意图变成可审阅计划',
-    '用版本链连接每次修改与产物',
-    '在隔离执行前拒绝不可信代码',
+    '让模型规划意图，而不是编写自由 Scene',
+    '把科学数值和来源锁进 ToolRun',
+    '用同一份 IR 连接双 Backend 与修复闭环',
   ]);
   expect(getHighlightHeadings(en.content, 'en')).toEqual([
-    'Turn teaching intent into a reviewable plan first',
-    'Connect every revision to its artifact',
-    'Reject untrusted code before isolated execution',
+    'Let the model plan intent instead of writing free-form Scenes',
+    'Keep scientific values and provenance inside ToolRun',
+    'Use one IR for two backends and a repair loop',
   ]);
   for (const document of [zh, en]) {
     expect(document.content).toContain(
@@ -501,6 +513,9 @@ it('Manim leads with the bilingual teaching-to-video product story', () => {
     expect(document.data.repoUrl).toBe(
       'https://github.com/ShaySha-PRa/Manim_project',
     );
+    expect(document.data.evidence.join(' ')).toMatch(/580.*1 skipped/i);
+    expect(document.content).toContain('AnimationIR 2.0');
+    expect(document.content).toContain('130');
   }
 });
 
@@ -511,8 +526,8 @@ it('GraphRAG and Manim scopes stay concise and free of reproduction history', ()
       en: 'This project is a local-document knowledge exploration workbench combining graph construction, relationship search, and multi-turn Q&A. It does not provide multi-user collaboration, tenant isolation, or enterprise knowledge governance.',
     },
     'manim-project': {
-      zh: '这是一个用于教师审阅公式推导和函数可视化的本地工作台。数学内容和视觉表达需要人工审核，任意主题不保证一次生成最终视频。',
-      en: 'This local workbench is for teacher-reviewed formula derivation and function visualization. Mathematical content and visual expression require human review, and arbitrary topics are not guaranteed to produce a final video in one attempt.',
+      zh: '这是一个本地开发与验收工作台：科研路径只覆盖封闭的 Intent/工具目录，教学 ContentPlan 路径继续保留。P0/P1/P2 数字来自内部黄金集与实验室 harness，不代表外部科研用户研究或生产部署能力。',
+      en: 'This remains a local development and acceptance workbench: the research path covers a closed intent/tool catalog, while the teaching ContentPlan path remains available. P0/P1/P2 figures come from internal gold sets and a lab harness, not an external researcher study or production-deployment claim.',
     },
   } as const;
 
@@ -667,6 +682,14 @@ for (const project of localizedProjectCases) {
 }
 
 it('Manim contextual images contain visible visual variation', async () => {
+  const cover = await sharp(
+    readFileSync(resolve(root, 'src/assets/projects/manim-project/cover.png')),
+  ).metadata();
+  expect({ width: cover.width, height: cover.height }).toEqual({
+    width: 1903,
+    height: 1080,
+  });
+
   for (const filename of [
     'formula-derivation-demo.jpg',
     'quality-result.png',

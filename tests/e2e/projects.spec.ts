@@ -4,7 +4,7 @@ const projectNames = [
   'My Company Brain',
   'GraphRAG 知识探索工作台',
   '合同审核多智能体工作流',
-  'AI 数学动画生成工作台',
+  'Manim Project · 科研动画工作台',
   'NL2SQL 数据分析工作台',
   '本地数据脱敏工作台',
 ];
@@ -460,12 +460,17 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
   const routes = [
     {
       path: '/projects/manim-project/',
-      title: 'AI 数学动画生成工作台',
-      category: '应用型 AI',
-      scope: '安全媒体生成流水线',
+      title: 'Manim Project · 科研动画工作台',
+      category: '科学可视化 / Agent + Compiler',
+      scope: '双路径 Animation Agent 工作台',
       repositoryUrl: 'https://github.com/ShaySha-PRa/Manim_project',
       limitationsHeading: '项目边界',
-      flow: ['输入教学需求', '生成结构化计划', '预览与检查', '交付最终产物'],
+      flow: [
+        '输入科研目标与可选资产',
+        '解析 Intent 并运行科学工具',
+        '构建并检查 AnimationIR',
+        '编译并渲染 Preview',
+      ],
       headings: [
         '项目解决什么',
         '核心功能',
@@ -475,24 +480,24 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
         '项目边界',
       ],
       highlights: [
-        '先把教学意图变成可审阅计划',
-        '用版本链连接每次修改与产物',
-        '在隔离执行前拒绝不可信代码',
+        '让模型规划意图，而不是编写自由 Scene',
+        '把科学数值和来源锁进 ToolRun',
+        '用同一份 IR 连接双 Backend 与修复闭环',
       ],
-      alt: 'AI 数学动画生成工作台系统架构：Next.js 工作台通过 FastAPI 和 Redis 调度隔离 Manim 渲染与质量报告',
+      alt: 'Animation Agent V2 系统架构：科研 Prompt 经 IntentSpec、白名单科学工具、AnimationIR 2.0 和确定性编译进入 Manim 与 Web 双 Backend',
     },
     {
       path: '/en/projects/manim-project/',
-      title: 'Manim Project',
-      category: 'Applied AI',
-      scope: 'Secure media generation pipeline',
+      title: 'Manim Project · Animation Agent Workbench',
+      category: 'Scientific Visualization / Agent + Compiler',
+      scope: 'Dual-track Animation Agent workbench',
       repositoryUrl: 'https://github.com/ShaySha-PRa/Manim_project',
       limitationsHeading: 'Project scope',
       flow: [
-        'Enter a teaching request',
-        'Generate a structured plan',
-        'Preview and inspect',
-        'Deliver the final artifact',
+        'Enter a research goal and optional assets',
+        'Resolve intent and run scientific tools',
+        'Build and inspect AnimationIR',
+        'Compile and render a Preview',
       ],
       headings: [
         'What it solves',
@@ -503,11 +508,11 @@ test('Manim Project case study exposes bilingual workflow and evidence', async (
         'Project scope',
       ],
       highlights: [
-        'Turn teaching intent into a reviewable plan first',
-        'Connect every revision to its artifact',
-        'Reject untrusted code before isolated execution',
+        'Let the model plan intent instead of writing free-form Scenes',
+        'Keep scientific values and provenance inside ToolRun',
+        'Use one IR for two backends and a repair loop',
       ],
-      alt: 'Manim Project architecture: the Next.js workbench uses FastAPI and Redis to schedule isolated Manim rendering and quality reports',
+      alt: 'Animation Agent V2 architecture: a research prompt flows through IntentSpec, allowlisted scientific tools, AnimationIR 2.0, and deterministic compilation into Manim and Web backends',
     },
   ];
 
